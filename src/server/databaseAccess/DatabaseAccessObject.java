@@ -24,12 +24,11 @@ public class DatabaseAccessObject
 	public DatabaseAccessObject(DatabaseRepresentation db) 
 	{
 		this.db = db;
-		numberOfColumns.put("User", 8);
+		/*numberOfColumns.put("User", 8);
 		numberOfColumns.put("Project", 6);
 		numberOfColumns.put("Batch", 5);
 		numberOfColumns.put("Field", 7);
-		numberOfColumns.put("Value", 6);
-		
+		numberOfColumns.put("Value", 6);*/
 	}
 	
 	/**
