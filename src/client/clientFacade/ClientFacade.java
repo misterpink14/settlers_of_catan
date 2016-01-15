@@ -27,7 +27,8 @@ public class ClientFacade {
 	
 	/** This function will query the model to make sure
 	 * it's the user's turn before they can do anything.
-	 * @return
+	 * @return Returns true if it's the player's turn,
+	 * otherwise, returns false;
 	 */
 	public boolean isTurn() {
 		/* Check if it's the player's turn */
