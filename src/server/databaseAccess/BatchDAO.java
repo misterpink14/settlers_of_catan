@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import server.database.DatabaseRepresentation;
-import shared.models.Batch;
 
 public class BatchDAO extends DatabaseAccessObject
 {
@@ -24,7 +23,7 @@ public class BatchDAO extends DatabaseAccessObject
 	 * @return success or failure
 	 * @throws SQLException 
 	 */
-	public String addBatch(Batch batch) throws SQLException
+	/*public String addBatch(Batch batch) throws SQLException
 	{
 		ArrayList<Object> values = new ArrayList<Object>();
 		
@@ -35,7 +34,7 @@ public class BatchDAO extends DatabaseAccessObject
 		
 		String batchID = add("Batch", "ProjectID, InUse, Completed, SourceURL", values);
 		return batchID;
-	}
+	}*/
 	
 	/**
 	 * gets a sample batch from the database
@@ -43,7 +42,7 @@ public class BatchDAO extends DatabaseAccessObject
 	 * @return the sample batch
 	 * @throws SQLException 
 	 */
-	public Batch getSampleBatch(String projectID) throws SQLException
+	/*public Batch getSampleBatch(String projectID) throws SQLException
 	{
 		ArrayList<Object> results = get("Batch", "ProjectID = \"" + projectID +"\"");
 		if(results.isEmpty())
@@ -55,7 +54,7 @@ public class BatchDAO extends DatabaseAccessObject
 				(Integer) results.get(3), (String) results.get(4));
 		
 		return result;
-	}
+	}*/
 	
 	
 	/**
@@ -64,10 +63,10 @@ public class BatchDAO extends DatabaseAccessObject
 	 * @return Batch
 	 * @throws SQLException
 	 */
-	public Batch getBatch(String batchID) throws SQLException
+	/*public Batch getBatch(String batchID) throws SQLException
 	{
 		return null;
-	}		
+	}*/		
 	
 	/**
 	 * Updates the information within a batch
@@ -75,7 +74,7 @@ public class BatchDAO extends DatabaseAccessObject
 	 * @return whether or not the update was a success
 	 * @throws SQLException
 	 */
-	public Boolean updateBatch(Batch batch) throws SQLException
+	/*public Boolean updateBatch(Batch batch) throws SQLException
 	{
 		ArrayList<Object> values = new ArrayList<Object>();
 		values.add(batch.isInUse());
@@ -88,5 +87,5 @@ public class BatchDAO extends DatabaseAccessObject
 		String whereStatement = "batchID = \"" + batch.getBatchID() + "\"";
 		Boolean success = update("Batch", whereStatement, tableValues, values);
 		return success;
-	}
+	}*/
 }
