@@ -157,27 +157,49 @@ public class ClientFacade {
 		
 	}
 	
-	
+	/**
+	 * Send the command to the server proxy to trade
+	 * with a player.
+	 */
 	public void tradeWithPlayer() {
 		
 	}
 	
+	/**
+	 * Send the command to the server proxy to trade
+	 * in four of a kind for another resource
+	 */
 	public void tradeFour() {
 		
 	}
 	
+	/**
+	 * Send the command to the server proxy to trade
+	 * with an adjoining harbor
+	 */
 	public void tradeHarbor() {
 		
 	}
 	
+	/**
+	 * Send the command to the server proxy to play
+	 * a development card.
+	 */
 	public void playDevelCard() {
 		
 	}
 	
+	/**
+	 * Send the end turn command to the server proxy.
+	 */
 	public void endTurn() {
 		
 	}
 	
+	/**
+	 * Send a message to the server proxy in order to
+	 * deliver it to another player.
+	 */
 	public void sendMessage() {
 		
 	}
