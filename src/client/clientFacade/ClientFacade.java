@@ -1,11 +1,20 @@
 package client.clientFacade;
 
+import client.clientProxy.ProxyInterface;
+import shared.models.Player;
+
 /** ClientFacade class
  * 
  * @author Bo Pace
  *
  */
 public class ClientFacade {
+	
+	public ClientFacade() {
+		
+	}
+	
+	ProxyInterface proxy;
 
 	/**
 	 * This function will facilitate the creation of a
@@ -14,7 +23,7 @@ public class ClientFacade {
 	 * and create the user.
 	 */
 	public void createPlayer() {
-		
+		proxy.postUserRegister();
 	}
 	
 	/**
@@ -22,7 +31,7 @@ public class ClientFacade {
 	 * proxy in order to log a player into the server.
 	 */
 	public void login() {
-		
+		proxy.postUserLogin();
 	}
 	
 	/** This function will query the model to make sure
@@ -58,7 +67,7 @@ public class ClientFacade {
 	 */
 	public void rollDice() {
 		if (canRollDice()) {
-			/* Do something */
+			proxy.postMovesRollNumber();
 		}
 	}
 	
@@ -83,7 +92,7 @@ public class ClientFacade {
 	 * a road on the board.
 	 */
 	public void buildRoad() {
-		
+		proxy.postMovesBuildRoad();
 	}
 	
 	/**
@@ -107,7 +116,7 @@ public class ClientFacade {
 	 * a city on the board.
 	 */
 	public void buildCity() {
-		
+		proxy.postMovesBuildCity();
 	}
 	
 	/**
@@ -131,7 +140,7 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 */
 	public void buildSettlement() {
-		
+		proxy.postMovesBuildSettlement();
 	}
 	
 	/**
@@ -141,7 +150,7 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuyDevelCard() {
+	public boolean canBuyDevCard() {
 		if (isTurn()) {
 			/* Do something */
 		}
@@ -153,16 +162,16 @@ public class ClientFacade {
 	 * Send the command to the server proxy to build
 	 * a settlement on the board.
 	 */
-	public void buyDevelCard() {
-		
+	public void buyDevCard() {
+		proxy.postMovesBuyDevCard();
 	}
 	
 	/**
-	 * Send the command to the server proxy to trade
-	 * with a player.
+	 * Send the command to the server proxy to offer
+	 * a trade with another player.
 	 */
-	public void tradeWithPlayer() {
-		
+	public void offerTrade() {
+		proxy.postMovesOfferTrade();
 	}
 	
 	/**
@@ -178,29 +187,29 @@ public class ClientFacade {
 	 * with an adjoining harbor
 	 */
 	public void tradeHarbor() {
-		
+		proxy.postMovesMaritimeTrade();
 	}
 	
 	/**
 	 * Send the command to the server proxy to play
 	 * a development card.
 	 */
-	public void playDevelCard() {
+	public void playDevCard() {
 		
 	}
 	
 	/**
 	 * Send the end turn command to the server proxy.
 	 */
-	public void endTurn() {
-		
+	public void finishTurn() {
+		proxy.postMovesFinishTurn();
 	}
 	
 	/**
 	 * Send a message to the server proxy in order to
 	 * deliver it to another player.
 	 */
-	public void sendMessage() {
-		
+	public void sendChat() {
+		proxy.postMovesSendChat();
 	}
 }
