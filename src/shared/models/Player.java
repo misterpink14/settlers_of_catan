@@ -42,9 +42,9 @@ public class Player {
 	/**The number of monument cards in the players possession*/
 	int monumentCards = 0;
 	
+	//we need a way to represent harbor benefits.
+	
 
-	public Player() {
-		// TODO Auto-generated constructor stub
-	}
+	public Player() {}
 
 }
