@@ -1,22 +1,29 @@
 package client.clientProxy;
 
+import com.sun.org.glassfish.gmbal.ParameterNames;
+
 /** ClientFacade class
  * 
  * @author Cody Burt
  *
  */
-public class Proxy {
+public interface Proxy {
 
 	/**
 	 * This function will call the server API at 
-	 * \user\login
-	 * @param TBD: JSON or actual parameters?
+	 * userlogin
+	 * @param JSON String of the server call parameters
 	 * @return JSON String
 	 */ 
 	public String postUserLogin() {
 		
 	}
 	
+	/**
+	 * This function will call the server API at
+	 * userregister
+	 * @ParameterNames
+	 */
 	public String postUserRegister() {
 		
 	}
