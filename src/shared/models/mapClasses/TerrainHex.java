@@ -2,22 +2,46 @@ package shared.models.mapClasses;
 
 import shared.definitions.HexType;
 
-public class Tile {
-	/**This specifies what type of resource this tile on the board represents.*/
-	HexType type;
-	/**When the dice add up to this number, this tile will give its resource to any players with a settlement
-	 * built on it.*/
-	int numberAssigned;
-	/**This boolean is true when the robber has been placed on this tile.*/
-	boolean robberPresent = false;
+/**
+ * Represents a TerrainHex piece located within the Map class
+ * 
+ * @author benthompson
+ *
+ */
+public class TerrainHex extends Hex
+{
+	private int Token;
+	
+	
+
+	public TerrainHex(HexType type, int token) 
+	{
+		super(type);
+		this.Token = token;
+	}
+
+
+	public TerrainHex(HexType type, int token, boolean hasRobber) 
+	{
+		super(type, hasRobber);
+		this.Token = token;
+	}
+	
+	
+	public int getToken()
+	{
+		return this.Token;
+	}
+	
 	
 	/**
-	 * This class is a representation of a tile on the settlers of catan map. It is one of 34.
+	 * Checks if the Terrain Hex has the Robber in it's location
+	 * 
+	 * @return
 	 */
-	public Tile(HexType type, int numberAssigned, boolean robberPresent) {
-		this.type = type;
-		this.numberAssigned = numberAssigned;
-		this.robberPresent = robberPresent;
+	public boolean hasRobber()
+	{
+		return this.IsOccupied;
 	}
 
 }
