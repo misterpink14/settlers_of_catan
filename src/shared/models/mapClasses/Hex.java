@@ -19,8 +19,8 @@ public abstract class Hex
 {
 	/**The Hex's type*/
 	private HexType Type;
-	private Map<EdgeDirection, PieceType> Edges = new HashMap<EdgeDirection, PieceType>();
-	private Map<VertexDirection, PieceType> Vertexes = new HashMap<VertexDirection, PieceType>();
+	private Map<EdgeDirection, Piece> Edges = new HashMap<EdgeDirection, Piece>();
+	private Map<VertexDirection, Piece> Vertexes = new HashMap<VertexDirection, Piece>();
 	
 	/**
 	 * This boolean is true when the a piece has been placed on this tile.
