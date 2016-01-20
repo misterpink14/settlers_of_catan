@@ -1,0 +1,136 @@
+package client.clientProxy;
+
+/** ClientFacade class
+ * 
+ * @author Cody Burt
+ *
+ */
+public class Proxy {
+
+	/**
+	 * This function will call the server API at 
+	 * \user\login
+	 * @param TBD: JSON or actual parameters?
+	 * @return JSON String
+	 */ 
+	public String postUserLogin() {
+		
+	}
+	
+	public String postUserRegister() {
+		
+	}
+	
+	public String getGamesList() {
+		
+	}
+	
+	public String postGamesCreate() {
+		
+	}
+	
+	public String postGamesJoin() {
+		
+	}
+	
+	public String postGamesSave() {
+		
+	}
+	
+	public String postGamesLoad() {
+		
+	}
+	
+	public String getGameModel() {
+		
+	}
+	
+	public String postGameReset() {
+		
+	}
+	
+	public String postGameCommands() {
+		
+	}
+	
+	public String getGameCommands() {
+		
+	}
+	
+	public String postMovesSendChat() {
+		
+	}
+	
+	public String postMovesRollNumber() {
+		
+	}
+	
+	public String postMovesRobPlayer() {
+		
+	}
+	
+	public String postMovesFinishTurn() {
+		
+	}
+	
+	public String postMovesBuyDevCard() {
+		
+	}
+	
+	public String postMovesYearOfPlenty() {
+		
+	}
+	
+	public String postMovesRoadBuilding() {
+		
+	}
+	
+	public String postMovesSoldier() {
+		
+	}
+	
+	public String postMovesMonument() {
+		
+	}
+	
+	public String postMovesBuildRoad() {
+		
+	}
+	
+	public String postMovesBuildCity() {
+		
+	}
+	
+	public String postMovesBuildSettlement() {
+		
+	}
+	
+	public String postMovesOfferTrade() {
+		
+	}
+	
+	public String postMovesAcceptTrade() {
+		
+	}
+	
+	public String postMovesMaritimeTrade() {
+		
+	}
+	
+	public String postMovesDiscardCards() {
+		
+	}
+	
+	public String postUtilChangeLogLevel() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
