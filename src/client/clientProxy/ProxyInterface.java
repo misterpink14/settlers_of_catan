@@ -13,8 +13,14 @@ public interface ProxyInterface {
 	 * This function will call the server API at 
 	 * user slash login
 	 * 
-	 * @param JSON String of the server call parameters
-	 * @return JSON String
+	 * @param JSON String of the server call parameters of the format:
+	 * name: String
+	 * password: String
+	 * 
+	 * @return JSON String of the format:
+	 * name: String
+	 * password: String
+	 * playerID: Integer
 	 */ 
 	public String postUserLogin();
 	
