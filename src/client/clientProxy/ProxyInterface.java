@@ -11,7 +11,8 @@ public interface Proxy {
 
 	/**
 	 * This function will call the server API at 
-	 * userlogin
+	 * user slash login
+	 * 
 	 * @param JSON String of the server call parameters
 	 * @return JSON String
 	 */ 
@@ -21,7 +22,7 @@ public interface Proxy {
 	
 	/**
 	 * This function will call the server API at
-	 * userregister
+	 * user slash register
 	 * @ParameterNames
 	 */
 	public String postUserRegister() {
