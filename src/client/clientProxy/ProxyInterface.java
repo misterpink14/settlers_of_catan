@@ -14,7 +14,6 @@ public interface ProxyInterface {
 	 * user / login
 	 * 
 	 * @param Credentials object that contains the username and password
-	 * 
 	 * @return JSON String of the format:
 	 * name: String,
 	 * password: String,
