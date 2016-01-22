@@ -1,14 +1,14 @@
 package client.clientProxy;
 
 import com.sun.org.glassfish.gmbal.ParameterNames;
-import shared.communication.proxy
+import shared.communication.proxy;
 
-/** ProxyInterface interface
+/** FakeProxy class
  * 
  * @author Cody Burt
  *
  */
-public interface ProxyInterface {
+public class FakeProxy implements ProxyInterface {
 
 	/**
 	 * This function will call the server API at 
@@ -20,7 +20,7 @@ public interface ProxyInterface {
 	 * password: String,
 	 * playerID: Integer
 	 */ 
-	public String postUserLogin(Credentials credentials);
+	public String postUserLogin(Credentials credentials){}
 	
 	/**
 	 * This function will call the server API at
@@ -29,7 +29,7 @@ public interface ProxyInterface {
 	 * @return JSON String that indicates success/failure
 	 * 
 	 */
-	public String postUserRegister(Credentials credentials);
+	public String postUserRegister(Credentials credentials){}
 	
 	/**
 	 * This function will call the server API at
@@ -38,7 +38,7 @@ public interface ProxyInterface {
 	 * @return JSON String that indicates success/failure
 	 * 
 	 */
-	public String getGamesList();
+	public String getGamesList(){}
 	
 	/**
 	 * This function will call the server API at
@@ -49,7 +49,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the game's title, id, and 
 	 * a list of empty players
 	 */
-	public String postGamesCreate(CreateGameRequestParams params);
+	public String postGamesCreate(CreateGameRequestParams params){}
 	
 	/**
 	 * This function will call the server API at
@@ -59,7 +59,7 @@ public interface ProxyInterface {
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
 	 */
-	public String postGamesJoin(JoinGameRequestParams params);
+	public String postGamesJoin(JoinGameRequestsParams params){}
 	
 	/**
 	 * This function will call the server API at
@@ -69,7 +69,7 @@ public interface ProxyInterface {
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
 	 */
-	public String postGamesSave(SaveGameRequestParams saveGameRequest);
+	public String postGamesSave(SaveGameRequestParams saveGameRequest){}
 	
 	/**
 	 * This function will call the server API at
@@ -79,7 +79,7 @@ public interface ProxyInterface {
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
 	 */
-	public String postGamesLoad(LoadGameRequstParams loadGameRequest);
+	public String postGamesLoad(LoadGameRequstParams loadGameRequest){}
 	
 	/**
 	 * This function will call the server API at
@@ -87,14 +87,14 @@ public interface ProxyInterface {
 	 * @param The version number of the current state
 	 * @return JSON String that contains the current game state
 	 */
-	public String getGameModel(int versionNumber);
+	public String getGameModel(int versionNumber){}
 	
 	/**
 	 * This function will call the server API at
 	 * game / reset
 	 * @return JSON String that contains the current game state
 	 */
-	public String postGameReset();
+	public String postGameReset(){}
 	
 	/**
 	 * This function will call the server API at
@@ -104,7 +104,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model after
 	 * that list of commands have been executed
 	 */
-	public String postGameCommands(ListOfCommands listOfCommands);
+	public String postGameCommands(ListOfCommands listOfCommands){}
 	
 	/**
 	 * This function will call the server API at
@@ -112,7 +112,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains list of commands
 	 * executed in the game
 	 */
-	public String getGameCommands();
+	public String getGameCommands(){}
 	
 	/**
 	 * This function will call the server API at
@@ -121,7 +121,7 @@ public interface ProxyInterface {
 	 * of the message sender and the message content
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesSendChat(SendChat sendChat);
+	public String postMovesSendChat(SendChat sendChat){}
 	
 	/**
 	 * This function will call the server API at
@@ -130,7 +130,7 @@ public interface ProxyInterface {
 	 * and what number they rolled
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesRollNumber(RollNumber robNumber);
+	public String postMovesRollNumber(RollNumber robNumber){}
 	
 	/**
 	 * This function will call the server API at
@@ -139,7 +139,7 @@ public interface ProxyInterface {
 	 * player robbing, and the new location of the robber
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesRobPlayer(RobPlayer robPlayer);
+	public String postMovesRobPlayer(RobPlayer robPlayer){}
 	
 	/**
 	 * This function will call the server API at
@@ -148,7 +148,7 @@ public interface ProxyInterface {
 	 * that's ending their turn
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesFinishTurn(FinishTurn finishTurn);
+	public String postMovesFinishTurn(FinishTurn finishTurn){}
 	
 	/**
 	 * This function will call the server API at
@@ -157,7 +157,7 @@ public interface ProxyInterface {
 	 * buying the card
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesBuyDevCard(BuyDevCard buyDevCard);
+	public String postMovesBuyDevCard(BuyDevCard buyDevCard){}
 	
 	/**
 	 * This function will call the server API at
@@ -166,7 +166,7 @@ public interface ProxyInterface {
 	 * playing the card and the two resources they gain
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesYearOfPlenty(YearOfPlenty yearOfPlenty);
+	public String postMovesYearOfPlenty(YearOfPlenty yearOfPlenty){}
 	
 	/**
 	 * This function will call the server API at
@@ -175,7 +175,7 @@ public interface ProxyInterface {
 	 * and the two locations they want to build roads
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesRoadBuilding(RoadBuilding roadBuilding);
+	public String postMovesRoadBuilding(RoadBuilding roadBuilding){}
 	
 	/**
 	 * This function will call the server API at
@@ -185,7 +185,7 @@ public interface ProxyInterface {
 	 * robbing, and the new location of the robber
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesSoldier(SoldierMove soldierMove);
+	public String postMovesSoldier(SoldierMove soldierMove){}
 	
 	/**
 	 * This function will call the server API at
@@ -194,7 +194,7 @@ public interface ProxyInterface {
 	 * and the resource they will monopolize
 	 * @return JSON String that contains the client model
 	 */
-	public String postMonopoly(Monopoly monopoly);
+	public String postMonopoly(Monopoly monopoly){}
 	
 	/**
 	 * This function will call the server API at
@@ -203,7 +203,7 @@ public interface ProxyInterface {
 	 * playing the monument card
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesMonument(MonumentMove monumentMove);
+	public String postMovesMonument(MonumentMove monumentMove){}
 	
 	/**
 	 * This function will call the server API at
@@ -213,7 +213,7 @@ public interface ProxyInterface {
 	 * build, and whether or not it's free or not
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesBuildRoad(BuildRoad buildRoad);
+	public String postMovesBuildRoad(BuildRoad buildRoad){}
 	
 	/**
 	 * This function will call the server API at
@@ -222,7 +222,7 @@ public interface ProxyInterface {
 	 * building the city and the location of the city
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesBuildCity(BuildCity buildCity);
+	public String postMovesBuildCity(BuildCity buildCity){}
 	
 	/**
 	 * This function will call the server API at
@@ -231,7 +231,7 @@ public interface ProxyInterface {
 	 * building the settlement, the location, and whether it's free
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesBuildSettlement(BuildSettlement buildSettlement);
+	public String postMovesBuildSettlement(BuildSettlement buildSettlement){}
 	
 	/**
 	 * This function will call the server API at
@@ -241,7 +241,7 @@ public interface ProxyInterface {
 	 * and the list resources offered and desired
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesOfferTrade(OfferTrade offerTrade);
+	public String postMovesOfferTrade(OfferTrade offerTrade){}
 	
 	/**
 	 * This function will call the server API at
@@ -250,7 +250,7 @@ public interface ProxyInterface {
 	 * responding to the trade and whether they accept or reject it
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesAcceptTrade(AcceptTrade acceptTrade);
+	public String postMovesAcceptTrade(AcceptTrade acceptTrade){}
 	
 	/**
 	 * This function will call the server API at
@@ -260,7 +260,7 @@ public interface ProxyInterface {
 	 * desired resource and the offered resource
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesMaritimeTrade(MaritimeTrade maritimeTrade);
+	public String postMovesMaritimeTrade(MaritimeTrade maritimeTrade){}
 	
 	/**
 	 * This function will call the server API at
@@ -269,7 +269,7 @@ public interface ProxyInterface {
 	 * discarding cards and the list of resources they're discarding
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesDiscardCards(DiscardedCards discardedCards);
+	public String postMovesDiscardCards(DiscardedCards discardedCards){}
 	
 	/**
 	 * This function will call the server API at
@@ -278,7 +278,7 @@ public interface ProxyInterface {
 	 * new log level
 	 * @return JSON String that indicates whether it succeded
 	 */
-	public String postUtilChangeLogLevel(ChangeLogLevelRequest logLevel);
+	public String postUtilChangeLogLevel(ChangeLogLevelRequest logLevel){}
 	
 	
 	

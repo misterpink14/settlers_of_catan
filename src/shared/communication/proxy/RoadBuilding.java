@@ -1,0 +1,27 @@
+package shared.communication.proxy;
+import shared.locations;
+
+public class RoadBuilding
+{
+
+	/**
+	 * The index of the player playing the Road Building card
+	 */
+	public int playerIndex;
+	
+	/**
+	 * The first spot they want to build a road
+	 */
+	public EdgeLocation firstSpot;
+	
+	/**
+	 * The second spot they want to build a road
+	 */
+	public EdgeLocation secondSpot;
+	
+	public RoadBuilding() 
+	{}
+
+
+	
+}
