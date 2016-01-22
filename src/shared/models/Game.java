@@ -21,6 +21,8 @@ public class Game {
 	GameLog log = new GameLog();
 	/**The game chat object stores and retrieves the history of the chat log between players.*/
 	GameChat chat = new GameChat();
+	/**The trade manager handles all trades between players. Both storing and executing*/
+	TradeManager tradeManager = new TradeManager();
 	
 	/**
 	 * The Game class is a master class that contains all information having to do with a specific game
