@@ -1,6 +1,7 @@
 package client.clientFacade;
 
 import client.serverProxy.ProxyInterface;
+import shared.communication.User;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.BuildSettlement;
@@ -19,6 +20,8 @@ import shared.models.playerClasses.Player;
  *
  */
 public class ClientFacade {
+	
+	User clientUser;
 	
 	public ClientFacade() {
 		
@@ -39,9 +42,11 @@ public class ClientFacade {
 	/**
 	 * This function will interface with the server
 	 * proxy in order to log a player into the server.
+	 * @ return Returns a user object to be used when
+	 * performing other actions on the server.
 	 */
-	public void login() {
-		proxy.postUserLogin(new Credentials());
+	public void login(Credentials credentials) {
+		return proxy.postUserLogin(credentials);
 	}
 	
 	/** This function will query the model to make sure
