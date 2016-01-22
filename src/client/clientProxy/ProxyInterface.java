@@ -79,7 +79,7 @@ public interface ProxyInterface {
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
 	 */
-	public String postGamesLoad(LoadGameRequstParams loadGameRequest);
+	public String postGamesLoad(LoadGameRequestParams loadGameRequest);
 	
 	/**
 	 * This function will call the server API at

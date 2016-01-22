@@ -8,7 +8,7 @@ import shared.communication.proxy.*;
  * @author Cody Burt
  *
  */
-public class RealProxy ProxyInterface {
+public class RealProxy implements ProxyInterface {
 
 	/**
 	 * This function will call the server API at 
@@ -20,7 +20,7 @@ public class RealProxy ProxyInterface {
 	 * password: String,
 	 * playerID: Integer
 	 */ 
-	public String postUserLogin(Credentials credentials){}
+	public String postUserLogin(Credentials credentials){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -29,7 +29,7 @@ public class RealProxy ProxyInterface {
 	 * @return JSON String that indicates success/failure
 	 * 
 	 */
-	public String postUserRegister(Credentials credentials){}
+	public String postUserRegister(Credentials credentials){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -38,7 +38,7 @@ public class RealProxy ProxyInterface {
 	 * @return JSON String that indicates success/failure
 	 * 
 	 */
-	public String getGamesList(){}
+	public String getGamesList(){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -49,7 +49,7 @@ public class RealProxy ProxyInterface {
 	 * @return JSON String that contains the game's title, id, and 
 	 * a list of empty players
 	 */
-	public String postGamesCreate(CreateGameRequestParams params){}
+	public String postGamesCreate(CreateGameRequestParams params){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -59,7 +59,7 @@ public class RealProxy ProxyInterface {
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
 	 */
-	public String postGamesJoin(JoinGameRequestsParams params){}
+	public String postGamesJoin(JoinGameRequestParams params){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -69,7 +69,7 @@ public class RealProxy ProxyInterface {
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
 	 */
-	public String postGamesSave(SaveGameRequestParams saveGameRequest){}
+	public String postGamesSave(SaveGameRequestParams saveGameRequest){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -79,7 +79,7 @@ public class RealProxy ProxyInterface {
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
 	 */
-	public String postGamesLoad(LoadGameRequstParams loadGameRequest){}
+	public String postGamesLoad(LoadGameRequestParams loadGameRequest){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -87,14 +87,14 @@ public class RealProxy ProxyInterface {
 	 * @param The version number of the current state
 	 * @return JSON String that contains the current game state
 	 */
-	public String getGameModel(int versionNumber){}
+	public String getGameModel(int versionNumber){return "";}
 	
 	/**
 	 * This function will call the server API at
 	 * game / reset
 	 * @return JSON String that contains the current game state
 	 */
-	public String postGameReset(){}
+	public String postGameReset(){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -104,7 +104,7 @@ public class RealProxy ProxyInterface {
 	 * @return JSON String that contains the client model after
 	 * that list of commands have been executed
 	 */
-	public String postGameCommands(ListOfCommands listOfCommands){}
+	public String postGameCommands(ListOfCommands listOfCommands){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -112,7 +112,7 @@ public class RealProxy ProxyInterface {
 	 * @return JSON String that contains list of commands
 	 * executed in the game
 	 */
-	public String getGameCommands(){}
+	public String getGameCommands(){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -121,7 +121,7 @@ public class RealProxy ProxyInterface {
 	 * of the message sender and the message content
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesSendChat(SendChat sendChat){}
+	public String postMovesSendChat(SendChat sendChat){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -130,7 +130,7 @@ public class RealProxy ProxyInterface {
 	 * and what number they rolled
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesRollNumber(RollNumber robNumber){}
+	public String postMovesRollNumber(RollNumber robNumber){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -139,7 +139,7 @@ public class RealProxy ProxyInterface {
 	 * player robbing, and the new location of the robber
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesRobPlayer(RobPlayer robPlayer){}
+	public String postMovesRobPlayer(RobPlayer robPlayer){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -148,7 +148,7 @@ public class RealProxy ProxyInterface {
 	 * that's ending their turn
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesFinishTurn(FinishTurn finishTurn){}
+	public String postMovesFinishTurn(FinishTurn finishTurn){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -157,7 +157,7 @@ public class RealProxy ProxyInterface {
 	 * buying the card
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesBuyDevCard(BuyDevCard buyDevCard){}
+	public String postMovesBuyDevCard(BuyDevCard buyDevCard){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -166,7 +166,7 @@ public class RealProxy ProxyInterface {
 	 * playing the card and the two resources they gain
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesYearOfPlenty(YearOfPlenty yearOfPlenty){}
+	public String postMovesYearOfPlenty(YearOfPlenty yearOfPlenty){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -175,7 +175,7 @@ public class RealProxy ProxyInterface {
 	 * and the two locations they want to build roads
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesRoadBuilding(RoadBuilding roadBuilding){}
+	public String postMovesRoadBuilding(RoadBuilding roadBuilding){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -185,7 +185,7 @@ public class RealProxy ProxyInterface {
 	 * robbing, and the new location of the robber
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesSoldier(SoldierMove soldierMove){}
+	public String postMovesSoldier(SoldierMove soldierMove){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -194,7 +194,7 @@ public class RealProxy ProxyInterface {
 	 * and the resource they will monopolize
 	 * @return JSON String that contains the client model
 	 */
-	public String postMonopoly(Monopoly monopoly){}
+	public String postMonopoly(Monopoly monopoly){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -203,7 +203,7 @@ public class RealProxy ProxyInterface {
 	 * playing the monument card
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesMonument(MonumentMove monumentMove){}
+	public String postMovesMonument(MonumentMove monumentMove){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -213,7 +213,7 @@ public class RealProxy ProxyInterface {
 	 * build, and whether or not it's free or not
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesBuildRoad(BuildRoad buildRoad){}
+	public String postMovesBuildRoad(BuildRoad buildRoad){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -222,7 +222,7 @@ public class RealProxy ProxyInterface {
 	 * building the city and the location of the city
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesBuildCity(BuildCity buildCity){}
+	public String postMovesBuildCity(BuildCity buildCity){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -231,7 +231,7 @@ public class RealProxy ProxyInterface {
 	 * building the settlement, the location, and whether it's free
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesBuildSettlement(BuildSettlement buildSettlement){}
+	public String postMovesBuildSettlement(BuildSettlement buildSettlement){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -241,7 +241,7 @@ public class RealProxy ProxyInterface {
 	 * and the list resources offered and desired
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesOfferTrade(OfferTrade offerTrade){}
+	public String postMovesOfferTrade(OfferTrade offerTrade){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -250,7 +250,7 @@ public class RealProxy ProxyInterface {
 	 * responding to the trade and whether they accept or reject it
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesAcceptTrade(AcceptTrade acceptTrade){}
+	public String postMovesAcceptTrade(AcceptTrade acceptTrade){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -260,7 +260,7 @@ public class RealProxy ProxyInterface {
 	 * desired resource and the offered resource
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesMaritimeTrade(MaritimeTrade maritimeTrade){}
+	public String postMovesMaritimeTrade(MaritimeTrade maritimeTrade){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -269,7 +269,7 @@ public class RealProxy ProxyInterface {
 	 * discarding cards and the list of resources they're discarding
 	 * @return JSON String that contains the client model
 	 */
-	public String postMovesDiscardCards(DiscardedCards discardedCards){}
+	public String postMovesDiscardCards(DiscardedCards discardedCards){return "";}
 	
 	/**
 	 * This function will call the server API at
@@ -278,7 +278,7 @@ public class RealProxy ProxyInterface {
 	 * new log level
 	 * @return JSON String that indicates whether it succeded
 	 */
-	public String postUtilChangeLogLevel(ChangeLogLevelRequest logLevel){}
+	public String postUtilChangeLogLevel(ChangeLogLevelRequest logLevel){return "";}
 	
 	
 	
