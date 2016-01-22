@@ -1,4 +1,4 @@
-package client.clientProxy;
+package client.serverProxy;
 
 import com.sun.org.glassfish.gmbal.ParameterNames;
 import shared.communication.proxy.*;

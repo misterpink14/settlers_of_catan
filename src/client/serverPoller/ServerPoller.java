@@ -1,15 +1,15 @@
-package client.clientPoller;
+package client.serverPoller;
 
 import javax.swing.Timer;
 
-import client.clientProxy.ProxyInterface;
+import client.serverProxy.ProxyInterface;
 import shared.models.Game;
 
 import java.awt.event.*;
 
-public class ClientPoller 
+public class ServerPoller 
 {
-	ProxyInterface ClientProxy;
+	ProxyInterface ServerProxy;
 	
 	Game GameModel;
 	
@@ -19,25 +19,25 @@ public class ClientPoller
 	TimerActionListener listener;
 	
 	
-	public ClientPoller (ProxyInterface clientProxy, int speed)
+	public ServerPoller (ProxyInterface clientProxy, int speed)
 	{
-		this.ClientProxy = clientProxy;
+		this.ServerProxy = clientProxy;
 		UpdateTimer = new Timer(speed, this.listener);
+		UpdateTimer.start();
 	}
 	
 	
 	class TimerActionListener implements ActionListener 
 	{
-
+		
 		/**
 		 * When an event happens within the timer, update the model
 		 * 
 		 * */
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+		public void actionPerformed(ActionEvent e) 
+		{
 			this.updateModel();
-			
 		}
 
 		/**

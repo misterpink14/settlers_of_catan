@@ -1,6 +1,6 @@
 package client.clientFacade;
 
-import client.clientProxy.ProxyInterface;
+import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.BuildSettlement;
