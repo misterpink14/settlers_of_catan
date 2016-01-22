@@ -1,7 +1,7 @@
 package client.clientProxy;
 
 import com.sun.org.glassfish.gmbal.ParameterNames;
-import shared.communication.proxy;
+import shared.communication.proxy.*;
 
 /** RealProxy class
  * 
