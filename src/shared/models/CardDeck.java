@@ -1,5 +1,7 @@
 package shared.models;
 
+import shared.definitions.DevCardType;
+
 public class CardDeck {
 	
 	/**The number of soldier cards left in the deck*/
@@ -15,4 +17,11 @@ public class CardDeck {
 
 	public CardDeck() {}
 
+	/** Randomly select a card from the deck to give to a player
+	 * 
+	 * @return the type of the card drawn
+	 */
+	public DevCardType drawCard() {
+		return null;
+	}
 }
