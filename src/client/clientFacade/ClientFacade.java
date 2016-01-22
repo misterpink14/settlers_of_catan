@@ -1,6 +1,16 @@
 package client.clientFacade;
 
 import client.clientProxy.ProxyInterface;
+import shared.communication.proxy.BuildCity;
+import shared.communication.proxy.BuildRoad;
+import shared.communication.proxy.BuildSettlement;
+import shared.communication.proxy.BuyDevCard;
+import shared.communication.proxy.Credentials;
+import shared.communication.proxy.FinishTurn;
+import shared.communication.proxy.MaritimeTrade;
+import shared.communication.proxy.OfferTrade;
+import shared.communication.proxy.RollNumber;
+import shared.communication.proxy.SendChat;
 import shared.models.playerClasses.Player;
 
 /** ClientFacade class
@@ -23,7 +33,7 @@ public class ClientFacade {
 	 * and create the user.
 	 */
 	public void createPlayer() {
-		proxy.postUserRegister();
+		proxy.postUserRegister(new Credentials());
 	}
 	
 	/**
@@ -31,7 +41,7 @@ public class ClientFacade {
 	 * proxy in order to log a player into the server.
 	 */
 	public void login() {
-		proxy.postUserLogin();
+		proxy.postUserLogin(new Credentials());
 	}
 	
 	/** This function will query the model to make sure
@@ -67,7 +77,7 @@ public class ClientFacade {
 	 */
 	public void rollDice() {
 		if (canRollDice()) {
-			proxy.postMovesRollNumber();
+			proxy.postMovesRollNumber(new RollNumber());
 		}
 	}
 	
@@ -92,7 +102,7 @@ public class ClientFacade {
 	 * a road on the board.
 	 */
 	public void buildRoad() {
-		proxy.postMovesBuildRoad();
+		proxy.postMovesBuildRoad(new BuildRoad());
 	}
 	
 	/**
@@ -116,7 +126,7 @@ public class ClientFacade {
 	 * a city on the board.
 	 */
 	public void buildCity() {
-		proxy.postMovesBuildCity();
+		proxy.postMovesBuildCity(new BuildCity());
 	}
 	
 	/**
@@ -140,7 +150,7 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 */
 	public void buildSettlement() {
-		proxy.postMovesBuildSettlement();
+		proxy.postMovesBuildSettlement(new BuildSettlement());
 	}
 	
 	/**
@@ -163,7 +173,7 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 */
 	public void buyDevCard() {
-		proxy.postMovesBuyDevCard();
+		proxy.postMovesBuyDevCard(new BuyDevCard());
 	}
 	
 	/**
@@ -171,7 +181,7 @@ public class ClientFacade {
 	 * a trade with another player.
 	 */
 	public void offerTrade() {
-		proxy.postMovesOfferTrade();
+		proxy.postMovesOfferTrade(new OfferTrade());
 	}
 	
 	/**
@@ -187,7 +197,7 @@ public class ClientFacade {
 	 * with an adjoining harbor
 	 */
 	public void tradeHarbor() {
-		proxy.postMovesMaritimeTrade();
+		proxy.postMovesMaritimeTrade(new MaritimeTrade());
 	}
 	
 	/**
@@ -202,7 +212,7 @@ public class ClientFacade {
 	 * Send the end turn command to the server proxy.
 	 */
 	public void finishTurn() {
-		proxy.postMovesFinishTurn();
+		proxy.postMovesFinishTurn(new FinishTurn());
 	}
 	
 	/**
@@ -210,6 +220,6 @@ public class ClientFacade {
 	 * deliver it to another player.
 	 */
 	public void sendChat() {
-		proxy.postMovesSendChat();
+		proxy.postMovesSendChat(new SendChat());
 	}
 }
