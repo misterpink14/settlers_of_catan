@@ -1,0 +1,15 @@
+client.clientFacade
+client.clientPoller
+client.clientProxy
+server
+server.database
+server.databaseAccess
+server.facade
+server.httpHandlers
+shared.communication
+shared.communication.proxy
+shared.definitions
+shared.locations
+shared.models
+shared.models.mapClasses
+shared.models.playerClasses
