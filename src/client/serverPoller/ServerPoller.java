@@ -19,6 +19,13 @@ public class ServerPoller
 	TimerActionListener listener;
 	
 	
+	/**
+	 * Constructor. Pass the Proxy to the Poller for updating the Model. Pass the speed of
+	 * 	the timer for refreshing
+	 * 
+	 * @param clientProxy
+	 * @param speed
+	 */
 	public ServerPoller (ProxyInterface clientProxy, int speed)
 	{
 		this.ServerProxy = clientProxy;
@@ -38,6 +45,7 @@ public class ServerPoller
 		public void actionPerformed(ActionEvent e) 
 		{
 			this.updateModel();
+			UpdateTimer.restart();
 		}
 
 		/**
