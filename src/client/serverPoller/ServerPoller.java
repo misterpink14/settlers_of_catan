@@ -26,8 +26,9 @@ public class ServerPoller
 	 * @param clientProxy
 	 * @param speed
 	 */
-	public ServerPoller (ProxyInterface clientProxy, int speed)
+	public ServerPoller (ProxyInterface clientProxy, Game gameModel, int speed)
 	{
+		this.GameModel = gameModel;
 		this.ServerProxy = clientProxy;
 		UpdateTimer = new Timer(speed, this.listener);
 		UpdateTimer.start();
