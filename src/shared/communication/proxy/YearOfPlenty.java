@@ -1,5 +1,5 @@
 package shared.communication.proxy;
-import shared.definitions;
+import shared.definitions.ResourceType;
 
 public class YearOfPlenty
 {

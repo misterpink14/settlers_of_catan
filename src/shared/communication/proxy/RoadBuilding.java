@@ -1,5 +1,5 @@
 package shared.communication.proxy;
-import shared.locations;
+import shared.locations.EdgeLocation;
 
 public class RoadBuilding
 {

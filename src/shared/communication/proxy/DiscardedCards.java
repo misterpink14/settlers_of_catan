@@ -1,5 +1,7 @@
 package shared.communication.proxy;
-import shared.definitions;
+import java.util.ArrayList;
+
+import shared.definitions.ResourceType;;
 
 public class DiscardedCards
 {

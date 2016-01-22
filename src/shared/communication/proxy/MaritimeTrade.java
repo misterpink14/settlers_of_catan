@@ -1,5 +1,5 @@
 package shared.communication.proxy;
-import shared.definitions;
+import shared.definitions.ResourceType;;
 
 public class MaritimeTrade
 {
@@ -24,9 +24,9 @@ public class MaritimeTrade
 	 */
 	public ResourceType getting;
 	
-	public SendChat() 
-	{}
+	public MaritimeTrade()
+	{
+		
+	}
 
-
-	
 }

@@ -1,5 +1,7 @@
 package shared.communication.proxy;
 
+import java.util.ArrayList;
+
 public class ListOfCommands
 {
 

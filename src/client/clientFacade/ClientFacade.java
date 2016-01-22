@@ -1,7 +1,7 @@
 package client.clientFacade;
 
 import client.clientProxy.ProxyInterface;
-import shared.models.Player;
+import shared.models.playerClasses.Player;
 
 /** ClientFacade class
  * 

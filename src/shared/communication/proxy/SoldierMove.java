@@ -1,5 +1,5 @@
 package shared.communication.proxy;
-import shared.locations;
+import shared.locations.HexLocation;;
 
 public class SoldierMove
 {
