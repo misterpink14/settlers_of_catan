@@ -17,13 +17,21 @@ public class Game {
 	 * to the server.
 	 */
 	GamePlayers players = new GamePlayers();
-	
+	/**Stores the log for the game*/
+	GameLog log = new GameLog();
+	/**The game chat object stores and retrieves the history of the chat log between players.*/
+	GameChat chat = new GameChat();
 	
 	/**
 	 * The Game class is a master class that contains all information having to do with a specific game
 	 * of settlers of catan.
 	 */
 	public Game() {}
+	
+	/**
+	 * Takes in a json summary of a game and changes itself to match the specified game
+	 */
+	public void importGame() {}
 	
 	/**
 	 * If the specified player can roll the dice, do so
