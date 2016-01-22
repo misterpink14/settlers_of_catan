@@ -1,6 +1,4 @@
 package shared.models;
-
-import java.util.ArrayList;
 /**
  * 
  * @author Stephen Snyder
@@ -13,23 +11,17 @@ public class Game {
 	Bank bank = new Bank();
 	/**The cardDeck contains all the development cards not belonging to a player.*/
 	CardDeck cardDeck = new CardDeck();
-	/**The players array contains four players that will be used by four clients.*/
-	ArrayList<Player> players = new ArrayList<Player>();
+	/**The game players object holds four player objects that represent four clients that will connect
+	 * to the server.
+	 */
+	GamePlayers players = new GamePlayers();
+	
 	
 	/**
 	 * The Game class is a master class that contains all information having to do with a specific game
 	 * of settlers of catan.
 	 */
-	public Game() {
-		Player one = new Player();
-		Player two = new Player();
-		Player three = new Player();
-		Player four = new Player();
-		this.players.add(one);
-		this.players.add(two);
-		this.players.add(three);
-		this.players.add(four);
-	}
+	public Game() {}
 
 	/**
 	 * Trades a player's resources for a new road on the map. It must border a settlement or road owned by the player.

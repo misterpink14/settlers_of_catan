@@ -1,7 +1,7 @@
 package shared.models.mapClasses;
 
 import shared.definitions.PieceType;
-import shared.models.Player;
+import shared.models.playerClasses.Player;
 
 public class Piece 
 {
