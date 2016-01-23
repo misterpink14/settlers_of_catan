@@ -6,7 +6,7 @@ public class TurnTracker {
 	/**The index of the player whose turn it is currently*/
 	int currentPlayerTurn;
 
-	public TurnTracker() {}
+	public TurnTracker(String json) {}
 
 	/** Determine whether it's a player's turn or not
 	 * 
@@ -21,8 +21,9 @@ public class TurnTracker {
 	 * 
 	 * @return the index of the current player, 0-3
 	 */
-	public int currentPlayerTurn() {
-		return null;
+	public int currentPlayerTurn() 
+	{
+		return 1;
 	}
 	
 	

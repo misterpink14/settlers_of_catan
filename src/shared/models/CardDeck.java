@@ -15,7 +15,7 @@ public class CardDeck {
 	/**The number of monument cards left in the deck*/
 	int monumentCards = 5;
 
-	public CardDeck() {}
+	public CardDeck(String json) {}
 
 	/** Randomly select a card from the deck to give to a player
 	 * 

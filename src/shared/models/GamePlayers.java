@@ -9,7 +9,7 @@ public class GamePlayers {
 	/**The players array contains four players that will be used by four clients.*/
 	ArrayList<Player> players = new ArrayList<Player>();
 
-	public GamePlayers() {}
+	public GamePlayers(String json) {}
 
 	/**
 	 * This accepts a client and adds it as a player object to an array.

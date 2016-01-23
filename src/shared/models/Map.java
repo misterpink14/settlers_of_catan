@@ -24,7 +24,7 @@ public class Map
 	 */
 	private HashMap<HexLocation, Hex> HexGrid = new HashMap<HexLocation, Hex>();
 
-	/** Constraints within the game board. Use for generating the board */
+	/* Constraints within the game board. Use for generating the board */
 	private final int NUM_SEA = 18; // Number of sea pieces
 	private final int NUM_HARBORS = 9; // Number of sea pieces with harbors
 	private final int NUM_TERRAINS = 19; // Number of terrain pieces
@@ -49,11 +49,11 @@ public class Map
 	
 // PUBLIC
 	/**
-	 * Constructor generates a new map
+	 * Constructor generates a new map. Requires a String to be validated/parsed
 	 */
-	public Map() 
+	public Map(String json) 
 	{
-		this.generateMap();
+		this.generateMap(json);
 	}
 	
 	
@@ -71,7 +71,7 @@ public class Map
 	/**
 	 * Create a new game board, using all 34 Hex pieces, the robber is placed on the desert as well.
 	 */
-	private void generateMap() 
+	private void generateMap(String json) 
 	{
 		
 	}

@@ -2,7 +2,7 @@ package shared.models;
 
 public class GameLog {
 
-	public GameLog() {}
+	public GameLog(String json) {}
 
 	
 }

@@ -8,27 +8,44 @@ public class Game {
 	/**This allows two random numbers between 1 and 6 to be generated at any time.*/
 	Dice dice;
 	/**The map contains all information having to do with the board.*/
-	Map map = new Map();
+	Map map;
 	/**The bank contains all resource cards that do not belong to a player.*/
 	Bank bank = new Bank();
 	/**The cardDeck contains all the development cards not belonging to a player.*/
-	CardDeck cardDeck = new CardDeck();
+	CardDeck cardDeck;
 	/**The game players object holds four player objects that represent four clients that will connect
 	 * to the server.
 	 */
-	GamePlayers players = new GamePlayers();
+	GamePlayers players;
 	/**Stores the log for the game*/
-	GameLog log = new GameLog();
+	GameLog log;
 	/**The game chat object stores and retrieves the history of the chat log between players.*/
-	GameChat chat = new GameChat();
+	GameChat chat;
 	/**The trade manager handles all trades between players. Both storing and executing*/
-	TradeManager tradeManager = new TradeManager();
+	TradeManager tradeManager;
+	/**The turn tracker manages trades betweeen players*/
+	TurnTracker turnTracker;
 	
 	/**
-	 * The Game class is a master class that contains all information having to do with a specific game
-	 * of settlers of catan.
+	 * The Game class is a master class that contains all information having to do with a specific game.
+	 *  Parse and build the game using the json String
+	 * 
+	 * @param json
 	 */
-	public Game() {}
+	public Game(String json)
+	{
+		bank = new Bank(json);
+		chat = new GameChat(json);
+		log = new GameLog(json);
+		map = new Map(json);
+		players = new GamePlayers(json);
+		tradeManager = new TradeManager(json);
+		turnTracker = new TurnTracker(json);
+		
+		
+		cardDeck = new CardDeck(json);
+		
+	}
 	
 	/**
 	 * Takes in a json summary of a game and changes itself to match the specified game
@@ -117,4 +134,11 @@ public class Game {
 	 * Allows a player to offer an exchange of resources to one or more other players
 	 */
 	public void offerATrade(int playerID){}
+	
+	/**
+	 * Check the TurnTracker to see if it is the user's turn at the given index
+	 * 
+	 * @param playerIndex
+	 */
+	public void isTurn(int playerIndex) {}
 }

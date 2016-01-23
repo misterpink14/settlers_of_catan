@@ -8,7 +8,7 @@ public class TradeManager {
 	ArrayList<Trade> trades = new ArrayList<Trade>();
 
 	/**This class handles the specifics of trades made between players*/
-	public TradeManager() {}
+	public TradeManager(String json) {}
 	
 	/**
 	 * Verifies that the players are able to trade the proposed trade

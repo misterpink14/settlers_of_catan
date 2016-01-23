@@ -11,7 +11,7 @@ public class GameChat {
 	/**
 	 * This object keeps track of the chat between players during the course of a game
 	 */
-	public GameChat() {}
+	public GameChat(String json) {}
 	
 	/**Adds a message to the message list*/
 	public void addMessage() {}
