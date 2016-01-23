@@ -1,8 +1,8 @@
-package shared.models;
+package shared.models.UserManager;
 
 import java.util.List;
 
-import shared.communication.User;
+import shared.models.UserManager.User;
 
 /**
  * 

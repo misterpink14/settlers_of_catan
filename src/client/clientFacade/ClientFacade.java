@@ -1,7 +1,6 @@
 package client.clientFacade;
 
 import client.serverProxy.ProxyInterface;
-import shared.communication.User;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.BuildSettlement;
@@ -12,6 +11,7 @@ import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
+import shared.models.UserManager.User;
 
 /** ClientFacade class
  * 
