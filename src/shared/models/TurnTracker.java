@@ -4,7 +4,7 @@ package shared.models;
 public class TurnTracker {
 	
 	/**The index of the player whose turn it is currently*/
-	int currentPlayerTurn;
+	private int currentPlayerTurn;
 
 	public TurnTracker() {}
 
@@ -14,7 +14,7 @@ public class TurnTracker {
 	 * @return whether it's their turn or not
 	 */
 	public Boolean isTheirTurn(int playerIndex) {
-		return null;
+		return playerIndex == currentPlayerTurn;
 	}
 	
 	/** Get the player who is currently taking their turn
@@ -22,7 +22,7 @@ public class TurnTracker {
 	 * @return the index of the current player, 0-3
 	 */
 	public int currentPlayerTurn() {
-		return null;
+		return currentPlayerTurn;
 	}
 	
 	
