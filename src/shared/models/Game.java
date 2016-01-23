@@ -10,7 +10,7 @@ public class Game {
 	/**The map contains all information having to do with the board.*/
 	Map map;
 	/**The bank contains all resource cards that do not belong to a player.*/
-	Bank bank = new Bank();
+	Bank bank;
 	/**The cardDeck contains all the development cards not belonging to a player.*/
 	CardDeck cardDeck;
 	/**The game players object holds four player objects that represent four clients that will connect
