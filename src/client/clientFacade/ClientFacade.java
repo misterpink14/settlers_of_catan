@@ -1,7 +1,6 @@
 package client.clientFacade;
 
 import client.serverProxy.ProxyInterface;
-import shared.communication.User;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.BuildSettlement;
@@ -12,7 +11,8 @@ import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
-import shared.models.playerClasses.Player;
+import shared.models.Game;
+import shared.models.UserManager.User;
 
 /** ClientFacade class
  * 
@@ -22,6 +22,7 @@ import shared.models.playerClasses.Player;
 public class ClientFacade {
 	
 	User clientUser;
+	Game game;
 	
 	public ClientFacade() {
 		
@@ -46,7 +47,7 @@ public class ClientFacade {
 	 * performing other actions on the server.
 	 */
 	public void login(Credentials credentials) {
-		return proxy.postUserLogin(credentials);
+		proxy.postUserLogin(credentials);
 	}
 	
 	/** This function will query the model to make sure
@@ -55,8 +56,7 @@ public class ClientFacade {
 	 * otherwise, returns false;
 	 */
 	public boolean isTurn() {
-		/* Check if it's the player's turn */
-		return true;
+		return game.isTurn(clientUser.getPlayerID());
 	}
 	
 	/**
@@ -67,8 +67,8 @@ public class ClientFacade {
 	 * they can't
 	 */
 	public boolean canRollDice() {
-		if (isTurn()) {
-			/* Do something */
+		if (!isTurn()) {
+			return false;
 		}
 		/* Check if player can roll */
 		return true;
@@ -95,8 +95,8 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildRoad() {
-		if (isTurn()) {
-			/* Do something */
+		if (!isTurn()) {
+			return false;
 		}
 		/* Check if player can build road */
 		return true;
@@ -119,8 +119,8 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildCity() {
-		if (isTurn()) {
-			/* Do something */
+		if (!isTurn()) {
+			return false;
 		}
 		/* Check if player can build city */
 		return true;
@@ -143,8 +143,8 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildSettlement() {
-		if (isTurn()) {
-			/* Do something */
+		if (!isTurn()) {
+			return false;
 		}
 		/* Check if player can build settlement */
 		return true;
@@ -167,7 +167,7 @@ public class ClientFacade {
 	 */
 	public boolean canBuyDevCard() {
 		if (isTurn()) {
-			/* Do something */
+			return false;
 		}
 		/* Check if player can buy development card */
 		return true;

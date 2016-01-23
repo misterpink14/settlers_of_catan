@@ -1,4 +1,4 @@
-package shared.communication;
+package shared.models.UserManager;
 
 /**
  * 
@@ -23,5 +23,9 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.playerID = playerID;
+	}
+
+	public int getPlayerID() {
+		return playerID;
 	}
 }
