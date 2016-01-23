@@ -11,6 +11,7 @@ import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
+import shared.models.Game;
 import shared.models.UserManager.User;
 
 /** ClientFacade class
@@ -21,6 +22,7 @@ import shared.models.UserManager.User;
 public class ClientFacade {
 	
 	User clientUser;
+	Game game;
 	
 	public ClientFacade() {
 		
@@ -54,8 +56,7 @@ public class ClientFacade {
 	 * otherwise, returns false;
 	 */
 	public boolean isTurn() {
-		/* Check if it's the player's turn */
-		return true;
+		return game.isTurn(clientUser.getPlayerID());
 	}
 	
 	/**

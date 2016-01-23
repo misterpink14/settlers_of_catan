@@ -24,4 +24,8 @@ public class User {
 		this.password = password;
 		this.playerID = playerID;
 	}
+
+	public int getPlayerID() {
+		return playerID;
+	}
 }
