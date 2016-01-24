@@ -1,12 +1,12 @@
 package shared.models;
 
-import java.util.HashMap;
-
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
+import shared.models.mapClasses.EdgeMap;
 import shared.models.mapClasses.Hex;
-import shared.models.mapClasses.TerrainHex;
+import shared.models.mapClasses.HexMap;
+import shared.models.mapClasses.VertexMap;
 import shared.definitions.*;
 
 
@@ -22,7 +22,10 @@ public class Map
 	 * The x (horizontal) and y (diagonal: from top-left to bottom right) axis' increment from left to right.
 	 *  The most center hex, in both x and y, is 0 with negative values to the left and positive values to the right
 	 */
-	private HashMap<HexLocation, Hex> HexGrid = new HashMap<HexLocation, Hex>();
+	private HexMap Hexes = new HexMap("");
+	private VertexMap Vertexes = new VertexMap("");
+	private EdgeMap Edges = new EdgeMap("");
+	
 
 	/* Constraints within the game board. Use for generating the board */
 	private final int NUM_SEA = 18; // Number of sea pieces
@@ -62,9 +65,9 @@ public class Map
 	 * 
 	 * @return
 	 */
-	public Hex getHex(int x, int y)
+	public Hex getHex(HexLocation loc)
 	{
-		return new TerrainHex(null, 0, false);
+		return Hexes.getHex(loc);
 	}
 	
 	

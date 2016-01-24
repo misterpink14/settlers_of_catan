@@ -1,10 +1,13 @@
 package shared.models;
+
+
 /**
  * 
  * @author Stephen Snyder
  *
  */
-public class Game {
+public class Game 
+{
 	/**This allows two random numbers between 1 and 6 to be generated at any time.*/
 	Dice dice;
 	/**The map contains all information having to do with the board.*/
@@ -23,7 +26,7 @@ public class Game {
 	GameChat chat;
 	/**The trade manager handles all trades between players. Both storing and executing*/
 	TradeManager tradeManager;
-	/**The turn tracker manages trades betweeen players*/
+	/**The turn tracker manages trades between players*/
 	TurnTracker turnTracker;
 	
 	/**

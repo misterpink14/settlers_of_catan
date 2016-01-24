@@ -7,7 +7,7 @@ public class Piece
 {
 	private PieceType Type;
 	
-	private Player Owner;
+	private String Owner;
 	
 	
 	/**
@@ -27,9 +27,9 @@ public class Piece
 	 * @param p
 	 * @return
 	 */
-	public boolean isOwner(Player p)
+	public boolean isOwner(String player)
 	{
-		return this.Owner.equals(p);
+		return this.Owner.equals(player);
 	}
 	
 }

@@ -1,7 +1,7 @@
 package shared.models;
 
-public class Bank {
-	
+public class Bank 
+{	
 	/**The number of wood cards currently available in the game*/
 	int woodCards = 19;
 	/**The number of brick cards currently available in the game*/
@@ -16,7 +16,10 @@ public class Bank {
 	/**
 	 * The Bank keeps track of how many resource cards are without owners.
 	 */
-	public Bank(String json) {}
+	public Bank(String json) 
+	{
+		
+	}
 	
 	/**
 	 * Subtracts a wood card from the bank to give to a player

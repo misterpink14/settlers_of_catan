@@ -11,7 +11,7 @@ import shared.definitions.PortType;
  */
 public class WaterHex extends Hex
 {
-	PortType Port;
+	PortType Port = null;
 	
 	public WaterHex(HexType type) 
 	{
@@ -19,16 +19,38 @@ public class WaterHex extends Hex
 	}
 
 	
-	public WaterHex(HexType type, PortType port) 
+	/**
+	 * Constructor
+	 * 
+	 * @param type
+	 * @param port
+	 */
+	public WaterHex(PortType port) 
 	{
-		super(type, true);
+		super(HexType.WATER);
 		this.Port = port;
 	}
 	
 	
-	public boolean hasPort()
+	/**
+	 * Checks if this Water Hex is a Port or not
+	 * 
+	 * @return
+	 */
+	public boolean isPort()
 	{
-		return this.IsOccupied;
+		return Port != null;
+	}
+	
+	
+	/**
+	 * Returns the Port Type of the Water Hex
+	 * 
+	 * @return
+	 */
+	public PortType getPortType() 
+	{
+		return this.Port;
 	}
 
 }

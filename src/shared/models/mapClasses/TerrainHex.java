@@ -19,29 +19,11 @@ public class TerrainHex extends Hex
 		super(type);
 		this.Token = token;
 	}
-
-
-	public TerrainHex(HexType type, int token, boolean hasRobber) 
-	{
-		super(type, hasRobber);
-		this.Token = token;
-	}
 	
 	
 	public int getToken()
 	{
 		return this.Token;
-	}
-	
-	
-	/**
-	 * Checks if the Terrain Hex has the Robber in it's location
-	 * 
-	 * @return
-	 */
-	public boolean hasRobber()
-	{
-		return this.IsOccupied;
 	}
 
 }
