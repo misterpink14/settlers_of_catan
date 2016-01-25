@@ -19,6 +19,7 @@ public interface ProxyInterface {
 	 * name: String,
 	 * password: String,
 	 * playerID: Integer
+	 * @throws Exception
 	 */ 
 	public String loginUser(Credentials credentials);
 	
@@ -27,7 +28,7 @@ public interface ProxyInterface {
 	 * user / register
 	 * @param Credentials object that contains the username and password
 	 * @return JSON String that indicates success/failure
-	 * 
+	 * @throws Exception
 	 */
 	public String registerUser(Credentials credentials);
 	
@@ -36,7 +37,7 @@ public interface ProxyInterface {
 	 * games / list
 	 * 
 	 * @return JSON String that indicates success/failure
-	 * 
+	 * @throws Exception
 	 */
 	public String getGamesList();
 	
@@ -48,6 +49,7 @@ public interface ProxyInterface {
 	 * randomPorts
 	 * @return JSON String that contains the game's title, id, and 
 	 * a list of empty players
+	 * @throws Exception
 	 */
 	public String createGame(CreateGameRequestParams params);
 	
@@ -58,6 +60,7 @@ public interface ProxyInterface {
 	 * game the player wants to join and the color they want to be
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
+	 * @throws Exception
 	 */
 	public String joinGame(JoinGameRequestParams params);
 	
@@ -68,6 +71,7 @@ public interface ProxyInterface {
 	 * game the player wants to join and file name they want to save it as
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
+	 * @throws Exception
 	 */
 	public String saveGame(SaveGameRequestParams saveGameRequest);
 	
@@ -78,6 +82,7 @@ public interface ProxyInterface {
 	 * they want to load from
 	 * @return JSON String that indicates whether it was a success or
 	 * failure
+	 * @throws Exception
 	 */
 	public String loadGame(LoadGameRequestParams loadGameRequest);
 	
@@ -86,6 +91,7 @@ public interface ProxyInterface {
 	 * game / model
 	 * @param The version number of the current state
 	 * @return JSON String that contains the current game state
+	 * @throws Exception
 	 */
 	public String getGameModel(int versionNumber);
 	
@@ -93,6 +99,7 @@ public interface ProxyInterface {
 	 * This function will call the server API at
 	 * game / reset
 	 * @return JSON String that contains the current game state
+	 * @throws Exception
 	 */
 	public String resetGame();
 	
@@ -103,6 +110,7 @@ public interface ProxyInterface {
 	 * commands to be executed
 	 * @return JSON String that contains the client model after
 	 * that list of commands have been executed
+	 * @throws Exception
 	 */
 	public String executeGameCommands(ListOfCommands listOfCommands);
 	
@@ -111,6 +119,7 @@ public interface ProxyInterface {
 	 * game / commands
 	 * @return JSON String that contains list of commands
 	 * executed in the game
+	 * @throws Exception
 	 */
 	public String getGameCommands();
 	
@@ -120,6 +129,7 @@ public interface ProxyInterface {
 	 * @param SendChat object that contains the player index
 	 * of the message sender and the message content
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String sendChat(SendChat sendChat);
 	
@@ -129,6 +139,7 @@ public interface ProxyInterface {
 	 * @param RollNumber object that contains the player index
 	 * and what number they rolled
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String rollNumber(RollNumber rollNumber);
 	
@@ -138,6 +149,7 @@ public interface ProxyInterface {
 	 * @param RobPlayer object that contains the index of the
 	 * player robbing, and the new location of the robber
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String robPlayer(RobPlayer robPlayer);
 	
@@ -147,6 +159,7 @@ public interface ProxyInterface {
 	 * @param FinishTurn object that contains the player index
 	 * that's ending their turn
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String finishTurn(FinishTurn finishTurn);
 	
@@ -156,6 +169,7 @@ public interface ProxyInterface {
 	 * @param BuyDevCard object that contains the player index
 	 * buying the card
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String buyDevCard(BuyDevCard buyDevCard);
 	
@@ -165,6 +179,7 @@ public interface ProxyInterface {
 	 * @param YearOfPlenty object that contains the player index
 	 * playing the card and the two resources they gain
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String yearOfPlenty(YearOfPlenty yearOfPlenty);
 	
@@ -174,6 +189,7 @@ public interface ProxyInterface {
 	 * @param RoadBuilding object that contains the player index
 	 * and the two locations they want to build roads
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String roadBuilding(RoadBuilding roadBuilding);
 	
@@ -184,6 +200,7 @@ public interface ProxyInterface {
 	 * doing the robbing, the player index of the one they're
 	 * robbing, and the new location of the robber
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String moveSoldier(SoldierMove soldierMove);
 	
@@ -193,6 +210,7 @@ public interface ProxyInterface {
 	 * @param Monopoly object that contains the player index
 	 * and the resource they will monopolize
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String playMonopolyCard(Monopoly monopoly);
 	
@@ -202,6 +220,7 @@ public interface ProxyInterface {
 	 * @param MonumentMove object that contains the player index
 	 * playing the monument card
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String playMonumentCard(MonumentMove monumentMove);
 	
@@ -212,6 +231,7 @@ public interface ProxyInterface {
 	 * building the road, the location where they want to
 	 * build, and whether or not it's free or not
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String buildRoad(BuildRoad buildRoad);
 	
@@ -221,6 +241,7 @@ public interface ProxyInterface {
 	 * @param BuildCity object that contains the player index
 	 * building the city and the location of the city
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String buildCity(BuildCity buildCity);
 	
@@ -230,6 +251,7 @@ public interface ProxyInterface {
 	 * @param BuildSettlement object that contains the player index
 	 * building the settlement, the location, and whether it's free
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String buildSettlement(BuildSettlement buildSettlement);
 	
@@ -240,6 +262,7 @@ public interface ProxyInterface {
 	 * sending the offer, the player index receiving the offer,
 	 * and the list resources offered and desired
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String offerTrade(OfferTrade offerTrade);
 	
@@ -249,6 +272,7 @@ public interface ProxyInterface {
 	 * @param AcceptTrade object that contains the player index
 	 * responding to the trade and whether they accept or reject it
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String acceptTrade(AcceptTrade acceptTrade);
 	
@@ -259,6 +283,8 @@ public interface ProxyInterface {
 	 * of the player trading, the ratio they're trading at, the
 	 * desired resource and the offered resource
 	 * @return JSON String that contains the client model
+	 * 
+	 * @throws Exception
 	 */
 	public String maritimeTrade(MaritimeTrade maritimeTrade);
 	
@@ -268,6 +294,7 @@ public interface ProxyInterface {
 	 * @param DiscardedCards object that contains the player index
 	 * discarding cards and the list of resources they're discarding
 	 * @return JSON String that contains the client model
+	 * @throws Exception
 	 */
 	public String discardCards(DiscardedCards discardedCards);
 	
@@ -277,6 +304,7 @@ public interface ProxyInterface {
 	 * @param ChangeLogLevelRequest that contains the server's
 	 * new log level
 	 * @return JSON String that indicates whether it succeded
+	 * @throws Exception
 	 */
 	public String changeLogLevel(ChangeLogLevelRequest logLevel);
 	
