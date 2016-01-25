@@ -2,6 +2,7 @@ package shared.models;
 
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.RobberLocation;
 import shared.locations.VertexLocation;
 import shared.models.mapClasses.EdgeMap;
 import shared.models.mapClasses.Hex;
@@ -25,6 +26,7 @@ public class Map
 	private HexMap Hexes = new HexMap("");
 	private VertexMap Vertexes = new VertexMap("");
 	private EdgeMap Edges = new EdgeMap("");
+	private RobberLocation Robber = new RobberLocation(null);
 	
 
 	/* Constraints within the game board. Use for generating the board */
