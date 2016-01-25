@@ -79,10 +79,13 @@ public class ClientFacade {
 	 * can roll the dice. First, check if the user can
 	 * roll. Then, interface with the server proxy to
 	 * send the command.
+	 * @throws 
 	 */
 	public void rollDice() {
 		if (canRollDice()) {
 			proxy.postMovesRollNumber(new RollNumber());
+		} else {
+			/* Throw exception */
 		}
 	}
 	
@@ -105,9 +108,14 @@ public class ClientFacade {
 	/**
 	 * Send the command to the server proxy to build
 	 * a road on the board.
+	 * @throws
 	 */
 	public void buildRoad() {
-		proxy.postMovesBuildRoad(new BuildRoad());
+		if (canBuildRoad()) {
+			proxy.postMovesBuildRoad(new BuildRoad());
+		} else {
+			/* Throw exception */
+		}
 	}
 	
 	/**
@@ -129,9 +137,14 @@ public class ClientFacade {
 	/**
 	 * Send the command to the server proxy to build
 	 * a city on the board.
+	 * @throws
 	 */
 	public void buildCity() {
-		proxy.postMovesBuildCity(new BuildCity());
+		if (canBuildCity()) {
+			proxy.postMovesBuildCity(new BuildCity());
+		} else {
+			/* Throw exception */
+		}
 	}
 	
 	/**
@@ -153,9 +166,14 @@ public class ClientFacade {
 	/**
 	 * Send the command to the server proxy to build
 	 * a settlement on the board.
+	 * @throws
 	 */
 	public void buildSettlement() {
-		proxy.postMovesBuildSettlement(new BuildSettlement());
+		if (canBuildSettlement()) {
+			proxy.postMovesBuildSettlement(new BuildSettlement());
+		} else {
+			/* Throw exception */
+		}
 	}
 	
 	/**
@@ -176,14 +194,20 @@ public class ClientFacade {
 	/**
 	 * Send the command to the server proxy to build
 	 * a settlement on the board.
+	 * @throws
 	 */
 	public void buyDevCard() {
-		proxy.postMovesBuyDevCard(new BuyDevCard());
+		if (canBuyDevCard()) {
+			proxy.postMovesBuyDevCard(new BuyDevCard());
+		} else {
+			/* Throw exception */
+		}
 	}
 	
 	/**
 	 * Send the command to the server proxy to offer
 	 * a trade with another player.
+	 * @throw
 	 */
 	public void offerTrade() {
 		proxy.postMovesOfferTrade(new OfferTrade());
@@ -192,6 +216,7 @@ public class ClientFacade {
 	/**
 	 * Send the command to the server proxy to trade
 	 * in four of a kind for another resource
+	 * @throws
 	 */
 	public void tradeFour() {
 		
@@ -200,6 +225,7 @@ public class ClientFacade {
 	/**
 	 * Send the command to the server proxy to trade
 	 * with an adjoining harbor
+	 * @throws
 	 */
 	public void tradeHarbor() {
 		proxy.postMovesMaritimeTrade(new MaritimeTrade());
@@ -208,6 +234,7 @@ public class ClientFacade {
 	/**
 	 * Send the command to the server proxy to play
 	 * a development card.
+	 * @throws
 	 */
 	public void playDevCard() {
 		
@@ -215,6 +242,7 @@ public class ClientFacade {
 	
 	/**
 	 * Send the end turn command to the server proxy.
+	 * @throws
 	 */
 	public void finishTurn() {
 		proxy.postMovesFinishTurn(new FinishTurn());
@@ -223,6 +251,7 @@ public class ClientFacade {
 	/**
 	 * Send a message to the server proxy in order to
 	 * deliver it to another player.
+	 * @throws
 	 */
 	public void sendChat() {
 		proxy.postMovesSendChat(new SendChat());
