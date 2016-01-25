@@ -1,5 +1,8 @@
 package shared.models.playerClasses;
 
+import shared.models.cardClasses.DevCards;
+import shared.models.cardClasses.ResourceCards;
+
 public class Player {
 	
 	/**The id of the client that is controlling this player*/
@@ -26,30 +29,13 @@ public class Player {
 	/**The number of roads this player may build*/
 	int roads = 15;
 	
-	/**The number of wood cards in the player's hand*/
-	int woodCards = 0;
-	/**The number of brick cards in the player's hand*/
-	int brickCards = 0;
-	/**The number of sheep cards in the player's hand*/
-	int sheepCards = 0;
-	/**The number of wheat cards in the player's hand*/
-	int wheatCards = 0;
-	/**The number of ore cards in the player's hand*/
-	int oreCards = 0;
+	/**A container for this player's resource cards.*/
+	ResourceCards resourceCards = new ResourceCards(0,0,0,0,0);
 	
-	/**The number of soldier cards in the players possession*/
-	int soldierCards = 0;
-	/**The number of year of plenty cards in the players possession*/
-	int yearOfPlentyCards = 0;
-	/**The number of monopoly cards in the players possession*/
-	int monopolyCards = 0;
-	/**The number of road builder cards in the players possession*/
-	int roadBuilderCards = 0;
-	/**The number of monument cards in the players possession*/
-	int monumentCards = 0;
+	/**A container for this player's development cards*/
+	DevCards devCards = new DevCards(0,0,0,0,0);
 	
-	//we need a way to represent harbor benefits.
-	
+	//we need a way to represent Harbor benefits
 
 	public Player(int id) {
 		this.id = id;

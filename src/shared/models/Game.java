@@ -57,6 +57,8 @@ public class Game
 	
 	/**
 	 * If the specified player can roll the dice, do so
+	 * @exception invalidPlayerID if the player id does not match an existing player.
+	 * @return The number rolled or 0 if the player does not have permission to roll the dice.
 	 */
 	public int rollDice(int playerID) {
 		if (players.canRollDice(playerID)) {
@@ -70,6 +72,7 @@ public class Game
 	/**
 	 * Trades a player's resources for a new road on the map. It must connect with another of the player's
 	 * roads, settlements, or cities.
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buildRoad(int playerID) {
 		if(players.canBuildRoad(playerID)) {
@@ -80,6 +83,7 @@ public class Game
 	/**
 	 * Trades a player's resources for a new settlement on the map. The player must have a road leading to the spot wanted.
 	 * The selected place to build must also be at least two building spots away from any other settlement.
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buildSettlement(int playerID) {
 		if(players.canBuildSettlement(playerID)) {
@@ -89,6 +93,7 @@ public class Game
 	
 	/**
 	 * Trades a player's resources for a new city on the map. The player must build it in place of an existing settlement.
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buildCity(int playerID) {
 		if(players.canBuildCity(playerID)) {
@@ -98,6 +103,7 @@ public class Game
 	
 	/**
 	 * Trades a player's resources for a development card
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buyDevelopmentCard(int playerID) {
 		if(players.canBuyDevCard(playerID)) {
@@ -107,6 +113,7 @@ public class Game
 	
 	/**
 	 * Allows a player to move the robber in exchange for a Soldier Card
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void playSoldierCard(int playerID) {
 		players.playSoldierCard(playerID);
@@ -114,6 +121,7 @@ public class Game
 	
 	/**
 	 * Allows a player to build two roads in exchange for a Road Builder Card
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void playRoadBuilderCard(int playerID) {
 		players.playRoadBuilderCard(playerID);
@@ -121,6 +129,7 @@ public class Game
 	
 	/**
 	 * Allows a player to take all owned cards of a specified resource in exchange for a Monopoly Card
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void playMonopolyCard(int playerID) {
 		players.playMonopolyCard(playerID);
@@ -128,6 +137,7 @@ public class Game
 	
 	/**
 	 * Allows a player to choose two resources to be added to it's hand in exchange for a Year Of Plenty Card
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void playYearOfPlentyCard(int playerID) {
 		players.playYearOfPlentyCard(playerID);
@@ -135,13 +145,13 @@ public class Game
 	
 	/**
 	 * Allows a player to offer an exchange of resources to one or more other players
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void offerATrade(int playerID){}
 	
 	/**
 	 * Check the TurnTracker to see if it is the user's turn at the given index
-	 * 
-	 * @param playerIndex
+	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public boolean isTurn(int playerIndex) {
 		return turnTracker.isTheirTurn(playerIndex);
