@@ -1,6 +1,4 @@
-package shared.models;
-
-import shared.models.cardClasses.ResourceCards;
+package shared.models.cardClasses;
 
 public class Bank 
 {	

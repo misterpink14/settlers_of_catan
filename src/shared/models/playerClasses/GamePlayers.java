@@ -1,8 +1,6 @@
-package shared.models;
+package shared.models.playerClasses;
 
 import java.util.ArrayList;
-
-import shared.models.playerClasses.Player;
 
 public class GamePlayers {
 	

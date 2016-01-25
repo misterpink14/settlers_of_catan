@@ -1,4 +1,4 @@
-package shared.models;
+package shared.models.logClasses;
 
 public class GameLog {
 

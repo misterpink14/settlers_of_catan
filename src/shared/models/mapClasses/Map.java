@@ -1,13 +1,9 @@
-package shared.models;
+package shared.models.mapClasses;
 
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.RobberLocation;
 import shared.locations.VertexLocation;
-import shared.models.mapClasses.EdgeMap;
-import shared.models.mapClasses.Hex;
-import shared.models.mapClasses.HexMap;
-import shared.models.mapClasses.VertexMap;
 import shared.definitions.*;
 
 

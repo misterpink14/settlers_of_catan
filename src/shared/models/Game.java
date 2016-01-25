@@ -1,5 +1,12 @@
 package shared.models;
 
+import shared.models.cardClasses.Bank;
+import shared.models.cardClasses.CardDeck;
+import shared.models.chatClasses.GameChat;
+import shared.models.logClasses.GameLog;
+import shared.models.mapClasses.Map;
+import shared.models.playerClasses.GamePlayers;
+import shared.models.playerClasses.TurnTracker;
 
 /**
  * 

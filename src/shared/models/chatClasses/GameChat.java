@@ -1,8 +1,6 @@
-package shared.models;
+package shared.models.chatClasses;
 
 import java.util.ArrayList;
-
-import shared.models.chatClasses.Message;
 
 public class GameChat {
 	/**An array that holds the entries in the game log*/

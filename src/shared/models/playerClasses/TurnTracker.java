@@ -1,4 +1,4 @@
-package shared.models;
+package shared.models.playerClasses;
 
 public class TurnTracker {
 	/**The index of the player whose turn it is currently*/

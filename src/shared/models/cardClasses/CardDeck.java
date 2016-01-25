@@ -1,7 +1,6 @@
-package shared.models;
+package shared.models.cardClasses;
 
 import shared.definitions.DevCardType;
-import shared.models.cardClasses.DevCards;
 
 public class CardDeck {
 	
