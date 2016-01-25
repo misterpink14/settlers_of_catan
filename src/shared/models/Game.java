@@ -143,5 +143,7 @@ public class Game
 	 * 
 	 * @param playerIndex
 	 */
-	public void isTurn(int playerIndex) {}
+	public boolean isTurn(int playerIndex) {
+		return turnTracker.isTheirTurn(playerIndex);
+	}
 }
