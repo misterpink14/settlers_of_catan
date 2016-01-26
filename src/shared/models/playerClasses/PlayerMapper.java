@@ -5,9 +5,7 @@ public class PlayerMapper {
 	/**
 	 * Replaces player classes using json input
 	 */
-	public PlayerMapper(String json) {
-		
-	}
+	public PlayerMapper() {}
 	
 	/**
 	 * Uses json to build new classes to replace the current model
