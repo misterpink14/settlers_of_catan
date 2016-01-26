@@ -17,10 +17,7 @@ public class EdgeMap {
 	 * 
 	 * @param json
 	 */
-	public EdgeMap(String json)
-	{
-		
-	}
+	public EdgeMap() {}
 	
 	
 	/**

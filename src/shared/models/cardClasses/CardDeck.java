@@ -7,7 +7,7 @@ public class CardDeck {
 	/**The container that holds the development cards in the deck*/
 	DevCards devCards = new DevCards(14,2,2,2,5);
 
-	public CardDeck(String json) {}
+	public CardDeck() {}
 
 	/** Randomly select a card from the deck to give to a player
 	 * 

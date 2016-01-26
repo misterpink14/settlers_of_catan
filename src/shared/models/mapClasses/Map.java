@@ -19,9 +19,9 @@ public class Map
 	 * The x (horizontal) and y (diagonal: from top-left to bottom right) axis' increment from left to right.
 	 *  The most center hex, in both x and y, is 0 with negative values to the left and positive values to the right
 	 */
-	private HexMap Hexes = new HexMap("");
-	private VertexMap Vertexes = new VertexMap("");
-	private EdgeMap Edges = new EdgeMap("");
+	private HexMap Hexes = new HexMap();
+	private VertexMap Vertexes = new VertexMap();
+	private EdgeMap Edges = new EdgeMap();
 	private RobberLocation Robber = new RobberLocation(null);
 	
 

@@ -36,26 +36,9 @@ public class Game
 	/**The turn tracker manages trades between players*/
 	TurnTracker turnTracker;
 	
-	/**
-	 * The Game class is a master class that contains all information having to do with a specific game.
-	 *  Parse and build the game using the json String
-	 * 
-	 * @param json
-	 */
-	public Game(String json)
-	{
-		bank = new Bank(json);
-		chat = new GameChat(json);
-		log = new GameLog(json);
-		map = new Map(json);
-		players = new GamePlayers(json);
-		tradeManager = new TradeManager(json);
-		turnTracker = new TurnTracker(json);
-		
-		
-		cardDeck = new CardDeck(json);
-		
-	}
+	
+	
+	public Game() {}
 	
 	/**
 	 * Takes in a json summary of a game and changes itself to match the specified game

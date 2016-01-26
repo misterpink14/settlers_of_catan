@@ -10,15 +10,7 @@ public class VertexMap
 	
 	
 	
-	/**
-	 * Constructor
-	 * 
-	 * @param json
-	 */
-	public VertexMap(String json)
-	{
-		
-	}
+	public VertexMap() {}
 	
 	
 	/**

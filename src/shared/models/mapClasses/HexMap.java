@@ -11,15 +11,7 @@ public class HexMap
 	
 	
 	
-	/**
-	 * Constructor
-	 * 
-	 * @param json
-	 */
-	public HexMap(String json) 
-	{
-		
-	}
+	public HexMap() {}
 	
 	
 	/**

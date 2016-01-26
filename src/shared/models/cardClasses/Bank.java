@@ -8,10 +8,7 @@ public class Bank
 	/**
 	 * The Bank keeps track of how many resource cards are without owners.
 	 */
-	public Bank(String json) 
-	{
-		
-	}
+	public Bank() {}
 	
 	/**
 	 * Subtracts a wood card from the bank to give to a player
