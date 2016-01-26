@@ -37,7 +37,7 @@ public class ClientFacade {
 	 * and create the user.
 	 */
 	public void createPlayer() {
-		proxy.postUserRegister(new Credentials());
+		proxy.registerUser(new Credentials());
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class ClientFacade {
 	 * performing other actions on the server.
 	 */
 	public void login(Credentials credentials) {
-		proxy.postUserLogin(credentials);
+		proxy.loginUser(credentials);
 	}
 	
 	/** This function will query the model to make sure
@@ -83,7 +83,7 @@ public class ClientFacade {
 	 */
 	public void rollDice() {
 		if (canRollDice()) {
-			proxy.postMovesRollNumber(new RollNumber());
+			proxy.rollNumber(new RollNumber());
 		} else {
 			/* Throw exception */
 		}
@@ -112,7 +112,7 @@ public class ClientFacade {
 	 */
 	public void buildRoad() {
 		if (canBuildRoad()) {
-			proxy.postMovesBuildRoad(new BuildRoad());
+			proxy.buildRoad(new BuildRoad());
 		} else {
 			/* Throw exception */
 		}
@@ -141,7 +141,7 @@ public class ClientFacade {
 	 */
 	public void buildCity() {
 		if (canBuildCity()) {
-			proxy.postMovesBuildCity(new BuildCity());
+			proxy.buildCity(new BuildCity());
 		} else {
 			/* Throw exception */
 		}
@@ -170,7 +170,7 @@ public class ClientFacade {
 	 */
 	public void buildSettlement() {
 		if (canBuildSettlement()) {
-			proxy.postMovesBuildSettlement(new BuildSettlement());
+			proxy.buildSettlement(new BuildSettlement());
 		} else {
 			/* Throw exception */
 		}
@@ -198,7 +198,7 @@ public class ClientFacade {
 	 */
 	public void buyDevCard() {
 		if (canBuyDevCard()) {
-			proxy.postMovesBuyDevCard(new BuyDevCard());
+			proxy.buyDevCard(new BuyDevCard());
 		} else {
 			/* Throw exception */
 		}
@@ -210,7 +210,7 @@ public class ClientFacade {
 	 * @throw
 	 */
 	public void offerTrade() {
-		proxy.postMovesOfferTrade(new OfferTrade());
+		proxy.offerTrade(new OfferTrade());
 	}
 	
 	/**
@@ -228,7 +228,7 @@ public class ClientFacade {
 	 * @throws
 	 */
 	public void tradeHarbor() {
-		proxy.postMovesMaritimeTrade(new MaritimeTrade());
+		proxy.maritimeTrade(new MaritimeTrade());
 	}
 	
 	/**
@@ -245,7 +245,7 @@ public class ClientFacade {
 	 * @throws
 	 */
 	public void finishTurn() {
-		proxy.postMovesFinishTurn(new FinishTurn());
+		proxy.finishTurn(new FinishTurn());
 	}
 	
 	/**
@@ -254,6 +254,6 @@ public class ClientFacade {
 	 * @throws
 	 */
 	public void sendChat() {
-		proxy.postMovesSendChat(new SendChat());
+		proxy.sendChat(new SendChat());
 	}
 }
