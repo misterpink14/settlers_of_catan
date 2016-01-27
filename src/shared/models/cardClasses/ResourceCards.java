@@ -73,23 +73,29 @@ public class ResourceCards {
 	/**
 	 * Removes a card of a specific type from this group
 	 * @param type the type of resource card to remove
+	 * @exception InsufficientCardNumberException
 	 */
-	public void removeCard(ResourceType type, int num) 
+	public void removeCard(ResourceType type, int num) throws InsufficientCardNumberException 
 	{
 		switch(type){
 			case BRICK:
+				if(getBrickCards() == 0){throw new InsufficientCardNumberException();}
 				this.brickCards -= num;
 				break;
 			case ORE:
+				if(getOreCards() == 0){throw new InsufficientCardNumberException();}
 				this.oreCards -= num;
 				break;
 			case SHEEP:
+				if(getSheepCards() == 0){throw new InsufficientCardNumberException();}
 				this.sheepCards -= num;
 				break;
 			case WHEAT:
+				if(getWheatCards() == 0){throw new InsufficientCardNumberException();}
 				this.wheatCards -= num;
 				break;
 			case WOOD:
+				if(getWoodCards() == 0){throw new InsufficientCardNumberException();}
 				this.woodCards -= num;
 				break;
 		}

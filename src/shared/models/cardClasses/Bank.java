@@ -14,8 +14,9 @@ public class Bank
 	
 	/**
 	 * Subtracts cards from the bank to give to a player
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void takeResourceCards(ResourceType type, int num) {
+	public void takeResourceCards(ResourceType type, int num) throws InsufficientCardNumberException {
 		resourceCards.removeCard(type, num);
 	}
 	

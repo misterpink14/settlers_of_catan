@@ -73,25 +73,30 @@ public class DevCards {
 	/**
 	 * Removes a card of a specific type from this group
 	 * @param type the type of development card to remove
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void removeCard(DevCardType type) {
+	public void removeCard(DevCardType type) throws InsufficientCardNumberException {
 		switch(type){
 			case MONOPOLY:
+				if(getMonopolyCards() == 0){throw new InsufficientCardNumberException();}
 				this.monopolyCards--;
 				break;
 			case MONUMENT:
+				if(getMonumentCards() == 0){throw new InsufficientCardNumberException();}
 				this.monumentCards--;
 				break;
 			case ROAD_BUILD:
+				if(getRoadBuilderCards() == 0){throw new InsufficientCardNumberException();}
 				this.roadBuilderCards--;
 				break;
 			case SOLDIER:
+				if(getSoldierCards() == 0){throw new InsufficientCardNumberException();}
 				this.soldierCards--;
 				break;
 			case YEAR_OF_PLENTY:
+				if(getYearOfPlentyCards() == 0){throw new InsufficientCardNumberException();}
 				this.yearOfPlentyCards--;
 				break;
 		}
 	}
-
 }

@@ -4,6 +4,7 @@ import shared.definitions.DevCardType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.DevCards;
+import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.cardClasses.ResourceCards;
 
 public class Player {
@@ -128,8 +129,9 @@ public class Player {
 	/**
 	 * Deducts resources from this player
 	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void buyRoad(int playerID) {
+	public void buyRoad(int playerID) throws InsufficientCardNumberException {
 		resourceCards.removeCard(ResourceType.WOOD, 1);
 		resourceCards.removeCard(ResourceType.BRICK, 1);
 	}
@@ -137,8 +139,9 @@ public class Player {
 	/**
 	 * Deducts resources from this player
 	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void buySettlement(int playerID) {
+	public void buySettlement(int playerID) throws InsufficientCardNumberException {
 		resourceCards.removeCard(ResourceType.WHEAT, 1);
 		resourceCards.removeCard(ResourceType.WOOD, 1);
 		resourceCards.removeCard(ResourceType.SHEEP, 1);
@@ -148,8 +151,9 @@ public class Player {
 	/**
 	 * Deducts resources from this player
 	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void buyCity(int playerID) {
+	public void buyCity(int playerID) throws InsufficientCardNumberException {
 		resourceCards.removeCard(ResourceType.ORE, 3);
 		resourceCards.removeCard(ResourceType.WHEAT, 2);
 	}
@@ -157,8 +161,9 @@ public class Player {
 	/**
 	 * Deducts resources from this player
 	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void buyDevCard(int playerID) {
+	public void buyDevCard(int playerID) throws InsufficientCardNumberException {
 		resourceCards.removeCard(ResourceType.WHEAT, 1);
 		resourceCards.removeCard(ResourceType.ORE, 1);
 		resourceCards.removeCard(ResourceType.SHEEP, 1);
@@ -167,8 +172,9 @@ public class Player {
 	/**
 	 * Exchange four of this player's resources for
 	 * one of another.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void tradeFour(int playerID, ResourceType tradeIn, ResourceType tradeOut) {
+	public void tradeFour(int playerID, ResourceType tradeIn, ResourceType tradeOut) throws InsufficientCardNumberException {
 		resourceCards.removeCard(tradeIn, 4);
 		resourceCards.addCard(tradeOut, 1);
 	}
@@ -176,21 +182,23 @@ public class Player {
 	/**
 	 * Trade this player's resources using a harbor
 	 * he/she has built on.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void tradeTwoWithPort(int playerID, ResourceType portType, ResourceType returnType) {
+	public void tradeTwoWithPort(int playerID, ResourceType portType, ResourceType returnType) throws InsufficientCardNumberException {
 		resourceCards.removeCard(portType, 2);
 		resourceCards.addCard(returnType, 1);		
 	}
 	
-	public void tradeThreeWithPort(int playerID, ResourceType portType, ResourceType returnType) {
+	public void tradeThreeWithPort(int playerID, ResourceType portType, ResourceType returnType) throws InsufficientCardNumberException {
 		resourceCards.removeCard(portType, 3);
 		resourceCards.addCard(returnType, 1);		
 	}
 	
 	/**
 	 * Subtract a specified development card from this player
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void playDevCard(int playerID, DevCardType type) {
+	public void playDevCard(int playerID, DevCardType type) throws InsufficientCardNumberException {
 		devCards.removeCard(type);
 	}
 	
