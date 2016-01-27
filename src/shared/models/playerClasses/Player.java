@@ -1,5 +1,8 @@
 package shared.models.playerClasses;
 
+import shared.definitions.DevCardType;
+import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 import shared.models.cardClasses.DevCards;
 import shared.models.cardClasses.ResourceCards;
 
@@ -46,8 +49,12 @@ public class Player {
 	 * otherwise, returns false;
 	 */
 	public boolean isTurn(int playerID) {
-		/* Check if it's the player's turn */
-		return true;
+		return this.isTurn;
+	}
+	
+	/**Set isTurn to true*/
+	public void startTurn() {
+		this.isTurn = true;
 	}
 	
 	/**
@@ -56,7 +63,7 @@ public class Player {
 	 * they can't
 	 */
 	public boolean canRollDice(int playerID) {
-		return true;
+		return this.isTurn;
 	}
 	
 	/**
@@ -66,7 +73,11 @@ public class Player {
 	 * they can't.
 	 */
 	public boolean canBuildRoad(int playerID) {
-		return true;
+		if(this.isTurn && resourceCards.getBrickCards() >= 1
+				&& resourceCards.getWoodCards() >= 1) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -76,7 +87,13 @@ public class Player {
 	 * they can't.
 	 */
 	public boolean canBuildSettlement(int playerID) {
-		return true;
+		if(this.isTurn && resourceCards.getBrickCards() >= 1
+				&& resourceCards.getSheepCards() >= 1
+				&& resourceCards.getWoodCards() >= 1
+				&& resourceCards.getWheatCards() >= 1) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -86,7 +103,11 @@ public class Player {
 	 * they can't.
 	 */
 	public boolean canBuildCity(int playerID) {
-		return true;
+		if(this.isTurn && resourceCards.getOreCards() >= 3
+				&& resourceCards.getWheatCards() >= 2) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -96,7 +117,12 @@ public class Player {
 	 * they can't.
 	 */
 	public boolean canBuyDevCard(int playerID) {
-		return true;
+		if(this.isTurn && resourceCards.getOreCards() >= 1
+				&& resourceCards.getSheepCards() >= 1
+				&& resourceCards.getWheatCards() >= 1) {
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -104,7 +130,8 @@ public class Player {
 	 * in order to buy a development card.
 	 */
 	public void buyRoad(int playerID) {
-		
+		resourceCards.removeCard(ResourceType.WOOD, 1);
+		resourceCards.removeCard(ResourceType.BRICK, 1);
 	}
 	
 	/**
@@ -112,7 +139,10 @@ public class Player {
 	 * in order to buy a development card.
 	 */
 	public void buySettlement(int playerID) {
-		
+		resourceCards.removeCard(ResourceType.WHEAT, 1);
+		resourceCards.removeCard(ResourceType.WOOD, 1);
+		resourceCards.removeCard(ResourceType.SHEEP, 1);
+		resourceCards.removeCard(ResourceType.BRICK, 1);
 	}
 	
 	/**
@@ -120,7 +150,8 @@ public class Player {
 	 * in order to buy a development card.
 	 */
 	public void buyCity(int playerID) {
-		
+		resourceCards.removeCard(ResourceType.ORE, 3);
+		resourceCards.removeCard(ResourceType.WHEAT, 2);
 	}
 	
 	/**
@@ -128,51 +159,53 @@ public class Player {
 	 * in order to buy a development card.
 	 */
 	public void buyDevCard(int playerID) {
-		
+		resourceCards.removeCard(ResourceType.WHEAT, 1);
+		resourceCards.removeCard(ResourceType.ORE, 1);
+		resourceCards.removeCard(ResourceType.SHEEP, 1);
 	}
 	
 	/**
 	 * Exchange four of this player's resources for
 	 * one of another.
 	 */
-	public void tradeFour(int playerID) {
-		
+	public void tradeFour(int playerID, ResourceType tradeIn, ResourceType tradeOut) {
+		resourceCards.removeCard(tradeIn, 4);
+		resourceCards.addCard(tradeOut, 1);
 	}
 	
 	/**
 	 * Trade this player's resources using a harbor
 	 * he/she has built on.
 	 */
-	public void tradeHarbor(int playerID) {
-		
+	public void tradeTwoWithPort(int playerID, ResourceType portType, ResourceType returnType) {
+		resourceCards.removeCard(portType, 2);
+		resourceCards.addCard(returnType, 1);		
+	}
+	
+	public void tradeThreeWithPort(int playerID, ResourceType portType, ResourceType returnType) {
+		resourceCards.removeCard(portType, 3);
+		resourceCards.addCard(returnType, 1);		
 	}
 	
 	/**
-	 * Subtract a soldier card from this player
+	 * Subtract a specified development card from this player
 	 */
-	public void playSoldierCard(int playerID) {}
+	public void playDevCard(int playerID, DevCardType type) {
+		devCards.removeCard(type);
+	}
 	
 	/**
-	 * Subtract a road builder card from this player
+	 * Subtract a specified development card from this player
 	 */
-	public void playRoadBuilderCard(int playerID) {}
-	
-	/**
-	 * Subtract a monopoly card from this player
-	 */
-	public void playMonopolyCard(int playerID) {}
-	
-	/**
-	 * Subtract a year of plenty card from this player
-	 */
-	public void playYearOfPlentyCard(int playerID) {}
-	
+	public void drawDevCard(int playerID, DevCardType type) {
+		devCards.addCard(type);
+	}
 	
 	/**
 	 * Set isTurn to false
 	 */
 	public void finishTurn(int playerID) {
-		
+		this.isTurn = false;
 	}
 
 }

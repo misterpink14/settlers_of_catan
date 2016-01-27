@@ -50,22 +50,22 @@ public class ResourceCards {
 	 * Adds a card of a specific type to this group
 	 * @param type the type of resource card to add
 	 */
-	public void addCard(ResourceType type) {
+	public void addCard(ResourceType type, int num) {
 		switch(type){
 			case BRICK:
-				this.brickCards++;
+				this.brickCards += num;
 				break;
 			case ORE:
-				this.oreCards++;
+				this.oreCards += num;
 				break;
 			case SHEEP:
-				this.sheepCards++;
+				this.sheepCards += num;
 				break;
 			case WHEAT:
-				this.wheatCards++;
+				this.wheatCards += num;
 				break;
 			case WOOD:
-				this.woodCards++;
+				this.woodCards += num;
 				break;
 		}
 	}
@@ -74,23 +74,23 @@ public class ResourceCards {
 	 * Removes a card of a specific type from this group
 	 * @param type the type of resource card to remove
 	 */
-	public void removeCard(ResourceType type) 
+	public void removeCard(ResourceType type, int num) 
 	{
 		switch(type){
 			case BRICK:
-				this.brickCards--;
+				this.brickCards -= num;
 				break;
 			case ORE:
-				this.oreCards--;
+				this.oreCards -= num;
 				break;
 			case SHEEP:
-				this.sheepCards--;
+				this.sheepCards -= num;
 				break;
 			case WHEAT:
-				this.wheatCards--;
+				this.wheatCards -= num;
 				break;
 			case WOOD:
-				this.woodCards--;
+				this.woodCards -= num;
 				break;
 		}
 	}

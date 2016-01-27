@@ -1,5 +1,7 @@
 package shared.models;
 
+import java.util.Random;
+
 public class Dice {
 
 /**
@@ -12,7 +14,8 @@ public class Dice {
 	 * @return the sum of two random numbers between 1 and 6
 	 */
 	public int rollDice() {
-		return 0;
+		Random rand = new Random(System.currentTimeMillis());
+		return rand.nextInt(6) + 1;
 	}
 
 }
