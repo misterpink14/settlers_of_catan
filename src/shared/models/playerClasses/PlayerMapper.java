@@ -1,5 +1,7 @@
 package shared.models.playerClasses;
 
+import shared.models.MapperException;
+
 public class PlayerMapper {
 
 	/**
@@ -11,8 +13,10 @@ public class PlayerMapper {
 	 * Uses json to build new classes to replace the current model
 	 * @param json json object containing information to build new classes in the model
 	 * @exception mapperException if the deserialization process goes wrong
+	 * @throws MapperException
 	 */
-	public static void deserialize(String json) {
+	public static void deserialize(String json) throws MapperException
+	{
 		
 	}
 

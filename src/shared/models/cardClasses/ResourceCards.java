@@ -74,7 +74,8 @@ public class ResourceCards {
 	 * Removes a card of a specific type from this group
 	 * @param type the type of resource card to remove
 	 */
-	public void removeCard(ResourceType type) {
+	public void removeCard(ResourceType type) 
+	{
 		switch(type){
 			case BRICK:
 				this.brickCards--;
