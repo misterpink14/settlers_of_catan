@@ -38,7 +38,7 @@ public class EdgeMap {
 	 * @param loc
 	 * @return
 	 */
-	public Piece getEdge(EdgeLocation loc)
+	public Piece getEdge(EdgeLocation loc) throws IndexOutOfBoundsException
 	{
 		return Edges.get(loc);
 	}

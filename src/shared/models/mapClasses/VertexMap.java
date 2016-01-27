@@ -18,8 +18,9 @@ public class VertexMap
 	 * 
 	 * @param loc
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public boolean isSettled(VertexLocation loc)
+	public boolean isSettled(VertexLocation loc) throws IndexOutOfBoundsException
 	{
 		return true;
 	}
@@ -30,8 +31,9 @@ public class VertexMap
 	 * 
 	 * @param loc
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public boolean isSettlement(VertexLocation loc)
+	public boolean isSettlement(VertexLocation loc) throws IndexOutOfBoundsException
 	{
 		return true;
 	}
@@ -42,8 +44,9 @@ public class VertexMap
 	 * 
 	 * @param loc
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public boolean isCity(VertexLocation loc)
+	public boolean isCity(VertexLocation loc) throws IndexOutOfBoundsException
 	{
 		return true;
 	}
@@ -54,8 +57,9 @@ public class VertexMap
 	 * 
 	 * @param loc
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public Piece getPiece(VertexLocation loc)
+	public Piece getPiece(VertexLocation loc) throws IndexOutOfBoundsException
 	{
 		return Vertexes.get(loc);
 	}
@@ -66,8 +70,9 @@ public class VertexMap
 	 * 
 	 * @param loc
 	 * @param p
+	 * @throws IndexOutOfBoundsException
 	 */
-	public void setVertex(VertexLocation loc, Piece p)
+	public void setVertex(VertexLocation loc, Piece p) throws IndexOutOfBoundsException
 	{
 		
 	}

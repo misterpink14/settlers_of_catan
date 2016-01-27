@@ -19,8 +19,9 @@ public class HexMap
 	 * 
 	 * @param loc
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public Hex getHex(HexLocation loc)
+	public Hex getHex(HexLocation loc) throws IndexOutOfBoundsException
 	{
 		return Hexes.get(loc);
 	}
@@ -31,8 +32,9 @@ public class HexMap
 	 * 
 	 * @param loc
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public void setHex()
+	public void setHex(HexLocation loc, Hex hex)
 	{
 
 	}
@@ -43,8 +45,9 @@ public class HexMap
 	 * 
 	 * @param loc
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public HexType getHexType(HexLocation loc)
+	public HexType getHexType(HexLocation loc) throws IndexOutOfBoundsException
 	{
 		return Hexes.get(loc).getType();
 	}

@@ -62,19 +62,11 @@ public class Map
 	 * Gets a Hex piece at a given location
 	 * 
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public Hex getHex(HexLocation loc)
+	public Hex getHex(HexLocation loc) throws IndexOutOfBoundsException
 	{
 		return Hexes.getHex(loc);
-	}
-	
-	
-	/**
-	 * Create a new game board, using all 34 Hex pieces, the robber is placed on the desert as well.
-	 */
-	private void generateMap(String json) 
-	{
-		
 	}
 	
 
@@ -82,8 +74,9 @@ public class Map
 	 * Places a robber to a given HexLocation
 	 * 
 	 * @param location
+	 * @throws IndexOutOfBoundsException
 	 */
-	public void placeRobber(HexLocation location)
+	public void placeRobber(HexLocation location) throws IndexOutOfBoundsException
 	{
 		
 	}
@@ -93,8 +86,9 @@ public class Map
 	 * Places a road at a given EdgeLocation
 	 * 
 	 * @param location
+	 * @throws IndexOutOfBoundsException
 	 */
-	public void placeRoad(EdgeLocation location)
+	public void placeRoad(EdgeLocation location) throws IndexOutOfBoundsException
 	{
 		
 	}
@@ -104,8 +98,9 @@ public class Map
 	 * Places a settlement at a given EdgeLocation
 	 * 
 	 * @param location
+	 * @throws IndexOutOfBoundsException
 	 */
-	public void placeSettlement(VertexLocation location) 
+	public void placeSettlement(VertexLocation location) throws IndexOutOfBoundsException
 	{
 		
 	}
@@ -115,8 +110,9 @@ public class Map
 	 * Places a city at a given EdgeLocation
 	 * 
 	 * @param location
+	 * @throws IndexOutOfBoundsException
 	 */
-	public void placeCity(VertexLocation location)
+	public void placeCity(VertexLocation location) throws IndexOutOfBoundsException
 	{
 		
 	}
@@ -128,9 +124,9 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public void canPlaceRobber(HexLocation location)
+	public boolean canPlaceRobber(HexLocation location)
 	{
-		
+		return true;
 	}
 	
 	
@@ -140,9 +136,9 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public void canPlaceRoad(EdgeLocation location)
+	public boolean canPlaceRoad(EdgeLocation location)
 	{
-		
+		return true;
 	}
 	
 	
@@ -152,9 +148,9 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public void canPlaceSettlement(VertexLocation location) 
+	public boolean canPlaceSettlement(VertexLocation location) 
 	{
-		
+		return true;
 	}
 	
 	
@@ -164,9 +160,9 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public void canPlaceCity(VertexLocation location)
+	public boolean canPlaceCity(VertexLocation location)
 	{
-		
+		return true;
 	}
 	
 	
@@ -175,8 +171,9 @@ public class Map
 	 * 
 	 * @param location
 	 * @return
+	 * @throws IndexOutOfBoundsException
 	 */
-	public ResourceType getResourceType(HexLocation location)
+	public ResourceType getResourceType(HexLocation location) throws IndexOutOfBoundsException
 	{
 		return ResourceType.WHEAT;
 	}
