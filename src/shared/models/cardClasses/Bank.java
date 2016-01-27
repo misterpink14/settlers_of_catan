@@ -1,5 +1,7 @@
 package shared.models.cardClasses;
 
+import shared.definitions.ResourceType;
+
 public class Bank 
 {	
 	/**The container for the resource cards in the bank*/
@@ -11,73 +13,17 @@ public class Bank
 	public Bank() {}
 	
 	/**
-	 * Subtracts a wood card from the bank to give to a player
+	 * Subtracts cards from the bank to give to a player
 	 */
-	public void takeWoodCard() {
-		
+	public void takeResourceCards(ResourceType type, int num) {
+		resourceCards.removeCard(type, num);
 	}
 	
 	/**
-	 * Adds a wood card to the bank when a player has used it
+	 * Adds cards to the bank from a player's hand
 	 */
-	public void returnWoodCard() {
-		
-	}
-	
-	/**
-	 * Subtracts a brick card from the bank to give to a player
-	 */
-	public void takeBrickCard() {
-		
-	}
-	
-	/**
-	 * Adds a brick card to the bank when a player has used it
-	 */
-	public void returnBrickCard() {
-		
-	}
-	
-	/**
-	 * Subtracts a sheep card from the bank to give to a player
-	 */
-	public void takeSheepCard() {
-		
-	}
-	
-	/**
-	 * Adds a sheep card to the bank when a player has used it
-	 */
-	public void returnSheepCard() {
-		
-	}
-	
-	/**
-	 * Subtracts a wheat card from the bank to give to a player
-	 */
-	public void takeWheatCard() {
-		
-	}
-	
-	/**
-	 * Adds a wheat card to the bank when a player has used it
-	 */
-	public void returnWheatCard() {
-		
-	}
-	
-	/**
-	 * Subtracts a ore card from the bank to give to a player
-	 */
-	public void takeOreCard() {
-		
-	}
-	
-	/**
-	 * Adds a ore card to the bank when a player has used it
-	 */
-	public void returnOreCard() {
-		
+	public void AddResourceCards(ResourceType type, int num) {
+		resourceCards.addCard(type, num);
 	}
 
 }
