@@ -5,7 +5,7 @@ import shared.definitions.ResourceType;
 public class Bank 
 {	
 	/**The container for the resource cards in the bank*/
-	ResourceCards resourceCards = new ResourceCards(19,19,19,19,19);
+	private ResourceCards resourceCards = new ResourceCards(19,19,19,19,19);
 
 	/**
 	 * The Bank keeps track of how many resource cards are without owners.

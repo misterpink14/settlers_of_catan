@@ -12,14 +12,6 @@ public class DevCardsTest {
 	
 	DevCards devCards = new DevCards(14, 2, 2, 2, 5);
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void ConstructorTest() {
 		//This checks the total counts on all the types of development cards after the group of dev cards is first created.

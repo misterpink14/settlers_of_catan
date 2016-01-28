@@ -12,14 +12,6 @@ public class CardDeckTest {
 	
 	CardDeck deck = new CardDeck();
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void drawCardTest() {
 		//This test will be different every time due to the randomness of the deck.
