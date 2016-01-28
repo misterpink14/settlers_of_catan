@@ -13,7 +13,7 @@ public class Dice {
 	 * rolls two dice
 	 * @return the sum of two random numbers between 1 and 6
 	 */
-	public int rollDice() {
+	public static int rollDice() {
 		Random rand = new Random(System.currentTimeMillis());
 		return rand.nextInt(6) + 1;
 	}

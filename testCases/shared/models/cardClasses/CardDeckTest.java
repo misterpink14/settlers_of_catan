@@ -22,7 +22,16 @@ public class CardDeckTest {
 
 	@Test
 	public void drawCardTest() {
-		DevCardType card = deck.drawCard();
+		//This test will be different every time due to the randomness of the deck.
+		//There may be a better way to do it, but for now it makes a deck of cards,
+		//shuffles it, then removes the top card and makes sure that card is 
+		//deducted from the total count of that type of card.
+		DevCardType card = null;
+		try {
+			card = deck.drawCard();
+		} catch (InsufficientCardNumberException e) {
+			e.printStackTrace();
+		}
 		switch (card) {
 		case MONOPOLY:
 			assertTrue(deck.devCards.monopolyCards == 1);

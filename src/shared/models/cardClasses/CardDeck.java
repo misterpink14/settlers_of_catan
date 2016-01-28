@@ -4,14 +4,16 @@ import shared.definitions.DevCardType;
 
 public class CardDeck {
 	
-	/**The container that holds the development cards in the deck*/
+	/**This holds the number of each type of card left in the deck */
 	DevCards devCards = new DevCards(14,2,2,2,5);
-	
+	/**This holds representations of cards that can be shuffled randomly, then drawn one at a time.*/
 	DevCardType[] deck = new DevCardType[25];
 	
 	private int cardsInDeck = 25;
 
+	/**The container that holds the development cards in the deck*/
 	public CardDeck() {
+		//adds the right number of cards to the deck representation.
 		int i = 0;
 		while(i < 14) {
 			deck[i] = DevCardType.SOLDIER;
@@ -36,7 +38,7 @@ public class CardDeck {
 		shuffle();
 	}
 
-	/** Gives the next card in the deck.
+	/** Gives the next card in the deck. The devCard object will subtract one from the type drawn.
 	 * 
 	 * @return the type of the card drawn
 	 * @throws InsufficientCardNumberException 
@@ -50,8 +52,7 @@ public class CardDeck {
 	}
 	
 	 /**
-     * Put all the used cards back into the deck (if any), and
-     * shuffle the deck into a random order.
+     * Shuffles the deck. This will only happen in the constructor. There is no other time the deck needs to be shuffled.
      */
     public void shuffle() {
         for ( int i = deck.length-1; i > 0; i-- ) {
