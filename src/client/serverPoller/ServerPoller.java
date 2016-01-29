@@ -12,6 +12,7 @@ public class ServerPoller
 	ProxyInterface ServerProxy;
 	
 	Game GameModel;
+	int versionID;
 	
 	/**Timer for updating the Model*/
 	Timer UpdateTimer;
@@ -30,6 +31,7 @@ public class ServerPoller
 	{
 		this.GameModel = gameModel;
 		this.ServerProxy = clientProxy;
+		versionID = gameModel.versionID();
 		UpdateTimer = new Timer(speed, this.listener);
 		UpdateTimer.start();
 	}
@@ -56,8 +58,8 @@ public class ServerPoller
 		private void updateModel()
 		{
 			// Use the game model's version ID to get the most
-			// receont model from the server.
-			ServerProxy.getGameModel(GameModel.versionID());
+			// recent model from the server.
+			String updatedModelJSON = ServerProxy.getGameModel(versionID);
 		}
 		
 	}
