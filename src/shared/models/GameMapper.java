@@ -3,6 +3,7 @@ package shared.models;
 import shared.models.cardClasses.CardMapper;
 import shared.models.chatClasses.ChatMapper;
 import shared.models.logClasses.LogMapper;
+import shared.models.mapClasses.Map;
 import shared.models.mapClasses.MapMapper;
 import shared.models.playerClasses.PlayerMapper;
 import shared.models.tradeClasses.TradeMapper;

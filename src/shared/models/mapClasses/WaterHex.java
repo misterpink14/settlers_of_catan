@@ -13,14 +13,10 @@ public class WaterHex extends Hex
 {
 	PortType Port = null;
 	
-	public WaterHex(HexType type) 
-	{
-		super(type);
-	}
-
 	
+// CONSTRUCTOR
 	/**
-	 * Constructor
+	 * Constructor. Pass in null for no port.
 	 * 
 	 * @param type
 	 * @param port
@@ -32,17 +28,8 @@ public class WaterHex extends Hex
 	}
 	
 	
-	/**
-	 * Checks if this Water Hex is a Port or not
-	 * 
-	 * @return
-	 */
-	public boolean isPort()
-	{
-		return Port != null;
-	}
 	
-	
+// GETTER
 	/**
 	 * Returns the Port Type of the Water Hex
 	 * 
@@ -51,6 +38,18 @@ public class WaterHex extends Hex
 	public PortType getPortType() 
 	{
 		return this.Port;
+	}
+	
+	
+// PUBLIC METHOD
+	/**
+	 * Checks if this Water Hex is a Port or not
+	 * 
+	 * @return
+	 */
+	public boolean isPort()
+	{
+		return Port != null;
 	}
 
 }

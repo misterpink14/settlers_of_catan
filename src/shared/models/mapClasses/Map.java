@@ -52,12 +52,11 @@ public class Map
 	/**
 	 * Constructor generates a new map. Requires a String to be validated/parsed
 	 */
-	public Map(String json) 
+	public Map() 
 	{
-		this.generateMap(json);
 	}
-	
-	
+
+
 	/**
 	 * Gets a Hex piece at a given location
 	 * 

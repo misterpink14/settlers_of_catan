@@ -13,9 +13,10 @@ public abstract class Hex
 {
 	/**The Hex's type*/
 	private HexType Type;
-	
 
 	
+
+// CONSTRUCTOR
 	/**
 	 * This class is a representation of a hex piece on the settlers of catan map. 
 	 *  It is one of 34.
@@ -28,12 +29,14 @@ public abstract class Hex
 	}
 	
 	
+
+// GETTER
 	/**
 	 * Get the HexType of the Hex
 	 * 
 	 * @return
 	 */
-	public HexType getType() 
+	public HexType getHexType() 
 	{
 		return this.Type;
 	}

@@ -49,7 +49,7 @@ public class HexMap
 	 */
 	public HexType getHexType(HexLocation loc) throws IndexOutOfBoundsException
 	{
-		return Hexes.get(loc).getType();
+		return Hexes.get(loc).getHexType();
 	}
 
 }
