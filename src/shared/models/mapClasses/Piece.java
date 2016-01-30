@@ -18,6 +18,7 @@ public class Piece
 	public Piece(PieceType type)
 	{
 		this.Type = type;
+		this.OwnerIndex = -1;
 	}
 	
 	

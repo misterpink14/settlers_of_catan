@@ -27,7 +27,7 @@ public class TerrainHex extends Hex
 		super(type);
 		if (type == HexType.WATER)
 		{
-			throw new InvalidHexTypeException();
+			throw new InvalidTypeException();
 		}
 		if (token < 2 || token > 12)
 		{
