@@ -50,14 +50,12 @@ public class ServerPoller
 		}
 
 		/**
-		 * Calls the ServerProxy and updates the GameModel with given JSON
+		 * Calls the ClientProxy and updates the GameModel with given JSON
 		 * 
 		 */
 		private void updateModel()
 		{
-			// Use the game model's version ID to get the most
-			// receont model from the server.
-			ServerProxy.getGameModel(GameModel.versionID());
+			
 		}
 		
 	}
