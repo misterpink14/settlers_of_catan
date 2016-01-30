@@ -35,8 +35,6 @@ public class Game
 	TradeManager tradeManager;
 	/**The turn tracker manages trades between players*/
 	TurnTracker turnTracker;
-	/**Each game has a version ID so the server knows which JSON to return.*/
-	int versionID;
 	
 	
 	
@@ -147,12 +145,5 @@ public class Game
 	 */
 	public boolean isTurn(int playerIndex) {
 		return turnTracker.isTheirTurn(playerIndex);
-	}
-	
-	/**
-	 * Returns the version ID so the poller and proxy can request the correct model JSON.
-	 */
-	public int versionID() {
-		return versionID;
 	}
 }
