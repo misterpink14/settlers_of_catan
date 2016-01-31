@@ -4,6 +4,8 @@ import javax.swing.Timer;
 
 import client.serverProxy.ProxyInterface;
 import shared.models.Game;
+import shared.models.GameMapper;
+import shared.models.MapperException;
 
 import java.awt.event.*;
 
@@ -58,10 +60,15 @@ public class ServerPoller
 		 */
 		private void updateModel()
 		{
-			
-			// Use the game model's version ID to get the most
-			// receont model from the server.
-			ServerProxy.getGameModel(GameModel.versionID());
+			try {
+				// Use the game model's version ID to get the most
+				// recent model from the server.
+				String gameModelJson;
+				gameModelJson = ServerProxy.getGameModel(GameModel.versionID());
+				GameMapper.deserialize(gameModelJson);
+			} catch (MapperException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
