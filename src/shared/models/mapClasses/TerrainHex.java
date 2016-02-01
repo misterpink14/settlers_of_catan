@@ -21,8 +21,9 @@ public class TerrainHex extends Hex
 	 * @param token
 	 * @throws InvalidHexTypeException
 	 * @throws InvalidTokenException 
+	 * @throws InvalidTypeException 
 	 */
-	public TerrainHex(HexType type, int token) throws InvalidHexTypeException, InvalidTokenException
+	public TerrainHex(HexType type, int token) throws InvalidTokenException, InvalidTypeException
 	{
 		super(type);
 		if (type == HexType.WATER)
