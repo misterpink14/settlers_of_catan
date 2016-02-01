@@ -1,7 +1,10 @@
 package shared.models;
 
+import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
+import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
@@ -38,9 +41,16 @@ public class Game
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
-	
-	
-	public Game() {}
+	public Game(String json) {
+		map = new Map();
+		bank = new Bank();
+		cardDeck = new CardDeck();
+		players = new GamePlayers();
+		log = new GameLog();
+		chat = new GameChat();
+		tradeManager = new TradeManager(players);
+		turnTracker = new TurnTracker(players);
+	}
 	
 	/**
 	 * Takes in a json summary of a game and changes itself to match the specified game
@@ -54,7 +64,7 @@ public class Game
 	 */
 	public int rollDice(int playerID) {
 		if (players.canRollDice(playerID)) {
-			return dice.rollDice();
+			return Dice.rollDice();
 		}
 		else{
 			return 0;
@@ -64,40 +74,44 @@ public class Game
 	/**
 	 * Trades a player's resources for a new road on the map. It must connect with another of the player's
 	 * roads, settlements, or cities.
+	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildRoad(int playerID) {
+	public void buildRoad(int playerID) throws InsufficientCardNumberException {
 		if(players.canBuildRoad(playerID)) {
-			
+			players.buyRoad(playerID);
 		}
 	}
 	
 	/**
 	 * Trades a player's resources for a new settlement on the map. The player must have a road leading to the spot wanted.
 	 * The selected place to build must also be at least two building spots away from any other settlement.
+	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildSettlement(int playerID) {
+	public void buildSettlement(int playerID) throws InsufficientCardNumberException {
 		if(players.canBuildSettlement(playerID)) {
-			players.canBuildSettlement(playerID);
+			players.buySettlement(playerID);
 		}
 	}
 	
 	/**
 	 * Trades a player's resources for a new city on the map. The player must build it in place of an existing settlement.
+	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildCity(int playerID) {
+	public void buildCity(int playerID) throws InsufficientCardNumberException {
 		if(players.canBuildCity(playerID)) {
-			players.canBuildCity(playerID);
+			players.buyCity(playerID);
 		}
 	}
 	
 	/**
 	 * Trades a player's resources for a development card
+	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buyDevelopmentCard(int playerID) {
+	public void buyDevelopmentCard(int playerID) throws InsufficientCardNumberException {
 		if(players.canBuyDevCard(playerID)) {
 			players.buyDevCard(playerID);
 		}
@@ -105,48 +119,46 @@ public class Game
 	
 	/**
 	 * Allows a player to move the robber in exchange for a Soldier Card
+	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void playSoldierCard(int playerID) {
-		players.playSoldierCard(playerID);
+	public void playDevCard(int playerID, DevCardType type) throws InsufficientCardNumberException {
+		players.playDevCard(playerID, type);
 	}
 	
 	/**
-	 * Allows a player to build two roads in exchange for a Road Builder Card
-	 * @exception invalidPlayerID if the player id does not match an existing player.
+	 * Allows a player to trade int resources with the bank. If the player has built on a port, benefits may apply.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void playRoadBuilderCard(int playerID) {
-		players.playRoadBuilderCard(playerID);
-	}
-	
-	/**
-	 * Allows a player to take all owned cards of a specified resource in exchange for a Monopoly Card
-	 * @exception invalidPlayerID if the player id does not match an existing player.
-	 */
-	public void playMonopolyCard(int playerID) {
-		players.playMonopolyCard(playerID);
-	}
-	
-	/**
-	 * Allows a player to choose two resources to be added to it's hand in exchange for a Year Of Plenty Card
-	 * @exception invalidPlayerID if the player id does not match an existing player.
-	 */
-	public void playYearOfPlentyCard(int playerID) {
-		players.playYearOfPlentyCard(playerID);
+	public void tradeResourcesWithBank(int playerID, int numberToTrade, ResourceType tradeIn, ResourceType tradeOut) throws InsufficientCardNumberException {
+		switch(numberToTrade){
+		case 4:
+			players.tradeFour(playerID, tradeIn, tradeOut);
+			break;
+		case 3:
+			players.tradeThreeWithPort(playerID, tradeIn, tradeOut);
+			break;
+		case 2:
+			players.tradeTwoWithPort(playerID, tradeIn, tradeOut);
+			break;
+		}
 	}
 	
 	/**
 	 * Allows a player to offer an exchange of resources to one or more other players
+	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void offerATrade(int playerID){}
+	public void offerATrade(int playerID, ResourceType tradeIn, int numberIn, ResourceType tradeOut, int numberOut) throws InsufficientCardNumberException{
+		
+	}
 	
 	/**
 	 * Check the TurnTracker to see if it is the user's turn at the given index
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public boolean isTurn(int playerIndex) {
-		return turnTracker.isTheirTurn(playerIndex);
+	public boolean isTurn(int playerID) {
+		return players.isTurn(playerID);
 	}
 	
 	/**

@@ -54,6 +54,16 @@ public class DevCardsTest {
 		assertTrue(devCards.getRoadBuilderCards() == 1);
 		assertTrue(devCards.getYearOfPlentyCards() == 1);
 		assertTrue(devCards.getMonumentCards() == 4);
+		
+		boolean failed = false;
+		try {
+			devCards.removeCard(DevCardType.MONOPOLY);
+			devCards.removeCard(DevCardType.MONOPOLY);
+		} catch (InsufficientCardNumberException e) {
+			failed = true;
+			e.printStackTrace();
+		}
+		assertTrue(failed);
 	}
 
 }
