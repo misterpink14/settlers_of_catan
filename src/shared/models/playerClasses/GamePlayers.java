@@ -70,6 +70,23 @@ public class GamePlayers {
 	}
 	
 	/**
+	 * Adds resources to a player's resourceCards object
+	 * @param playerID the id of the player to add resources to
+	 * @param type the type of resource to add.
+	 * @param num the number to add.
+	 */
+	public void addResourceToHand(int playerID, ResourceType type, int num) {
+		players.get(playerID).addResourceToHand(type, num);
+	}
+	
+	/**
+	 *Add a specified development card from this player
+	 */
+	public void drawDevCard(int playerID, DevCardType type) {
+		players.get(playerID).drawDevCard(type);
+	}
+	
+	/**
 	 * Checks to see if a specified player can
 	 * build a road at the specified location.
 	 * @return returns true if they can, false if
