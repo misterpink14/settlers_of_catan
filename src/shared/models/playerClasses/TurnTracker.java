@@ -4,13 +4,15 @@ public class TurnTracker {
 	/**The index of the player whose turn it is currently*/
 	private int currentPlayerTurn;
 	  
-	public TurnTracker(String json) {}
+	public TurnTracker(String json) {
+		
+	}
 	  
 	/**
 	 * @return whether it's their turn or not
 	 */
-	public Boolean isTheirTurn(int playerIndex) {
-		return playerIndex == currentPlayerTurn;
+	public Boolean isTheirTurn(int playerID) {
+		return true;
 	}
 	  	
   	/** Get the player who is currently taking their turn

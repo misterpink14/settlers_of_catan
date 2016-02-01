@@ -79,23 +79,23 @@ public class ResourceCards {
 	{
 		switch(type){
 			case BRICK:
-				if(getBrickCards() == 0){throw new InsufficientCardNumberException();}
+				if(getBrickCards() < num){throw new InsufficientCardNumberException();}
 				this.brickCards -= num;
 				break;
 			case ORE:
-				if(getOreCards() == 0){throw new InsufficientCardNumberException();}
+				if(getOreCards() < num){throw new InsufficientCardNumberException();}
 				this.oreCards -= num;
 				break;
 			case SHEEP:
-				if(getSheepCards() == 0){throw new InsufficientCardNumberException();}
+				if(getSheepCards() < num){throw new InsufficientCardNumberException();}
 				this.sheepCards -= num;
 				break;
 			case WHEAT:
-				if(getWheatCards() == 0){throw new InsufficientCardNumberException();}
+				if(getWheatCards() < num){throw new InsufficientCardNumberException();}
 				this.wheatCards -= num;
 				break;
 			case WOOD:
-				if(getWoodCards() == 0){throw new InsufficientCardNumberException();}
+				if(getWoodCards() < num){throw new InsufficientCardNumberException();}
 				this.woodCards -= num;
 				break;
 		}

@@ -1,7 +1,9 @@
 package shared.models;
 
+import shared.definitions.DevCardType;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
+import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
@@ -38,8 +40,6 @@ public class Game
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
-	
-	
 	public Game() {}
 	
 	/**
@@ -54,7 +54,7 @@ public class Game
 	 */
 	public int rollDice(int playerID) {
 		if (players.canRollDice(playerID)) {
-			return dice.rollDice();
+			return Dice.rollDice();
 		}
 		else{
 			return 0;
@@ -95,9 +95,10 @@ public class Game
 	
 	/**
 	 * Trades a player's resources for a development card
+	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buyDevelopmentCard(int playerID) {
+	public void buyDevelopmentCard(int playerID) throws InsufficientCardNumberException {
 		if(players.canBuyDevCard(playerID)) {
 			players.buyDevCard(playerID);
 		}
@@ -105,34 +106,11 @@ public class Game
 	
 	/**
 	 * Allows a player to move the robber in exchange for a Soldier Card
+	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void playSoldierCard(int playerID) {
-		players.playSoldierCard(playerID);
-	}
-	
-	/**
-	 * Allows a player to build two roads in exchange for a Road Builder Card
-	 * @exception invalidPlayerID if the player id does not match an existing player.
-	 */
-	public void playRoadBuilderCard(int playerID) {
-		players.playRoadBuilderCard(playerID);
-	}
-	
-	/**
-	 * Allows a player to take all owned cards of a specified resource in exchange for a Monopoly Card
-	 * @exception invalidPlayerID if the player id does not match an existing player.
-	 */
-	public void playMonopolyCard(int playerID) {
-		players.playMonopolyCard(playerID);
-	}
-	
-	/**
-	 * Allows a player to choose two resources to be added to it's hand in exchange for a Year Of Plenty Card
-	 * @exception invalidPlayerID if the player id does not match an existing player.
-	 */
-	public void playYearOfPlentyCard(int playerID) {
-		players.playYearOfPlentyCard(playerID);
+	public void playSoldierCard(int playerID, DevCardType type) throws InsufficientCardNumberException {
+		players.playDevCard(playerID, type);
 	}
 	
 	/**
