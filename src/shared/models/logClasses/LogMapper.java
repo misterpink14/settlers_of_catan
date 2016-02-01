@@ -1,9 +1,13 @@
 package shared.models.logClasses;
 
+import com.google.gson.Gson;
+
 import shared.models.MapperException;
 
 public class LogMapper 
 {
+	static Gson gson = new Gson();
+	
 	/**
 	 * Replaces log classes using json input
 	 */
@@ -17,7 +21,12 @@ public class LogMapper
 	 */
 	public static void deserialize(String json) throws MapperException
 	{
-		
+		_deserialize(json);
+	}
+	
+	private static GameLog _deserialize(String json) throws MapperException
+	{
+		return gson.fromJson(json, GameLog.class);
 	}
 
 }

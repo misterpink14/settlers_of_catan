@@ -1,10 +1,13 @@
 package shared.models.chatClasses;
 
+import com.google.gson.Gson;
+
 import shared.models.MapperException;
 
 public class ChatMapper 
 {
-
+	static Gson gson = new Gson();
+	
 	/**
 	 * Replaces chat classes using json input
 	 */
@@ -18,7 +21,11 @@ public class ChatMapper
 	 */
 	public static void deserialize(String json) throws MapperException
 	{
-		
+		_deserialize(json);
 	}
 
+	private static GameChat _deserialize(String json) throws MapperException
+	{
+		return gson.fromJson(json, GameChat.class);
+	}
 }
