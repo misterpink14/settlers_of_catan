@@ -35,6 +35,15 @@ public class GamePlayers {
 	}
 	
 	/**
+	 * Returns the number of a type of resource in a player's hand.
+	 * @param type The type of resource to get
+	 * @return the number of the type of resources in the player's hand
+	 */
+	public int getNumOfResource(int playerID, ResourceType type) {
+		return getPlayer(playerID).getNumOfResource(type);
+	}
+	
+	/**
 	 * This returns a player in connection with the given playerID
 	 * @param playerID the client ID connected with this player
 	 * @return A player object
@@ -77,6 +86,17 @@ public class GamePlayers {
 	 */
 	public void addResourceToHand(int playerID, ResourceType type, int num) {
 		players.get(playerID).addResourceToHand(type, num);
+	}
+	
+	/**
+	 * Remove resources from a player's resourceCards object
+	 * @param playerID the id of the player to remove resources from
+	 * @param type the type of resource to remove.
+	 * @param num the number to add.
+	 * @throws InsufficientCardNumberException 
+	 */
+	public void removeResourceToHand(int playerID, ResourceType type, int num) throws InsufficientCardNumberException {
+		players.get(playerID).removeResourceFromHand(type, num);
 	}
 	
 	/**

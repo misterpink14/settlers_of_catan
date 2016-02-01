@@ -77,7 +77,7 @@ public class Player {
 	}
 	
 	/**
-	 * Returns the number of a type of resource in the player's hand. Mostly for testing purposes
+	 * Returns the number of a type of resource in the player's hand.
 	 * @param type The type of resource to get
 	 * @return the number of the type of resources in the player's hand
 	 */

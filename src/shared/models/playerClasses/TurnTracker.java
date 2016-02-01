@@ -6,7 +6,7 @@ public class TurnTracker {
 	/**The index of the player whose turn it is currently*/
 	private int currentPlayerTurn;
 	  
-	public TurnTracker(String json, GamePlayers players) {
+	public TurnTracker(GamePlayers players) {
 		this.players = players;
 	}
 	  

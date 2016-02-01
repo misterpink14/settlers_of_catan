@@ -47,9 +47,9 @@ public class Game
 		cardDeck = new CardDeck();
 		players = new GamePlayers();
 		log = new GameLog();
-		chat = new GameChat("");
-		tradeManager = new TradeManager("", players);
-		turnTracker = new TurnTracker("", players);
+		chat = new GameChat();
+		tradeManager = new TradeManager(players);
+		turnTracker = new TurnTracker(players);
 	}
 	
 	/**

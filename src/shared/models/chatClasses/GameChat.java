@@ -9,7 +9,14 @@ public class GameChat {
 	/**
 	 * This object keeps track of the chat between players during the course of a game
 	 */
-	public GameChat(String json) {}
+	public GameChat() {}
+	
+	/**
+	 * Uses json to add messages to the game chat.
+	 */
+	public void importChat(String json) {
+		
+	}
 	
 	/**Adds a message to the message list*/
 	public void addMessage() {}
