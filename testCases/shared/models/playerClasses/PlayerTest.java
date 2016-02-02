@@ -171,61 +171,23 @@ public class PlayerTest {
 		player.addResourceToHand(ResourceType.SHEEP, 2);
 		player.addResourceToHand(ResourceType.WHEAT, 2);
 		try {
-			player.buyDevCard();
+			player.buyDevCard(DevCardType.MONOPOLY);
 			assertTrue(player.getNumOfResource(ResourceType.ORE) == 0);
 			assertTrue(player.getNumOfResource(ResourceType.SHEEP) == 1);
 			assertTrue(player.getNumOfResource(ResourceType.WHEAT) == 1);
+			assertTrue(player.getNumOfDevCard(DevCardType.MONOPOLY) == 1);
 		} catch (InsufficientCardNumberException e) {
 			fail();
 			e.printStackTrace();
 		}
 		boolean failed = false;
 		try {
-			player.buyDevCard();
+			player.buyDevCard(DevCardType.MONOPOLY);
 		} catch (InsufficientCardNumberException e) {
 			failed = true;
 			e.printStackTrace();
 		}
 		assertTrue(failed);
-	}
-
-	@Test
-	public void testTradeFour() {
-		player.addResourceToHand(ResourceType.BRICK, 5);
-		try {
-			player.tradeFour(ResourceType.BRICK, ResourceType.ORE);
-		} catch (InsufficientCardNumberException e) {
-			fail();
-			e.printStackTrace();
-		}
-		assertTrue(player.getNumOfResource(ResourceType.ORE) == 1);
-		assertTrue(player.getNumOfResource(ResourceType.BRICK) == 1);
-	}
-
-	@Test
-	public void testTradeTwoWithPort() {
-		player.addResourceToHand(ResourceType.BRICK, 5);
-		try {
-			player.tradeTwoWithPort(ResourceType.BRICK, ResourceType.ORE);
-		} catch (InsufficientCardNumberException e) {
-			fail();
-			e.printStackTrace();
-		}
-		assertTrue(player.getNumOfResource(ResourceType.ORE) == 1);
-		assertTrue(player.getNumOfResource(ResourceType.BRICK) == 3);
-	}
-
-	@Test
-	public void testTradeThreeWithPort() {
-		player.addResourceToHand(ResourceType.BRICK, 5);
-		try {
-			player.tradeThreeWithPort(ResourceType.BRICK, ResourceType.ORE);
-		} catch (InsufficientCardNumberException e) {
-			fail();
-			e.printStackTrace();
-		}
-		assertTrue(player.getNumOfResource(ResourceType.ORE) == 1);
-		assertTrue(player.getNumOfResource(ResourceType.BRICK) == 2);
 	}
 
 	@Test

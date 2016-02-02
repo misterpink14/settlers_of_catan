@@ -25,11 +25,11 @@ public class GamePlayers {
 	 * This accepts a client and adds it as a player object to an array.
 	 * @throws Exception 
 	 */
-	public void addPlayer(int clientID) throws Exception {
+	public void addPlayer(int playerID) throws Exception {
 		if(this.getNumberOfPlayers() == 4) {
 			throw new Exception("There are already four players in this game");
 		}
-		Player newPlayer = new Player(clientID);
+		Player newPlayer = new Player(playerID);
 		players.add(newPlayer);
 	}
 	
