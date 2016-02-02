@@ -32,6 +32,10 @@ public class Game
 	 */
 	public void importGame(String json) {}
 	
+	public boolean isTurn(int playerIndex) {
+		return turnManager.isTurn(playerIndex);
+	}
+	
 	/**
 	 * If the specified player can roll the dice, do so
 	 * @exception invalidPlayerID if the player id does not match an existing player.

@@ -68,6 +68,10 @@ public class TurnManager {
 		hasPlayedDevCard = false;
 	}
 	
+	public boolean isTurn(int index) {
+		return players.getPlayerByIndex(index).isTurn();
+	}
+	
 	/**
 	 * If the specified player can roll the dice, do so
 	 * @exception invalidPlayerID if the player id does not match an existing player.
