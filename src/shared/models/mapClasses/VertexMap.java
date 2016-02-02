@@ -47,8 +47,12 @@ public class VertexMap
 	 * @param loc
 	 * @param p
 	 */
-	public void setVertex(VertexLocation loc, Piece p)
+	public void setVertex(VertexLocation loc, Piece p) throws InvalidTypeException
 	{
+		if (p.getType() == PieceType.ROAD)
+		{
+			throw new InvalidTypeException();
+		}
 		this.Vertexes.put(loc.getNormalizedLocation(), p);
 	}
 	
@@ -59,11 +63,11 @@ public class VertexMap
 	 * Can do method for checking if a player can place a settlement
 	 * 
 	 * @param loc
-	 * @param ownerIndex
+	 * @param ownerId
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public boolean canPlaceCity(VertexLocation loc, int ownerIndex) throws IndexOutOfBoundsException
+	public boolean canPlaceCity(VertexLocation loc, int ownerId) throws IndexOutOfBoundsException
 	{
 		loc = loc.getNormalizedLocation();
 		if (!this.Vertexes.containsKey(loc))
@@ -76,7 +80,7 @@ public class VertexMap
 		}
 		
 		Piece p = this.Vertexes.get(loc);
-		if (p.getOwner() == ownerIndex && p.getType() == PieceType.SETTLEMENT)
+		if (p.getOwner() == ownerId && p.getType() == PieceType.SETTLEMENT)
 		{
 			return true;
 		}
@@ -88,12 +92,12 @@ public class VertexMap
 	 * Can do method for checking if a player can place a settlement
 	 * 
 	 * @param loc
-	 * @param ownerIndex
+	 * @param ownerId
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 * @throws InvalidTypeException 
 	 */
-	public boolean canPlaceSettlement(VertexLocation loc, int ownerIndex) throws IndexOutOfBoundsException, InvalidTypeException
+	public boolean canPlaceSettlement(VertexLocation loc, int ownerId) throws IndexOutOfBoundsException, InvalidTypeException
 	{
 		loc = loc.getNormalizedLocation();
 		if (!this.Vertexes.containsKey(loc))
@@ -102,25 +106,25 @@ public class VertexMap
 		}
 		if (this.Vertexes.get(loc) == null)
 		{
-			return this._canPlaceSettlement(loc, ownerIndex);
+			return this._canPlaceSettlement(loc, ownerId);
 		}
 		return true;
 	}
 	
 	
 	/**
-	 * Helper method for canPlaceSettlement. Checks vertexes that are 1 away from the given location. 
+	 * Helper method for canPlaceSettlement. Checks vertexes that are 1 away from the given location. Expects that loc is the
+	 * 	normalized location
 	 *  
 	 * 
 	 * @param loc
-	 * @param ownerIndex
+	 * @param ownerId
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 * @throws InvalidTypeException 
 	 */
-	private boolean _canPlaceSettlement(VertexLocation loc, int ownerIndex) throws IndexOutOfBoundsException, InvalidTypeException
+	private boolean _canPlaceSettlement(VertexLocation loc, int ownerId) throws IndexOutOfBoundsException, InvalidTypeException
 	{
-		loc = loc.getNormalizedLocation();
 		switch(loc.getDir())
 		{
 			case NorthEast:

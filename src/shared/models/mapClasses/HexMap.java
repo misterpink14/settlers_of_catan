@@ -11,9 +11,11 @@ public class HexMap
 	
 	
 	
+// CONSTRUCTOR
 	public HexMap() {}
 	
 	
+// GETTER
 	/**
 	 * Returns the Hex at a given location
 	 * 
@@ -27,6 +29,7 @@ public class HexMap
 	}
 	
 	
+// SETTER
 	/**
 	 * Returns the Hex at a given location
 	 * 
@@ -36,10 +39,11 @@ public class HexMap
 	 */
 	public void setHex(HexLocation loc, Hex hex)
 	{
-
+		this.Hexes.put(loc, hex);
 	}
 	
 	
+// METHODS
 	/**
 	 * Returns the Hex Type of a given HexLocation
 	 * 
