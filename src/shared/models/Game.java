@@ -1,15 +1,11 @@
 package shared.models;
 
+import java.util.HashMap;
+
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
-import shared.models.cardClasses.Bank;
-import shared.models.cardClasses.CardDeck;
 import shared.models.cardClasses.InsufficientCardNumberException;
-import shared.models.chatClasses.GameChat;
-import shared.models.logClasses.GameLog;
-import shared.models.mapClasses.Map;
-import shared.models.playerClasses.GamePlayers;
-import shared.models.playerClasses.TurnTracker;
+import shared.models.playerClasses.TurnManager;
 
 /**
  * 
@@ -17,45 +13,24 @@ import shared.models.playerClasses.TurnTracker;
  *
  */
 public class Game 
-{
-	/**This allows two random numbers between 1 and 6 to be generated at any time.*/
-	Dice dice;
-	/**The map contains all information having to do with the board.*/
-	Map map;
-	/**The bank contains all resource cards that do not belong to a player.*/
-	Bank bank;
-	/**The cardDeck contains all the development cards not belonging to a player.*/
-	CardDeck cardDeck;
-	/**The game players object holds four player objects that represent four clients that will connect
-	 * to the server.
-	 */
-	GamePlayers players;
-	/**Stores the log for the game*/
-	GameLog log;
-	/**The game chat object stores and retrieves the history of the chat log between players.*/
-	GameChat chat;
-	/**The trade manager handles all trades between players. Both storing and executing*/
-	TradeManager tradeManager;
+{	
 	/**The turn tracker manages trades between players*/
-	TurnTracker turnTracker;
+	TurnManager turnManager;
+	
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
 	public Game(String json) {
-		map = new Map();
-		bank = new Bank();
-		cardDeck = new CardDeck();
-		players = new GamePlayers();
-		log = new GameLog();
-		chat = new GameChat();
-		tradeManager = new TradeManager(players);
-		turnTracker = new TurnTracker(players);
+		turnManager = new TurnManager();
+		if(json != null) {
+			importGame(json);
+		}
 	}
 	
 	/**
 	 * Takes in a json summary of a game and changes itself to match the specified game
 	 */
-	public void importGame() {}
+	public void importGame(String json) {}
 	
 	/**
 	 * If the specified player can roll the dice, do so
@@ -63,12 +38,7 @@ public class Game
 	 * @return The number rolled or 0 if the player does not have permission to roll the dice.
 	 */
 	public int rollDice(int playerID) {
-		if (players.canRollDice(playerID)) {
-			return Dice.rollDice();
-		}
-		else{
-			return 0;
-		}
+		return turnManager.rollDice();
 	}
 
 	/**
@@ -78,9 +48,7 @@ public class Game
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buildRoad(int playerID) throws InsufficientCardNumberException {
-		if(players.canBuildRoad(playerID)) {
-			players.buyRoad(playerID);
-		}
+		turnManager.buildRoad();
 	}
 	
 	/**
@@ -90,9 +58,7 @@ public class Game
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buildSettlement(int playerID) throws InsufficientCardNumberException {
-		if(players.canBuildSettlement(playerID)) {
-			players.buySettlement(playerID);
-		}
+		turnManager.buildSettlement();
 	}
 	
 	/**
@@ -101,9 +67,7 @@ public class Game
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buildCity(int playerID) throws InsufficientCardNumberException {
-		if(players.canBuildCity(playerID)) {
-			players.buyCity(playerID);
-		}
+		turnManager.buildCity();
 	}
 	
 	/**
@@ -112,9 +76,7 @@ public class Game
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buyDevelopmentCard(int playerID) throws InsufficientCardNumberException {
-		if(players.canBuyDevCard(playerID)) {
-			players.buyDevCard(playerID);
-		}
+		turnManager.buyDevCard();
 	}
 	
 	/**
@@ -122,8 +84,8 @@ public class Game
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void playDevCard(int playerID, DevCardType type) throws InsufficientCardNumberException {
-		players.playDevCard(playerID, type);
+	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
+		turnManager.playDevCard(type);
 	}
 	
 	/**
@@ -133,13 +95,13 @@ public class Game
 	public void tradeResourcesWithBank(int playerID, int numberToTrade, ResourceType tradeIn, ResourceType tradeOut) throws InsufficientCardNumberException {
 		switch(numberToTrade){
 		case 4:
-			players.tradeFour(playerID, tradeIn, tradeOut);
+			turnManager.getTradeManager().tradeFour(playerID, tradeIn, tradeOut);
 			break;
 		case 3:
-			players.tradeThreeWithPort(playerID, tradeIn, tradeOut);
+			turnManager.getTradeManager().tradeThreeWithPort(playerID, tradeIn, tradeOut);
 			break;
 		case 2:
-			players.tradeTwoWithPort(playerID, tradeIn, tradeOut);
+			turnManager.getTradeManager().tradeTwoWithPort(playerID, tradeIn, tradeOut);
 			break;
 		}
 	}
@@ -154,17 +116,56 @@ public class Game
 	}
 	
 	/**
-	 * Check the TurnTracker to see if it is the user's turn at the given index
-	 * @exception invalidPlayerID if the player id does not match an existing player.
-	 */
-	public boolean isTurn(int playerID) {
-		return players.isTurn(playerID);
-	}
-	
-	/**
 	 * Returns the version ID so the poller and proxy can request the correct model JSON.
 	 */
 	public int versionID() {
 		return versionID;
 	}
+	
+	
+	//***********************************************************************************************************************************
+		//														Can Functions
+		//***********************************************************************************************************************************
+		
+		public boolean CanDiscardCards(ResourceType type, int num) {
+			return turnManager.CanDiscardCards(type, num);
+		}
+		public boolean CanRollNumber() {
+			return turnManager.CanRollNumber();
+		}
+		public boolean CanBuildRoad() {
+			return turnManager.CanBuildRoad();
+		}
+		public boolean CanBuildSettlement() {
+			return turnManager.CanBuildSettlement();
+		}
+		public boolean CanBuildCity() {
+			return turnManager.CanBuildCity();
+		}
+		public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
+			return turnManager.CanOfferTrade(traderIndex, tradeeIndex, out, in);
+		}
+		public boolean CanMaritimeTrade() {
+			return turnManager.CanMaritimeTrade();
+		}
+		public boolean CanFinishTurn() {
+			return turnManager.CanFinishTurn();
+		}
+		public boolean CanBuyDevCard() {
+			return turnManager.CanBuyDevCard();
+		}
+		public boolean CanPlayDevCard(DevCardType card) {
+			return turnManager.CanPlayDevCard(card);
+		}
+		public boolean CanPlaceRobber() {
+			return turnManager.CanPlaceRobber();
+		}
+		public boolean CanSendChat() {
+			return turnManager.CanSendChat();
+		}
+		public boolean CanAcceptTrade() {
+			return turnManager.CanAcceptTrade();
+		}
+	
+	
 }

@@ -26,5 +26,10 @@ public class Bank
 	public void AddResourceCards(ResourceType type, int num) {
 		resourceCards.addCard(type, num);
 	}
+	
+	/**Checks if there is sufficient resources of a specified in this type to remove the specified number.*/
+	public boolean canRemove(ResourceType type, int num) {
+		return resourceCards.canRemove(type, num);
+	}
 
 }
