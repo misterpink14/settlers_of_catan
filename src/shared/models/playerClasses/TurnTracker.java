@@ -1,22 +1,19 @@
 package shared.models.playerClasses;
 
 public class TurnTracker {
+	/**The players in the game*/
+	private GamePlayers players = null;
 	/**The index of the player whose turn it is currently*/
 	private int currentPlayerTurn;
 	  
-	public TurnTracker(String json) {}
+	public TurnTracker(GamePlayers players) {
+		this.players = players;
+	}
 	  
 	/**
 	 * @return whether it's their turn or not
 	 */
-	public Boolean isTheirTurn(int playerIndex) {
-		return playerIndex == currentPlayerTurn;
+	public Boolean isTheirTurn(int playerID) {
+		return players.isTurn(playerID);
 	}
-	  	
-  	/** Get the player who is currently taking their turn
-  	 * @return the index of the current player, 0-3
-  	 */
-  	public int currentPlayerTurn() {
-  		return currentPlayerTurn;
-  	}
 }

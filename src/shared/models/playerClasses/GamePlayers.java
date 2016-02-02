@@ -1,21 +1,62 @@
 package shared.models.playerClasses;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
+import shared.models.cardClasses.InsufficientCardNumberException;
 
 public class GamePlayers {
 	
 	/**The players array contains four players that will be used by four clients.*/
-	ArrayList<Player> players = new ArrayList<Player>();
-
-	
+	Map<Integer, Player> players = new HashMap<Integer, Player>();	
 	
 	public GamePlayers() {}
 
 	/**
-	 * This accepts a client and adds it as a player object to an array.
+	 * This gets the number of players currently registered to this game
+	 * @return the number of players currently registered to this game.
 	 */
-	public void addPlayer() {
-		
+	public int getNumberOfPlayers() {
+		return players.size();
+	}
+	
+	/**
+	 * This accepts a client and adds it as a player object to an array.
+	 * @throws Exception 
+	 */
+	public void addPlayer(int clientID) throws Exception {
+		if(this.getNumberOfPlayers() == 4) {
+			throw new Exception("There are already four players in this game");
+		}
+		Player newPlayer = new Player(clientID);
+		players.put(clientID, newPlayer);
+	}
+	
+	/**
+	 * Returns the number of a type of resource in a player's hand.
+	 * @param type The type of resource to get
+	 * @return the number of the type of resources in the player's hand
+	 */
+	public int getNumOfResource(int playerID, ResourceType type) {
+		return getPlayer(playerID).getNumOfResource(type);
+	}
+	
+	/**
+	 * This returns a player in connection with the given playerID
+	 * @param playerID the client ID connected with this player
+	 * @return A player object
+	 */
+	public Player getPlayer(int playerID) {
+		return players.get(playerID);
+	}
+	
+	/**
+	 * Start a player's turn and mark that it is the
+	 */
+	public void startTurn(int playerID) {
+		players.get(playerID).startTurn();
 	}
 	
 	/** This function checks a specific player to see
@@ -24,7 +65,7 @@ public class GamePlayers {
 	 * otherwise, returns false;
 	 */
 	public boolean isTurn(int playerID) {
-		return true;
+		return players.get(playerID).isTurn();
 	}
 	
 	/**
@@ -34,7 +75,35 @@ public class GamePlayers {
 	 * they can't
 	 */
 	public boolean canRollDice(int playerID) {
-		return true;
+		return players.get(playerID).canRollDice();
+	}
+	
+	/**
+	 * Adds resources to a player's resourceCards object
+	 * @param playerID the id of the player to add resources to
+	 * @param type the type of resource to add.
+	 * @param num the number to add.
+	 */
+	public void addResourceToHand(int playerID, ResourceType type, int num) {
+		players.get(playerID).addResourceToHand(type, num);
+	}
+	
+	/**
+	 * Remove resources from a player's resourceCards object
+	 * @param playerID the id of the player to remove resources from
+	 * @param type the type of resource to remove.
+	 * @param num the number to add.
+	 * @throws InsufficientCardNumberException 
+	 */
+	public void removeResourceToHand(int playerID, ResourceType type, int num) throws InsufficientCardNumberException {
+		players.get(playerID).removeResourceFromHand(type, num);
+	}
+	
+	/**
+	 *Add a specified development card from this player
+	 */
+	public void drawDevCard(int playerID, DevCardType type) {
+		players.get(playerID).drawDevCard(type);
 	}
 	
 	/**
@@ -44,7 +113,7 @@ public class GamePlayers {
 	 * they can't.
 	 */
 	public boolean canBuildRoad(int playerID) {
-		return true;
+		return players.get(playerID).canBuildRoad();
 	}
 	
 	/**
@@ -54,7 +123,7 @@ public class GamePlayers {
 	 * they can't.
 	 */
 	public boolean canBuildSettlement(int playerID) {
-		return true;
+		return players.get(playerID).canBuildSettlement();
 	}
 	
 	/**
@@ -64,7 +133,7 @@ public class GamePlayers {
 	 * they can't.
 	 */
 	public boolean canBuildCity(int playerID) {
-		return true;
+		return players.get(playerID).canBuildCity();
 	}
 	
 	/**
@@ -74,83 +143,85 @@ public class GamePlayers {
 	 * they can't.
 	 */
 	public boolean canBuyDevCard(int playerID) {
-		return true;
+		return players.get(playerID).canBuyDevCard();
 	}
 	
 	/**
 	 * Deducts resources from a specified player
 	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void buyRoad(int playerID) {
-		
+	public void buyRoad(int playerID) throws InsufficientCardNumberException {
+		players.get(playerID).buyRoad();
 	}
 	
 	/**
 	 * Deducts resources from a specified player
 	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void buySettlement(int playerID) {
-		
+	public void buySettlement(int playerID) throws InsufficientCardNumberException {
+		players.get(playerID).buySettlement();
 	}
 	
 	/**
 	 * Deducts resources from a specified player
 	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void buyCity(int playerID) {
-		
+	public void buyCity(int playerID) throws InsufficientCardNumberException {
+		players.get(playerID).buyCity();
 	}
 	
 	/**
 	 * Deducts resources from a specified player
 	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void buyDevCard(int playerID) {
-		
+	public void buyDevCard(int playerID) throws InsufficientCardNumberException {
+		players.get(playerID).buyDevCard();
 	}
 	
 	/**
 	 * Exchange four of one player's resources for
 	 * one of another.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void tradeFour(int playerID) {
-		
+	public void tradeFour(int playerID, ResourceType tradeIn, ResourceType tradeOut) throws InsufficientCardNumberException {
+		players.get(playerID).tradeFour(tradeIn, tradeOut);
 	}
 	
 	/**
 	 * Trade a player's resources using a harbor
 	 * he/she has built on.
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void tradeHarbor(int playerID) {
-		
+	public void tradeTwoWithPort(int playerID, ResourceType tradeIn, ResourceType tradeOut) throws InsufficientCardNumberException {
+		players.get(playerID).tradeTwoWithPort(tradeIn, tradeOut);
+	}
+	
+	/**
+	 * Trade a player's resources using a harbor
+	 * he/she has built on.
+	 * @throws InsufficientCardNumberException 
+	 */
+	public void tradeThreeWithPort(int playerID, ResourceType tradeIn, ResourceType tradeOut) throws InsufficientCardNumberException {
+		players.get(playerID).tradeThreeWithPort(tradeIn, tradeOut);
 	}
 	
 	/**
 	 * Allows a player to move the robber in exchange for a Soldier Card
+	 * @throws InsufficientCardNumberException 
 	 */
-	public void playSoldierCard(int playerID) {}
-	
-	/**
-	 * Allows a player to build two roads in exchange for a Road Builder Card
-	 */
-	public void playRoadBuilderCard(int playerID) {}
-	
-	/**
-	 * Allows a player to take all owned cards of a specified resource in exchange for a Monopoly Card
-	 */
-	public void playMonopolyCard(int playerID) {}
-	
-	/**
-	 * Allows a player to choose two resources to be added to it's hand in exchange for a Year Of Plenty Card
-	 */
-	public void playYearOfPlentyCard(int playerID) {}
-	
+	public void playDevCard(int playerID, DevCardType type) throws InsufficientCardNumberException {
+		players.get(playerID).playDevCard(type);
+	}
 	
 	/**
 	 * End a player's turn and mark that it is the
 	 * next player's turn.
 	 */
 	public void finishTurn(int playerID) {
-		
+		players.get(playerID).finishTurn();
 	}
 }

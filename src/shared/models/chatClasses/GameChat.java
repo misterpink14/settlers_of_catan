@@ -1,19 +1,35 @@
 package shared.models.chatClasses;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameChat {
-	/**An array that holds the entries in the game log*/
-	ArrayList<Message> entries = new ArrayList<Message>();
+	/**An array that holds the messages in the game chat*/
+	ArrayList<Message> messages = new ArrayList<Message>();
 
 	/**
 	 * This object keeps track of the chat between players during the course of a game
 	 */
-	public GameChat(String json) {}
+	public GameChat() {}
 	
-	/**Adds a message to the message list*/
-	public void addMessage() {}
+	/**
+	 * Uses json to add messages to the game chat.
+	 */
+	public void importChat(String json) {
+		
+	}
+	
+	/**
+	 * Adds a message to the message list
+	 *
+	 * @param message The message to be added to the chat
+	 */
+	public void addMessage(Message message) {
+		messages.add(message);
+	}
 	
 	/**Gets all messages*/
-	public void getMessages() {}
+	public List<Message> getMessages() {
+		return messages;
+	}
 }
