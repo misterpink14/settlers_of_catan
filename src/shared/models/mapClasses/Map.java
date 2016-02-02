@@ -25,7 +25,7 @@ public class Map
 	private RobberLocation Robber = new RobberLocation(null);
 	
 
-	/* Constraints within the game board. Use for generating the board */
+	/* Constraints within the game board. Use for generating the board 
 	private final int NUM_SEA = 18; // Number of sea pieces
 	private final int NUM_HARBORS = 9; // Number of sea pieces with harbors
 	private final int NUM_TERRAINS = 19; // Number of terrain pieces
@@ -44,7 +44,7 @@ public class Map
 	private final int NUM_TWELVE = 1;
 	// Harbor
 	private final int NUM_HARBOR = 1;
-	private final int NUM_THREE = 4;
+	private final int NUM_THREE = 4;*/
 	
 	
 	
@@ -55,66 +55,6 @@ public class Map
 	public Map() 
 	{
 	}
-
-
-	/**
-	 * Gets a Hex piece at a given location
-	 * 
-	 * @return
-	 * @throws IndexOutOfBoundsException
-	 */
-	public Hex getHex(HexLocation loc) throws IndexOutOfBoundsException
-	{
-		return Hexes.getHex(loc);
-	}
-	
-
-	/**
-	 * Places a robber to a given HexLocation
-	 * 
-	 * @param location
-	 * @throws IndexOutOfBoundsException
-	 */
-	public void placeRobber(HexLocation location) throws IndexOutOfBoundsException
-	{
-		
-	}
-	
-	
-	/**
-	 * Places a road at a given EdgeLocation
-	 * 
-	 * @param location
-	 * @throws IndexOutOfBoundsException
-	 */
-	public void placeRoad(EdgeLocation location) throws IndexOutOfBoundsException
-	{
-		
-	}
-	
-	
-	/**
-	 * Places a settlement at a given EdgeLocation
-	 * 
-	 * @param location
-	 * @throws IndexOutOfBoundsException
-	 */
-	public void placeSettlement(VertexLocation location) throws IndexOutOfBoundsException
-	{
-		
-	}
-	
-	
-	/** 
-	 * Places a city at a given EdgeLocation
-	 * 
-	 * @param location
-	 * @throws IndexOutOfBoundsException
-	 */
-	public void placeCity(VertexLocation location) throws IndexOutOfBoundsException
-	{
-		
-	}
 	
 
 	/**
@@ -123,8 +63,17 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRobber(HexLocation location)
+	public boolean canPlaceRobber(HexLocation loc)
 	{
+		if (!this.Robber.canPlaceRobber(loc))
+		{
+			return false;
+		}
+		
+		if (!this.Hexes.canPlaceRobber(loc))
+		{
+			return false;
+		}
 		return true;
 	}
 	
@@ -135,7 +84,7 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRoad(EdgeLocation location)
+	public boolean canPlaceRoad(EdgeLocation loc)
 	{
 		return true;
 	}
@@ -147,7 +96,7 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceSettlement(VertexLocation location) 
+	public boolean canPlaceSettlement(VertexLocation loc) 
 	{
 		return true;
 	}
@@ -159,22 +108,17 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceCity(VertexLocation location)
+	public boolean canPlaceCity(VertexLocation loc)
 	{
 		return true;
 	}
 	
 	
-	/**
-	 * Give the ResourceType associated with the Hex
-	 * 
-	 * @param location
-	 * @return
-	 * @throws IndexOutOfBoundsException
-	 */
-	public ResourceType getResourceType(HexLocation location) throws IndexOutOfBoundsException
+	
+	public boolean canMaritimeTrade()
 	{
-		return ResourceType.WHEAT;
+		boolean maybe = true;
+		return maybe;
 	}
-
+	
 }
