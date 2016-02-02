@@ -100,5 +100,27 @@ public class ResourceCards {
 				break;
 		}
 	}
+	
+	/**Checks if it is possible to remove a number of a type of resource*/
+	public boolean canRemove(ResourceType type, int num) {
+		switch(type){
+		case BRICK:
+			if(getBrickCards() < num){return false;}
+			break;
+		case ORE:
+			if(getOreCards() < num){return false;}
+			break;
+		case SHEEP:
+			if(getSheepCards() < num){return false;}
+			break;
+		case WHEAT:
+			if(getWheatCards() < num){return false;}
+			break;
+		case WOOD:
+			if(getWoodCards() < num){return false;}
+			break;
+		}
+		return true;
+	}
 
 }

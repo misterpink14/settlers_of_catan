@@ -44,6 +44,16 @@ public class HexMap
 	
 	
 // METHODS
+	public boolean canPlaceRobber(HexLocation loc)
+	{
+		if (this.getHexType(loc) == HexType.WATER)
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	
 	/**
 	 * Returns the Hex Type of a given HexLocation
 	 * 
@@ -51,9 +61,11 @@ public class HexMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public HexType getHexType(HexLocation loc) throws IndexOutOfBoundsException
+	private HexType getHexType(HexLocation loc) throws IndexOutOfBoundsException
 	{
 		return Hexes.get(loc).getHexType();
 	}
+	
+	
 
 }

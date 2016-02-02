@@ -58,6 +58,13 @@ public class Player {
 	}
 	
 	/**
+	 * Set isTurn to false
+	 */
+	public void finishTurn() {
+		this.isTurn = false;
+	}
+	
+	/**
 	 * Adds resources to this player's resourceCards object
 	 * @param type the type of resource to add.
 	 * @param num the number to add.
@@ -101,6 +108,103 @@ public class Player {
 			break;
 		}
 		return number;
+	}
+	
+	/**
+	 * Deducts resources from this player
+	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
+	 */
+	public void buyRoad() throws InsufficientCardNumberException {
+		resourceCards.removeCard(ResourceType.WOOD, 1);
+		resourceCards.removeCard(ResourceType.BRICK, 1);
+		roads--;
+	}
+	
+	/**
+	 * Deducts resources from this player
+	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
+	 */
+	public void buySettlement() throws InsufficientCardNumberException {
+		resourceCards.removeCard(ResourceType.WHEAT, 1);
+		resourceCards.removeCard(ResourceType.WOOD, 1);
+		resourceCards.removeCard(ResourceType.SHEEP, 1);
+		resourceCards.removeCard(ResourceType.BRICK, 1);
+		settlements--;
+	}
+	
+	/**
+	 * Deducts resources from this player
+	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
+	 */
+	public void buyCity() throws InsufficientCardNumberException {
+		resourceCards.removeCard(ResourceType.ORE, 3);
+		resourceCards.removeCard(ResourceType.WHEAT, 2);
+		cities--;
+	}
+	
+	/**
+	 * Deducts resources from this player
+	 * in order to buy a development card.
+	 * @throws InsufficientCardNumberException 
+	 */
+	public void buyDevCard(DevCardType card) throws InsufficientCardNumberException {
+		resourceCards.removeCard(ResourceType.WHEAT, 1);
+		resourceCards.removeCard(ResourceType.ORE, 1);
+		resourceCards.removeCard(ResourceType.SHEEP, 1);
+		this.devCards.addCard(card);
+	}
+	
+	/**
+	 * Subtract a specified development card from this player
+	 * @throws InsufficientCardNumberException 
+	 */
+	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
+		devCards.removeCard(type);
+	}
+	
+	/**
+	 * Subtract a specified development card from this player
+	 */
+	public void drawDevCard(DevCardType type) {
+		devCards.addCard(type);
+	}
+	
+	/**
+	 * Returns the number of a type of development Card in the player's hand. Mostly for testing purposes
+	 * @param type The type of card to get
+	 * @return the number of the type of card in the player's hand
+	 */
+	public int getNumOfDevCard(DevCardType type) {
+		int number = 0;
+		switch(type){
+		case SOLDIER:
+			number = devCards.getSoldierCards();
+			break;
+		case MONUMENT:
+			number = devCards.getMonumentCards();
+			break;
+		case MONOPOLY:
+			number = devCards.getMonopolyCards();
+			break;
+		case ROAD_BUILD:
+			number = devCards.getRoadBuilderCards();
+			break;
+		case YEAR_OF_PLENTY:
+			number = devCards.getYearOfPlentyCards();
+			break;	
+		}
+		return number;
+	}
+	
+	//**************************************************************************************************************************************
+	//													Can Methods
+	//**************************************************************************************************************************************
+	
+	public boolean canDiscardCards(ResourceType type, int num) {
+		return this.resourceCards.canRemove(type, num);
 	}
 	
 	/**
@@ -169,126 +273,6 @@ public class Player {
 			return true;
 		}
 		return false;
-	}
-	
-	/**
-	 * Deducts resources from this player
-	 * in order to buy a development card.
-	 * @throws InsufficientCardNumberException 
-	 */
-	public void buyRoad() throws InsufficientCardNumberException {
-		resourceCards.removeCard(ResourceType.WOOD, 1);
-		resourceCards.removeCard(ResourceType.BRICK, 1);
-		roads--;
-	}
-	
-	/**
-	 * Deducts resources from this player
-	 * in order to buy a development card.
-	 * @throws InsufficientCardNumberException 
-	 */
-	public void buySettlement() throws InsufficientCardNumberException {
-		resourceCards.removeCard(ResourceType.WHEAT, 1);
-		resourceCards.removeCard(ResourceType.WOOD, 1);
-		resourceCards.removeCard(ResourceType.SHEEP, 1);
-		resourceCards.removeCard(ResourceType.BRICK, 1);
-		settlements--;
-	}
-	
-	/**
-	 * Deducts resources from this player
-	 * in order to buy a development card.
-	 * @throws InsufficientCardNumberException 
-	 */
-	public void buyCity() throws InsufficientCardNumberException {
-		resourceCards.removeCard(ResourceType.ORE, 3);
-		resourceCards.removeCard(ResourceType.WHEAT, 2);
-		cities--;
-	}
-	
-	/**
-	 * Deducts resources from this player
-	 * in order to buy a development card.
-	 * @throws InsufficientCardNumberException 
-	 */
-	public void buyDevCard() throws InsufficientCardNumberException {
-		resourceCards.removeCard(ResourceType.WHEAT, 1);
-		resourceCards.removeCard(ResourceType.ORE, 1);
-		resourceCards.removeCard(ResourceType.SHEEP, 1);
-	}
-	
-	/**
-	 * Exchange four of this player's resources for
-	 * one of another.
-	 * @throws InsufficientCardNumberException 
-	 */
-	public void tradeFour(ResourceType tradeIn, ResourceType tradeOut) throws InsufficientCardNumberException {
-		resourceCards.removeCard(tradeIn, 4);
-		resourceCards.addCard(tradeOut, 1);
-	}
-	
-	/**
-	 * Trade this player's resources using a harbor
-	 * he/she has built on.
-	 * @throws InsufficientCardNumberException 
-	 */
-	public void tradeTwoWithPort(ResourceType portType, ResourceType returnType) throws InsufficientCardNumberException {
-		resourceCards.removeCard(portType, 2);
-		resourceCards.addCard(returnType, 1);		
-	}
-	
-	public void tradeThreeWithPort(ResourceType portType, ResourceType returnType) throws InsufficientCardNumberException {
-		resourceCards.removeCard(portType, 3);
-		resourceCards.addCard(returnType, 1);		
-	}
-	
-	/**
-	 * Subtract a specified development card from this player
-	 * @throws InsufficientCardNumberException 
-	 */
-	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
-		devCards.removeCard(type);
-	}
-	
-	/**
-	 * Subtract a specified development card from this player
-	 */
-	public void drawDevCard(DevCardType type) {
-		devCards.addCard(type);
-	}
-	
-	/**
-	 * Returns the number of a type of development Card in the player's hand. Mostly for testing purposes
-	 * @param type The type of card to get
-	 * @return the number of the type of card in the player's hand
-	 */
-	public int getNumOfDevCard(DevCardType type) {
-		int number = 0;
-		switch(type){
-		case SOLDIER:
-			number = devCards.getSoldierCards();
-			break;
-		case MONUMENT:
-			number = devCards.getMonumentCards();
-			break;
-		case MONOPOLY:
-			number = devCards.getMonopolyCards();
-			break;
-		case ROAD_BUILD:
-			number = devCards.getRoadBuilderCards();
-			break;
-		case YEAR_OF_PLENTY:
-			number = devCards.getYearOfPlentyCards();
-			break;	
-		}
-		return number;
-	}
-	
-	/**
-	 * Set isTurn to false
-	 */
-	public void finishTurn() {
-		this.isTurn = false;
 	}
 
 }

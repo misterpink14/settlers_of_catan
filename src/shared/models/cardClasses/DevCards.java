@@ -99,4 +99,29 @@ public class DevCards {
 				break;
 		}
 	}
+	
+	/**
+	 * Checks if a specified type of card can be removed
+	 * @param type the type of development card to remove
+	 */
+	public boolean canRemoveCard(DevCardType type){
+		switch(type){
+			case MONOPOLY:
+				if(getMonopolyCards() == 0){return false;}
+				break;
+			case MONUMENT:
+				if(getMonumentCards() == 0){return false;}
+				break;
+			case ROAD_BUILD:
+				if(getRoadBuilderCards() == 0){return false;}
+				break;
+			case SOLDIER:
+				if(getSoldierCards() == 0){return false;}
+				break;
+			case YEAR_OF_PLENTY:
+				if(getYearOfPlentyCards() == 0){return false;}
+				break;
+			}
+		return true;
+	}
 }
