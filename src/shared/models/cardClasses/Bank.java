@@ -12,6 +12,10 @@ public class Bank
 	 */
 	public Bank() {}
 	
+	public void importBank(String json) {
+		
+	}
+	
 	/**
 	 * Subtracts cards from the bank to give to a player
 	 * @throws InsufficientCardNumberException 
