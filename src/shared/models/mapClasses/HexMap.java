@@ -54,6 +54,8 @@ public class HexMap
 	}
 	
 	
+	
+	
 	/**
 	 * Returns the Hex Type of a given HexLocation
 	 * 

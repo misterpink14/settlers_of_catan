@@ -1,8 +1,11 @@
 package shared.models.mapClasses;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import antlr.collections.List;
 import shared.definitions.PieceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -109,6 +112,20 @@ public class VertexMap
 			return this._canPlaceSettlement(loc, ownerId);
 		}
 		return true;
+	}
+	
+	
+	public ArrayList<VertexLocation> getPlayersVertexLocation(int ownerId)
+	{
+		ArrayList<VertexLocation> locations = new ArrayList<VertexLocation>();
+		for (Entry<VertexLocation, Piece> entry : this.Vertexes.entrySet()) {
+		    if (entry.getValue().getOwner() == ownerId)
+		    {
+		    	locations.add(entry.getKey());
+		    }
+		}
+		
+		return locations;
 	}
 	
 	

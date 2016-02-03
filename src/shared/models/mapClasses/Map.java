@@ -4,6 +4,9 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.RobberLocation;
 import shared.locations.VertexLocation;
+
+import java.util.ArrayList;
+
 import shared.definitions.*;
 
 
@@ -123,16 +126,26 @@ public class Map
 	 */
 	public boolean canPlaceCity(int x, int y, String direction, int ownerId)
 	{
-		VertexLocation loc = null;
-		return this.Vertexes.canPlaceCity(loc, ownerId);
+		try {
+			VertexLocation loc = null;
+			return this.Vertexes.canPlaceCity(loc, ownerId);
+		} catch (IndexOutOfBoundsException e)
+		{
+			return false;
+		}
 	}
 	
 	
 	
+	/**
+	 * TODO: Ask about this?
+	 * @param ownerId
+	 * @return
+	 */
 	public boolean canMaritimeTrade(int ownerId)
 	{
-		boolean maybe = true;
-		return maybe;
+		ArrayList<VertexLocation> locations = this.Vertexes.getPlayersVertexLocation(ownerId);
+		return true;
 	}
 	
 	
