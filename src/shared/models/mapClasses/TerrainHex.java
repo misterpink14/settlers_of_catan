@@ -30,7 +30,7 @@ public class TerrainHex extends Hex
 		{
 			throw new InvalidTypeException();
 		}
-		if (token < 2 || token > 12)
+		if ((token < 2 || token > 12) && token != -1) // -1 is the Dessert piece
 		{
 			throw new InvalidTokenException();
 		}
