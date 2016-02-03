@@ -1,5 +1,6 @@
 package client.clientFacade;
 
+import client.serverProxy.FakeProxy;
 import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -28,7 +29,7 @@ public class ClientFacade {
 		
 	}
 	
-	ProxyInterface proxy;
+	FakeProxy proxy;
 
 	/**
 	 * This function will facilitate the creation of a

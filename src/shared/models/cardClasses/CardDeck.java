@@ -1,5 +1,7 @@
 package shared.models.cardClasses;
 
+import com.google.gson.Gson;
+
 import shared.definitions.DevCardType;
 
 public class CardDeck {
@@ -36,6 +38,10 @@ public class CardDeck {
 			i++;
 		}
 		shuffle();
+	}
+	
+	public void importDeck(Gson json) {
+		
 	}
 
 	/** Gives the next card in the deck. The devCard object will subtract one from the type drawn.

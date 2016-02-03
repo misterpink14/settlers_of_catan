@@ -42,14 +42,14 @@ public class TurnManager {
 	 
 	/**This class keeps track of everything done during a players turn. It makes sure
 	 * nothing illegal is done.*/
-	public TurnManager() {
-		this.players = new GamePlayers();
-		unplayableCards = new HashMap<DevCardType, Integer>();
-		this.map = new Map();
+	public TurnManager(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat) {
+		this.players = players;
+		this.map = map;
 		tradeManager = new TradeManager(players);
-		this.cardDeck = new CardDeck();
-		this.bank = new Bank();
+		this.cardDeck = cardDeck;
+		this.bank = bank;
 		hasPlayedDevCard = false;
+		unplayableCards = new HashMap<DevCardType, Integer>();
 	}
 	
 	public void startGame() {
