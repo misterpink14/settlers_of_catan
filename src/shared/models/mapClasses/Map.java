@@ -48,13 +48,11 @@ public class Map
 	
 	
 	
-// PUBLIC
+// Public METHODS
 	/**
 	 * Constructor generates a new map. Requires a String to be validated/parsed
 	 */
-	public Map() 
-	{
-	}
+	public Map() { }
 	
 
 	/**
@@ -63,8 +61,9 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRobber(HexLocation loc)
+	public boolean canPlaceRobber(int x, int y)
 	{
+		HexLocation loc = null;
 		if (!this.Robber.canPlaceRobber(loc))
 		{
 			return false;
@@ -84,9 +83,14 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRoad(EdgeLocation loc)
+	public boolean canPlaceRoad(int x, int y, String direction, int ownerId)
 	{
-		return true;
+		try {
+			EdgeLocation loc = null;
+			return this.Edges.canBuildRoad(loc, ownerId);
+		} catch (IndexOutOfBoundsException e) {
+			return false;
+		}
 	}
 	
 	
@@ -96,9 +100,18 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceSettlement(VertexLocation loc) 
+	public boolean canPlaceSettlement(int x, int y, String direction, int ownerId) 
 	{
-		return true;
+		try {
+			VertexLocation loc = null;
+			return this._canPlaceSettlement() && this.Vertexes.canPlaceSettlement(loc, ownerId);
+		} catch (IndexOutOfBoundsException e)
+		{
+			return false;
+		} catch (InvalidTypeException e)
+		{
+			return false;
+		}
 	}
 	
 	
@@ -108,17 +121,30 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceCity(VertexLocation loc)
+	public boolean canPlaceCity(int x, int y, String direction, int ownerId)
 	{
-		return true;
+		VertexLocation loc = null;
+		return this.Vertexes.canPlaceCity(loc, ownerId);
 	}
 	
 	
 	
-	public boolean canMaritimeTrade()
+	public boolean canMaritimeTrade(int ownerId)
 	{
 		boolean maybe = true;
 		return maybe;
+	}
+	
+	
+// Private METHODS
+	/**
+	 * 
+	 * @return
+	 */
+	private boolean _canPlaceSettlement()
+	{
+		//this.Edges.canBuildSettlement(edgeLoc, ownerId)
+		return true;
 	}
 	
 }
