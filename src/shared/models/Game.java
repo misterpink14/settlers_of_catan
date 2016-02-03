@@ -1,6 +1,7 @@
 package shared.models;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -47,6 +48,7 @@ public class Game
 	public Game() {}
 	
 	public Game(Gson json) {
+		this.map = new Map();
 		this.bank = new Bank();
 		this.cardDeck = new CardDeck();
 		this.players = new GamePlayers();
@@ -148,7 +150,7 @@ public class Game
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void offerATrade(int playerID, ResourceType tradeIn, int numberIn, ResourceType tradeOut, int numberOut) throws InsufficientCardNumberException{
+	public void offerATrade(int playerID, List<Integer> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException{
 		
 	}
 	
@@ -170,20 +172,20 @@ public class Game
 		public boolean CanRollNumber() {
 			return turnManager.CanRollNumber();
 		}
-		public boolean CanBuildRoad() {
-			return turnManager.CanBuildRoad();
+		public boolean CanBuildRoad(int x, int y, String direction, int ownerId) {
+			return turnManager.CanBuildRoad(x, y, direction, ownerId);
 		}
-		public boolean CanBuildSettlement() {
-			return turnManager.CanBuildSettlement();
+		public boolean CanBuildSettlement(int x, int y, String direction, int ownerId) {
+			return turnManager.CanBuildSettlement(x, y, direction, ownerId);
 		}
-		public boolean CanBuildCity() {
-			return turnManager.CanBuildCity();
+		public boolean CanBuildCity(int x, int y, String direction, int ownerId) {
+			return turnManager.CanBuildCity(x, y, direction, ownerId);
 		}
 		public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 			return turnManager.CanOfferTrade(traderIndex, tradeeIndex, out, in);
 		}
-		public boolean CanMaritimeTrade() {
-			return turnManager.CanMaritimeTrade();
+		public boolean CanMaritimeTrade(int ownerId) {
+			return turnManager.CanMaritimeTrade(ownerId);
 		}
 		public boolean CanFinishTurn() {
 			return turnManager.CanFinishTurn();
@@ -194,8 +196,8 @@ public class Game
 		public boolean CanPlayDevCard(DevCardType card) {
 			return turnManager.CanPlayDevCard(card);
 		}
-		public boolean CanPlaceRobber() {
-			return turnManager.CanPlaceRobber();
+		public boolean CanPlaceRobber(int x, int y) {
+			return turnManager.CanPlaceRobber(x, y);
 		}
 		public boolean CanSendChat() {
 			return turnManager.CanSendChat();

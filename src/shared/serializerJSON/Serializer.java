@@ -1,13 +1,22 @@
 package shared.serializerJSON;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import shared.definitions.HexType;
+import shared.locations.HexLocation;
 import shared.models.Game;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
+import shared.models.mapClasses.Hex;
+import shared.models.mapClasses.HexMap;
+import shared.models.mapClasses.InvalidTokenException;
+import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
+import shared.models.mapClasses.TerrainHex;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.TurnManager;
 
@@ -42,7 +51,7 @@ public class Serializer {
 		JsonObject jsonTurnTracker = json.getAsJsonObject("turnTracker");
 		deserializeTurnTracker(jsonTurnTracker);
 		
-		// temporarly error fix... haha
+		// temporary error fix... haha
 		return new Game();
 	}
 	
@@ -66,44 +75,94 @@ public class Serializer {
 		JsonObject jsonMonument = jsonDeck.getAsJsonObject("monument");
 		jsonMonument.getAsInt();
 		
-		// temporarly error fix... haha
+		// temporary error fix... haha
 		return new CardDeck();
 	}
 	
 	private Map deserializeMap(JsonObject jsonMap) {
+		try {
+			
+			// Build the hexes for the map
+			HexMap hexes = new HexMap();
+			JsonArray jsonHexes = jsonMap.getAsJsonArray("hexes");
+			for (JsonElement hex : jsonHexes) {
+				
+				// when initialized, newHex is just garbage. It will
+				// be replaced after reading the JSON.
+				
+				TerrainHex newHex = new TerrainHex(HexType.WOOD, -1);
+				if (!hex.getAsJsonObject().getAsJsonObject("resource").isJsonNull()) {
+					int tokenNumber = hex.getAsJsonObject().getAsJsonObject("number").getAsInt();
+					switch(hex.getAsJsonObject().getAsJsonObject("resource").getAsString()) {
+					case "wood":
+						newHex = new TerrainHex(HexType.WOOD, tokenNumber);
+						break;
+					case "brick":
+						newHex = new TerrainHex(HexType.BRICK, tokenNumber);
+						break;
+					case "sheep":
+						newHex = new TerrainHex(HexType.SHEEP, tokenNumber);
+						break;
+					case "wheat":
+						newHex = new TerrainHex(HexType.WHEAT, tokenNumber);
+						break;
+					case "ore":
+						newHex = new TerrainHex(HexType.ORE, tokenNumber);
+						break;
+					}
+				} else { // desert
+					// The terrain hex doesn't support creating a desert hex yet
+				}
+				JsonObject hexJsonLoc = hex.getAsJsonObject().getAsJsonObject("location");
+				int locX = hexJsonLoc.getAsJsonObject("x").getAsInt();
+				int locY = hexJsonLoc.getAsJsonObject("y").getAsInt();
+				HexLocation hexLoc = new HexLocation(locX, locY);
+				
+				hexes.setHex(hexLoc, newHex);
+			}
+			
+			// Build out the roads from the JSON
+			
+			// Build out the cities from the JSON
+			
+			// Build out the settlements from the JSON
+			
+			// Place dat robber
+			
+		} catch (InvalidTokenException e) {
 		
-		
-		
-		// temporarly error fix... haha
+		} catch(InvalidTypeException e) {
+			
+		}
+		// temporary error fix... haha
 		return new Map();
-		
 	}
 	
 	private GamePlayers deserializePlayers(JsonObject jsonPlayers) {
+		GamePlayers players = new GamePlayers();
 		
-		
-		// temporarly error fix... haha
-		return new GamePlayers();
+		// temporary error fix... haha
+		return players;
 	}
 	
 	private GameLog deserializeLog(JsonObject jsonLog) {
 		
-		// temporarly error fix... haha
+		// temporary error fix... haha
 		return new GameLog();
 	}
 	
 	private GameChat deserializeChat(JsonObject jsonChat) {
-		// temporarly error fix... haha
+		// temporary error fix... haha
 		return new GameChat();
 	}
 	
 	private Bank deserializeBank(JsonObject jsonBank) {
-		// temporarly error fix... haha
+		// temporary error fix... haha
 		return new Bank();
 	}
 	
 	private TurnManager deserializeTurnTracker(JsonObject jsonTurnTracker) {
-		// temporarly error fix... haha
+		// temporary error fix... haha
 		return new TurnManager();
 	}
 }
