@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.InsufficientCardNumberException;
 
 public class GamePlayers {
 	ArrayList<Player> players = new ArrayList<Player>();
+	
+	int longestRoad = 0;
+	int largestArmy = 0;
 	
 	public GamePlayers() {}
 
@@ -25,11 +29,11 @@ public class GamePlayers {
 	 * This accepts a client and adds it as a player object to an array.
 	 * @throws Exception 
 	 */
-	public void addPlayer(int playerID) throws Exception {
+	public void addPlayer(int playerID, String name, CatanColor color) throws Exception {
 		if(this.getNumberOfPlayers() == 4) {
 			throw new Exception("There are already four players in this game");
 		}
-		Player newPlayer = new Player(playerID);
+		Player newPlayer = new Player(playerID, name, color);
 		players.add(newPlayer);
 	}
 	
@@ -66,5 +70,28 @@ public class GamePlayers {
 		//start the next player's turn.
 		players.get(playerIndex).startTurn();
 		return playerIndex;
-	}	
+	}
+	
+	public int checkForLargestArmy() {
+		int playerIndex = 0;
+		for (Player p : players) {
+			if(p.getArmy() > largestArmy && largestArmy > 2) {
+				largestArmy = p.getArmy();
+				return playerIndex;
+			}
+			playerIndex++;
+		}
+		return -1;
+	}
+	
+	public int checkForWinner() {
+		int playerIndex = 0;
+		for (Player p : players) {
+			if(p.getVictoryPoints() > 9) {
+				return playerIndex;
+			}
+			playerIndex++;
+		}
+		return -1;
+	}
 }

@@ -52,12 +52,17 @@ public class Player {
 	/**A container for this player's used dev cards*/
 	private DevCards usedDevCards = new DevCards(0,0,0,0,0);
 	
+	/**The number of soldierCards this player has played*/
+	private int army = 0;
+	
 	//we need a way to represent Harbor benefits
 
-	public Player(int id) {
+	public Player(int id, String name, CatanColor color) {
 		this.id = id;
+		this.name = name;
+		this.color = color;
 	}
-	
+
 	/**
 	 * Serialized player constructor
 	 */
@@ -74,6 +79,58 @@ public class Player {
 		this.victoryPoints = numVictoryPoints;
 		this.id = playerIndex;
 		this.name = name;
+	}
+	
+	/**Checks if this player has the longest road*/
+	public boolean isLongestRoad() {
+		return longestRoad;
+	}
+
+	/**gives this player the longest road*/
+	public void setLongestRoad(boolean longestRoad) {
+		if(longestRoad == true && this.longestRoad == false) {
+			this.victoryPoints += 2;
+		}
+		if(longestRoad == false && this.longestRoad == true) {
+			this.victoryPoints -= 2;
+		}
+		this.longestRoad = longestRoad;
+	}
+
+	/**checks if this player has the largest army*/
+	public boolean isLargestArmy() {
+		return largestArmy;
+	}
+
+	/**Gives this player the largest army*/
+	public void setLargestArmy(boolean largestArmy) {
+		if(largestArmy == true && this.largestArmy == false) {
+			this.victoryPoints += 2;
+		}
+		if(largestArmy == false && this.largestArmy == true) {
+			this.victoryPoints -= 2;
+		}
+		this.largestArmy = largestArmy;
+	}
+
+	/**Gets this player's name*/
+	public String getName() {
+		return name;
+	}
+
+	/**Gets this players Color*/
+	public CatanColor getColor() {
+		return color;
+	}
+
+	/**Gets this players victory points*/
+	public int getVictoryPoints() {
+		return victoryPoints;
+	}
+	
+	/**Gets this players army */
+	public int getArmy() {
+		return army;
 	}
 	
 	/** Check if it is this player's turn
@@ -164,6 +221,7 @@ public class Player {
 		resourceCards.removeCard(ResourceType.SHEEP, 1);
 		resourceCards.removeCard(ResourceType.BRICK, 1);
 		settlements--;
+		victoryPoints++;
 	}
 	
 	/**
@@ -175,6 +233,7 @@ public class Player {
 		resourceCards.removeCard(ResourceType.ORE, 3);
 		resourceCards.removeCard(ResourceType.WHEAT, 2);
 		cities--;
+		victoryPoints++;
 	}
 	
 	/**
@@ -195,6 +254,16 @@ public class Player {
 	 */
 	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
 		devCards.removeCard(type);
+		usedDevCards.addCard(type);
+		if(type == DevCardType.MONUMENT) {
+			victoryPoints++;
+		}
+		if(type == DevCardType.SOLDIER) {
+			army++;
+		}
+		if(type == DevCardType.ROAD_BUILD) {
+			roads -= 2;
+		}
 	}
 	
 	/**

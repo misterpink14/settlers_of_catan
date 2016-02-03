@@ -84,16 +84,19 @@ public class TurnManager {
 		return Dice.rollDice();
 	}
 	
-	public void buildRoad() {
-		
+	public void buildRoad() throws InsufficientCardNumberException {
+		players.getPlayerByIndex(playerIndex).buyRoad();
+		//map.placeRoad
 	}
 	
-	public void buildSettlement() {
-		
+	public void buildSettlement() throws InsufficientCardNumberException {
+		players.getPlayerByIndex(playerIndex).buySettlement();
+		//map.placeSettlement
 	}
 	
-	public void buildCity() {
-		
+	public void buildCity() throws InsufficientCardNumberException {
+		players.getPlayerByIndex(playerIndex).buyCity();
+		//map.placeCity
 	}
 	
 	public void buyDevCard() throws InsufficientCardNumberException {

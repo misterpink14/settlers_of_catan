@@ -3,8 +3,6 @@ package shared.models;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.Gson;
-
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.Bank;
@@ -14,7 +12,6 @@ import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
 import shared.models.playerClasses.GamePlayers;
-import shared.models.playerClasses.TradeManager;
 import shared.models.playerClasses.TurnManager;
 
 /**
@@ -44,10 +41,7 @@ public class Game
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
-	// temporary error fix... haha
-	public Game() {}
-	
-	public Game(Gson json) {
+	public Game() {
 		this.map = new Map();
 		this.bank = new Bank();
 		this.cardDeck = new CardDeck();
@@ -55,16 +49,6 @@ public class Game
 		this.log = new GameLog();
 		this.chat = new GameChat();
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
-		if(json != null) {
-			importGame(json);
-		}
-	}
-	
-	/**
-	 * Takes in a json summary of a game and changes itself to match the specified game
-	 */
-	public void importGame(Gson json) {
-		cardDeck.importDeck(json.fromJson("deck", Gson.class));
 	}
 	
 	public boolean isTurn(int playerIndex) {
@@ -163,8 +147,8 @@ public class Game
 	
 	
 	//***********************************************************************************************************************************
-		//														Can Functions
-		//***********************************************************************************************************************************
+	//														Can Functions
+	//***********************************************************************************************************************************
 		
 		public boolean CanDiscardCards(ResourceType type, int num) {
 			return turnManager.CanDiscardCards(type, num);
