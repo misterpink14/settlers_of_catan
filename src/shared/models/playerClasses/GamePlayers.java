@@ -34,6 +34,14 @@ public class GamePlayers {
 	}
 	
 	/**
+	 * Overloaded the addPlayer method to add a player that has been
+	 * deserialized.
+	 */
+	public void addPlayer(Player player) throws Exception {
+		players.add(player);
+	}
+	
+	/**
 	 * This returns a player in connection with the given playerIndex
 	 * @param playerIndex the index connected with this player
 	 * @return A player object

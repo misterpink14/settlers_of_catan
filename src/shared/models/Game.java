@@ -150,7 +150,7 @@ public class Game
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void offerATrade(int playerID, List<Integers> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException{
+	public void offerATrade(int playerID, List<Integer> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException{
 		
 	}
 	

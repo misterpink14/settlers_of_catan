@@ -1,5 +1,6 @@
 package shared.models.playerClasses;
 
+import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.DevCards;
@@ -8,8 +9,18 @@ import shared.models.cardClasses.ResourceCards;
 
 public class Player {
 	
+	private final int MAX_ROADS = 15;
+	private final int MAX_SETTLEMENTS = 5;
+	private final int MAX_CITIES = 4;
+	
 	/**The id of the client that is controlling this player*/
 	private int id;
+	
+	/**String with the player's name*/
+	private String name;
+	
+	/**The player's color*/
+	private CatanColor color;
 	
 	/**Set to true if it is this player's turn*/
 	private boolean isTurn = false;
@@ -24,13 +35,13 @@ public class Player {
 	private boolean largestArmy = false;
 	
 	/**The number of cities this player may build*/
-	private int cities = 4;
+	private int cities = MAX_CITIES;
 	
 	/**The number of settlements this player may build*/
-	private int settlements = 5;
+	private int settlements = MAX_SETTLEMENTS;
 	
 	/**The number of roads this player may build*/
-	private int roads = 15;
+	private int roads = MAX_ROADS;
 	
 	/**A container for this player's resource cards.*/
 	private ResourceCards resourceCards = new ResourceCards(0,0,0,0,0);
@@ -38,10 +49,31 @@ public class Player {
 	/**A container for this player's development cards*/
 	private DevCards devCards = new DevCards(0,0,0,0,0);
 	
+	/**A container for this player's used dev cards*/
+	private DevCards usedDevCards = new DevCards(0,0,0,0,0);
+	
 	//we need a way to represent Harbor benefits
 
 	public Player(int id) {
 		this.id = id;
+	}
+	
+	/**
+	 * Serialized player constructor
+	 */
+	public Player(ResourceCards resourceCards, DevCards oldDevCards, DevCards newDevCards,
+				  int numRoads, int numCities, int numSettlements, int numSoldiers,
+				  int numVictoryPoints, int numMonuments, boolean playedDevCard,
+				  boolean discarded, int playerIndex, String name, CatanColor color) {
+		this.resourceCards = resourceCards;
+		this.usedDevCards = oldDevCards;
+		this.devCards = newDevCards;
+		this.roads = MAX_ROADS - numRoads;
+		this.cities = MAX_CITIES - numCities;
+		this.settlements = MAX_SETTLEMENTS - settlements;
+		this.victoryPoints = numVictoryPoints;
+		this.id = playerIndex;
+		this.name = name;
 	}
 	
 	/** Check if it is this player's turn

@@ -127,6 +127,8 @@ public class Serializer {
 			
 			// Build out the settlements from the JSON
 			
+			// Place dat robber
+			
 		} catch (InvalidTokenException e) {
 		
 		} catch(InvalidTypeException e) {
@@ -137,10 +139,10 @@ public class Serializer {
 	}
 	
 	private GamePlayers deserializePlayers(JsonObject jsonPlayers) {
-		
+		GamePlayers players = new GamePlayers();
 		
 		// temporary error fix... haha
-		return new GamePlayers();
+		return players;
 	}
 	
 	private GameLog deserializeLog(JsonObject jsonLog) {
