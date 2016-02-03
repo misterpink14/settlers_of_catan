@@ -129,21 +129,21 @@ public class TurnManager {
 	public boolean CanRollNumber() {
 		return players.getPlayerByIndex(playerIndex).canRollDice();
 	}
-	public boolean CanBuildRoad() {
-		return players.getPlayerByIndex(playerIndex).canBuildRoad();
+	public boolean CanBuildRoad(int x, int y, String direction, int ownerId) {
+		return players.getPlayerByIndex(playerIndex).canBuildRoad() && map.canPlaceRoad(x, y, direction, ownerId);
+		
 	}
-	public boolean CanBuildSettlement() {
-		return players.getPlayerByIndex(playerIndex).canBuildSettlement();
+	public boolean CanBuildSettlement(int x, int y, String direction, int ownerId) {
+		return players.getPlayerByIndex(playerIndex).canBuildSettlement() && map.canPlaceSettlement(x, y, direction, ownerId);
 	}
-	public boolean CanBuildCity() {
-		return players.getPlayerByIndex(playerIndex).canBuildCity();
+	public boolean CanBuildCity(int x, int y, String direction, int ownerId) {
+		return players.getPlayerByIndex(playerIndex).canBuildCity() && map.canPlaceCity(x, y, direction, ownerId);
 	}
 	public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
 	}
-	public boolean CanMaritimeTrade() {
-		//TODO hook this up with the map to determine if a player has a settlement on a port.
-		return false;
+	public boolean CanMaritimeTrade(int ownerId) {
+		return map.canMaritimeTrade(ownerId);
 	}
 	public boolean CanFinishTurn() {
 		return false;
@@ -161,9 +161,8 @@ public class TurnManager {
 		}
 		return false;
 	}
-	public boolean CanPlaceRobber() {
-		//TODO hook this up with the map
-		return false;
+	public boolean CanPlaceRobber(int x, int y) {
+		return this.map.canPlaceRobber(x, y);
 	}
 	public boolean CanSendChat() {
 		return false;
