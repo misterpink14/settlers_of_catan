@@ -43,6 +43,9 @@ public class Game
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
+	// temporary error fix... haha
+	public Game() {}
+	
 	public Game(Gson json) {
 		this.bank = new Bank();
 		this.cardDeck = new CardDeck();

@@ -39,6 +39,9 @@ public class TurnManager {
 	private HashMap<DevCardType, Integer> unplayableCards;
 	
 	private boolean hasPlayedDevCard;
+	
+	// temporarly error fix... haha
+	public TurnManager() {}
 	 
 	/**This class keeps track of everything done during a players turn. It makes sure
 	 * nothing illegal is done.*/

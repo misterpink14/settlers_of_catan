@@ -25,12 +25,12 @@ public class GameMapper
 	public static void deserialize(String json) throws MapperException
 	{
 		_deserialize(json);
-		/*TradeMapper.deserialize(json);
+		TradeMapper.deserialize(json);
 		MapMapper.deserialize(json);
 		PlayerMapper.deserialize(json);
 		CardMapper.deserialize(json);
 		ChatMapper.deserialize(json);
-		LogMapper.deserialize(json);*/
+		LogMapper.deserialize(json);
 	}
 	
 	
