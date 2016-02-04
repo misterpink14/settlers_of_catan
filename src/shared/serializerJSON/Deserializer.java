@@ -188,6 +188,28 @@ public class Deserializer {
 				}
 				edges.setEdge(newEdgeLoc, newRoad);
 			}
+
+			// Build out the cities from the JSON
+			JsonArray jsonCities = jsonMap.getAsJsonArray("cities");
+			for (JsonElement city : jsonCities) {
+				int ownerIndex = city.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				
+				JsonObject jsonPortLoc = city.getAsJsonObject().getAsJsonObject("location");
+				int locX = jsonPortLoc.getAsJsonObject("x").getAsInt();
+				int locY = jsonPortLoc.getAsJsonObject("y").getAsInt();
+				HexLocation hexLoc = new HexLocation(locX, locY);
+			}
+			
+			// Build out the settlements from the JSON
+			JsonArray jsonSettlements = jsonMap.getAsJsonArray("settlements");
+			for (JsonElement settlement : jsonSettlements) {
+				int ownerIndex = settlement.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				
+				JsonObject jsonPortLoc = settlement.getAsJsonObject().getAsJsonObject("location");
+				int locX = jsonPortLoc.getAsJsonObject("x").getAsInt();
+				int locY = jsonPortLoc.getAsJsonObject("y").getAsInt();
+				HexLocation hexLoc = new HexLocation(locX, locY);
+			}
 			
 			// Build out the ports from the JSON
 			JsonArray jsonPorts = jsonMap.getAsJsonArray("ports");
@@ -200,11 +222,12 @@ public class Deserializer {
 				HexLocation hexLoc = new HexLocation(locX, locY);
 			}
 			
-			// Build out the cities from the JSON
-			
-			// Build out the settlements from the JSON
-			
 			// Place dat robber
+			JsonObject jsonRobberLoc = jsonMap.getAsJsonObject("robber");
+			int robberLocX = jsonRobberLoc.getAsJsonObject("x").getAsInt();
+			int robberLocY = jsonRobberLoc.getAsJsonObject("y").getAsInt();
+			HexLocation robberHex = new HexLocation(robberLocX, robberLocY);
+			robberLocation = new RobberLocation(robberHex);
 			
 		} catch (InvalidTokenException e) {
 		
