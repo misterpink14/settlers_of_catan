@@ -14,6 +14,8 @@ import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.RobberLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import shared.models.Game;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
@@ -193,22 +195,70 @@ public class Deserializer {
 			JsonArray jsonCities = jsonMap.getAsJsonArray("cities");
 			for (JsonElement city : jsonCities) {
 				int ownerIndex = city.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				Piece newCity = new Piece(PieceType.CITY, ownerIndex);
 				
-				JsonObject jsonPortLoc = city.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonPortLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonPortLoc.getAsJsonObject("y").getAsInt();
+				JsonObject jsonCityLoc = city.getAsJsonObject().getAsJsonObject("location");
+				int locX = jsonCityLoc.getAsJsonObject("x").getAsInt();
+				int locY = jsonCityLoc.getAsJsonObject("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
+				
+				VertexLocation newVertexLoc = null;
+				switch(jsonCityLoc.getAsJsonObject("direction").getAsString()) {
+				case "W":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.West);
+					break;
+				case "NW":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+					break;
+				case "NE":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+					break;
+				case "E":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.East);
+					break;
+				case "SE":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthEast);
+					break;
+				case "SW":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+					break;
+				}
+				vertices.setVertex(newVertexLoc, newCity);
 			}
 			
 			// Build out the settlements from the JSON
 			JsonArray jsonSettlements = jsonMap.getAsJsonArray("settlements");
 			for (JsonElement settlement : jsonSettlements) {
 				int ownerIndex = settlement.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				Piece newSettlement = new Piece(PieceType.SETTLEMENT, ownerIndex);
 				
-				JsonObject jsonPortLoc = settlement.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonPortLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonPortLoc.getAsJsonObject("y").getAsInt();
+				JsonObject jsonSettlementLoc = settlement.getAsJsonObject().getAsJsonObject("location");
+				int locX = jsonSettlementLoc.getAsJsonObject("x").getAsInt();
+				int locY = jsonSettlementLoc.getAsJsonObject("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
+				
+				VertexLocation newVertexLoc = null;
+				switch(jsonSettlementLoc.getAsJsonObject("direction").getAsString()) {
+				case "W":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.West);
+					break;
+				case "NW":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.NorthWest);
+					break;
+				case "NE":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.NorthEast);
+					break;
+				case "E":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.East);
+					break;
+				case "SE":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthEast);
+					break;
+				case "SW":
+					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+					break;
+				}
+				vertices.setVertex(newVertexLoc, newSettlement);
 			}
 			
 			// Build out the ports from the JSON
@@ -234,7 +284,7 @@ public class Deserializer {
 		} catch(InvalidTypeException e) {
 			
 		}
-		// temporary error fix... haha
+		
 		return new Map(hexes, vertices, edges, ports, robberLocation);
 	}
 	
