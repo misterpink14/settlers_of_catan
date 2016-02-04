@@ -68,6 +68,9 @@ public class Player {
 		this.color = color;
 	}
 	
+	/**
+	 * Constructor used by the deserializer
+	 */
 	public Player(HashMap<ResourceType, Integer> resources, HashMap<DevCardType, Integer> oldDevCards, HashMap<DevCardType, Integer> devCards,
 			int roads, int cities, int settlements, int soldiers, int victoryPoints, int monuments, int id, String name, CatanColor color,
 			boolean largestArmy, boolean longestRoad) {
@@ -91,24 +94,6 @@ public class Player {
 		this.color = color;
 		this.largestArmy = largestArmy;
 		this.longestRoad = longestRoad;
-	}
-
-	/**
-	 * Serialized player constructor
-	 */
-	public Player(ResourceCards resourceCards, DevCards oldDevCards, DevCards newDevCards,
-				  int numRoads, int numCities, int numSettlements, int numSoldiers,
-				  int numVictoryPoints, int numMonuments, boolean playedDevCard,
-				  boolean discarded, int playerIndex, String name, CatanColor color) {
-		this.resourceCards = resourceCards;
-		this.usedDevCards = oldDevCards;
-		this.devCards = newDevCards;
-		this.roads = MAX_ROADS - numRoads;
-		this.cities = MAX_CITIES - numCities;
-		this.settlements = MAX_SETTLEMENTS - settlements;
-		this.victoryPoints = numVictoryPoints;
-		this.id = playerIndex;
-		this.name = name;
 	}
 	
 	/**Checks if this player has the longest road*/
@@ -286,6 +271,7 @@ public class Player {
 		devCards.removeCard(type);
 		usedDevCards.addCard(type);
 		if(type == DevCardType.MONUMENT) {
+			monuments++;
 			victoryPoints++;
 		}
 		if(type == DevCardType.SOLDIER) {
