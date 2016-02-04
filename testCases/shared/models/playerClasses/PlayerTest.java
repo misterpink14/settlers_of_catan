@@ -2,6 +2,8 @@ package shared.models.playerClasses;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+
 import org.junit.Test;
 
 import shared.definitions.CatanColor;
@@ -15,6 +17,32 @@ public class PlayerTest {
 
 	@Test
 	public void testPlayer() {
+		//a test for the larger constructor used by the serializer.
+		HashMap<ResourceType, Integer> resources = new HashMap<ResourceType, Integer>();
+		resources.put(ResourceType.ORE, 27);
+		resources.put(ResourceType.SHEEP, 30);
+		HashMap<DevCardType,Integer> oldDevCards = new HashMap<DevCardType, Integer>();
+		oldDevCards.put(DevCardType.MONOPOLY, 1);
+		oldDevCards.put(DevCardType.MONUMENT, 1);
+		oldDevCards.put(DevCardType.SOLDIER, 2);
+		HashMap<DevCardType, Integer> devCards = new HashMap<DevCardType, Integer>();
+		devCards.put(DevCardType.SOLDIER, 3);
+		Player test = new Player(resources, oldDevCards, devCards, 12, 4, 3, 2, 3, 1, 12345, "bob", CatanColor.BLUE, false, false);
+		assertTrue(test.getNumOfResource(ResourceType.BRICK) == 0);
+		assertTrue(test.getNumOfResource(ResourceType.ORE) == 27);
+		assertTrue(test.getNumOfResource(ResourceType.SHEEP) == 30);
+		assertTrue(test.getNumOfResource(ResourceType.WHEAT) == 0);
+		assertTrue(test.getNumOfResource(ResourceType.WOOD) == 0);
+		assertTrue(test.getNumOfDevCard(DevCardType.MONOPOLY) == 0);
+		assertTrue(test.getNumOfDevCard(DevCardType.MONUMENT) == 0);
+		assertTrue(test.getNumOfDevCard(DevCardType.ROAD_BUILD) == 0);
+		assertTrue(test.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) == 0);
+		assertTrue(test.getNumOfDevCard(DevCardType.SOLDIER) == 3);
+		
+		assertTrue(test.getArmy() == 2);
+		assertTrue(test.getColor() == CatanColor.BLUE);
+		assertTrue(test.getName() == "bob");
+		assertTrue(test.getVictoryPoints() == 3);
 	}
 
 	@Test
@@ -107,6 +135,7 @@ public class PlayerTest {
 			fail();
 			e.printStackTrace();
 		}
+		
 		//check that buy road fails if there are not enough resources.
 		boolean failed = false;
 		try {
