@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import org.junit.Test;
 
+import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.playerClasses.GamePlayers;
@@ -18,8 +19,8 @@ public class TradeManagerTest {
 	@Test
 	public void testTrade() {
 		try {
-			players.addPlayer(1);
-			players.addPlayer(2);
+			players.addPlayer(1, "bob", CatanColor.BLUE);
+			players.addPlayer(2, "bob", CatanColor.BLUE);
 		} catch (Exception e) {
 			fail("could not add player");
 		}

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import shared.definitions.CatanColor;
+
 public class GamePlayersTest {
 
 	GamePlayers players = new GamePlayers();
@@ -15,16 +17,16 @@ public class GamePlayersTest {
 	public void testAddPlayers() {
 		//adds four players, checking the counts along the way. We need to know that there are only four players.
 		try {
-			players.addPlayer(1);
+			players.addPlayer(1, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 1);
 			
-			players.addPlayer(2);
+			players.addPlayer(2, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 2);
 			
-			players.addPlayer(3);
+			players.addPlayer(3, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 3);
 			
-			players.addPlayer(4);
+			players.addPlayer(4, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 4);
 		} catch (Exception e) {
 			fail("Failed adding a legal number of players");
@@ -32,7 +34,7 @@ public class GamePlayersTest {
 		
 		boolean failed = false;
 		try {
-			players.addPlayer(5);
+			players.addPlayer(5, "bob", CatanColor.BLUE);
 		} catch (Exception e) {
 			failed = true;
 			e.printStackTrace();
@@ -43,16 +45,16 @@ public class GamePlayersTest {
 	@Test
 	public void testFinishTurn() {
 		try {
-			players.addPlayer(1);
+			players.addPlayer(1, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 1);
 			
-			players.addPlayer(2);
+			players.addPlayer(2, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 2);
 			
-			players.addPlayer(3);
+			players.addPlayer(3, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 3);
 			
-			players.addPlayer(4);
+			players.addPlayer(4, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 4);
 		} catch (Exception e) {
 			fail("Failed adding a legal number of players");

@@ -4,13 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.InsufficientCardNumberException;
 
 public class PlayerTest {
 	
-	Player player = new Player(0);
+	Player player = new Player(0, "Bob", CatanColor.BLUE);
 
 	@Test
 	public void testPlayer() {
