@@ -37,6 +37,8 @@ public class Game
 	GameChat chat;
 	/**The turn tracker manages trades between players*/
 	TurnManager turnManager;
+	/**The index of the winner of the game*/
+	int winner = -1;
 	
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
@@ -49,6 +51,19 @@ public class Game
 		this.log = new GameLog();
 		this.chat = new GameChat();
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
+	}
+	
+	public Game(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
+			int currentTurn, boolean hasPlayedDevCard, int winner) {
+		this.map = map;
+		this.bank = bank;
+		this.cardDeck = cardDeck;
+		this.players = players;
+		this.log = log;
+		this.chat = chat;
+		this.turnManager = new TurnManager();
+		this.turnManager.setCurrentTurn(currentTurn);
+		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 	}
 	
 	public boolean isTurn(int playerIndex) {
@@ -186,8 +201,8 @@ public class Game
 		public boolean CanSendChat() {
 			return turnManager.CanSendChat();
 		}
-		public boolean CanAcceptTrade() {
-			return turnManager.CanAcceptTrade();
+		public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
+			return turnManager.CanAcceptTrade(traderIndex, tradeeIndex, out, in);
 		}
 	
 	

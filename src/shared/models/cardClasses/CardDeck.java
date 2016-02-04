@@ -1,5 +1,7 @@
 package shared.models.cardClasses;
 
+import java.util.HashMap;
+
 import com.google.gson.Gson;
 
 import shared.definitions.DevCardType;
@@ -39,11 +41,20 @@ public class CardDeck {
 		}
 		shuffle();
 	}
-	
-	public void importDeck(Gson json) {
-		
-	}
 
+	public CardDeck(HashMap<DevCardType, Integer> cards) {
+		cardsInDeck = 0;
+		for(DevCardType type : cards.keySet()) {
+			this.devCards.addCards(type, cards.get(type));
+		}
+		for(DevCardType type : cards.keySet()) {
+			for(int i = 0; i < cards.get(type); i++) {
+				this.deck[cardsInDeck] = type;
+				cardsInDeck++;
+			}
+		}
+	}
+	
 	/** Gives the next card in the deck. The devCard object will subtract one from the type drawn.
 	 * 
 	 * @return the type of the card drawn
