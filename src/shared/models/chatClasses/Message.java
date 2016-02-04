@@ -1,33 +1,28 @@
 package shared.models.chatClasses;
 
 public class Message {
-	int playerFrom;
-	int playerTo;
+	String source;
 	String message;
 
 	/**
 	 * This class stores a single message between two players.
 	 * @param from The author of the message
-	 * @param to The intended recipient
 	 * @param message What is said
 	 */
-	public Message(int from, int to, String message) {
-		this.playerFrom = from;
-		this.playerTo = to;
+	public Message(String source, String message) {
+		this.source = source;
 		this.message = message;
 	}
 
 	/**
-	 * @return The id of the player the message is from
+	 * @return The name of the player the message is from
 	 */
-	public int getPlayerFrom() {
-		return playerFrom;
+	public String getSource() {
+		return source;
 	}
-	/**
-	 * @return The id of the player the message is to
-	 */
-	public int getPlayerTo() {
-		return playerTo;
+	
+	public void setSource() {
+		this.source = source;
 	}
 	/**
 	 * @return The text contained in this message
@@ -36,4 +31,7 @@ public class Message {
 		return message;
 	}
 
+	public void setMessage() {
+		this.message = message;
+	}
 }

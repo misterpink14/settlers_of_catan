@@ -13,10 +13,10 @@ public class GameChat {
 	public GameChat() {}
 	
 	/**
-	 * Uses json to add messages to the game chat.
+	 * Replaces messages with the passed in copy
 	 */
-	public void importChat(String json) {
-		
+	public void importChat(ArrayList<Message> messages) {
+		this.messages = messages;
 	}
 	
 	/**

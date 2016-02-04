@@ -3,9 +3,11 @@ package shared.models.logClasses;
 import java.util.ArrayList;
 import java.util.List;
 
+import shared.models.chatClasses.Message;
+
 public class GameLog {
-	/**An array that holds the entries in the game log*/
-	ArrayList<Entry> entries = new ArrayList<Entry>();
+	/**An array that holds the messages in the game log*/
+	ArrayList<Message> messages = new ArrayList<Message>();
 	
 	/**
 	 * This object keeps track of the logs entered during the course of the game
@@ -13,23 +15,23 @@ public class GameLog {
 	public GameLog() {}
 
 	/**
-	 * Uses json to add entries to the game log
+	 * Replaces messages with the passed in copy
 	 */
-	public void importLog(String json) {
-		
+	public void importLog(ArrayList<Message> messages) {
+		this.messages = messages;
 	}
 	
 	/**
-	 * Adds a log entry to the entries list
+	 * Adds a log message to the messages list
 	 * 
-	 * @param entry The entry to be added to the log
+	 * @param message The message to be added to the log
 	 */
-	public void addEntry(Entry entry) {
-		entries.add(entry);
+	public void addMessage(Message message) {
+		messages.add(message);
 	}
 	
-	/**Gets all log entries*/
-	public List<Entry> getEntries() {
-		return entries;
+	/**Gets all log messages*/
+	public List<Message> getMessages() {
+		return messages;
 	}
 }
