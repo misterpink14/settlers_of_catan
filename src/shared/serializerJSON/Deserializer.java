@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import shared.definitions.DevCardType;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
+import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -32,6 +33,7 @@ import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.PortMap;
 import shared.models.mapClasses.TerrainHex;
 import shared.models.mapClasses.VertexMap;
+import shared.models.mapClasses.WaterHex;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.TurnManager;
 
@@ -98,7 +100,7 @@ public class Deserializer {
 		JsonObject jsonMonument = jsonDeck.getAsJsonObject("monument");
 		int monumentCount = jsonMonument.getAsInt();
 		
-		HashMap<DevCardType, Integer> cards = new HashMap();
+		HashMap<DevCardType, Integer> cards = new HashMap<DevCardType, Integer>();
 		cards.put(DevCardType.YEAR_OF_PLENTY, yearOfPlentyCount);
 		cards.put(DevCardType.MONOPOLY, monopolyCount);
 		cards.put(DevCardType.SOLDIER, soldierCount);
@@ -265,11 +267,34 @@ public class Deserializer {
 			JsonArray jsonPorts = jsonMap.getAsJsonArray("ports");
 			for (JsonElement port : jsonPorts) {
 				int ratio = port.getAsJsonObject().getAsJsonObject("ratio").getAsInt();
-				
+				WaterHex newWaterHex = null;
+				if (ratio == 3) {
+					newWaterHex = new WaterHex(PortType.THREE);
+				} else {
+					switch(port.getAsJsonObject().getAsJsonObject("resource").getAsString()) {
+					case "wood":
+						newWaterHex = new WaterHex(PortType.WOOD);
+						break;
+					case "brick":
+						newWaterHex = new WaterHex(PortType.BRICK);
+						break;
+					case "sheep":
+						newWaterHex = new WaterHex(PortType.SHEEP);
+						break;
+					case "wheat":
+						newWaterHex = new WaterHex(PortType.WHEAT);
+						break;
+					case "ore":
+						newWaterHex = new WaterHex(PortType.ORE);
+						break;
+					}
+				}
 				JsonObject jsonPortLoc = port.getAsJsonObject().getAsJsonObject("location");
 				int locX = jsonPortLoc.getAsJsonObject("x").getAsInt();
 				int locY = jsonPortLoc.getAsJsonObject("y").getAsInt();
-				HexLocation hexLoc = new HexLocation(locX, locY);
+				HexLocation waterHexLoc = new HexLocation(locX, locY);
+				
+				hexes.setHex(waterHexLoc, newWaterHex);
 			}
 			
 			// Place dat robber
