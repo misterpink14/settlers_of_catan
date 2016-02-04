@@ -13,6 +13,14 @@ public class GameLog {
 	 * This object keeps track of the logs entered during the course of the game
 	 */
 	public GameLog() {}
+	
+	/**
+	 * Creates the GameLog from existing Array of Messages
+	 * @param messages The messages already in the Log
+	 */
+	public GameLog(ArrayList<Message> messages) {
+		this.messages = messages;
+	}
 
 	/**
 	 * Replaces messages with the passed in copy

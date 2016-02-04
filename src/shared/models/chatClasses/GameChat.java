@@ -13,6 +13,14 @@ public class GameChat {
 	public GameChat() {}
 	
 	/**
+	 *  Creates the GameChat from existing Array of messages
+	 * @param messages The messages already in the chat
+	 */
+	public GameChat(ArrayList<Message> messages) {
+		this.messages = messages;
+	}
+
+	/**
 	 * Replaces messages with the passed in copy
 	 */
 	public void importChat(ArrayList<Message> messages) {

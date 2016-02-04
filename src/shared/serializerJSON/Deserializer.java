@@ -1,5 +1,6 @@
 package shared.serializerJSON;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.google.gson.JsonArray;
@@ -17,6 +18,7 @@ import shared.models.Game;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
 import shared.models.chatClasses.GameChat;
+import shared.models.chatClasses.Message;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.EdgeMap;
 import shared.models.mapClasses.Hex;
@@ -221,14 +223,25 @@ public class Deserializer {
 	}
 	
 	private GameLog deserializeLog(JsonObject jsonLog) {
-		
-		// temporary error fix... haha
-		return new GameLog();
+		ArrayList<Message> messages = new ArrayList<Message>();
+		JsonArray jsonLines = jsonLog.getAsJsonArray("lines");
+		for (JsonElement line : jsonLines) {
+			String source = line.getAsJsonObject().getAsJsonObject("source").getAsString();
+			String message = line.getAsJsonObject().getAsJsonObject("message").getAsString();
+			messages.add(new Message(source, message));
+		}
+		return new GameLog(messages);
 	}
 	
 	private GameChat deserializeChat(JsonObject jsonChat) {
-		// temporary error fix... haha
-		return new GameChat();
+		ArrayList<Message> messages = new ArrayList<Message>();
+		JsonArray jsonLines = jsonChat.getAsJsonArray("lines");
+		for (JsonElement line : jsonLines) {
+			String source = line.getAsJsonObject().getAsJsonObject("source").getAsString();
+			String message = line.getAsJsonObject().getAsJsonObject("message").getAsString();
+			messages.add(new Message(source, message));
+		}
+		return new GameChat(messages);
 	}
 	
 	private Bank deserializeBank(JsonObject jsonBank) {
