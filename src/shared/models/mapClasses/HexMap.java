@@ -15,6 +15,7 @@ public class HexMap
 	public HexMap() {}
 	
 	
+	
 // GETTER
 	/**
 	 * Returns the Hex at a given location
@@ -25,8 +26,13 @@ public class HexMap
 	 */
 	public Hex getHex(HexLocation loc) throws IndexOutOfBoundsException
 	{
+		if (!this.Hexes.containsKey(loc))
+		{
+			throw new IndexOutOfBoundsException();
+		}
 		return Hexes.get(loc);
 	}
+	
 	
 	
 // SETTER
@@ -43,6 +49,7 @@ public class HexMap
 	}
 	
 	
+	
 // METHODS
 	public boolean canPlaceRobber(HexLocation loc)
 	{
@@ -54,8 +61,6 @@ public class HexMap
 	}
 	
 	
-	
-	
 	/**
 	 * Returns the Hex Type of a given HexLocation
 	 * 
@@ -63,11 +68,9 @@ public class HexMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	private HexType getHexType(HexLocation loc) throws IndexOutOfBoundsException
+	public HexType getHexType(HexLocation loc) throws IndexOutOfBoundsException
 	{
-		return Hexes.get(loc).getHexType();
+		return this.getHex(loc).getHexType();
 	}
 	
-	
-
 }

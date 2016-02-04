@@ -7,25 +7,25 @@ public class Piece
 {
 	private PieceType Type; // Enumeration -> ROAD, SETTLEMENT, CITY, ROBBER
 	
-	private int OwnerId; // Index of the player that owns this piece
+	private int OwnerIndex; // Index of the player that owns this piece
 
 	
 	
+// CONSTRUCTORS
 	public Piece() {}
 	
 	
-// CONSTRUCTORS
 	public Piece(PieceType type)
 	{
 		this.Type = type;
-		this.OwnerId = -1;
+		this.OwnerIndex = -1;
 	}
 	
 	
-	public Piece(PieceType type, int ownerId)
+	public Piece(PieceType type, int ownerIndex)
 	{
 		this.Type = type;
-		this.OwnerId = ownerId;
+		this.OwnerIndex = ownerIndex;
 	}
 	
 	
@@ -39,8 +39,9 @@ public class Piece
 	
 	public int getOwner() 
 	{
-		return this.OwnerId;
+		return this.OwnerIndex;
 	}
+	
 	
 	
 // SETTERS
@@ -50,9 +51,9 @@ public class Piece
 	}
 	
 	
-	public void setOwner(int ownerId)
+	public void setOwner(int ownerIndex)
 	{
-		this.OwnerId = ownerId;
+		this.OwnerIndex = ownerIndex;
 	}
 	
 	
@@ -64,9 +65,9 @@ public class Piece
 	 * @param p
 	 * @return
 	 */
-	public boolean isOwner(int ownerId)
+	public boolean isOwner(int ownerIndex)
 	{
-		return this.OwnerId == ownerId;
+		return this.OwnerIndex == ownerIndex;
 	}
 	
 }
