@@ -1,5 +1,7 @@
 package shared.models.playerClasses;
 
+import java.util.HashMap;
+
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
@@ -55,12 +57,40 @@ public class Player {
 	/**The number of soldierCards this player has played*/
 	private int army = 0;
 	
+	/**The number of Monument cards this player has played.*/
+	private int monuments = 0;
+	
 	//we need a way to represent Harbor benefits
 
 	public Player(int id, String name, CatanColor color) {
 		this.id = id;
 		this.name = name;
 		this.color = color;
+	}
+	
+	public Player(HashMap<ResourceType, Integer> resources, HashMap<DevCardType, Integer> oldDevCards, HashMap<DevCardType, Integer> devCards,
+			int roads, int cities, int settlements, int soldiers, int victoryPoints, int monuments, int id, String name, CatanColor color,
+			boolean largestArmy, boolean longestRoad) {
+		for(ResourceType type : resources.keySet()) {
+			this.resourceCards.addCard(type, resources.get(type));
+		}
+		for(DevCardType type : oldDevCards.keySet()) {
+			this.usedDevCards.addCards(type, oldDevCards.get(type));
+		}
+		for(DevCardType type : devCards.keySet()) {
+			this.devCards.addCards(type, devCards.get(type));
+		}
+		this.roads = roads;
+		this.settlements = settlements;
+		this.cities = cities;
+		this.army = soldiers;
+		this.victoryPoints = victoryPoints;
+		this.monuments = monuments;
+		this.id = id;
+		this.name = name;
+		this.color = color;
+		this.largestArmy = largestArmy;
+		this.longestRoad = longestRoad;
 	}
 
 	/**

@@ -50,6 +50,30 @@ public class DevCards {
 	 * Adds a card of a specific type to this group
 	 * @param type the type of development card to add
 	 */
+	public void addCards(DevCardType type, int num) {
+		switch(type){
+			case MONOPOLY:
+				this.monopolyCards+=num;
+				break;
+			case MONUMENT:
+				this.monumentCards+=num;
+				break;
+			case ROAD_BUILD:
+				this.roadBuilderCards+=num;
+				break;
+			case SOLDIER:
+				this.soldierCards+=num;
+				break;
+			case YEAR_OF_PLENTY:
+				this.yearOfPlentyCards+=num;
+				break;
+		}
+	}
+	
+	/**
+	 * Adds a card of a specific type to this group
+	 * @param type the type of development card to add
+	 */
 	public void addCard(DevCardType type) {
 		switch(type){
 			case MONOPOLY:

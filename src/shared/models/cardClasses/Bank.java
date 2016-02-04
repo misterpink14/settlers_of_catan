@@ -1,5 +1,7 @@
 package shared.models.cardClasses;
 
+import java.util.HashMap;
+
 import shared.definitions.ResourceType;
 
 public class Bank 
@@ -11,6 +13,12 @@ public class Bank
 	 * The Bank keeps track of how many resource cards are without owners.
 	 */
 	public Bank() {}
+	
+	public Bank(HashMap<ResourceType, Integer> resources) {
+		for (ResourceType type : resources.keySet()) {
+			this.resourceCards.addCard(type, resources.get(type));
+		}
+	}
 	
 	public void importBank(String json) {
 		

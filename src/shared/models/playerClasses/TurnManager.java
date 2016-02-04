@@ -33,6 +33,7 @@ public class TurnManager {
 	/**The trade manager handles everything to do with trading in the game.*/
 	TradeManager tradeManager;
 	
+	/**The index of the player whose turn it is.*/
 	int playerIndex = -1;
 	
 	/**This keeps track of the dev cards that the current player has bought this turn*/
@@ -60,6 +61,27 @@ public class TurnManager {
 		playerIndex = rand.nextInt(4) + 1;
 		players.getPlayerByIndex(playerIndex).startTurn();
 		//TODO We will need to set up the new game by having players choose settlements.
+	}
+	
+	public void setCurrentTurn(int index) {
+		players.getPlayerByIndex(index).startTurn();
+		playerIndex = index;
+	}
+	
+	public void setHasPlayedDevCard(boolean hpdc) {
+		this.hasPlayedDevCard = hpdc;
+	}
+	
+	public void setLongestRoad(int longestRoad) {
+		if(longestRoad != -1) {
+			this.players.getPlayerByIndex(longestRoad).setLongestRoad(true);
+		}
+	}
+	
+	public void setLargestArmy(int largestArmy) {
+		if(largestArmy != -1) {
+			this.players.getPlayerByIndex(largestArmy).setLargestArmy(true);
+		}
 	}
 	  
 	/**
@@ -170,8 +192,8 @@ public class TurnManager {
 	public boolean CanSendChat() {
 		return false;
 	}
-	public boolean CanAcceptTrade() {
-		return false;
+	public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
+		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
 	}
 	
 }
