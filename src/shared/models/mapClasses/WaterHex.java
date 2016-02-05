@@ -23,13 +23,6 @@ public class WaterHex extends Hex
 	 * @param type
 	 * @param port
 	 */
-	public WaterHex(PortType port) 
-	{
-		super(HexType.WATER);
-		this.Port = port;
-	}
-	
-
 	public WaterHex(PortType port, VertexDirection dir) 
 	{
 		super(HexType.WATER);
