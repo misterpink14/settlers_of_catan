@@ -53,6 +53,14 @@ public class CardDeck {
 		}
 	}
 	
+	/**
+	 * Getter for devCards - Only for testing
+	 * @return devCards
+	 */
+	public DevCards getDevCards() {
+		return devCards;
+	}
+	
 	/** Gives the next card in the deck. The devCard object will subtract one from the type drawn.
 	 * 
 	 * @return the type of the card drawn

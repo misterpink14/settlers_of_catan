@@ -1,22 +1,33 @@
 package shared.serializerJSON;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import shared.models.Game;
 import shared.models.cardClasses.CardDeck;
+import shared.models.cardClasses.DevCards;
 
 public class DeserializerTest {
 	
 	Deserializer deserializer = new Deserializer();
 	
+	@Test
 	public void deckTest() {
 		String deckString = "{   \"deck\": {     \"yearOfPlenty\": 2,     \"monopoly\": 2,     \"soldier\": 14,     \"roadBuilding\": 2,     \"monument\": 5   }}";
 		
 		JsonParser parser = new JsonParser();
-		JsonObject gameModelJson = parser.parse(deckString).getAsJsonObject();
+		JsonObject deckJson = parser.parse(deckString).getAsJsonObject();
 
-		Game desGame = deserializer.deserialize(gameModelJson);
+		CardDeck desDeck = deserializer.deserializeDeck(deckJson);
+		DevCards devCards = desDeck.getDevCards();
+		assertTrue(devCards.getMonopolyCards() == 2);
+		assertTrue(devCards.getYearOfPlentyCards() == 2);
+		assertTrue(devCards.getRoadBuilderCards() == 2);
+		assertTrue(devCards.getMonumentCards() == 5);
+		assertTrue(devCards.getSoldierCards() == 14);
 	}
 	
 	public void mapTest() {
