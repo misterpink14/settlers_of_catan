@@ -126,9 +126,6 @@ public class Deserializer {
 			JsonArray jsonHexes = jsonMap.getAsJsonArray("hexes");
 			for (JsonElement hex : jsonHexes) {
 				
-				// when initialized, newHex is just garbage. It will
-				// be replaced after reading the JSON.
-				
 				TerrainHex newHex;
 				if (!hex.getAsJsonObject().getAsJsonObject("resource").isJsonNull()) {
 					int tokenNumber = hex.getAsJsonObject().getAsJsonObject("number").getAsInt();
@@ -439,8 +436,20 @@ public class Deserializer {
 	}
 	
 	private Bank deserializeBank(JsonObject jsonBank) {
-		// temporary error fix... haha
-		return new Bank();
+		
+		HashMap<ResourceType, Integer> bankResources = new HashMap<ResourceType, Integer>();
+		int brickCount = jsonBank.getAsJsonObject("brick").getAsInt();
+		bankResources.put(ResourceType.BRICK, brickCount);
+		int woodCount = jsonBank.getAsJsonObject("wood").getAsInt();
+		bankResources.put(ResourceType.WOOD, brickCount);
+		int sheepCount = jsonBank.getAsJsonObject("sheep").getAsInt();
+		bankResources.put(ResourceType.SHEEP, sheepCount);
+		int wheatCount = jsonBank.getAsJsonObject("wheat").getAsInt();
+		bankResources.put(ResourceType.WHEAT, wheatCount);
+		int oreCount = jsonBank.getAsJsonObject("ore").getAsInt();
+		bankResources.put(ResourceType.ORE, oreCount);
+		
+		return new Bank(bankResources);
 	}
 	
 	private TurnManager deserializeTurnTracker(JsonObject jsonTurnTracker) {
