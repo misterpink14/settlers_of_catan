@@ -43,5 +43,16 @@ public class Bank
 	public boolean canRemove(ResourceType type, int num) {
 		return resourceCards.canRemove(type, num);
 	}
+	
+	public String serialize() {
+    	String json = "bank: {brick: ";
+    	json += resourceCards.brickCards + ", wood: ";
+    	json += resourceCards.woodCards + ", sheep: ";
+    	json += resourceCards.sheepCards + ", wheat: ";
+    	json += resourceCards.wheatCards + ", ore: ";
+    	json += resourceCards.oreCards;
+    	json += "}";
+    	return json;
+    }
 
 }

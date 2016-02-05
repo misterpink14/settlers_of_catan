@@ -30,12 +30,6 @@ public class Player {
 	/**The number of victory points the player has earned. The goal is 10.*/
 	private int victoryPoints = 0;
 	
-	/**This is set to true if the player has the longest road above 5 roads*/
-	private boolean longestRoad = false;
-	
-	/**This is set to true if the player has the largest army above 3 knight cards played*/
-	private boolean largestArmy = false;
-	
 	/**The number of cities this player may build*/
 	private int cities = MAX_CITIES;
 	
@@ -92,60 +86,43 @@ public class Player {
 		this.id = id;
 		this.name = name;
 		this.color = color;
-		this.largestArmy = largestArmy;
-		this.longestRoad = longestRoad;
-	}
-	
-	/**Checks if this player has the longest road*/
-	public boolean isLongestRoad() {
-		return longestRoad;
 	}
 
-	/**gives this player the longest road*/
-	public void setLongestRoad(boolean longestRoad) {
-		if(longestRoad == true && this.longestRoad == false) {
-			this.victoryPoints += 2;
-		}
-		if(longestRoad == false && this.longestRoad == true) {
-			this.victoryPoints -= 2;
-		}
-		this.longestRoad = longestRoad;
+	/**Gets this players ID */
+	public int getID() {
+		return id;
 	}
-
-	/**checks if this player has the largest army*/
-	public boolean isLargestArmy() {
-		return largestArmy;
-	}
-
-	/**Gives this player the largest army*/
-	public void setLargestArmy(boolean largestArmy) {
-		if(largestArmy == true && this.largestArmy == false) {
-			this.victoryPoints += 2;
-		}
-		if(largestArmy == false && this.largestArmy == true) {
-			this.victoryPoints -= 2;
-		}
-		this.largestArmy = largestArmy;
-	}
-
 	/**Gets this player's name*/
 	public String getName() {
 		return name;
 	}
-
 	/**Gets this players Color*/
 	public CatanColor getColor() {
 		return color;
 	}
-
 	/**Gets this players victory points*/
 	public int getVictoryPoints() {
 		return victoryPoints;
 	}
-	
 	/**Gets this players army */
 	public int getArmy() {
 		return army;
+	}
+	/**Gets this players monuments */
+	public int getMonuments() {
+		return monuments;
+	}
+	/**Gets this players roads */
+	public int getRoads() {
+		return roads;
+	}
+	/**Gets this players settlements */
+	public int getSettlements() {
+		return settlements;
+	}
+	/**Gets this players cities */
+	public int getCities() {
+		return cities;
 	}
 	
 	/** Check if it is this player's turn
@@ -316,9 +293,13 @@ public class Player {
 		return number;
 	}
 	
+	
+	
 	//**************************************************************************************************************************************
 	//													Can Methods
 	//**************************************************************************************************************************************
+	
+	
 	
 	public boolean canDiscardCards(ResourceType type, int num) {
 		return this.resourceCards.canRemove(type, num);

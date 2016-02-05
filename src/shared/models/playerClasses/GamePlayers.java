@@ -1,13 +1,10 @@
 package shared.models.playerClasses;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
-import shared.models.cardClasses.InsufficientCardNumberException;
 
 public class GamePlayers {
 	ArrayList<Player> players = new ArrayList<Player>();
@@ -93,5 +90,57 @@ public class GamePlayers {
 			playerIndex++;
 		}
 		return -1;
+	}
+	
+	public String serialize() {
+		int index = 0;
+		String json = "players: [";
+		for(Player player : players) {
+			json += "{";
+			
+			json += "resources: {";
+			json += "brick: " + player.getNumOfResource(ResourceType.BRICK) + ", ";
+			json += "wood: " + player.getNumOfResource(ResourceType.WOOD) + ", ";
+			json += "sheep: " + player.getNumOfResource(ResourceType.SHEEP) + ", ";
+			json += "wheat: " + player.getNumOfResource(ResourceType.WHEAT) + ", ";
+			json += "ore: " + player.getNumOfResource(ResourceType.ORE);
+			json += "},";
+			
+			json += "oldDevCards: {";
+			json += "yearOfPlenty: " + player.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) + ", ";
+			json += "monopoly: " + player.getNumOfDevCard(DevCardType.MONOPOLY) + ", ";
+			json += "soldier: " + player.getNumOfDevCard(DevCardType.SOLDIER) + ", ";
+			json += "roadBuilding: " + player.getNumOfDevCard(DevCardType.ROAD_BUILD) + ", ";
+			json += "monument: " + player.getNumOfDevCard(DevCardType.MONUMENT) + ", ";
+			json += "},";
+			
+			json += "newDevCards: {";
+			json += "yearOfPlenty: " + player.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) + ", ";
+			json += "monopoly: " + player.getNumOfDevCard(DevCardType.MONOPOLY) + ", ";
+			json += "soldier: " + player.getNumOfDevCard(DevCardType.SOLDIER) + ", ";
+			json += "roadBuilding: " + player.getNumOfDevCard(DevCardType.ROAD_BUILD) + ", ";
+			json += "monument: " + player.getNumOfDevCard(DevCardType.MONUMENT) + ", ";
+			json += "},";
+			
+			json += "roads: " + player.getRoads() + ", ";
+			json += "cities: " + player.getCities() + ", ";
+			json += "settlements: " + player.getSettlements() + ", ";
+			json += "soldiers: " + player.getArmy() + ", ";
+			json += "victoryPoints: " + player.getVictoryPoints() + ", ";
+			json += "monuments: " + player.getMonuments() + ", ";
+			json += "playedDevCard: " + "false" + ", ";
+			json += "discarded: " + "false" + ", ";
+			json += "playerID: " + player.getID() + ", ";
+			json += "playerIndex: " + index + ", ";
+			json += "name: " + player.getName() + ", ";
+			json += "color: " + player.getColor().toString() + ", ";
+			
+			json += "},";
+			index++;
+		}
+		
+		json += "]";
+		
+		return json;
 	}
 }

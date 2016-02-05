@@ -2,8 +2,6 @@ package shared.models.cardClasses;
 
 import java.util.HashMap;
 
-import com.google.gson.Gson;
-
 import shared.definitions.DevCardType;
 
 public class CardDeck {
@@ -78,5 +76,16 @@ public class CardDeck {
             deck[i] = deck[rand];
             deck[rand] = temp;
         }
+    }
+    
+    public String serialize() {
+    	String json = "deck: {yearOfPlenty: ";
+    	json += devCards.yearOfPlentyCards + ", monopoly: ";
+    	json += devCards.monopolyCards + ", soldier: ";
+    	json += devCards.soldierCards + ", roadBuilding: ";
+    	json += devCards.roadBuilderCards + ", monument: ";
+    	json += devCards.monumentCards;
+    	json += "}";
+    	return json;
     }
 }

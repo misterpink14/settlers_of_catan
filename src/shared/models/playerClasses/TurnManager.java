@@ -41,6 +41,12 @@ public class TurnManager {
 	
 	private boolean hasPlayedDevCard;
 	
+	/**This is set to true if the player has the longest road above 5 roads*/
+	private int longestRoad = -1;
+	
+	/**This is set to true if the player has the largest army above 3 knight cards played*/
+	private int largestArmy = -1;
+	
 	// temporarly error fix... haha
 	public TurnManager() {}
 	 
@@ -54,6 +60,19 @@ public class TurnManager {
 		this.bank = bank;
 		hasPlayedDevCard = false;
 		unplayableCards = new HashMap<DevCardType, Integer>();
+	}
+	
+	//serialization
+	public TurnManager(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, int longestRoad, int largestArmy) {
+		this.players = players;
+		this.map = map;
+		tradeManager = new TradeManager(players);
+		this.cardDeck = cardDeck;
+		this.bank = bank;
+		hasPlayedDevCard = false;
+		unplayableCards = new HashMap<DevCardType, Integer>();
+		this.longestRoad = longestRoad;
+		this.largestArmy = largestArmy;
 	}
 	
 	public void startGame() {
@@ -196,4 +215,14 @@ public class TurnManager {
 		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
 	}
 	
+	
+	
+	public String serialize() {
+		String json = "turnTracker: {status: Rolling, ";
+		json += "currentTurn: " + this.playerIndex + ", ";
+		json += "longestRoad: " + this.longestRoad + ", ";
+		json += "largestArmy: " + this.largestArmy + ", ";
+		json += "}";
+		return json;
+	}
 }
