@@ -291,25 +291,25 @@ public class Deserializer {
 						break;
 					}
 				}
-				VertexDirection portDir = null;
+				EdgeDirection portDir = null;
 				switch(port.getAsJsonObject().getAsJsonObject("direction").getAsString()) {
-				case "W":
-					portDir = VertexDirection.West;
-					break;
 				case "NW":
-					portDir = VertexDirection.NorthWest;
+					portDir = EdgeDirection.NorthWest;
+					break;
+				case "N":
+					portDir = EdgeDirection.North;
 					break;
 				case "NE":
-					portDir = VertexDirection.NorthEast;
-					break;
-				case "E":
-					portDir = VertexDirection.East;
+					portDir = EdgeDirection.NorthEast;
 					break;
 				case "SE":
-					portDir = VertexDirection.SouthEast;
+					portDir = EdgeDirection.SouthEast;
+					break;
+				case "S":
+					portDir = EdgeDirection.South;
 					break;
 				case "SW":
-					portDir = VertexDirection.SouthWest;
+					portDir = EdgeDirection.SouthWest;
 					break;
 				}
 				
