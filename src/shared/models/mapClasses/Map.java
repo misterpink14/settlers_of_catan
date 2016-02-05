@@ -28,8 +28,9 @@ public class Map
 	private HexMap Hexes = new HexMap();
 	private VertexMap Vertexes = new VertexMap();
 	private EdgeMap Edges = new EdgeMap();
-	private PortMap Ports = new PortMap();
 	private RobberLocation Robber = new RobberLocation(null);
+	private PlayerMap PlayerPieces = new PlayerMap();
+	
 	
 
 	/* Constraints within the game board. Use for generating the board 
@@ -62,13 +63,13 @@ public class Map
 	/**
 	 * Constructor generates a new map. Requires a String to be validated/parsed
 	 */
-	public Map(HexMap h, VertexMap v, EdgeMap e, PortMap p, RobberLocation r) 
+	public Map(HexMap h, VertexMap v, EdgeMap e, RobberLocation r, PlayerMap playerPieces) 
 	{
 		this.Hexes = h;
 		this.Vertexes = v;
 		this.Edges = e;
-		this.Ports = p;
 		this.Robber = r;
+		this.PlayerPieces = playerPieces;
 	}
 	
 	
@@ -90,15 +91,15 @@ public class Map
 	}
 	
 	
-	public void setPortMap(PortMap ports)
-	{
-		this.Ports = ports;
-	}
-	
-	
 	public void setRobberLocation(RobberLocation robber)
 	{
 		this.Robber = robber;
+	}
+	
+	
+	public void setPlayerMap(PlayerMap playerPieces)
+	{
+		this.PlayerPieces = playerPieces;
 	}
 	
 	
@@ -199,8 +200,6 @@ public class Map
 	 */
 	public boolean canMaritimeTrade(int ownerIndex)
 	{
-		
-		this.Ports.canMaritimeTrade(ownerIndex);
 		return true;
 	}
 	
