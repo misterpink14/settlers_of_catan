@@ -2,6 +2,7 @@ package shared.models.mapClasses;
 
 import shared.definitions.HexType;
 import shared.definitions.PortType;
+import shared.locations.VertexDirection;
 
 /**
  * Represents a WaterHex piece located within the Map class
@@ -12,6 +13,7 @@ import shared.definitions.PortType;
 public class WaterHex extends Hex
 {
 	PortType Port = null;
+	VertexDirection Dir;
 	
 	
 // CONSTRUCTOR
@@ -25,6 +27,14 @@ public class WaterHex extends Hex
 	{
 		super(HexType.WATER);
 		this.Port = port;
+	}
+	
+
+	public WaterHex(PortType port, VertexDirection dir) 
+	{
+		super(HexType.WATER);
+		this.Port = port;
+		this.Dir = dir;
 	}
 	
 	
@@ -41,15 +51,28 @@ public class WaterHex extends Hex
 	}
 	
 	
+	public VertexDirection getDir()
+	{
+		return this.Dir;
+	}
+	
+	
 // PUBLIC METHOD
 	/**
 	 * Checks if this Water Hex is a Port or not
 	 * 
 	 * @return
 	 */
-	public boolean isPort()
+	public boolean isPort(VertexDirection dir)
 	{
-		return Port != null;
+		if (Port == null)
+		{
+			return false;
+		}
+		else
+		{
+			return Dir.equals(dir);
+		}
 	}
 
 }
