@@ -223,11 +223,19 @@ public class PlayerTest {
 	@Test
 	public void testDrawPlayDevCard() {
 		//draw one of each type.
-		player.drawDevCard(DevCardType.SOLDIER);
-		player.drawDevCard(DevCardType.MONUMENT);
-		player.drawDevCard(DevCardType.MONOPOLY);
-		player.drawDevCard(DevCardType.ROAD_BUILD);
-		player.drawDevCard(DevCardType.YEAR_OF_PLENTY);
+		player.addResourceToHand(ResourceType.WHEAT, 5);
+		player.addResourceToHand(ResourceType.SHEEP, 5);
+		player.addResourceToHand(ResourceType.ORE, 5);
+		
+		try {
+			player.buyDevCard(DevCardType.SOLDIER);
+			player.buyDevCard(DevCardType.MONOPOLY);
+			player.buyDevCard(DevCardType.MONUMENT);
+			player.buyDevCard(DevCardType.YEAR_OF_PLENTY);
+			player.buyDevCard(DevCardType.ROAD_BUILD);
+		} catch (InsufficientCardNumberException e1) {
+			fail("Could not buy dev card");
+		}
 		
 		assertTrue(player.getNumOfDevCard(DevCardType.SOLDIER) == 1);
 		assertTrue(player.getNumOfDevCard(DevCardType.MONUMENT) == 1);
