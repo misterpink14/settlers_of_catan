@@ -55,7 +55,10 @@ public class Map
 	
 	
 	
-// Public METHODS
+// CONSTRUCTORS
+	public Map() {}
+	
+	
 	/**
 	 * Constructor generates a new map. Requires a String to be validated/parsed
 	 */
@@ -68,7 +71,39 @@ public class Map
 		this.Robber = r;
 	}
 	
+	
+	public void setHexMap(HexMap hexes)
+	{
+		this.Hexes = hexes;
+	}
 
+	
+	public void setEdgeMap(EdgeMap edges)
+	{
+		this.Edges = edges;
+	}
+	
+	
+	public void setVertexMap(VertexMap vertexes)
+	{
+		this.Vertexes = vertexes;
+	}
+	
+	
+	public void setPortMap(PortMap ports)
+	{
+		this.Ports = ports;
+	}
+	
+	
+	public void setRobberLocation(RobberLocation robber)
+	{
+		this.Robber = robber;
+	}
+	
+	
+
+// Public METHODS
 	/**
 	 * Moves a robber to a given HexLocation
 	 *  Constraints: must not already be there, cannot be a sea piece
