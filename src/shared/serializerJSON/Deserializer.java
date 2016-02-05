@@ -84,7 +84,7 @@ public class Deserializer {
 				        desCurrentTurn, desHasPlayedDevCard, desWinner);
 	}
 	
-	private CardDeck deserializeDeck(JsonObject jsonDeck) {
+	public CardDeck deserializeDeck(JsonObject jsonDeck) {
 		// Year of Plenty
 		JsonObject jsonYearOfPlenty = jsonDeck.getAsJsonObject("yearOfPlenty");
 		int yearOfPlentyCount = jsonYearOfPlenty.getAsInt();
@@ -111,7 +111,7 @@ public class Deserializer {
 		return new CardDeck(cards);
 	}
 	
-	private Map deserializeMap(JsonObject jsonMap) {
+	public Map deserializeMap(JsonObject jsonMap) {
 		HexMap hexes = new HexMap();
 		VertexMap vertices = new VertexMap();
 		EdgeMap edges = new EdgeMap();
@@ -338,7 +338,7 @@ public class Deserializer {
 		return new Map(hexes, vertices, edges, robberLocation, playerMap);
 	}
 	
-	private GamePlayers deserializePlayers(JsonArray jsonPlayers) {
+	public GamePlayers deserializePlayers(JsonArray jsonPlayers) {
 		GamePlayers players = new GamePlayers();
 		
 		for (JsonElement player : jsonPlayers) {
@@ -438,7 +438,7 @@ public class Deserializer {
 		return players;
 	}
 	
-	private GameLog deserializeLog(JsonObject jsonLog) {
+	public GameLog deserializeLog(JsonObject jsonLog) {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		JsonArray jsonLines = jsonLog.getAsJsonArray("lines");
 		for (JsonElement line : jsonLines) {
@@ -449,7 +449,7 @@ public class Deserializer {
 		return new GameLog(messages);
 	}
 	
-	private GameChat deserializeChat(JsonObject jsonChat) {
+	public GameChat deserializeChat(JsonObject jsonChat) {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		JsonArray jsonLines = jsonChat.getAsJsonArray("lines");
 		for (JsonElement line : jsonLines) {
@@ -460,7 +460,7 @@ public class Deserializer {
 		return new GameChat(messages);
 	}
 	
-	private Bank deserializeBank(JsonObject jsonBank) {
+	public Bank deserializeBank(JsonObject jsonBank) {
 		
 		HashMap<ResourceType, Integer> bankResources = new HashMap<ResourceType, Integer>();
 		int brickCount = jsonBank.getAsJsonObject("brick").getAsInt();
@@ -477,7 +477,7 @@ public class Deserializer {
 		return new Bank(bankResources);
 	}
 	
-	private void deserializeTurnTracker(JsonObject jsonTurnTracker) {
+	public void deserializeTurnTracker(JsonObject jsonTurnTracker) {
 		// All we pull from turnTracker at the moment is who's turn it is
 		desCurrentTurn = jsonTurnTracker.getAsJsonObject("currentTurn").getAsInt();
 	}
