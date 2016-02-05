@@ -31,6 +31,7 @@ import shared.models.mapClasses.InvalidTokenException;
 import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
+import shared.models.mapClasses.PlayerMap;
 import shared.models.mapClasses.PortMap;
 import shared.models.mapClasses.TerrainHex;
 import shared.models.mapClasses.VertexMap;
@@ -117,6 +118,7 @@ public class Deserializer {
 		EdgeMap edges = new EdgeMap();
 		PortMap ports = new PortMap();
 		RobberLocation robberLocation = null;
+		PlayerMap playerMap = new PlayerMap();
 		try {
 			
 			// Build the hexes for the map
@@ -189,6 +191,7 @@ public class Deserializer {
 					break;
 				}
 				edges.setEdge(newEdgeLoc, newRoad);
+				playerMap.addRoad(newEdgeLoc, ownerIndex);
 			}
 
 			// Build out the cities from the JSON
@@ -224,6 +227,7 @@ public class Deserializer {
 					break;
 				}
 				vertices.setVertex(newVertexLoc, newCity);
+				playerMap.addCity(newVertexLoc, ownerIndex);
 			}
 			
 			// Build out the settlements from the JSON
@@ -259,6 +263,7 @@ public class Deserializer {
 					break;
 				}
 				vertices.setVertex(newVertexLoc, newSettlement);
+				playerMap.addSettlement(newVertexLoc, ownerIndex);
 			}
 			
 			// Build out the ports from the JSON
