@@ -1,5 +1,7 @@
 package shared.communication.proxy;
 
+import shared.locations.EdgeLocation;
+
 public class BuildRoad
 {
 
@@ -12,6 +14,8 @@ public class BuildRoad
 	 * Whether or not this is a free placement
 	 */
 	public Boolean free;
+	
+	public EdgeLocation roadLocation;
 	
 	public BuildRoad() 
 	{}

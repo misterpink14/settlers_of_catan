@@ -11,7 +11,16 @@ public class DiscardedCards
 	 * The index of the player discarding cards
 	 */
 	public int playerIndex;
-	public ArrayList<ResourceType> resources;
+	
+	public int sheep;
+	
+	public int wood;
+	
+	public int ore;
+	
+	public int wheat;
+	
+	public int brick;
 
 	
 	/**
