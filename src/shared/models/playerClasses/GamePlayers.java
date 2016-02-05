@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.models.cardClasses.DevCards;
 
 public class GamePlayers {
 	ArrayList<Player> players = new ArrayList<Player>();
@@ -114,12 +115,13 @@ public class GamePlayers {
 			json += "monument: " + player.getNumOfDevCard(DevCardType.MONUMENT) + ", ";
 			json += "},";
 			
+			DevCards newDevCards = player.getNewDevCards();
 			json += "newDevCards: {";
-			json += "yearOfPlenty: " + player.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) + ", ";
-			json += "monopoly: " + player.getNumOfDevCard(DevCardType.MONOPOLY) + ", ";
-			json += "soldier: " + player.getNumOfDevCard(DevCardType.SOLDIER) + ", ";
-			json += "roadBuilding: " + player.getNumOfDevCard(DevCardType.ROAD_BUILD) + ", ";
-			json += "monument: " + player.getNumOfDevCard(DevCardType.MONUMENT) + ", ";
+			json += "yearOfPlenty: " + newDevCards.getYearOfPlentyCards() + ", ";
+			json += "monopoly: " + newDevCards.getMonopolyCards() + ", ";
+			json += "soldier: " + newDevCards.getSoldierCards() + ", ";
+			json += "roadBuilding: " + newDevCards.getRoadBuilderCards() + ", ";
+			json += "monument: " + newDevCards.getMonumentCards() + ", ";
 			json += "},";
 			
 			json += "roads: " + player.getRoads() + ", ";

@@ -1,5 +1,6 @@
 package shared.models.playerClasses;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import shared.definitions.CatanColor;
@@ -46,7 +47,7 @@ public class Player {
 	private DevCards devCards = new DevCards(0,0,0,0,0);
 	
 	/**A container for this player's used dev cards*/
-	private DevCards usedDevCards = new DevCards(0,0,0,0,0);
+	private ArrayList<DevCardType> newDevCards = new ArrayList<DevCardType>();
 	
 	/**The number of soldierCards this player has played*/
 	private int army = 0;
@@ -65,17 +66,19 @@ public class Player {
 	/**
 	 * Constructor used by the deserializer
 	 */
-	public Player(HashMap<ResourceType, Integer> resources, HashMap<DevCardType, Integer> oldDevCards, HashMap<DevCardType, Integer> devCards,
+	public Player(HashMap<ResourceType, Integer> resources, HashMap<DevCardType, Integer> devCards, HashMap<DevCardType, Integer> newDevCards,
 			int roads, int cities, int settlements, int soldiers, int victoryPoints, int monuments, int id, String name, CatanColor color,
 			boolean largestArmy, boolean longestRoad) {
 		for(ResourceType type : resources.keySet()) {
 			this.resourceCards.addCard(type, resources.get(type));
 		}
-		for(DevCardType type : oldDevCards.keySet()) {
-			this.usedDevCards.addCards(type, oldDevCards.get(type));
-		}
 		for(DevCardType type : devCards.keySet()) {
 			this.devCards.addCards(type, devCards.get(type));
+		}
+		for(DevCardType type : newDevCards.keySet()) {
+			for(int i = 0; i < newDevCards.get(type); i++) {
+				this.newDevCards.add(type);
+			}
 		}
 		this.roads = roads;
 		this.settlements = settlements;
@@ -124,6 +127,14 @@ public class Player {
 	public int getCities() {
 		return cities;
 	}
+	/**Gets this players devCardsBought this turn*/
+	public DevCards getNewDevCards() {
+		DevCards group = new DevCards(0,0,0,0,0);
+		for (DevCardType card : newDevCards) {
+			group.addCard(card);
+		}
+		return group;
+	}
 	
 	/** Check if it is this player's turn
 	 * @return Returns true if it's the player's turn,
@@ -143,6 +154,10 @@ public class Player {
 	 */
 	public void finishTurn() {
 		this.isTurn = false;
+		for (DevCardType card : newDevCards) {
+			this.devCards.addCard(card);
+		}
+		this.newDevCards.clear();
 	}
 	
 	/**
@@ -237,7 +252,7 @@ public class Player {
 		resourceCards.removeCard(ResourceType.WHEAT, 1);
 		resourceCards.removeCard(ResourceType.ORE, 1);
 		resourceCards.removeCard(ResourceType.SHEEP, 1);
-		this.devCards.addCard(card);
+		this.newDevCards.add(card);
 	}
 	
 	/**
@@ -246,7 +261,6 @@ public class Player {
 	 */
 	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
 		devCards.removeCard(type);
-		usedDevCards.addCard(type);
 		if(type == DevCardType.MONUMENT) {
 			monuments++;
 			victoryPoints++;
@@ -257,13 +271,6 @@ public class Player {
 		if(type == DevCardType.ROAD_BUILD) {
 			roads -= 2;
 		}
-	}
-	
-	/**
-	 * Subtract a specified development card from this player
-	 */
-	public void drawDevCard(DevCardType type) {
-		devCards.addCard(type);
 	}
 	
 	/**

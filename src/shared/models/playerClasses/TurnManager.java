@@ -90,18 +90,6 @@ public class TurnManager {
 	public void setHasPlayedDevCard(boolean hpdc) {
 		this.hasPlayedDevCard = hpdc;
 	}
-	
-	public void setLongestRoad(int longestRoad) {
-		if(longestRoad != -1) {
-			this.players.getPlayerByIndex(longestRoad).setLongestRoad(true);
-		}
-	}
-	
-	public void setLargestArmy(int largestArmy) {
-		if(largestArmy != -1) {
-			this.players.getPlayerByIndex(largestArmy).setLargestArmy(true);
-		}
-	}
 	  
 	/**
 	 * @return the id of the current player whose turn it is.

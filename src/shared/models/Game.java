@@ -165,6 +165,7 @@ public class Game
 	//														Can Functions
 	//***********************************************************************************************************************************
 		
+	
 		public boolean CanDiscardCards(ResourceType type, int num) {
 			return turnManager.CanDiscardCards(type, num);
 		}
