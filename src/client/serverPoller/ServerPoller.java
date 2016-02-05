@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import client.clientFacade.ClientFacade;
-import client.serverProxy.FakeProxy;
 import client.serverProxy.ProxyInterface;
 import shared.models.Game;
 import shared.serializerJSON.Deserializer;

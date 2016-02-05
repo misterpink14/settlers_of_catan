@@ -26,7 +26,6 @@ import shared.models.chatClasses.GameChat;
 import shared.models.chatClasses.Message;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.EdgeMap;
-import shared.models.mapClasses.Hex;
 import shared.models.mapClasses.HexMap;
 import shared.models.mapClasses.InvalidTokenException;
 import shared.models.mapClasses.InvalidTypeException;
@@ -38,7 +37,6 @@ import shared.models.mapClasses.VertexMap;
 import shared.models.mapClasses.WaterHex;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
-import shared.models.playerClasses.TurnManager;
 
 public class Deserializer {
 	
@@ -324,7 +322,7 @@ public class Deserializer {
 			int brickCount = resources.getAsJsonObject("brick").getAsInt();
 			playerResources.put(ResourceType.BRICK, brickCount);
 			int woodCount = resources.getAsJsonObject("wood").getAsInt();
-			playerResources.put(ResourceType.WOOD, brickCount);
+			playerResources.put(ResourceType.WOOD, woodCount);
 			int sheepCount = resources.getAsJsonObject("sheep").getAsInt();
 			playerResources.put(ResourceType.SHEEP, sheepCount);
 			int wheatCount = resources.getAsJsonObject("wheat").getAsInt();
@@ -367,7 +365,7 @@ public class Deserializer {
 			int playerVictoryPoints = playerObj.getAsJsonObject("victoryPoints").getAsInt();
 			int playerMonuments = playerObj.getAsJsonObject("monuments").getAsInt();
 			int playerID = playerObj.getAsJsonObject("playerID").getAsInt();
-			int playerIndex = playerObj.getAsJsonObject("playerIndex").getAsInt();
+			//int playerIndex = playerObj.getAsJsonObject("playerIndex").getAsInt();
 			String playerName = playerObj.getAsJsonObject("name").getAsString();
 			CatanColor playerColor = null;
 			
