@@ -23,13 +23,12 @@ import shared.models.UserManager.User;
 public class ClientFacade {
 	
 	User clientUser;
-	Game game;
+	public Game game;
+	public FakeProxy proxy;
 	
 	public ClientFacade() {
 		
 	}
-	
-	FakeProxy proxy;
 
 	/**
 	 * This function will facilitate the creation of a

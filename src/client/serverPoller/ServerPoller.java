@@ -2,10 +2,14 @@ package client.serverPoller;
 
 import javax.swing.Timer;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import client.clientFacade.ClientFacade;
+import client.serverProxy.FakeProxy;
 import client.serverProxy.ProxyInterface;
 import shared.models.Game;
-import shared.models.GameMapper;
-import shared.models.MapperException;
+import shared.serializerJSON.Deserializer;
 
 import java.awt.event.*;
 
@@ -13,6 +17,7 @@ public class ServerPoller
 {
 	ProxyInterface ServerProxy;
 	
+	Deserializer deserializer = new Deserializer();
 	Game GameModel;
 	int versionID;
 	
@@ -29,11 +34,11 @@ public class ServerPoller
 	 * @param clientProxy
 	 * @param speed
 	 */
-	public ServerPoller (ProxyInterface clientProxy, Game gameModel, int speed)
+	public ServerPoller (ClientFacade facade, int speed)
 	{
-		this.GameModel = gameModel;
-		this.ServerProxy = clientProxy;
-		versionID = gameModel.versionID();
+		this.GameModel = facade.game;
+		this.ServerProxy = facade.proxy;
+		versionID = GameModel.versionID();
 		UpdateTimer = new Timer(speed, this.listener);
 		UpdateTimer.start();
 	}
@@ -60,15 +65,13 @@ public class ServerPoller
 		 */
 		private void updateModel()
 		{
-			try {
-				// Use the game model's version ID to get the most
-				// recent model from the server.
-				String gameModelJson;
-				gameModelJson = ServerProxy.getGameModel(GameModel.versionID());
-				GameMapper.deserialize(gameModelJson);
-			} catch (MapperException e) {
-				e.printStackTrace();
-			}
+			// Use the game model's version ID to get the most
+			// recent model from the server.
+			String gameModelString;
+			gameModelString = ServerProxy.getGameModel(GameModel.versionID());
+			JsonParser parser = new JsonParser();
+			JsonObject gameModelJson = parser.parse(gameModelString).getAsJsonObject();
+			GameModel = deserializer.deserialize(gameModelJson);
 		}
 		
 	}

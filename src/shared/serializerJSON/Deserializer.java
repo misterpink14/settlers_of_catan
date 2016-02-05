@@ -45,7 +45,7 @@ public class Deserializer {
 	// currentTurn
 	private int desCurrentTurn = -1;
 	
-	private Game deserialize(JsonObject json) {
+	public Game deserialize(JsonObject json) {
 		// the "des" prefix signifies that the object has been deserialized.
 		
 		// Pull out the information about "deck" from the JSON
@@ -441,7 +441,7 @@ public class Deserializer {
 		int brickCount = jsonBank.getAsJsonObject("brick").getAsInt();
 		bankResources.put(ResourceType.BRICK, brickCount);
 		int woodCount = jsonBank.getAsJsonObject("wood").getAsInt();
-		bankResources.put(ResourceType.WOOD, brickCount);
+		bankResources.put(ResourceType.WOOD, woodCount);
 		int sheepCount = jsonBank.getAsJsonObject("sheep").getAsInt();
 		bankResources.put(ResourceType.SHEEP, sheepCount);
 		int wheatCount = jsonBank.getAsJsonObject("wheat").getAsInt();
