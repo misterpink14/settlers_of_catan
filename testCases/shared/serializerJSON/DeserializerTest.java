@@ -7,13 +7,17 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
 import shared.models.cardClasses.DevCards;
+import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
+import shared.definitions.ResourceType;
+
 
 public class DeserializerTest {
 	
@@ -58,6 +62,22 @@ public class DeserializerTest {
 		Player player = players.getPlayerByIndex(0);
 		// First player's name should be Sam - Checking
 		assertTrue(player.getName() == "Sam");
+	}
+	
+	public void bankTest() {
+		String bankString = "{\"bank\": {     \"brick\": 23,     \"wood\": 21,     \"sheep\": 20,     \"wheat\": 22,     \"ore\": 22   },   \"turnTracker\": {     \"status\": \"Rolling\",     \"currentTurn\": 0,     \"longestRoad\": -1,     \"largestArmy\": -1   },   \"winner\": -1,   \"version\": 0}";
+		
+		JsonParser parser = new JsonParser();
+		JsonObject bankJson = parser.parse(bankString).getAsJsonObject();
+		
+		Bank bank = deserializer.deserializeBank(bankJson);
+		try {
+			bank.takeResourceCards(ResourceType.SHEEP, 20);
+		} catch (InsufficientCardNumberException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertFalse(bank.canRemove(ResourceType.SHEEP, 1));
 	}
 	
 	public void chatTest() {
