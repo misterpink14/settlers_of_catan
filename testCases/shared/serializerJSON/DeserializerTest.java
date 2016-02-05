@@ -12,6 +12,7 @@ import shared.models.cardClasses.CardDeck;
 import shared.models.cardClasses.DevCards;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
+import shared.models.chatClasses.Message;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
 import shared.models.playerClasses.GamePlayers;
@@ -81,16 +82,21 @@ public class DeserializerTest {
 	}
 	
 	public void chatTest() {
-		String chatString =   "{ \"chat\": {     \"lines\": [       {         \"source\": \"Sam\",         \"message\": \"Sam built a road\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam built a settlement\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam's turn just ended\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a road\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a settlement\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke's turn just ended\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete built a road\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete built a settlement\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete's turn just ended\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark built a road\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark built a settlement\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark's turn just ended\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark built a road\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark built a settlement\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark's turn just ended\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete built a road\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete built a settlement\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete's turn just ended\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a road\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a settlement\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke's turn just ended\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam built a road\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam built a settlement\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam's turn just ended\"       }     ]   } }";
-
+		String chatString =   "{ \"chat\": {     \"lines\": [       {         \"source\": \"Sam\",         \"message\": \"Sam built a road\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam built a settlement\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam's turn just ended\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a road\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a settlement\"       }  ]   } }";
 
 		JsonParser parser = new JsonParser();
 		JsonObject chatJson = parser.parse(chatString).getAsJsonObject();
 
 		GameChat desChat = deserializer.deserializeChat(chatJson);
 
-		// There are 24 messages to be deserialized from the JSON
-		assertTrue(desChat.getMessages().size() == 24);
+		// There are 5 messages to be deserialized from the JSON
+		assertTrue(desChat.getMessages().size() == 5);
+		// Test the content of the messages
+		assertTrue(desChat.getMessages().get(0) == new Message("Sam", "Sam built a road"));
+		assertTrue(desChat.getMessages().get(1) == new Message("Sam", "Sam built a settlement"));
+		assertTrue(desChat.getMessages().get(2) == new Message("Sam", "Sam's turn just ended"));
+		assertTrue(desChat.getMessages().get(3) == new Message("Brooke", "Brooke built a road"));
+		assertTrue(desChat.getMessages().get(4) == new Message("Brooke", "Brooke built a settlement"));
 	}
 	
 	public void logTest() {
@@ -104,5 +110,12 @@ public class DeserializerTest {
 
 		// There are 24 messages to be deserialized from the JSON
 		assertTrue(desLog.getMessages().size() == 24);
+		// Test the content of the messages
+		assertTrue(desLog.getMessages().get(0) == new Message("Sam", "Sam built a road"));
+		assertTrue(desLog.getMessages().get(1) == new Message("Sam", "Sam built a settlement"));
+		assertTrue(desLog.getMessages().get(2) == new Message("Sam", "Sam's turn just ended"));
+		assertTrue(desLog.getMessages().get(3) == new Message("Brooke", "Brooke built a road"));
+		assertTrue(desLog.getMessages().get(4) == new Message("Brooke", "Brooke built a settlement"));
+
 	}
 }
