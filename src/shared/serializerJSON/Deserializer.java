@@ -42,6 +42,9 @@ import shared.models.playerClasses.TurnManager;
 
 public class Deserializer {
 	
+	// currentTurn
+	private int desCurrentTurn = -1;
+	
 	private Game deserialize(JsonObject json) {
 		// the "des" prefix signifies that the object has been deserialized.
 		
@@ -72,9 +75,6 @@ public class Deserializer {
 		// "turnTracker"
 		JsonObject jsonTurnTracker = json.getAsJsonObject("turnTracker");
 		deserializeTurnTracker(jsonTurnTracker);
-		
-		// currentTurn
-		int desCurrentTurn = -1;
 		
 		// hasPlayedDevCard
 		boolean desHasPlayedDevCard = false;
@@ -452,8 +452,8 @@ public class Deserializer {
 		return new Bank(bankResources);
 	}
 	
-	private TurnManager deserializeTurnTracker(JsonObject jsonTurnTracker) {
-		// temporary error fix... haha
-		return new TurnManager();
+	private void deserializeTurnTracker(JsonObject jsonTurnTracker) {
+		// All we pull from turnTracker at the moment is who's turn it is
+		desCurrentTurn = jsonTurnTracker.getAsJsonObject("currentTurn").getAsInt();
 	}
 }
