@@ -2,6 +2,7 @@ package shared.models.mapClasses;
 
 import shared.definitions.HexType;
 import shared.definitions.PortType;
+import shared.locations.EdgeDirection;
 import shared.locations.VertexDirection;
 
 /**
@@ -13,7 +14,7 @@ import shared.locations.VertexDirection;
 public class WaterHex extends Hex
 {
 	PortType Port = null;
-	VertexDirection Dir;
+	EdgeDirection Dir;
 	
 	
 // CONSTRUCTOR
@@ -23,7 +24,7 @@ public class WaterHex extends Hex
 	 * @param type
 	 * @param port
 	 */
-	public WaterHex(PortType port, VertexDirection dir) 
+	public WaterHex(PortType port, EdgeDirection dir) 
 	{
 		super(HexType.WATER);
 		this.Port = port;
@@ -44,7 +45,7 @@ public class WaterHex extends Hex
 	}
 	
 	
-	public VertexDirection getDir()
+	public EdgeDirection getDir()
 	{
 		return this.Dir;
 	}
@@ -56,7 +57,7 @@ public class WaterHex extends Hex
 	 * 
 	 * @return
 	 */
-	public boolean isPort(VertexDirection dir)
+	public boolean isPort(EdgeDirection dir)
 	{
 		if (Port == null)
 		{
