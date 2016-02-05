@@ -7,7 +7,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import shared.models.Game;
 import shared.models.cardClasses.CardDeck;
 import shared.models.cardClasses.DevCards;
 import shared.models.chatClasses.GameChat;
@@ -57,6 +56,7 @@ public class DeserializerTest {
 		
 		GamePlayers players = deserializer.deserializePlayers(playerJson);
 		Player player = players.getPlayerByIndex(0);
+		// First player's name should be Sam - Checking
 		assertTrue(player.getName() == "Sam");
 	}
 	
