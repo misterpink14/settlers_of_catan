@@ -21,7 +21,7 @@ public class Credentials
 	 */
 	public Credentials(String user, String password) 
 	{
-		this.username = username;
+		this.username = user;
 		this.password = password;
 	}
 
