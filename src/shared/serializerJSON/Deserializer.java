@@ -32,7 +32,6 @@ import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.PlayerMap;
-import shared.models.mapClasses.PortMap;
 import shared.models.mapClasses.TerrainHex;
 import shared.models.mapClasses.VertexMap;
 import shared.models.mapClasses.WaterHex;
@@ -116,7 +115,7 @@ public class Deserializer {
 		HexMap hexes = new HexMap();
 		VertexMap vertices = new VertexMap();
 		EdgeMap edges = new EdgeMap();
-		PortMap ports = new PortMap();
+		//PortMap ports = new PortMap();
 		RobberLocation robberLocation = null;
 		PlayerMap playerMap = new PlayerMap();
 		try {
@@ -270,33 +269,56 @@ public class Deserializer {
 			JsonArray jsonPorts = jsonMap.getAsJsonArray("ports");
 			for (JsonElement port : jsonPorts) {
 				int ratio = port.getAsJsonObject().getAsJsonObject("ratio").getAsInt();
-				WaterHex newWaterHex = null;
+				PortType portType = null;
 				if (ratio == 3) {
-					newWaterHex = new WaterHex(PortType.THREE);
+					portType = PortType.THREE;
 				} else {
 					switch(port.getAsJsonObject().getAsJsonObject("resource").getAsString()) {
 					case "wood":
-						newWaterHex = new WaterHex(PortType.WOOD);
+						portType = PortType.WOOD;
 						break;
 					case "brick":
-						newWaterHex = new WaterHex(PortType.BRICK);
+						portType = PortType.BRICK;
 						break;
 					case "sheep":
-						newWaterHex = new WaterHex(PortType.SHEEP);
+						portType = PortType.SHEEP;
 						break;
 					case "wheat":
-						newWaterHex = new WaterHex(PortType.WHEAT);
+						portType = PortType.WHEAT;
 						break;
 					case "ore":
-						newWaterHex = new WaterHex(PortType.ORE);
+						portType = PortType.ORE;
 						break;
 					}
 				}
+				VertexDirection portDir = null;
+				switch(port.getAsJsonObject().getAsJsonObject("direction").getAsString()) {
+				case "W":
+					portDir = VertexDirection.West;
+					break;
+				case "NW":
+					portDir = VertexDirection.NorthWest;
+					break;
+				case "NE":
+					portDir = VertexDirection.NorthEast;
+					break;
+				case "E":
+					portDir = VertexDirection.East;
+					break;
+				case "SE":
+					portDir = VertexDirection.SouthEast;
+					break;
+				case "SW":
+					portDir = VertexDirection.SouthWest;
+					break;
+				}
+				
 				JsonObject jsonPortLoc = port.getAsJsonObject().getAsJsonObject("location");
 				int locX = jsonPortLoc.getAsJsonObject("x").getAsInt();
 				int locY = jsonPortLoc.getAsJsonObject("y").getAsInt();
 				HexLocation waterHexLoc = new HexLocation(locX, locY);
 				
+				WaterHex newWaterHex = new WaterHex(portType, portDir);
 				hexes.setHex(waterHexLoc, newWaterHex);
 			}
 			
@@ -313,7 +335,7 @@ public class Deserializer {
 			
 		}
 		
-		return new Map(hexes, vertices, edges, ports, robberLocation);
+		return new Map(hexes, vertices, edges, robberLocation, playerMap);
 	}
 	
 	private GamePlayers deserializePlayers(JsonArray jsonPlayers) {
