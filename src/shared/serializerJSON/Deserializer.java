@@ -363,13 +363,13 @@ public class Deserializer {
 			JsonObject oldDevCards = playerObj.getAsJsonObject("oldDevCards");
 			int oldYearOfPlentyCount = oldDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
 			playerOldDevCards.put(DevCardType.YEAR_OF_PLENTY, oldYearOfPlentyCount);
-			int oldMonopolyCount = resources.getAsJsonPrimitive("monopoly").getAsInt();
+			int oldMonopolyCount = oldDevCards.getAsJsonPrimitive("monopoly").getAsInt();
 			playerOldDevCards.put(DevCardType.MONOPOLY, oldMonopolyCount);
-			int oldSoldierCount = resources.getAsJsonPrimitive("soldier").getAsInt();
+			int oldSoldierCount = oldDevCards.getAsJsonPrimitive("soldier").getAsInt();
 			playerOldDevCards.put(DevCardType.SOLDIER, oldSoldierCount);
-			int oldRoadBuildingCount = resources.getAsJsonPrimitive("roadBuilding").getAsInt();
+			int oldRoadBuildingCount = oldDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
 			playerOldDevCards.put(DevCardType.ROAD_BUILD, oldRoadBuildingCount);
-			int oldMonumentCount = resources.getAsJsonPrimitive("monument").getAsInt();
+			int oldMonumentCount = oldDevCards.getAsJsonPrimitive("monument").getAsInt();
 			playerOldDevCards.put(DevCardType.MONUMENT, oldMonumentCount);
 			
 			// New Dev Cards
@@ -377,13 +377,13 @@ public class Deserializer {
 			JsonObject newDevCards = playerObj.getAsJsonObject("newDevCards");
 			int newYearOfPlentyCount = newDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
 			playerNewDevCards.put(DevCardType.YEAR_OF_PLENTY, newYearOfPlentyCount);
-			int newMonopolyCount = resources.getAsJsonPrimitive("monopoly").getAsInt();
+			int newMonopolyCount = newDevCards.getAsJsonPrimitive("monopoly").getAsInt();
 			playerNewDevCards.put(DevCardType.MONOPOLY, newMonopolyCount);
-			int newSoldierCount = resources.getAsJsonPrimitive("soldier").getAsInt();
+			int newSoldierCount = newDevCards.getAsJsonPrimitive("soldier").getAsInt();
 			playerNewDevCards.put(DevCardType.SOLDIER, newSoldierCount);
-			int newRoadBuildingCount = resources.getAsJsonPrimitive("roadBuilding").getAsInt();
+			int newRoadBuildingCount = newDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
 			playerNewDevCards.put(DevCardType.ROAD_BUILD, newRoadBuildingCount);
-			int newMonumentCount = resources.getAsJsonPrimitive("monument").getAsInt();
+			int newMonumentCount = newDevCards.getAsJsonPrimitive("monument").getAsInt();
 			playerNewDevCards.put(DevCardType.MONUMENT, newMonumentCount);
 			
 			int playerRoads = playerObj.getAsJsonPrimitive("roads").getAsInt();
