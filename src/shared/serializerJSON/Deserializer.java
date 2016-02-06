@@ -127,7 +127,7 @@ public class Deserializer {
 			for (JsonElement hex : jsonHexes) {
 				
 				TerrainHex newHex;
-				if (!hex.getAsJsonObject().getAsJsonPrimitive("resource").isJsonNull()) {
+				if (hex.getAsJsonObject().has("resource")) {
 					int tokenNumber = hex.getAsJsonObject().getAsJsonPrimitive("number").getAsInt();
 					switch(hex.getAsJsonObject().getAsJsonPrimitive("resource").getAsString()) {
 					case "wood":
@@ -315,8 +315,8 @@ public class Deserializer {
 				}
 				
 				JsonObject jsonPortLoc = port.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonPortLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonPortLoc.getAsJsonObject("y").getAsInt();
+				int locX = jsonPortLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = jsonPortLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation waterHexLoc = new HexLocation(locX, locY);
 				
 				WaterHex newWaterHex = new WaterHex(portType, portDir);
@@ -325,8 +325,8 @@ public class Deserializer {
 			
 			// Place dat robber
 			JsonObject jsonRobberLoc = jsonMap.getAsJsonObject("robber");
-			int robberLocX = jsonRobberLoc.getAsJsonObject("x").getAsInt();
-			int robberLocY = jsonRobberLoc.getAsJsonObject("y").getAsInt();
+			int robberLocX = jsonRobberLoc.getAsJsonPrimitive("x").getAsInt();
+			int robberLocY = jsonRobberLoc.getAsJsonPrimitive("y").getAsInt();
 			HexLocation robberHex = new HexLocation(robberLocX, robberLocY);
 			robberLocation = new RobberLocation(robberHex);
 			
@@ -347,57 +347,57 @@ public class Deserializer {
 			HashMap<ResourceType, Integer> playerResources = new HashMap<ResourceType, Integer>();
 			JsonObject playerObj = player.getAsJsonObject();
 			JsonObject resources = playerObj.getAsJsonObject("resources");
-			int brickCount = resources.getAsJsonObject("brick").getAsInt();
+			int brickCount = resources.getAsJsonPrimitive("brick").getAsInt();
 			playerResources.put(ResourceType.BRICK, brickCount);
-			int woodCount = resources.getAsJsonObject("wood").getAsInt();
+			int woodCount = resources.getAsJsonPrimitive("wood").getAsInt();
 			playerResources.put(ResourceType.WOOD, woodCount);
-			int sheepCount = resources.getAsJsonObject("sheep").getAsInt();
+			int sheepCount = resources.getAsJsonPrimitive("sheep").getAsInt();
 			playerResources.put(ResourceType.SHEEP, sheepCount);
-			int wheatCount = resources.getAsJsonObject("wheat").getAsInt();
+			int wheatCount = resources.getAsJsonPrimitive("wheat").getAsInt();
 			playerResources.put(ResourceType.WHEAT, wheatCount);
-			int oreCount = resources.getAsJsonObject("ore").getAsInt();
+			int oreCount = resources.getAsJsonPrimitive("ore").getAsInt();
 			playerResources.put(ResourceType.ORE, oreCount);
 			
 			// Old Dev Cards
 			HashMap<DevCardType, Integer> playerOldDevCards = new HashMap<DevCardType, Integer>();
 			JsonObject oldDevCards = playerObj.getAsJsonObject("oldDevCards");
-			int oldYearOfPlentyCount = oldDevCards.getAsJsonObject("yearOfPlenty").getAsInt();
+			int oldYearOfPlentyCount = oldDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
 			playerOldDevCards.put(DevCardType.YEAR_OF_PLENTY, oldYearOfPlentyCount);
-			int oldMonopolyCount = resources.getAsJsonObject("monopoly").getAsInt();
+			int oldMonopolyCount = resources.getAsJsonPrimitive("monopoly").getAsInt();
 			playerOldDevCards.put(DevCardType.MONOPOLY, oldMonopolyCount);
-			int oldSoldierCount = resources.getAsJsonObject("soldier").getAsInt();
+			int oldSoldierCount = resources.getAsJsonPrimitive("soldier").getAsInt();
 			playerOldDevCards.put(DevCardType.SOLDIER, oldSoldierCount);
-			int oldRoadBuildingCount = resources.getAsJsonObject("roadBuilding").getAsInt();
+			int oldRoadBuildingCount = resources.getAsJsonPrimitive("roadBuilding").getAsInt();
 			playerOldDevCards.put(DevCardType.ROAD_BUILD, oldRoadBuildingCount);
-			int oldMonumentCount = resources.getAsJsonObject("monument").getAsInt();
+			int oldMonumentCount = resources.getAsJsonPrimitive("monument").getAsInt();
 			playerOldDevCards.put(DevCardType.MONUMENT, oldMonumentCount);
 			
 			// New Dev Cards
 			HashMap<DevCardType, Integer> playerNewDevCards = new HashMap<DevCardType, Integer>();
 			JsonObject newDevCards = playerObj.getAsJsonObject("newDevCards");
-			int newYearOfPlentyCount = newDevCards.getAsJsonObject("yearOfPlenty").getAsInt();
+			int newYearOfPlentyCount = newDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
 			playerNewDevCards.put(DevCardType.YEAR_OF_PLENTY, newYearOfPlentyCount);
-			int newMonopolyCount = resources.getAsJsonObject("monopoly").getAsInt();
+			int newMonopolyCount = resources.getAsJsonPrimitive("monopoly").getAsInt();
 			playerNewDevCards.put(DevCardType.MONOPOLY, newMonopolyCount);
-			int newSoldierCount = resources.getAsJsonObject("soldier").getAsInt();
+			int newSoldierCount = resources.getAsJsonPrimitive("soldier").getAsInt();
 			playerNewDevCards.put(DevCardType.SOLDIER, newSoldierCount);
-			int newRoadBuildingCount = resources.getAsJsonObject("roadBuilding").getAsInt();
+			int newRoadBuildingCount = resources.getAsJsonPrimitive("roadBuilding").getAsInt();
 			playerNewDevCards.put(DevCardType.ROAD_BUILD, newRoadBuildingCount);
-			int newMonumentCount = resources.getAsJsonObject("monument").getAsInt();
+			int newMonumentCount = resources.getAsJsonPrimitive("monument").getAsInt();
 			playerNewDevCards.put(DevCardType.MONUMENT, newMonumentCount);
 			
-			int playerRoads = playerObj.getAsJsonObject("roads").getAsInt();
-			int playerCities = playerObj.getAsJsonObject("cities").getAsInt();
-			int playerSettlements = playerObj.getAsJsonObject("settlements").getAsInt();
-			int playerSoldiers = playerObj.getAsJsonObject("soldiers").getAsInt();
-			int playerVictoryPoints = playerObj.getAsJsonObject("victoryPoints").getAsInt();
-			int playerMonuments = playerObj.getAsJsonObject("monuments").getAsInt();
-			int playerID = playerObj.getAsJsonObject("playerID").getAsInt();
-			//int playerIndex = playerObj.getAsJsonObject("playerIndex").getAsInt();
-			String playerName = playerObj.getAsJsonObject("name").getAsString();
+			int playerRoads = playerObj.getAsJsonPrimitive("roads").getAsInt();
+			int playerCities = playerObj.getAsJsonPrimitive("cities").getAsInt();
+			int playerSettlements = playerObj.getAsJsonPrimitive("settlements").getAsInt();
+			int playerSoldiers = playerObj.getAsJsonPrimitive("soldiers").getAsInt();
+			int playerVictoryPoints = playerObj.getAsJsonPrimitive("victoryPoints").getAsInt();
+			int playerMonuments = playerObj.getAsJsonPrimitive("monuments").getAsInt();
+			int playerID = playerObj.getAsJsonPrimitive("playerID").getAsInt();
+			//int playerIndex = playerObj.getAsJsonPrimitive("playerIndex").getAsInt();
+			String playerName = playerObj.getAsJsonPrimitive("name").getAsString();
 			CatanColor playerColor = null;
 			
-			switch(playerObj.getAsJsonObject("color").getAsString()) {
+			switch(playerObj.getAsJsonPrimitive("color").getAsString()) {
 			case "red":
 				playerColor = CatanColor.RED;
 				break;
