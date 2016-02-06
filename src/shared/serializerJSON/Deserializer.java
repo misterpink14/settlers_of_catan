@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
@@ -86,19 +87,19 @@ public class Deserializer {
 	
 	public CardDeck deserializeDeck(JsonObject jsonDeck) {
 		// Year of Plenty
-		JsonObject jsonYearOfPlenty = jsonDeck.getAsJsonObject("yearOfPlenty");
+		JsonPrimitive jsonYearOfPlenty = jsonDeck.getAsJsonPrimitive("yearOfPlenty");
 		int yearOfPlentyCount = jsonYearOfPlenty.getAsInt();
 		// Monopoly
-		JsonObject jsonMonopoly = jsonDeck.getAsJsonObject("monopoly");
+		JsonPrimitive jsonMonopoly = jsonDeck.getAsJsonPrimitive("monopoly");
 		int monopolyCount = jsonMonopoly.getAsInt();
 		// Soldier
-		JsonObject jsonSoldier = jsonDeck.getAsJsonObject("soldier");
+		JsonPrimitive jsonSoldier = jsonDeck.getAsJsonPrimitive("soldier");
 		int soldierCount = jsonSoldier.getAsInt();
 		// RoadBuilding
-		JsonObject jsonRoadBuilding = jsonDeck.getAsJsonObject("roadBuilding");
+		JsonPrimitive jsonRoadBuilding = jsonDeck.getAsJsonPrimitive("roadBuilding");
 		int roadBuildingCount = jsonRoadBuilding.getAsInt();
 		// Monument
-		JsonObject jsonMonument = jsonDeck.getAsJsonObject("monument");
+		JsonPrimitive jsonMonument = jsonDeck.getAsJsonPrimitive("monument");
 		int monumentCount = jsonMonument.getAsInt();
 		
 		HashMap<DevCardType, Integer> cards = new HashMap<DevCardType, Integer>();
