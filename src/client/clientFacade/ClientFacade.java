@@ -1,5 +1,8 @@
 package client.clientFacade;
 
+import java.util.HashMap;
+import java.util.List;
+
 import client.serverProxy.FakeProxy;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -11,8 +14,11 @@ import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
+import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
 import shared.models.Game;
 import shared.models.UserManager.User;
+import shared.models.cardClasses.InsufficientCardNumberException;
 
 /** ClientFacade class
  * 
@@ -138,8 +144,8 @@ public class ClientFacade {
 	 * a city on the board.
 	 * @throws
 	 */
-	public void buildCity() {
-		if (canBuildCity()) {
+	public void buildCity(int x, int y, String direction, int ownerId) {
+		if (canBuildCity(x, y, direction, ownerId)) {
 			proxy.buildCity(new BuildCity());
 		} else {
 			/* Throw exception */
@@ -154,8 +160,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildSettlement() {
-		if (!isTurn()) {
+	public boolean canBuildSettlement(int x, int y, String direction, int ownerId) {
+		if (!game.CanBuildSettlement(x, y, direction, ownerId)) {
 			return false;
 		}
 		/* Check if player can build settlement */
@@ -167,8 +173,8 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public void buildSettlement() {
-		if (canBuildSettlement()) {
+	public void buildSettlement(int x, int y, String direction, int ownerId) {
+		if (canBuildSettlement(x, y, direction, ownerId)) {
 			proxy.buildSettlement(new BuildSettlement());
 		} else {
 			/* Throw exception */
@@ -183,7 +189,7 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuyDevCard() {
-		if (isTurn()) {
+		if (!game.CanBuyDevCard()) {
 			return false;
 		}
 		/* Check if player can buy development card */
@@ -217,42 +223,58 @@ public class ClientFacade {
 	 * in four of a kind for another resource
 	 * @throws
 	 */
-	public void tradeFour() {
-		
+	public void tradeFour(int playerID, List<Integer> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException {
+		game.offerATrade(playerID, playersToOfferTo, out, in);
 	}
 	
 	/**
+	 * @throws Exception 
 	 * Send the command to the server proxy to trade
 	 * with an adjoining harbor
 	 * @throws
 	 */
-	public void tradeHarbor() {
-		proxy.maritimeTrade(new MaritimeTrade());
+	public void tradeHarbor() throws Exception {
+		if(isTurn()) {
+			proxy.maritimeTrade(new MaritimeTrade());
+		} else {
+			throw new Exception();
+		}
 	}
 	
 	/**
+	 * @throws InsufficientCardNumberException 
 	 * Send the command to the server proxy to play
 	 * a development card.
 	 * @throws
 	 */
-	public void playDevCard() {
-		
+	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
+		game.playDevCard(type);
 	}
 	
 	/**
+	 * @throws Exception 
 	 * Send the end turn command to the server proxy.
 	 * @throws
 	 */
-	public void finishTurn() {
-		proxy.finishTurn(new FinishTurn());
+	public void finishTurn() throws Exception {
+		if(game.CanFinishTurn()) {
+			proxy.finishTurn(new FinishTurn());
+		} else {
+			throw new Exception();
+		}
 	}
 	
 	/**
+	 * @throws Exception 
 	 * Send a message to the server proxy in order to
 	 * deliver it to another player.
 	 * @throws
 	 */
-	public void sendChat() {
-		proxy.sendChat(new SendChat());
+	public void sendChat() throws Exception {
+		if(game.CanSendChat()) {
+			proxy.sendChat(new SendChat());
+		} else {
+			throw new Exception();
+		}
 	}
 }
