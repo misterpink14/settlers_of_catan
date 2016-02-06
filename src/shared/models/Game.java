@@ -65,6 +65,9 @@ public class Game
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 	}
+	public GamePlayers getPlayers() {
+		return players;
+	}
 	
 	public TurnManager getTurnManager() {
 		return turnManager;

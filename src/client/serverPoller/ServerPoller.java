@@ -37,11 +37,19 @@ public class ServerPoller
 	{
 		this.GameModel = facade.game;
 		this.ServerProxy = facade.proxy;
+		listener = new TimerActionListener();
 		versionID = GameModel.versionID();
 		UpdateTimer = new Timer(speed, this.listener);
 		UpdateTimer.start();
 	}
 	
+	//this is for testing
+	public void updateModelTester(String gameModelString)
+	{
+		JsonParser parser = new JsonParser();
+		JsonObject gameModelJson = parser.parse(gameModelString).getAsJsonObject();
+		GameModel = deserializer.deserialize(gameModelJson);
+	}
 	
 	class TimerActionListener implements ActionListener 
 	{
@@ -53,14 +61,13 @@ public class ServerPoller
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
-			this.updateModel();
+			updateModel();
 			UpdateTimer.restart();
-		}
-
+		}	
+		
 		/**
 		 * Calls the ClientProxy and updates the GameModel with given JSON
 		 * Calls the ServerProxy and updates the GameModel with given JSON
-		 * 
 		 */
 		private void updateModel()
 		{
@@ -72,8 +79,6 @@ public class ServerPoller
 			JsonObject gameModelJson = parser.parse(gameModelString).getAsJsonObject();
 			GameModel = deserializer.deserialize(gameModelJson);
 		}
-		
-	}
-	
+	}	
 	
 }

@@ -33,11 +33,11 @@ public class PlayerTest {
 		assertTrue(test.getNumOfResource(ResourceType.SHEEP) == 30);
 		assertTrue(test.getNumOfResource(ResourceType.WHEAT) == 0);
 		assertTrue(test.getNumOfResource(ResourceType.WOOD) == 0);
-		assertTrue(test.getNumOfDevCard(DevCardType.MONOPOLY) == 0);
-		assertTrue(test.getNumOfDevCard(DevCardType.MONUMENT) == 0);
+		assertTrue(test.getNumOfDevCard(DevCardType.MONOPOLY) == 1);
+		assertTrue(test.getNumOfDevCard(DevCardType.MONUMENT) == 1);
 		assertTrue(test.getNumOfDevCard(DevCardType.ROAD_BUILD) == 0);
 		assertTrue(test.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) == 0);
-		assertTrue(test.getNumOfDevCard(DevCardType.SOLDIER) == 3);
+		assertTrue(test.getNumOfDevCard(DevCardType.SOLDIER) == 2);
 		
 		assertTrue(test.getArmy() == 2);
 		assertTrue(test.getColor() == CatanColor.BLUE);
@@ -205,6 +205,8 @@ public class PlayerTest {
 			assertTrue(player.getNumOfResource(ResourceType.ORE) == 0);
 			assertTrue(player.getNumOfResource(ResourceType.SHEEP) == 1);
 			assertTrue(player.getNumOfResource(ResourceType.WHEAT) == 1);
+			assertTrue(player.getNewDevCards().getMonopolyCards() == 1);
+			player.finishTurn();
 			assertTrue(player.getNumOfDevCard(DevCardType.MONOPOLY) == 1);
 		} catch (InsufficientCardNumberException e) {
 			fail();
@@ -236,7 +238,8 @@ public class PlayerTest {
 		} catch (InsufficientCardNumberException e1) {
 			fail("Could not buy dev card");
 		}
-		
+		//finishing the turn makes the dev cards available.
+		player.finishTurn();
 		assertTrue(player.getNumOfDevCard(DevCardType.SOLDIER) == 1);
 		assertTrue(player.getNumOfDevCard(DevCardType.MONUMENT) == 1);
 		assertTrue(player.getNumOfDevCard(DevCardType.MONOPOLY) == 1);
