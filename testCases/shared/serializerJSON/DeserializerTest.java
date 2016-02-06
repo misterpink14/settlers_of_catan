@@ -67,7 +67,7 @@ public class DeserializerTest {
 		
 		Player player = players.getPlayerByIndex(0);
 		// First player's name should be Sam - Checking
-		assertTrue(player.getName() == "Sam");
+		assertTrue(player.getName().equals("Sam"));
 	}
 	
 	@Test
