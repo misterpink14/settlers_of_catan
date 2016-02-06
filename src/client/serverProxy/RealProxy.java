@@ -45,10 +45,15 @@ import shared.communication.proxy.YearOfPlenty;
  */
 public class RealProxy implements ProxyInterface {
 
+	//Usually localhost:8081
 	private String server_url;
+	
 	private String usercookie;
 	private String gamecookie;
-	private int playerIndex;
+	//private int playerIndex;
+	
+	//Directions come from the facade as full words, we
+	//need to abbreviate them before sending them to the server
 	private Map<String, String> directions;
 	RealProxy(String url_in) {
 		server_url = url_in;
@@ -95,6 +100,7 @@ public class RealProxy implements ProxyInterface {
 		//System.out.println("Post parameters : " + urlParameters);
 		//System.out.println("Response Code : " + responseCode);
 		
+		//When we log in the server gives us a cookie that keeps the user identity
 		usercookie = con.getHeaderField("set-cookie");
 		usercookie = usercookie.substring(0, usercookie.length() - 8);
 
@@ -103,10 +109,6 @@ public class RealProxy implements ProxyInterface {
 		
 		JsonParser jsonParser = new JsonParser();
 		JsonObject element = jsonParser.parse(decodedUserCookie).getAsJsonObject();
-		playerIndex = 1;//element.get("playerID").getAsInt();
-		
-		//System.out.println(usercookie);
-		//System.out.println(playerIndex);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -118,8 +120,6 @@ public class RealProxy implements ProxyInterface {
 		}
 		in.close();
 		
-		//print result
-		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -166,7 +166,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -184,7 +184,7 @@ public class RealProxy implements ProxyInterface {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		// optional default is GET
+		// optional, default is GET
 		con.setRequestMethod("GET");
 
 		//add request header
@@ -205,7 +205,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -254,7 +254,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -276,7 +276,6 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		//System.out.println(usercookie);
 		con.setRequestProperty("Cookie", usercookie);
 
 		String urlParameters = "id=" + params.id + "&color=" + params.color;
@@ -295,7 +294,6 @@ public class RealProxy implements ProxyInterface {
 
 		gamecookie = con.getHeaderField("set-cookie");
 		gamecookie = gamecookie.substring(0, gamecookie.length() - 8);
-		//System.out.println(gamecookie);
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
 		String inputLine;
@@ -306,8 +304,6 @@ public class RealProxy implements ProxyInterface {
 		}
 		in.close();
 		
-		//print result
-		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -368,7 +364,7 @@ public class RealProxy implements ProxyInterface {
 			in.close();
 	
 			//print result
-			System.out.println(response.toString());
+			//System.out.println(response.toString());
 			return response.toString();
 		}
 		catch (Exception e) {
@@ -416,7 +412,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -448,7 +444,6 @@ public class RealProxy implements ProxyInterface {
 	 * @return JSON String that contains the client model
 	 */
 	public String sendChat(SendChat sendChat) throws Exception {
-		System.out.println("whooaaaaaa");
 		String url = server_url + "/moves/sendChat";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -457,7 +452,6 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		System.out.println(usercookie + "; " + gamecookie);
 		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 		
 		JsonObject info = new JsonObject();
@@ -488,7 +482,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -508,7 +502,6 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		System.out.println(usercookie + "; " + gamecookie);
 		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 		
 		JsonObject info = new JsonObject();
@@ -542,7 +535,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -600,7 +593,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -653,7 +646,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -706,7 +699,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -726,14 +719,11 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		System.out.println(usercookie + "; " + gamecookie);
 		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 		
 		JsonObject info = new JsonObject();
 		info.addProperty("type","Year_of_Plenty");
 		info.addProperty("playerIndex", yearOfPlenty.playerIndex);
-		System.out.println("~~~~~~~~~~~~~~~~");
-		System.out.println(yearOfPlenty.resourceOne.name());
 		info.addProperty("resource1", yearOfPlenty.resourceOne.name().toLowerCase());
 		info.addProperty("resource2", yearOfPlenty.resourceTwo.name().toLowerCase());
 		
@@ -763,7 +753,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -827,7 +817,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -886,7 +876,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -939,7 +929,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -991,7 +981,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1052,7 +1042,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1110,7 +1100,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1169,7 +1159,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1231,7 +1221,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1284,7 +1274,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1340,7 +1330,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1400,7 +1390,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		System.out.println(response.toString());
+		//System.out.println(response.toString());
 		return response.toString();
 	}
 	

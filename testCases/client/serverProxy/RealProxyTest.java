@@ -48,7 +48,15 @@ public class RealProxyTest {
 
 	@Test
 	public void testLoginUser() {
-		
+		Credentials credentials = new Credentials();
+		credentials.username = "Sam";
+		credentials.password = "sam";
+		try {
+			assertEquals(this.realProxy.loginUser(credentials), "Success");
+		}
+		catch (Exception e) {
+			fail("Exception");
+		}
 	}
 
 	@Test
