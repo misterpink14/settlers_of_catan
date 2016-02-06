@@ -34,7 +34,8 @@ public class TurnManager {
 	TradeManager tradeManager;
 	
 	/**This keeps track of the event that is being performed within the current turn*/
-	enum turnState {ROLLING, };
+	enum TurnState {ROLLING, ROBBING, DISCARDING, TRADING, NORMAL};
+	TurnState state;
 	
 	/**The index of the player whose turn it is.*/
 	int playerIndex = -1;
@@ -78,6 +79,7 @@ public class TurnManager {
 		Random rand = new Random(System.currentTimeMillis());
 		playerIndex = rand.nextInt(4) + 1;
 		players.getPlayerByIndex(playerIndex).startTurn();
+		state = TurnState.ROLLING;
 		//TODO We will need to set up the new game by having players choose settlements.
 	}
 	
@@ -85,10 +87,19 @@ public class TurnManager {
 		players.getPlayerByIndex(index).startTurn();
 		playerIndex = index;
 		this.hasPlayedDevCard = false;
+		state = TurnState.ROLLING;
 	}
 	
 	public void setHasPlayedDevCard(boolean hpdc) {
 		this.hasPlayedDevCard = hpdc;
+	}
+	
+	public String getState() {
+		return state.toString();
+	}
+	
+	public void setState(TurnState state) {
+		this.state = state;
 	}
 	  
 	/**
@@ -97,6 +108,7 @@ public class TurnManager {
 	public void nextTurn() {
 		playerIndex = this.players.finishTurn(playerIndex);
 		hasPlayedDevCard = false;
+		state = TurnState.ROLLING;
 	}
 	
 	public boolean isTurn(int index) {
@@ -109,7 +121,14 @@ public class TurnManager {
 	 * @return The number rolled or 0 if the player does not have permission to roll the dice.
 	 */
 	public int rollDice() {
-		return Dice.rollDice();
+		int roll = Dice.rollDice();
+		if(roll == 7) {
+			state = TurnState.DISCARDING;
+		}
+		else {
+			state = TurnState.NORMAL;
+		}
+		return roll;
 	}
 	
 	public void buildRoad() throws InsufficientCardNumberException {
@@ -147,33 +166,63 @@ public class TurnManager {
 	//***********************************************************************************************************************************
 	
 	public boolean CanDiscardCards(ResourceType type, int num) {
+		if(state != TurnState.DISCARDING) {
+			return false;
+		}
 		return players.getPlayerByIndex(playerIndex).canDiscardCards(type, num);
 	}
 	public boolean CanRollNumber() {
+		if(state != TurnState.ROLLING) {
+			return false;
+		}
 		return players.getPlayerByIndex(playerIndex).canRollDice();
 	}
 	public boolean CanBuildRoad(int x, int y, String direction, int ownerId) {
+		if(state != TurnState.NORMAL) {
+			return false;
+		}
 		return players.getPlayerByIndex(playerIndex).canBuildRoad() && map.canPlaceRoad(x, y, direction, ownerId);
 	}
 	public boolean CanBuildSettlement(int x, int y, String direction, int ownerId) {
+		if(state != TurnState.NORMAL) {
+			return false;
+		}
 		return players.getPlayerByIndex(playerIndex).canBuildSettlement() && map.canPlaceSettlement(x, y, direction, ownerId);
 	}
 	public boolean CanBuildCity(int x, int y, String direction, int ownerId) {
+		if(state != TurnState.NORMAL) {
+			return false;
+		}
 		return players.getPlayerByIndex(playerIndex).canBuildCity() && map.canPlaceCity(x, y, direction, ownerId);
 	}
 	public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
+		if(state != TurnState.NORMAL) {
+			return false;
+		}
 		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
 	}
 	public boolean CanMaritimeTrade(int ownerId, ResourceType type) {
+		if(state != TurnState.NORMAL) {
+			return false;
+		}
 		return map.canMaritimeTrade(ownerId, type);
 	}
 	public boolean CanFinishTurn() {
-		return false;
+		if(state != TurnState.NORMAL) {
+			return false;
+		}
+		return true;
 	}
 	public boolean CanBuyDevCard() {
+		if(this.hasPlayedDevCard == true || state != TurnState.NORMAL) {
+			return false;
+		}
 		return players.getPlayerByIndex(playerIndex).canBuyDevCard();
 	}
 	public boolean CanPlayDevCard(DevCardType card) {
+		if(state != TurnState.NORMAL) {
+			return false;
+		}	
 		int numberOfCard = players.getPlayerByIndex(playerIndex).getNumOfDevCard(card);
 		if(numberOfCard > 0 && hasPlayedDevCard == false) {
 			return true;
@@ -181,10 +230,13 @@ public class TurnManager {
 		return false;
 	}
 	public boolean CanPlaceRobber(int x, int y) {
+		if(state != TurnState.ROBBING) {
+			return false;
+		}
 		return this.map.canPlaceRobber(x, y);
 	}
 	public boolean CanSendChat() {
-		return false;
+		return true;
 	}
 	public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
