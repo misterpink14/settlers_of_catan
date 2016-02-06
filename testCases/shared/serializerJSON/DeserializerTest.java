@@ -60,25 +60,21 @@ public class DeserializerTest {
 		assertTrue(map.canPlaceRobber(-2, -2));
 	}
 
+	@Test
 	public void playersTest() {
-		String playersString = "{   \"players\": [     {       \"resources\": {         \"brick\": 0,         \"wood\": 1,         \"sheep\": 1,         \"wheat\": 1,         \"ore\": 0       },       \"oldDevCards\": {         \"yearOfPlenty\": 0,         \"monopoly\": 0,         \"soldier\": 0,         \"roadBuilding\": 0,         \"monument\": 0       },       \"newDevCards\": {         \"yearOfPlenty\": 0,         \"monopoly\": 0,         \"soldier\": 0,         \"roadBuilding\": 0,         \"monument\": 0       },       \"roads\": 13,       \"cities\": 4,       \"settlements\": 3,       \"soldiers\": 0,       \"victoryPoints\": 2,       \"monuments\": 0,       \"playedDevCard\": false,       \"discarded\": false,       \"playerID\": 0,       \"playerIndex\": 0,       \"name\": \"Sam\",       \"color\": \"red\"     },     {       \"resources\": {         \"brick\": 1,         \"wood\": 0,         \"sheep\": 1,         \"wheat\": 0,         \"ore\": 1       },       \"oldDevCards\": {         \"yearOfPlenty\": 0,         \"monopoly\": 0,         \"soldier\": 0,         \"roadBuilding\": 0,         \"monument\": 0       },       \"newDevCards\": {         \"yearOfPlenty\": 0,         \"monopoly\": 0,         \"soldier\": 0,         \"roadBuilding\": 0,         \"monument\": 0       },       \"roads\": 13,       \"cities\": 4,       \"settlements\": 3,       \"soldiers\": 0,       \"victoryPoints\": 2,       \"monuments\": 0,       \"playedDevCard\": false,       \"discarded\": false,       \"playerID\": 1,       \"playerIndex\": 1,       \"name\": \"Brooke\",       \"color\": \"blue\"     },     {       \"resources\": {         \"brick\": 0,         \"wood\": 1,         \"sheep\": 1,         \"wheat\": 1,         \"ore\": 0       },       \"oldDevCards\": {         \"yearOfPlenty\": 0,         \"monopoly\": 0,         \"soldier\": 0,         \"roadBuilding\": 0,         \"monument\": 0       },       \"newDevCards\": {         \"yearOfPlenty\": 0,         \"monopoly\": 0,         \"soldier\": 0,         \"roadBuilding\": 0,         \"monument\": 0       },       \"roads\": 13,       \"cities\": 4,       \"settlements\": 3,       \"soldiers\": 0,       \"victoryPoints\": 2,       \"monuments\": 0,       \"playedDevCard\": false,       \"discarded\": false,       \"playerID\": 10,       \"playerIndex\": 2,       \"name\": \"Pete\",       \"color\": \"red\"     },     {       \"resources\": {         \"brick\": 0,         \"wood\": 1,         \"sheep\": 1,         \"wheat\": 0,         \"ore\": 1       },       \"oldDevCards\": {         \"yearOfPlenty\": 0,         \"monopoly\": 0,         \"soldier\": 0,         \"roadBuilding\": 0,         \"monument\": 0       },       \"newDevCards\": {         \"yearOfPlenty\": 0,         \"monopoly\": 0,         \"soldier\": 0,         \"roadBuilding\": 0,         \"monument\": 0       },       \"roads\": 13,       \"cities\": 4,       \"settlements\": 3,       \"soldiers\": 0,       \"victoryPoints\": 2,       \"monuments\": 0,       \"playedDevCard\": false,       \"discarded\": false,       \"playerID\": 11,       \"playerIndex\": 3,       \"name\": \"Mark\",       \"color\": \"green\"     }   ]}";
+		JsonArray jsonPlayers = json.getAsJsonArray("players");
+		GamePlayers players = deserializer.deserializePlayers(jsonPlayers);
 		
-		JsonParser parser = new JsonParser();
-		JsonArray playerJson = parser.parse(playersString).getAsJsonArray();
-		
-		GamePlayers players = deserializer.deserializePlayers(playerJson);
 		Player player = players.getPlayerByIndex(0);
 		// First player's name should be Sam - Checking
 		assertTrue(player.getName() == "Sam");
 	}
 	
+	@Test
 	public void bankTest() {
-		String bankString = "{\"bank\": {     \"brick\": 23,     \"wood\": 21,     \"sheep\": 20,     \"wheat\": 22,     \"ore\": 22   },   \"turnTracker\": {     \"status\": \"Rolling\",     \"currentTurn\": 0,     \"longestRoad\": -1,     \"largestArmy\": -1   },   \"winner\": -1,   \"version\": 0}";
+		JsonObject jsonBank = json.getAsJsonObject("bank");
+		Bank bank = deserializer.deserializeBank(jsonBank);
 		
-		JsonParser parser = new JsonParser();
-		JsonObject bankJson = parser.parse(bankString).getAsJsonObject();
-		
-		Bank bank = deserializer.deserializeBank(bankJson);
 		try {
 			bank.takeResourceCards(ResourceType.SHEEP, 20);
 		} catch (InsufficientCardNumberException e) {
@@ -88,41 +84,44 @@ public class DeserializerTest {
 		assertFalse(bank.canRemove(ResourceType.SHEEP, 1));
 	}
 
+	@Test
 	public void chatTest() {
-		String chatString =   "{ \"chat\": {     \"lines\": [       {         \"source\": \"Sam\",         \"message\": \"Sam built a road\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam built a settlement\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam's turn just ended\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a road\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a settlement\"       }  ]   } }";
-
-		JsonParser parser = new JsonParser();
-		JsonObject chatJson = parser.parse(chatString).getAsJsonObject();
-
-		GameChat desChat = deserializer.deserializeChat(chatJson);
+		JsonObject jsonLog = json.getAsJsonObject("log");
+		GameChat desChat = deserializer.deserializeChat(jsonLog);
 
 		// There are 5 messages to be deserialized from the JSON
-		assertTrue(desChat.getMessages().size() == 5);
+		assertTrue(desChat.getMessages().size() == 24);
 		// Test the content of the messages
-		assertTrue(desChat.getMessages().get(0) == new Message("Sam", "Sam built a road"));
-		assertTrue(desChat.getMessages().get(1) == new Message("Sam", "Sam built a settlement"));
-		assertTrue(desChat.getMessages().get(2) == new Message("Sam", "Sam's turn just ended"));
-		assertTrue(desChat.getMessages().get(3) == new Message("Brooke", "Brooke built a road"));
-		assertTrue(desChat.getMessages().get(4) == new Message("Brooke", "Brooke built a settlement"));
+		assertTrue(desChat.getMessages().get(0).getSource().equals("Sam"));
+		assertTrue(desChat.getMessages().get(0).getMessage().equals("Sam built a road"));
+		assertTrue(desChat.getMessages().get(1).getSource().equals("Sam"));
+		assertTrue(desChat.getMessages().get(1).getMessage().equals("Sam built a settlement"));
+		assertTrue(desChat.getMessages().get(2).getSource().equals("Sam"));
+		assertTrue(desChat.getMessages().get(2).getMessage().equals("Sam's turn just ended"));
+		assertTrue(desChat.getMessages().get(3).getSource().equals("Brooke"));
+		assertTrue(desChat.getMessages().get(3).getMessage().equals("Brooke built a road"));
+		assertTrue(desChat.getMessages().get(4).getSource().equals("Brooke"));
+		assertTrue(desChat.getMessages().get(4).getMessage().equals("Brooke built a settlement"));
 	}
 
+	@Test
 	public void logTest() {
-		String logString =   "{ \"log\": {     \"lines\": [       {         \"source\": \"Sam\",         \"message\": \"Sam built a road\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam built a settlement\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam's turn just ended\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a road\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a settlement\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke's turn just ended\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete built a road\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete built a settlement\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete's turn just ended\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark built a road\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark built a settlement\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark's turn just ended\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark built a road\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark built a settlement\"       },       {         \"source\": \"Mark\",         \"message\": \"Mark's turn just ended\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete built a road\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete built a settlement\"       },       {         \"source\": \"Pete\",         \"message\": \"Pete's turn just ended\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a road\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke built a settlement\"       },       {         \"source\": \"Brooke\",         \"message\": \"Brooke's turn just ended\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam built a road\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam built a settlement\"       },       {         \"source\": \"Sam\",         \"message\": \"Sam's turn just ended\"       }     ]   } }";
-
-
-		JsonParser parser = new JsonParser();
-		JsonObject logJson = parser.parse(logString).getAsJsonObject();
-
-		GameLog desLog = deserializer.deserializeLog(logJson);
+		JsonObject jsonLog = json.getAsJsonObject("log");
+		GameLog desLog = deserializer.deserializeLog(jsonLog);
 
 		// There are 24 messages to be deserialized from the JSON
 		assertTrue(desLog.getMessages().size() == 24);
 		// Test the content of the messages
-		assertTrue(desLog.getMessages().get(0) == new Message("Sam", "Sam built a road"));
-		assertTrue(desLog.getMessages().get(1) == new Message("Sam", "Sam built a settlement"));
-		assertTrue(desLog.getMessages().get(2) == new Message("Sam", "Sam's turn just ended"));
-		assertTrue(desLog.getMessages().get(3) == new Message("Brooke", "Brooke built a road"));
-		assertTrue(desLog.getMessages().get(4) == new Message("Brooke", "Brooke built a settlement"));
+		assertTrue(desLog.getMessages().get(0).getSource().equals("Sam"));
+		assertTrue(desLog.getMessages().get(0).getMessage().equals("Sam built a road"));
+		assertTrue(desLog.getMessages().get(1).getSource().equals("Sam"));
+		assertTrue(desLog.getMessages().get(1).getMessage().equals("Sam built a settlement"));
+		assertTrue(desLog.getMessages().get(2).getSource().equals("Sam"));
+		assertTrue(desLog.getMessages().get(2).getMessage().equals("Sam's turn just ended"));
+		assertTrue(desLog.getMessages().get(3).getSource().equals("Brooke"));
+		assertTrue(desLog.getMessages().get(3).getMessage().equals("Brooke built a road"));
+		assertTrue(desLog.getMessages().get(4).getSource().equals("Brooke"));
+		assertTrue(desLog.getMessages().get(4).getMessage().equals("Brooke built a settlement"));
 
 	}
 }
