@@ -73,7 +73,7 @@ public class ClientFacade {
 	 * otherwise, returns false;
 	 */
 	public boolean isTurn() {
-		return game.isTurn(clientUser.getPlayerID());
+		return game.isTurn(0);
 	}
 	
 	/**

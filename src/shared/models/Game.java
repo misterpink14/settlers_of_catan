@@ -61,7 +61,7 @@ public class Game
 		this.players = players;
 		this.log = log;
 		this.chat = chat;
-		this.turnManager = new TurnManager();
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 	}

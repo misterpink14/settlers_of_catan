@@ -47,7 +47,7 @@ import shared.models.playerClasses.Player;
 public class Deserializer {
 	
 	// currentTurn
-	private int desCurrentTurn = -1;
+	private int desCurrentTurn = 0;
 	
 	public Game deserialize(JsonObject json) {
 		// the "des" prefix signifies that the object has been deserialized.
@@ -84,7 +84,7 @@ public class Deserializer {
 		boolean desHasPlayedDevCard = false;
 		
 		// winner
-		int desWinner = json.getAsJsonObject("winner").getAsInt();
+		int desWinner = json.getAsJsonPrimitive("winner").getAsInt();
 
 		return new Game(desMap, desBank, desDeck, desPlayers, desLog, desChat,
 				        desCurrentTurn, desHasPlayedDevCard, desWinner);
