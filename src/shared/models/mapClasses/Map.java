@@ -100,9 +100,19 @@ public class Map
 		this.PlayerPieces = playerPieces;
 	}
 	
+	public void setVertex(VertexLocation loc, Piece p) throws InvalidTypeException
+	{
+		this.Vertexes.setVertex(loc, p);
+	}
+	
 	
 
 // Public METHODS
+	public void addSettlementToPlayerMap(VertexLocation loc, int playerIndex)
+	{
+		this.PlayerPieces.addSettlement(loc, playerIndex);
+	}
+	
 	/**
 	 * Moves a robber to a given HexLocation
 	 *  Constraints: must not already be there, cannot be a sea piece
@@ -207,9 +217,11 @@ public class Map
 		{
 			if (isOnPort(loc, portType))
 			{
+				System.out.println("1");
 				return true;
 			}
 		}
+		System.out.println("2");
 		return false;
 	}
 	
@@ -232,7 +244,14 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthWest))
 					{
-						return true;
+
+						System.out.println("3");
+						System.out.println(wh.getPortType().toString());
+						System.out.println(portType.toString());
+						if (wh.getPortType() == portType)
+						{
+							return true;
+						}
 					}
 				}
 				
@@ -247,7 +266,12 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast))
 					{
-						return true;
+
+						System.out.println("4");
+						if (wh.getPortType() == portType)
+						{
+							return true;
+						}
 					}
 				}
 				
@@ -263,7 +287,12 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest))
 					{
-						return true;
+
+						System.out.println("5");
+						if (wh.getPortType() == portType)
+						{
+							return true;
+						}
 					}
 				}
 				break;
@@ -278,7 +307,12 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthEast))
 					{
-						return true;
+
+						System.out.println("6");
+						if (wh.getPortType() == portType)
+						{
+							return true;
+						}
 					}
 				}
 				
@@ -294,7 +328,12 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast))
 					{
-						return true;
+
+						System.out.println("7");
+						if (wh.getPortType() == portType)
+						{
+							return true;
+						}
 					}
 				}
 				
@@ -309,7 +348,12 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest))
 					{
-						return true;
+
+						System.out.println("8");
+						if (wh.getPortType() == portType)
+						{
+							return true;
+						}
 					}
 				}
 				break;
@@ -325,42 +369,39 @@ public class Map
 	
 	private PortType convertResourceTypeToPortType (ResourceType t)
 	{
-		PortType portType = null;
-		switch(t)
+		try{
+			switch(t)
+			{
+				case WOOD:
+				{
+					return PortType.WOOD;
+				}
+				case BRICK:
+				{
+					return PortType.BRICK;
+				}
+				case SHEEP: 
+				{
+					return PortType.SHEEP;
+				}
+				case WHEAT:
+				{
+					return PortType.WHEAT;
+				}
+				case ORE:
+				{
+					return PortType.ORE;
+				}
+				default:
+				{
+					return PortType.THREE;
+				}
+			
+			}
+		} catch(NullPointerException e)
 		{
-			case WOOD:
-			{
-				portType = PortType.WOOD;
-				break;
-			}
-			case BRICK:
-			{
-				portType = PortType.BRICK;
-				break;
-			}
-			case SHEEP: 
-			{
-				portType = PortType.SHEEP;
-				break;
-			}
-			case WHEAT:
-			{
-				portType = PortType.WHEAT;
-				break;
-			}
-			case ORE:
-			{
-				portType = PortType.ORE;
-				break;
-			}
-			default:
-			{
-				portType = PortType.THREE;
-				break;
-			}
-		
+			return PortType.THREE;
 		}
-		return portType;
 	}
 	
 	
