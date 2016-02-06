@@ -30,7 +30,7 @@ public class ServerPoller
 	 * Constructor. Pass the Proxy to the Poller for updating the Model. Pass the speed of
 	 * 	the timer for refreshing
 	 * 
-	 * @param clientProxy
+	 * @param ClientFacade
 	 * @param speed
 	 */
 	public ServerPoller (ClientFacade facade, int speed)
