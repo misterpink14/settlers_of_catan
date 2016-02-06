@@ -7,8 +7,6 @@ import shared.locations.RobberLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-import java.util.ArrayList;
-
 import shared.definitions.*;
 
 
@@ -28,7 +26,7 @@ public class Map
 	private HexMap Hexes = new HexMap();
 	private VertexMap Vertexes = new VertexMap();
 	private EdgeMap Edges = new EdgeMap();
-	private RobberLocation Robber = new RobberLocation(null);
+	private RobberLocation Robber;
 	private PlayerMap PlayerPieces = new PlayerMap();
 	
 	
@@ -69,7 +67,7 @@ public class Map
 		this.Vertexes = v;
 		this.Edges = e;
 		this.Robber = r;
-		this.PlayerPieces = playerPieces;
+		this.PlayerPieces = (playerPieces == null) ? new PlayerMap() : playerPieces;
 	}
 	
 	
@@ -193,19 +191,80 @@ public class Map
 	
 	
 	/**
-	 * Checks if a user can maritime trade. // TODO: revisit this
+	 * Checks if a user can maritime trade.
 	 * 
 	 * @param ownerIndex
 	 * @return
 	 */
-	public boolean canMaritimeTrade(int ownerIndex)
+	public boolean canMaritimeTrade(int ownerIndex, ResourceType type)
 	{
-		return true;
+		PortType portType = this.convertResourceTypeToPortType(type);
+		
+		for(VertexLocation loc: this.PlayerPieces.getVertexPieceList(ownerIndex))
+		{
+			if (isOnPort(loc, portType))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	
 	
 // Private METHOD
+	private boolean isOnPort(VertexLocation loc, PortType portType) 
+	{
+		
+		
+		
+		
+		return false;
+	}
+	
+	
+	
+	private PortType convertResourceTypeToPortType (ResourceType t)
+	{
+		PortType portType = null;
+		switch(t)
+		{
+			case WOOD:
+			{
+				portType = PortType.WOOD;
+				break;
+			}
+			case BRICK:
+			{
+				portType = PortType.BRICK;
+				break;
+			}
+			case SHEEP: 
+			{
+				portType = PortType.SHEEP;
+				break;
+			}
+			case WHEAT:
+			{
+				portType = PortType.WHEAT;
+				break;
+			}
+			case ORE:
+			{
+				portType = PortType.ORE;
+				break;
+			}
+			default:
+			{
+				portType = PortType.THREE;
+				break;
+			}
+		
+		}
+		return portType;
+	}
+	
+	
 	/**
 	 * Helper function for canPlaceSettlement(). Verifies that all surrounding hexes of a vertex aren't Water
 	 * 
