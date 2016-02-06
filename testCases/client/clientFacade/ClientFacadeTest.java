@@ -45,42 +45,42 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testCanBuildRoad() {
-		assertTrue(facade.canBuildRoad(0, 0, "NE", 1));
+		assertTrue(!facade.canBuildRoad(0, 0, "NE", 1));
 	}
 
 	@Test
 	public void testBuildRoad() {
-		assertTrue(!facade.buildRoad(0, 0, "NE", 1).equals("False"));
+		assertTrue(facade.buildRoad(0, 0, "NE", 1).equals("False"));
 	}
 
 	@Test
 	public void testCanBuildCity() {
-		assertTrue(facade.canBuildCity(0, 0, "NE", 1));
+		assertTrue(!facade.canBuildCity(0, 0, "NE", 1));
 	}
 
 	@Test
 	public void testBuildCity() {
-		assertTrue(!facade.buildCity(0, 0, "NE", 1).equals("False"));
+		assertTrue(facade.buildCity(0, 0, "NE", 1).equals("False"));
 	}
 
 	@Test
 	public void testCanBuildSettlement() {
-		assertTrue(facade.canBuildSettlement(0, 0, "NE", 1));
+		assertTrue(!facade.canBuildSettlement(0, 0, "NE", 1));
 	}
 
 	@Test
 	public void testBuildSettlement() {
-		assertTrue(!facade.buildSettlement(0, 0, "NE", 1).equals("False"));
+		assertTrue(facade.buildSettlement(0, 0, "NE", 1).equals("False"));
 	}
 
 	@Test
 	public void testCanBuyDevCard() {
-		assertTrue(facade.canBuyDevCard());
+		assertTrue(!facade.canBuyDevCard());
 	}
 
 	@Test
 	public void testBuyDevCard() {
-		assertTrue(!facade.buyDevCard().equals("False"));
+		assertTrue(facade.buyDevCard().equals("False"));
 	}
 
 	@Test
