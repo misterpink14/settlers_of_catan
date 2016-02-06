@@ -1,6 +1,5 @@
 package client.serverProxy;
 
-import com.sun.org.glassfish.gmbal.ParameterNames;
 import shared.communication.proxy.*;
 
 /** ProxyInterface interface
@@ -21,7 +20,7 @@ public interface ProxyInterface {
 	 * playerID: Integer
 	 * @throws Exception
 	 */ 
-	public String loginUser(Credentials credentials);
+	public String loginUser(Credentials credentials) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -30,7 +29,7 @@ public interface ProxyInterface {
 	 * @return JSON String that indicates success/failure
 	 * @throws Exception
 	 */
-	public String registerUser(Credentials credentials);
+	public String registerUser(Credentials credentials) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -39,7 +38,7 @@ public interface ProxyInterface {
 	 * @return JSON String that indicates success/failure
 	 * @throws Exception
 	 */
-	public String getGamesList();
+	public String getGamesList() throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -51,7 +50,7 @@ public interface ProxyInterface {
 	 * a list of empty players
 	 * @throws Exception
 	 */
-	public String createGame(CreateGameRequestParams params);
+	public String createGame(CreateGameRequestParams params) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -62,7 +61,7 @@ public interface ProxyInterface {
 	 * failure
 	 * @throws Exception
 	 */
-	public String joinGame(JoinGameRequestParams params);
+	public String joinGame(JoinGameRequestParams params) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -101,7 +100,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the current game state
 	 * @throws Exception
 	 */
-	public String resetGame();
+	public String resetGame() throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -131,7 +130,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String sendChat(SendChat sendChat);
+	public String sendChat(SendChat sendChat) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -141,7 +140,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String rollNumber(RollNumber rollNumber);
+	public String rollNumber(RollNumber rollNumber) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -151,7 +150,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String robPlayer(RobPlayer robPlayer);
+	public String robPlayer(RobPlayer robPlayer) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -161,7 +160,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String finishTurn(FinishTurn finishTurn);
+	public String finishTurn(FinishTurn finishTurn) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -171,7 +170,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String buyDevCard(BuyDevCard buyDevCard);
+	public String buyDevCard(BuyDevCard buyDevCard) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -181,7 +180,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String yearOfPlenty(YearOfPlenty yearOfPlenty);
+	public String yearOfPlenty(YearOfPlenty yearOfPlenty) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -191,7 +190,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String roadBuilding(RoadBuilding roadBuilding);
+	public String roadBuilding(RoadBuilding roadBuilding) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -202,7 +201,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String moveSoldier(SoldierMove soldierMove);
+	public String moveSoldier(SoldierMove soldierMove) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -212,7 +211,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String playMonopolyCard(Monopoly monopoly);
+	public String playMonopolyCard(Monopoly monopoly) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -222,7 +221,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String playMonumentCard(MonumentMove monumentMove);
+	public String playMonumentCard(MonumentMove monumentMove) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -233,7 +232,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String buildRoad(BuildRoad buildRoad);
+	public String buildRoad(BuildRoad buildRoad) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -243,7 +242,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String buildCity(BuildCity buildCity);
+	public String buildCity(BuildCity buildCity) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -253,7 +252,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String buildSettlement(BuildSettlement buildSettlement);
+	public String buildSettlement(BuildSettlement buildSettlement) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -264,7 +263,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String offerTrade(OfferTrade offerTrade);
+	public String offerTrade(OfferTrade offerTrade) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -274,7 +273,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String acceptTrade(AcceptTrade acceptTrade);
+	public String acceptTrade(AcceptTrade acceptTrade) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -286,7 +285,7 @@ public interface ProxyInterface {
 	 * 
 	 * @throws Exception
 	 */
-	public String maritimeTrade(MaritimeTrade maritimeTrade);
+	public String maritimeTrade(MaritimeTrade maritimeTrade) throws Exception;
 	
 	/**
 	 * This function will call the server API at
@@ -296,7 +295,7 @@ public interface ProxyInterface {
 	 * @return JSON String that contains the client model
 	 * @throws Exception
 	 */
-	public String discardCards(DiscardedCards discardedCards);
+	public String discardCards(DiscardedCards discardedCards) throws Exception;
 	
 	/**
 	 * This function will call the server API at

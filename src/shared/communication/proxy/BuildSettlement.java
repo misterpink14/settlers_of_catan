@@ -1,5 +1,7 @@
 package shared.communication.proxy;
 
+import shared.locations.VertexLocation;
+
 public class BuildSettlement
 {
 
@@ -12,6 +14,8 @@ public class BuildSettlement
 	 * Whether or not this placement is free
 	 */
 	public Boolean free;
+	
+	public VertexLocation vertexLocation;
 	
 	public BuildSettlement() 
 	{}

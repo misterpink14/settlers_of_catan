@@ -14,23 +14,28 @@ public class GamePlayersTest {
 	public void testGamePlayers() {}
 
 	@Test
-	public void testAddPlayers() {
+	public void testAddGetPlayers() {
 		//adds four players, checking the counts along the way. We need to know that there are only four players.
 		try {
 			players.addPlayer(1, "bob", CatanColor.BLUE);
 			assertTrue(players.getNumberOfPlayers() == 1);
 			
-			players.addPlayer(2, "bob", CatanColor.BLUE);
+			players.addPlayer(2, "bob", CatanColor.GREEN);
 			assertTrue(players.getNumberOfPlayers() == 2);
 			
-			players.addPlayer(3, "bob", CatanColor.BLUE);
+			players.addPlayer(3, "bob", CatanColor.WHITE);
 			assertTrue(players.getNumberOfPlayers() == 3);
 			
-			players.addPlayer(4, "bob", CatanColor.BLUE);
+			players.addPlayer(4, "bob", CatanColor.RED);
 			assertTrue(players.getNumberOfPlayers() == 4);
 		} catch (Exception e) {
 			fail("Failed adding a legal number of players");
 		}
+		
+		assertTrue(players.getPlayerByIndex(0).getColor() == CatanColor.BLUE);
+		assertTrue(players.getPlayerByIndex(1).getColor() == CatanColor.GREEN);
+		assertTrue(players.getPlayerByIndex(2).getColor() == CatanColor.WHITE);
+		assertTrue(players.getPlayerByIndex(3).getColor() == CatanColor.RED);
 		
 		boolean failed = false;
 		try {

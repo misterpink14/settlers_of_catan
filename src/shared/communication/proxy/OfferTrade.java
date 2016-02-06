@@ -19,12 +19,15 @@ public class OfferTrade
 	/**
 	 * The resources the player wants to get
 	 */
-	public ArrayList<ResourceType> playerGets;
+	public int brick;
 	
-	/**
-	 * The resources the player wants to give
-	 */
-	public ArrayList<ResourceType> playerGive;
+	public int sheep;
+	
+	public int wheat;
+	
+	public int ore;
+	
+	public int wood;
 	
 	public OfferTrade() 
 	{}

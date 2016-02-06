@@ -93,7 +93,7 @@ public class GamePlayers {
 		return -1;
 	}
 	
-	public String serialize() {
+	public String serialize(int indexOfPlayerWhoseTurnItIs, boolean playedDevCard, boolean discarded) {
 		int index = 0;
 		String json = "players: [";
 		for(Player player : players) {

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
@@ -84,21 +85,21 @@ public class Deserializer {
 				        desCurrentTurn, desHasPlayedDevCard, desWinner);
 	}
 	
-	private CardDeck deserializeDeck(JsonObject jsonDeck) {
+	public CardDeck deserializeDeck(JsonObject jsonDeck) {
 		// Year of Plenty
-		JsonObject jsonYearOfPlenty = jsonDeck.getAsJsonObject("yearOfPlenty");
+		JsonPrimitive jsonYearOfPlenty = jsonDeck.getAsJsonPrimitive("yearOfPlenty");
 		int yearOfPlentyCount = jsonYearOfPlenty.getAsInt();
 		// Monopoly
-		JsonObject jsonMonopoly = jsonDeck.getAsJsonObject("monopoly");
+		JsonPrimitive jsonMonopoly = jsonDeck.getAsJsonPrimitive("monopoly");
 		int monopolyCount = jsonMonopoly.getAsInt();
 		// Soldier
-		JsonObject jsonSoldier = jsonDeck.getAsJsonObject("soldier");
+		JsonPrimitive jsonSoldier = jsonDeck.getAsJsonPrimitive("soldier");
 		int soldierCount = jsonSoldier.getAsInt();
 		// RoadBuilding
-		JsonObject jsonRoadBuilding = jsonDeck.getAsJsonObject("roadBuilding");
+		JsonPrimitive jsonRoadBuilding = jsonDeck.getAsJsonPrimitive("roadBuilding");
 		int roadBuildingCount = jsonRoadBuilding.getAsInt();
 		// Monument
-		JsonObject jsonMonument = jsonDeck.getAsJsonObject("monument");
+		JsonPrimitive jsonMonument = jsonDeck.getAsJsonPrimitive("monument");
 		int monumentCount = jsonMonument.getAsInt();
 		
 		HashMap<DevCardType, Integer> cards = new HashMap<DevCardType, Integer>();
@@ -111,7 +112,7 @@ public class Deserializer {
 		return new CardDeck(cards);
 	}
 	
-	private Map deserializeMap(JsonObject jsonMap) {
+	public Map deserializeMap(JsonObject jsonMap) {
 		HexMap hexes = new HexMap();
 		VertexMap vertices = new VertexMap();
 		EdgeMap edges = new EdgeMap();
@@ -126,9 +127,9 @@ public class Deserializer {
 			for (JsonElement hex : jsonHexes) {
 				
 				TerrainHex newHex;
-				if (!hex.getAsJsonObject().getAsJsonObject("resource").isJsonNull()) {
-					int tokenNumber = hex.getAsJsonObject().getAsJsonObject("number").getAsInt();
-					switch(hex.getAsJsonObject().getAsJsonObject("resource").getAsString()) {
+				if (hex.getAsJsonObject().has("resource")) {
+					int tokenNumber = hex.getAsJsonObject().getAsJsonPrimitive("number").getAsInt();
+					switch(hex.getAsJsonObject().getAsJsonPrimitive("resource").getAsString()) {
 					case "wood":
 						newHex = new TerrainHex(HexType.WOOD, tokenNumber);
 						break;
@@ -152,8 +153,8 @@ public class Deserializer {
 					newHex = new TerrainHex(HexType.DESERT, -1);
 				}
 				JsonObject hexJsonLoc = hex.getAsJsonObject().getAsJsonObject("location");
-				int locX = hexJsonLoc.getAsJsonObject("x").getAsInt();
-				int locY = hexJsonLoc.getAsJsonObject("y").getAsInt();
+				int locX = hexJsonLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = hexJsonLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
 				
 				hexes.setHex(hexLoc, newHex);
@@ -162,14 +163,14 @@ public class Deserializer {
 			// Build out the roads from the JSON
 			JsonArray jsonRoads = jsonMap.getAsJsonArray("roads");
 			for (JsonElement road : jsonRoads) {
-				int ownerIndex = road.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				int ownerIndex = road.getAsJsonObject().getAsJsonPrimitive("owner").getAsInt();
 				Piece newRoad = new Piece(PieceType.ROAD, ownerIndex);
 				JsonObject jsonRoadLoc = road.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonRoadLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonRoadLoc.getAsJsonObject("y").getAsInt();
+				int locX = jsonRoadLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = jsonRoadLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
 				EdgeLocation newEdgeLoc = null;
-				switch(jsonRoadLoc.getAsJsonObject("direction").getAsString()) {
+				switch(jsonRoadLoc.getAsJsonPrimitive("direction").getAsString()) {
 				case "NW":
 					newEdgeLoc = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
 					break;
@@ -196,16 +197,16 @@ public class Deserializer {
 			// Build out the cities from the JSON
 			JsonArray jsonCities = jsonMap.getAsJsonArray("cities");
 			for (JsonElement city : jsonCities) {
-				int ownerIndex = city.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				int ownerIndex = city.getAsJsonObject().getAsJsonPrimitive("owner").getAsInt();
 				Piece newCity = new Piece(PieceType.CITY, ownerIndex);
 				
 				JsonObject jsonCityLoc = city.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonCityLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonCityLoc.getAsJsonObject("y").getAsInt();
+				int locX = jsonCityLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = jsonCityLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
 				
 				VertexLocation newVertexLoc = null;
-				switch(jsonCityLoc.getAsJsonObject("direction").getAsString()) {
+				switch(jsonCityLoc.getAsJsonPrimitive("direction").getAsString()) {
 				case "W":
 					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.West);
 					break;
@@ -232,16 +233,16 @@ public class Deserializer {
 			// Build out the settlements from the JSON
 			JsonArray jsonSettlements = jsonMap.getAsJsonArray("settlements");
 			for (JsonElement settlement : jsonSettlements) {
-				int ownerIndex = settlement.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				int ownerIndex = settlement.getAsJsonObject().getAsJsonPrimitive("owner").getAsInt();
 				Piece newSettlement = new Piece(PieceType.SETTLEMENT, ownerIndex);
 				
 				JsonObject jsonSettlementLoc = settlement.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonSettlementLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonSettlementLoc.getAsJsonObject("y").getAsInt();
+				int locX = jsonSettlementLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = jsonSettlementLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
 				
 				VertexLocation newVertexLoc = null;
-				switch(jsonSettlementLoc.getAsJsonObject("direction").getAsString()) {
+				switch(jsonSettlementLoc.getAsJsonPrimitive("direction").getAsString()) {
 				case "W":
 					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.West);
 					break;
@@ -268,12 +269,12 @@ public class Deserializer {
 			// Build out the ports from the JSON
 			JsonArray jsonPorts = jsonMap.getAsJsonArray("ports");
 			for (JsonElement port : jsonPorts) {
-				int ratio = port.getAsJsonObject().getAsJsonObject("ratio").getAsInt();
+				int ratio = port.getAsJsonObject().getAsJsonPrimitive("ratio").getAsInt();
 				PortType portType = null;
 				if (ratio == 3) {
 					portType = PortType.THREE;
 				} else {
-					switch(port.getAsJsonObject().getAsJsonObject("resource").getAsString()) {
+					switch(port.getAsJsonObject().getAsJsonPrimitive("resource").getAsString()) {
 					case "wood":
 						portType = PortType.WOOD;
 						break;
@@ -291,31 +292,31 @@ public class Deserializer {
 						break;
 					}
 				}
-				VertexDirection portDir = null;
-				switch(port.getAsJsonObject().getAsJsonObject("direction").getAsString()) {
-				case "W":
-					portDir = VertexDirection.West;
-					break;
+				EdgeDirection portDir = null;
+				switch(port.getAsJsonObject().getAsJsonPrimitive("direction").getAsString()) {
 				case "NW":
-					portDir = VertexDirection.NorthWest;
+					portDir = EdgeDirection.NorthWest;
+					break;
+				case "N":
+					portDir = EdgeDirection.North;
 					break;
 				case "NE":
-					portDir = VertexDirection.NorthEast;
-					break;
-				case "E":
-					portDir = VertexDirection.East;
+					portDir = EdgeDirection.NorthEast;
 					break;
 				case "SE":
-					portDir = VertexDirection.SouthEast;
+					portDir = EdgeDirection.SouthEast;
+					break;
+				case "S":
+					portDir = EdgeDirection.South;
 					break;
 				case "SW":
-					portDir = VertexDirection.SouthWest;
+					portDir = EdgeDirection.SouthWest;
 					break;
 				}
 				
 				JsonObject jsonPortLoc = port.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonPortLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonPortLoc.getAsJsonObject("y").getAsInt();
+				int locX = jsonPortLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = jsonPortLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation waterHexLoc = new HexLocation(locX, locY);
 				
 				WaterHex newWaterHex = new WaterHex(portType, portDir);
@@ -324,8 +325,8 @@ public class Deserializer {
 			
 			// Place dat robber
 			JsonObject jsonRobberLoc = jsonMap.getAsJsonObject("robber");
-			int robberLocX = jsonRobberLoc.getAsJsonObject("x").getAsInt();
-			int robberLocY = jsonRobberLoc.getAsJsonObject("y").getAsInt();
+			int robberLocX = jsonRobberLoc.getAsJsonPrimitive("x").getAsInt();
+			int robberLocY = jsonRobberLoc.getAsJsonPrimitive("y").getAsInt();
 			HexLocation robberHex = new HexLocation(robberLocX, robberLocY);
 			robberLocation = new RobberLocation(robberHex);
 			
@@ -338,7 +339,7 @@ public class Deserializer {
 		return new Map(hexes, vertices, edges, robberLocation, playerMap);
 	}
 	
-	private GamePlayers deserializePlayers(JsonArray jsonPlayers) {
+	public GamePlayers deserializePlayers(JsonArray jsonPlayers) {
 		GamePlayers players = new GamePlayers();
 		
 		for (JsonElement player : jsonPlayers) {
@@ -346,57 +347,57 @@ public class Deserializer {
 			HashMap<ResourceType, Integer> playerResources = new HashMap<ResourceType, Integer>();
 			JsonObject playerObj = player.getAsJsonObject();
 			JsonObject resources = playerObj.getAsJsonObject("resources");
-			int brickCount = resources.getAsJsonObject("brick").getAsInt();
+			int brickCount = resources.getAsJsonPrimitive("brick").getAsInt();
 			playerResources.put(ResourceType.BRICK, brickCount);
-			int woodCount = resources.getAsJsonObject("wood").getAsInt();
+			int woodCount = resources.getAsJsonPrimitive("wood").getAsInt();
 			playerResources.put(ResourceType.WOOD, woodCount);
-			int sheepCount = resources.getAsJsonObject("sheep").getAsInt();
+			int sheepCount = resources.getAsJsonPrimitive("sheep").getAsInt();
 			playerResources.put(ResourceType.SHEEP, sheepCount);
-			int wheatCount = resources.getAsJsonObject("wheat").getAsInt();
+			int wheatCount = resources.getAsJsonPrimitive("wheat").getAsInt();
 			playerResources.put(ResourceType.WHEAT, wheatCount);
-			int oreCount = resources.getAsJsonObject("ore").getAsInt();
+			int oreCount = resources.getAsJsonPrimitive("ore").getAsInt();
 			playerResources.put(ResourceType.ORE, oreCount);
 			
 			// Old Dev Cards
 			HashMap<DevCardType, Integer> playerOldDevCards = new HashMap<DevCardType, Integer>();
 			JsonObject oldDevCards = playerObj.getAsJsonObject("oldDevCards");
-			int oldYearOfPlentyCount = oldDevCards.getAsJsonObject("yearOfPlenty").getAsInt();
+			int oldYearOfPlentyCount = oldDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
 			playerOldDevCards.put(DevCardType.YEAR_OF_PLENTY, oldYearOfPlentyCount);
-			int oldMonopolyCount = resources.getAsJsonObject("monopoly").getAsInt();
+			int oldMonopolyCount = oldDevCards.getAsJsonPrimitive("monopoly").getAsInt();
 			playerOldDevCards.put(DevCardType.MONOPOLY, oldMonopolyCount);
-			int oldSoldierCount = resources.getAsJsonObject("soldier").getAsInt();
+			int oldSoldierCount = oldDevCards.getAsJsonPrimitive("soldier").getAsInt();
 			playerOldDevCards.put(DevCardType.SOLDIER, oldSoldierCount);
-			int oldRoadBuildingCount = resources.getAsJsonObject("roadBuilding").getAsInt();
+			int oldRoadBuildingCount = oldDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
 			playerOldDevCards.put(DevCardType.ROAD_BUILD, oldRoadBuildingCount);
-			int oldMonumentCount = resources.getAsJsonObject("monument").getAsInt();
+			int oldMonumentCount = oldDevCards.getAsJsonPrimitive("monument").getAsInt();
 			playerOldDevCards.put(DevCardType.MONUMENT, oldMonumentCount);
 			
 			// New Dev Cards
 			HashMap<DevCardType, Integer> playerNewDevCards = new HashMap<DevCardType, Integer>();
 			JsonObject newDevCards = playerObj.getAsJsonObject("newDevCards");
-			int newYearOfPlentyCount = newDevCards.getAsJsonObject("yearOfPlenty").getAsInt();
+			int newYearOfPlentyCount = newDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
 			playerNewDevCards.put(DevCardType.YEAR_OF_PLENTY, newYearOfPlentyCount);
-			int newMonopolyCount = resources.getAsJsonObject("monopoly").getAsInt();
+			int newMonopolyCount = newDevCards.getAsJsonPrimitive("monopoly").getAsInt();
 			playerNewDevCards.put(DevCardType.MONOPOLY, newMonopolyCount);
-			int newSoldierCount = resources.getAsJsonObject("soldier").getAsInt();
+			int newSoldierCount = newDevCards.getAsJsonPrimitive("soldier").getAsInt();
 			playerNewDevCards.put(DevCardType.SOLDIER, newSoldierCount);
-			int newRoadBuildingCount = resources.getAsJsonObject("roadBuilding").getAsInt();
+			int newRoadBuildingCount = newDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
 			playerNewDevCards.put(DevCardType.ROAD_BUILD, newRoadBuildingCount);
-			int newMonumentCount = resources.getAsJsonObject("monument").getAsInt();
+			int newMonumentCount = newDevCards.getAsJsonPrimitive("monument").getAsInt();
 			playerNewDevCards.put(DevCardType.MONUMENT, newMonumentCount);
 			
-			int playerRoads = playerObj.getAsJsonObject("roads").getAsInt();
-			int playerCities = playerObj.getAsJsonObject("cities").getAsInt();
-			int playerSettlements = playerObj.getAsJsonObject("settlements").getAsInt();
-			int playerSoldiers = playerObj.getAsJsonObject("soldiers").getAsInt();
-			int playerVictoryPoints = playerObj.getAsJsonObject("victoryPoints").getAsInt();
-			int playerMonuments = playerObj.getAsJsonObject("monuments").getAsInt();
-			int playerID = playerObj.getAsJsonObject("playerID").getAsInt();
-			//int playerIndex = playerObj.getAsJsonObject("playerIndex").getAsInt();
-			String playerName = playerObj.getAsJsonObject("name").getAsString();
+			int playerRoads = playerObj.getAsJsonPrimitive("roads").getAsInt();
+			int playerCities = playerObj.getAsJsonPrimitive("cities").getAsInt();
+			int playerSettlements = playerObj.getAsJsonPrimitive("settlements").getAsInt();
+			int playerSoldiers = playerObj.getAsJsonPrimitive("soldiers").getAsInt();
+			int playerVictoryPoints = playerObj.getAsJsonPrimitive("victoryPoints").getAsInt();
+			int playerMonuments = playerObj.getAsJsonPrimitive("monuments").getAsInt();
+			int playerID = playerObj.getAsJsonPrimitive("playerID").getAsInt();
+			//int playerIndex = playerObj.getAsJsonPrimitive("playerIndex").getAsInt();
+			String playerName = playerObj.getAsJsonPrimitive("name").getAsString();
 			CatanColor playerColor = null;
 			
-			switch(playerObj.getAsJsonObject("color").getAsString()) {
+			switch(playerObj.getAsJsonPrimitive("color").getAsString()) {
 			case "red":
 				playerColor = CatanColor.RED;
 				break;
@@ -438,47 +439,47 @@ public class Deserializer {
 		return players;
 	}
 	
-	private GameLog deserializeLog(JsonObject jsonLog) {
+	public GameLog deserializeLog(JsonObject jsonLog) {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		JsonArray jsonLines = jsonLog.getAsJsonArray("lines");
 		for (JsonElement line : jsonLines) {
-			String source = line.getAsJsonObject().getAsJsonObject("source").getAsString();
-			String message = line.getAsJsonObject().getAsJsonObject("message").getAsString();
+			String source = line.getAsJsonObject().getAsJsonPrimitive("source").getAsString();
+			String message = line.getAsJsonObject().getAsJsonPrimitive("message").getAsString();
 			messages.add(new Message(source, message));
 		}
 		return new GameLog(messages);
 	}
 	
-	private GameChat deserializeChat(JsonObject jsonChat) {
+	public GameChat deserializeChat(JsonObject jsonChat) {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		JsonArray jsonLines = jsonChat.getAsJsonArray("lines");
 		for (JsonElement line : jsonLines) {
-			String source = line.getAsJsonObject().getAsJsonObject("source").getAsString();
-			String message = line.getAsJsonObject().getAsJsonObject("message").getAsString();
+			String source = line.getAsJsonObject().getAsJsonPrimitive("source").getAsString();
+			String message = line.getAsJsonObject().getAsJsonPrimitive("message").getAsString();
 			messages.add(new Message(source, message));
 		}
 		return new GameChat(messages);
 	}
 	
-	private Bank deserializeBank(JsonObject jsonBank) {
+	public Bank deserializeBank(JsonObject jsonBank) {
 		
 		HashMap<ResourceType, Integer> bankResources = new HashMap<ResourceType, Integer>();
-		int brickCount = jsonBank.getAsJsonObject("brick").getAsInt();
+		int brickCount = jsonBank.getAsJsonPrimitive("brick").getAsInt();
 		bankResources.put(ResourceType.BRICK, brickCount);
-		int woodCount = jsonBank.getAsJsonObject("wood").getAsInt();
+		int woodCount = jsonBank.getAsJsonPrimitive("wood").getAsInt();
 		bankResources.put(ResourceType.WOOD, woodCount);
-		int sheepCount = jsonBank.getAsJsonObject("sheep").getAsInt();
+		int sheepCount = jsonBank.getAsJsonPrimitive("sheep").getAsInt();
 		bankResources.put(ResourceType.SHEEP, sheepCount);
-		int wheatCount = jsonBank.getAsJsonObject("wheat").getAsInt();
+		int wheatCount = jsonBank.getAsJsonPrimitive("wheat").getAsInt();
 		bankResources.put(ResourceType.WHEAT, wheatCount);
-		int oreCount = jsonBank.getAsJsonObject("ore").getAsInt();
+		int oreCount = jsonBank.getAsJsonPrimitive("ore").getAsInt();
 		bankResources.put(ResourceType.ORE, oreCount);
 		
 		return new Bank(bankResources);
 	}
 	
-	private void deserializeTurnTracker(JsonObject jsonTurnTracker) {
+	public void deserializeTurnTracker(JsonObject jsonTurnTracker) {
 		// All we pull from turnTracker at the moment is who's turn it is
-		desCurrentTurn = jsonTurnTracker.getAsJsonObject("currentTurn").getAsInt();
+		desCurrentTurn = jsonTurnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
 	}
 }

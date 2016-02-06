@@ -7,7 +7,7 @@ import shared.definitions.DevCardType;
 public class CardDeck {
 	
 	/**This holds the number of each type of card left in the deck */
-	DevCards devCards = new DevCards(14,2,2,2,5);
+	DevCards devCards;
 	/**This holds representations of cards that can be shuffled randomly, then drawn one at a time.*/
 	DevCardType[] deck = new DevCardType[25];
 	
@@ -15,6 +15,7 @@ public class CardDeck {
 
 	/**The container that holds the development cards in the deck*/
 	public CardDeck() {
+		devCards = new DevCards(14,2,2,2,5);
 		//adds the right number of cards to the deck representation.
 		int i = 0;
 		while(i < 14) {
@@ -41,6 +42,7 @@ public class CardDeck {
 	}
 
 	public CardDeck(HashMap<DevCardType, Integer> cards) {
+		devCards = new DevCards(0,0,0,0,0);
 		cardsInDeck = 0;
 		for(DevCardType type : cards.keySet()) {
 			this.devCards.addCards(type, cards.get(type));
@@ -51,6 +53,14 @@ public class CardDeck {
 				cardsInDeck++;
 			}
 		}
+	}
+	
+	/**
+	 * Getter for devCards - Only for testing
+	 * @return devCards
+	 */
+	public DevCards getDevCards() {
+		return devCards;
 	}
 	
 	/** Gives the next card in the deck. The devCard object will subtract one from the type drawn.
