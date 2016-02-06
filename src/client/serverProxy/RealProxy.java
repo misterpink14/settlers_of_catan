@@ -724,8 +724,8 @@ public class RealProxy implements ProxyInterface {
 		info.addProperty("playerIndex", yearOfPlenty.playerIndex);
 		System.out.println("~~~~~~~~~~~~~~~~");
 		System.out.println(yearOfPlenty.resourceOne.name());
-		info.addProperty("resource1", yearOfPlenty.resourceOne.name());
-		info.addProperty("resource2", yearOfPlenty.resourceTwo.name());
+		info.addProperty("resource1", yearOfPlenty.resourceOne.name().toLowerCase());
+		info.addProperty("resource2", yearOfPlenty.resourceTwo.name().toLowerCase());
 		
 		// Send post request
 		con.setDoOutput(true);
@@ -901,7 +901,7 @@ public class RealProxy implements ProxyInterface {
 		JsonObject info = new JsonObject();
 		info.addProperty("type","Monopoly");
 		info.addProperty("playerIndex", monopoly.playerIndex);
-		info.addProperty("resource", monopoly.resource.name());
+		info.addProperty("resource", monopoly.resource.name().toLowerCase());
 		
 		// Send post request
 		con.setDoOutput(true);
