@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import client.serverProxy.FakeProxy;
+import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.BuildSettlement;
@@ -29,10 +30,11 @@ public class ClientFacade {
 	
 	User clientUser;
 	public Game game;
-	public FakeProxy proxy;
+	public ProxyInterface proxy;
 	
-	public ClientFacade() {
-		
+	public ClientFacade(Game game, ProxyInterface proxy) {
+		this.game = game;
+		this.proxy = proxy;
 	}
 
 	/**
@@ -40,19 +42,29 @@ public class ClientFacade {
 	 * user. The ClientFacade class will interface with
 	 * the server proxy to communicate with the server
 	 * and create the user.
+	 * @return Returns status from proxy
 	 */
-	public void createPlayer() {
-		proxy.registerUser(new Credentials());
+	public String createPlayer() {
+		try {
+			return proxy.registerUser(new Credentials());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "False";
 	}
 	
 	/**
 	 * This function will interface with the server
 	 * proxy in order to log a player into the server.
-	 * @ return Returns a user object to be used when
-	 * performing other actions on the server.
+	 * @ return Returns status from proxy
 	 */
-	public void login(Credentials credentials) {
-		proxy.loginUser(credentials);
+	public String login(Credentials credentials) {
+		try {
+			return proxy.loginUser(credentials);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "False";
 	}
 	
 	/** This function will query the model to make sure
@@ -84,14 +96,20 @@ public class ClientFacade {
 	 * can roll the dice. First, check if the user can
 	 * roll. Then, interface with the server proxy to
 	 * send the command.
+	 * @return 
 	 * @throws 
 	 */
-	public void rollDice() {
+	public String rollDice() {
 		if (canRollDice()) {
-			proxy.rollNumber(new RollNumber());
+			try {
+				return proxy.rollNumber(new RollNumber());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			/* Throw exception */
 		}
+		return "False";
 	}
 	
 	/**
@@ -115,12 +133,17 @@ public class ClientFacade {
 	 * a road on the board.
 	 * @throws
 	 */
-	public void buildRoad(int x, int y, String direction, int ownerId) {
+	public String buildRoad(int x, int y, String direction, int ownerId) {
 		if (canBuildRoad(x, y, direction, ownerId)) {
-			proxy.buildRoad(new BuildRoad());
+			try {
+				return proxy.buildRoad(new BuildRoad());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			/* Throw exception */
 		}
+		return "False";
 	}
 	
 	/**
@@ -144,12 +167,17 @@ public class ClientFacade {
 	 * a city on the board.
 	 * @throws
 	 */
-	public void buildCity(int x, int y, String direction, int ownerId) {
+	public String buildCity(int x, int y, String direction, int ownerId) {
 		if (canBuildCity(x, y, direction, ownerId)) {
-			proxy.buildCity(new BuildCity());
+			try {
+				return proxy.buildCity(new BuildCity());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			/* Throw exception */
 		}
+		return "False";
 	}
 	
 	/**
@@ -173,12 +201,17 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public void buildSettlement(int x, int y, String direction, int ownerId) {
+	public String buildSettlement(int x, int y, String direction, int ownerId) {
 		if (canBuildSettlement(x, y, direction, ownerId)) {
-			proxy.buildSettlement(new BuildSettlement());
+			try {
+				return proxy.buildSettlement(new BuildSettlement());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			/* Throw exception */
 		}
+		return "False";
 	}
 	
 	/**
@@ -201,12 +234,17 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public void buyDevCard() {
+	public String buyDevCard() {
 		if (canBuyDevCard()) {
-			proxy.buyDevCard(new BuyDevCard());
+			try {
+				return proxy.buyDevCard(new BuyDevCard());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			/* Throw exception */
 		}
+		return "False";
 	}
 	
 	/**
@@ -214,8 +252,13 @@ public class ClientFacade {
 	 * a trade with another player.
 	 * @throw
 	 */
-	public void offerTrade() {
-		proxy.offerTrade(new OfferTrade());
+	public String offerTrade() {
+		try {
+			return proxy.offerTrade(new OfferTrade());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "False";
 	}
 	
 	/**
@@ -233,11 +276,12 @@ public class ClientFacade {
 	 * with an adjoining harbor
 	 * @throws
 	 */
-	public void tradeHarbor() throws Exception {
+	public String tradeHarbor() throws Exception {
 		if(isTurn()) {
-			proxy.maritimeTrade(new MaritimeTrade());
+			return proxy.maritimeTrade(new MaritimeTrade());
 		} else {
-			throw new Exception();
+			//throw new Exception();
+			return "False";
 		}
 	}
 	
@@ -256,11 +300,12 @@ public class ClientFacade {
 	 * Send the end turn command to the server proxy.
 	 * @throws
 	 */
-	public void finishTurn() throws Exception {
+	public String finishTurn() throws Exception {
 		if(game.CanFinishTurn()) {
-			proxy.finishTurn(new FinishTurn());
+			return proxy.finishTurn(new FinishTurn());
 		} else {
-			throw new Exception();
+			//throw new Exception();
+			return "False";
 		}
 	}
 	
@@ -270,11 +315,12 @@ public class ClientFacade {
 	 * deliver it to another player.
 	 * @throws
 	 */
-	public void sendChat() throws Exception {
+	public String sendChat() throws Exception {
 		if(game.CanSendChat()) {
-			proxy.sendChat(new SendChat());
+			return proxy.sendChat(new SendChat());
 		} else {
-			throw new Exception();
+			//throw new Exception();
+			return "False";
 		}
 	}
 }
