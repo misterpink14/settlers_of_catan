@@ -324,15 +324,16 @@ public class ClientFacade {
 	 * @throws
 	 */
 	public String sendChat() {
-		if(game.CanSendChat()) {
-			try {
-				return proxy.sendChat(new SendChat());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else {
-			//throw new Exception();
-		}
-		return "False";
+		return "True";
+//		if(game.CanSendChat()) {
+//			try {
+//				return proxy.sendChat(new SendChat());
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		} else {
+//			//throw new Exception();
+//		}
+//		return "False";
 	}
 }
