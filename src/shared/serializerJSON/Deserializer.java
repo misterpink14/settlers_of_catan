@@ -163,7 +163,7 @@ public class Deserializer {
 			// Build out the roads from the JSON
 			JsonArray jsonRoads = jsonMap.getAsJsonArray("roads");
 			for (JsonElement road : jsonRoads) {
-				int ownerIndex = road.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				int ownerIndex = road.getAsJsonObject().getAsJsonPrimitive("owner").getAsInt();
 				Piece newRoad = new Piece(PieceType.ROAD, ownerIndex);
 				JsonObject jsonRoadLoc = road.getAsJsonObject().getAsJsonObject("location");
 				int locX = jsonRoadLoc.getAsJsonPrimitive("x").getAsInt();
@@ -464,15 +464,15 @@ public class Deserializer {
 	public Bank deserializeBank(JsonObject jsonBank) {
 		
 		HashMap<ResourceType, Integer> bankResources = new HashMap<ResourceType, Integer>();
-		int brickCount = jsonBank.getAsJsonObject("brick").getAsInt();
+		int brickCount = jsonBank.getAsJsonPrimitive("brick").getAsInt();
 		bankResources.put(ResourceType.BRICK, brickCount);
-		int woodCount = jsonBank.getAsJsonObject("wood").getAsInt();
+		int woodCount = jsonBank.getAsJsonPrimitive("wood").getAsInt();
 		bankResources.put(ResourceType.WOOD, woodCount);
-		int sheepCount = jsonBank.getAsJsonObject("sheep").getAsInt();
+		int sheepCount = jsonBank.getAsJsonPrimitive("sheep").getAsInt();
 		bankResources.put(ResourceType.SHEEP, sheepCount);
-		int wheatCount = jsonBank.getAsJsonObject("wheat").getAsInt();
+		int wheatCount = jsonBank.getAsJsonPrimitive("wheat").getAsInt();
 		bankResources.put(ResourceType.WHEAT, wheatCount);
-		int oreCount = jsonBank.getAsJsonObject("ore").getAsInt();
+		int oreCount = jsonBank.getAsJsonPrimitive("ore").getAsInt();
 		bankResources.put(ResourceType.ORE, oreCount);
 		
 		return new Bank(bankResources);
