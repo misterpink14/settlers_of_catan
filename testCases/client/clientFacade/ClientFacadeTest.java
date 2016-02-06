@@ -16,6 +16,7 @@ public class ClientFacadeTest {
 	@Before
 	public void setUp() {
 		facade = new ClientFacade(new Game(), new FakeProxy()); 
+		facade.game.getTurnManager().startGame();
 	}
 
 	@Test
@@ -45,62 +46,52 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testCanBuildCity() {
-		fail("Not yet implemented");
+		assertTrue(facade.canBuildCity(0, 0, "NE", 1));
 	}
 
 	@Test
 	public void testBuildCity() {
-		fail("Not yet implemented");
+		assertTrue(!facade.buildCity(0, 0, "NE", 1).equals("False"));
 	}
 
 	@Test
 	public void testCanBuildSettlement() {
-		fail("Not yet implemented");
+		assertTrue(facade.canBuildSettlement(0, 0, "NE", 1));
 	}
 
 	@Test
 	public void testBuildSettlement() {
-		fail("Not yet implemented");
+		assertTrue(!facade.buildSettlement(0, 0, "NE", 1).equals("False"));
 	}
 
 	@Test
 	public void testCanBuyDevCard() {
-		fail("Not yet implemented");
+		assertTrue(facade.canBuyDevCard());
 	}
 
 	@Test
 	public void testBuyDevCard() {
-		fail("Not yet implemented");
+		assertTrue(!facade.buyDevCard().equals("False"));
 	}
 
 	@Test
 	public void testOfferTrade() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testTradeFour() {
-		fail("Not yet implemented");
+		assertTrue(!facade.offerTrade().equals("False"));
 	}
 
 	@Test
 	public void testTradeHarbor() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPlayDevCard() {
-		fail("Not yet implemented");
+		assertTrue(!facade.tradeHarbor().equals("False"));
 	}
 
 	@Test
 	public void testFinishTurn() {
-		fail("Not yet implemented");
+		assertTrue(facade.finishTurn().equals("False"));
 	}
 
 	@Test
 	public void testSendChat() {
-		fail("Not yet implemented");
+		assertTrue(facade.sendChat().equals("False"));
 	}
 
 }

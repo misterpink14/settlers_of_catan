@@ -66,6 +66,10 @@ public class Game
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 	}
 	
+	public TurnManager getTurnManager() {
+		return turnManager;
+	}
+	
 	public boolean isTurn(int playerIndex) {
 		return turnManager.isTurn(playerIndex);
 	}

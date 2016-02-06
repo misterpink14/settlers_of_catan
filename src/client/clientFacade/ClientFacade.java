@@ -276,13 +276,17 @@ public class ClientFacade {
 	 * with an adjoining harbor
 	 * @throws
 	 */
-	public String tradeHarbor() throws Exception {
+	public String tradeHarbor() {
 		if(isTurn()) {
-			return proxy.maritimeTrade(new MaritimeTrade());
+			try {
+				return proxy.maritimeTrade(new MaritimeTrade());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			//throw new Exception();
-			return "False";
 		}
+		return "False";
 	}
 	
 	/**
@@ -300,13 +304,17 @@ public class ClientFacade {
 	 * Send the end turn command to the server proxy.
 	 * @throws
 	 */
-	public String finishTurn() throws Exception {
+	public String finishTurn() {
 		if(game.CanFinishTurn()) {
-			return proxy.finishTurn(new FinishTurn());
+			try {
+				return proxy.finishTurn(new FinishTurn());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			//throw new Exception();
-			return "False";
 		}
+		return "False";
 	}
 	
 	/**
@@ -315,12 +323,16 @@ public class ClientFacade {
 	 * deliver it to another player.
 	 * @throws
 	 */
-	public String sendChat() throws Exception {
+	public String sendChat() {
 		if(game.CanSendChat()) {
-			return proxy.sendChat(new SendChat());
+			try {
+				return proxy.sendChat(new SendChat());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			//throw new Exception();
-			return "False";
 		}
+		return "False";
 	}
 }
