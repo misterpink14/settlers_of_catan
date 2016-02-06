@@ -74,10 +74,7 @@ public class EdgeMap
 	{
 		// check if outside edge
 		loc = loc.getNormalizedLocation();
-		if (!this.Edges.containsKey(loc))
-		{
-			throw new IndexOutOfBoundsException();
-		}
+		
 		if (this.Edges.get(loc) == null)
 		{
 			return this._canBuildRoad(loc, ownerIndex);

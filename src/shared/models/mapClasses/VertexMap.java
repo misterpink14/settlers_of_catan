@@ -103,15 +103,12 @@ public class VertexMap
 	public boolean canPlaceSettlement(VertexLocation loc, int ownerIndex) throws IndexOutOfBoundsException, InvalidTypeException
 	{
 		loc = loc.getNormalizedLocation();
-		if (!this.Vertexes.containsKey(loc))
+		if (this.Vertexes.containsKey(loc))
 		{
-			throw new IndexOutOfBoundsException();
+			return false;
 		}
-		if (this.Vertexes.get(loc) == null)
-		{
-			return this._canPlaceSettlement(loc, ownerIndex);
-		}
-		return true;
+		
+		return this._canPlaceSettlement(loc, ownerIndex);
 	}
 	
 	
@@ -134,28 +131,28 @@ public class VertexMap
 		{
 			case NorthEast:
 			{
-				if (!this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc()) && 
-						!this.checkLocation(VertexDirection.East, loc.getHexLoc()) &&
-						!this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast)))
+				if (this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc()) && 
+						this.checkLocation(VertexDirection.East, loc.getHexLoc()) &&
+						this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast)))
 				{
-					return false;
+					return true;
 				}
 				break;
 			}
 			case NorthWest:
 			{
-				if (!this.checkLocation(VertexDirection.West, loc.getHexLoc()) && 
-						!this.checkLocation(VertexDirection.NorthEast, loc.getHexLoc()) &&
-						!this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest)))
+				if (this.checkLocation(VertexDirection.West, loc.getHexLoc()) && 
+						this.checkLocation(VertexDirection.NorthEast, loc.getHexLoc()) &&
+						this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest)))
 				{
-					return false;
+					return true;
 				}
 				break;
 			}
 			default:
 				throw new InvalidTypeException();
 		}
-		return true;
+		return false;
 	}
 	
 	
@@ -169,7 +166,7 @@ public class VertexMap
 	private boolean checkLocation(VertexDirection dir, HexLocation hexLoc)
 	{
 		VertexLocation new_loc = (new VertexLocation(hexLoc, dir)).getNormalizedLocation();
-		if (this.Vertexes.containsKey(new_loc) && this.Vertexes.get(new_loc) != null)
+		if (this.Vertexes.containsKey(new_loc))
 		{
 			return false;
 		}

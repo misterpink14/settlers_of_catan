@@ -71,6 +71,8 @@ public class Map
 	}
 	
 	
+	
+// SETTERS
 	public void setHexMap(HexMap hexes)
 	{
 		this.Hexes = hexes;
@@ -108,10 +110,17 @@ public class Map
 	
 
 // Public METHODS
+	/**
+	 * Use to add a settlement to the player map
+	 * 
+	 * @param loc
+	 * @param playerIndex
+	 */
 	public void addSettlementToPlayerMap(VertexLocation loc, int playerIndex)
 	{
 		this.PlayerPieces.addSettlement(loc, playerIndex);
 	}
+
 	
 	/**
 	 * Moves a robber to a given HexLocation
@@ -217,17 +226,22 @@ public class Map
 		{
 			if (isOnPort(loc, portType))
 			{
-				System.out.println("1");
 				return true;
 			}
 		}
-		System.out.println("2");
 		return false;
 	}
 	
 	
 	
 // Private METHOD
+	/**
+	 * Checks if a given Vertex Location is on a port
+	 * 
+	 * @param loc
+	 * @param portType
+	 * @return
+	 */
 	private boolean isOnPort(VertexLocation loc, PortType portType) 
 	{
 		HexLocation hexLoc = loc.getHexLoc();
@@ -244,10 +258,6 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthWest))
 					{
-
-						System.out.println("3");
-						System.out.println(wh.getPortType().toString());
-						System.out.println(portType.toString());
 						if (wh.getPortType() == portType)
 						{
 							return true;
@@ -266,8 +276,6 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast))
 					{
-
-						System.out.println("4");
 						if (wh.getPortType() == portType)
 						{
 							return true;
@@ -287,8 +295,6 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest))
 					{
-
-						System.out.println("5");
 						if (wh.getPortType() == portType)
 						{
 							return true;
@@ -307,8 +313,6 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthEast))
 					{
-
-						System.out.println("6");
 						if (wh.getPortType() == portType)
 						{
 							return true;
@@ -328,8 +332,6 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast))
 					{
-
-						System.out.println("7");
 						if (wh.getPortType() == portType)
 						{
 							return true;
@@ -348,8 +350,6 @@ public class Map
 					if (wh.getPortType() != null && 
 						(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest))
 					{
-
-						System.out.println("8");
 						if (wh.getPortType() == portType)
 						{
 							return true;
@@ -367,6 +367,12 @@ public class Map
 	
 	
 	
+	/**
+	 * Converts a ResourceType to its associated Port Type. null == PortType.THREE
+	 * 
+	 * @param t
+	 * @return
+	 */
 	private PortType convertResourceTypeToPortType (ResourceType t)
 	{
 		try{
@@ -414,10 +420,10 @@ public class Map
 	private boolean _canPlaceSettlement(VertexLocation vertexLoc) throws InvalidTypeException, IndexOutOfBoundsException
 	{
 		HexLocation hexLoc = vertexLoc.getHexLoc();
-		if (this.Hexes.getHex(hexLoc).getHexType() != HexType.WATER)
-		{
-			return true;
-		}
+//		if (this.Hexes.getHex(hexLoc).getHexType() == HexType.WATER)
+//		{
+//			return false;
+//		}
 		
 		switch (vertexLoc.getDir())
 		{
@@ -468,11 +474,15 @@ public class Map
 			else 
 			{
 				hexLoc = hexLoc.getNeighborLoc(edgeLoc.getDir());
-				return this.Hexes.getHexType(hexLoc) != HexType.WATER;
+				if (this.Hexes.getHexType(hexLoc) != HexType.WATER)
+				{
+					return true;
+				}
 			}
 		} catch (IndexOutOfBoundsException e) {
 			return false;
 		}
+		return false;
 	}
 	
 	

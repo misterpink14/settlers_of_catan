@@ -51,6 +51,12 @@ public class HexMap
 	
 	
 // METHODS
+	/**
+	 * Checks if a Hex is of type WATER. Robbers cannot be placed on water
+	 * 
+	 * @param loc
+	 * @return
+	 */
 	public boolean canPlaceRobber(HexLocation loc)
 	{
 		if (this.getHexType(loc) == HexType.WATER)
