@@ -127,9 +127,9 @@ public class Deserializer {
 			for (JsonElement hex : jsonHexes) {
 				
 				TerrainHex newHex;
-				if (!hex.getAsJsonObject().getAsJsonObject("resource").isJsonNull()) {
-					int tokenNumber = hex.getAsJsonObject().getAsJsonObject("number").getAsInt();
-					switch(hex.getAsJsonObject().getAsJsonObject("resource").getAsString()) {
+				if (!hex.getAsJsonObject().getAsJsonPrimitive("resource").isJsonNull()) {
+					int tokenNumber = hex.getAsJsonObject().getAsJsonPrimitive("number").getAsInt();
+					switch(hex.getAsJsonObject().getAsJsonPrimitive("resource").getAsString()) {
 					case "wood":
 						newHex = new TerrainHex(HexType.WOOD, tokenNumber);
 						break;
@@ -153,8 +153,8 @@ public class Deserializer {
 					newHex = new TerrainHex(HexType.DESERT, -1);
 				}
 				JsonObject hexJsonLoc = hex.getAsJsonObject().getAsJsonObject("location");
-				int locX = hexJsonLoc.getAsJsonObject("x").getAsInt();
-				int locY = hexJsonLoc.getAsJsonObject("y").getAsInt();
+				int locX = hexJsonLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = hexJsonLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
 				
 				hexes.setHex(hexLoc, newHex);
@@ -166,11 +166,11 @@ public class Deserializer {
 				int ownerIndex = road.getAsJsonObject().getAsJsonObject("owner").getAsInt();
 				Piece newRoad = new Piece(PieceType.ROAD, ownerIndex);
 				JsonObject jsonRoadLoc = road.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonRoadLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonRoadLoc.getAsJsonObject("y").getAsInt();
+				int locX = jsonRoadLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = jsonRoadLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
 				EdgeLocation newEdgeLoc = null;
-				switch(jsonRoadLoc.getAsJsonObject("direction").getAsString()) {
+				switch(jsonRoadLoc.getAsJsonPrimitive("direction").getAsString()) {
 				case "NW":
 					newEdgeLoc = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
 					break;
@@ -197,16 +197,16 @@ public class Deserializer {
 			// Build out the cities from the JSON
 			JsonArray jsonCities = jsonMap.getAsJsonArray("cities");
 			for (JsonElement city : jsonCities) {
-				int ownerIndex = city.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				int ownerIndex = city.getAsJsonObject().getAsJsonPrimitive("owner").getAsInt();
 				Piece newCity = new Piece(PieceType.CITY, ownerIndex);
 				
 				JsonObject jsonCityLoc = city.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonCityLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonCityLoc.getAsJsonObject("y").getAsInt();
+				int locX = jsonCityLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = jsonCityLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
 				
 				VertexLocation newVertexLoc = null;
-				switch(jsonCityLoc.getAsJsonObject("direction").getAsString()) {
+				switch(jsonCityLoc.getAsJsonPrimitive("direction").getAsString()) {
 				case "W":
 					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.West);
 					break;
@@ -233,16 +233,16 @@ public class Deserializer {
 			// Build out the settlements from the JSON
 			JsonArray jsonSettlements = jsonMap.getAsJsonArray("settlements");
 			for (JsonElement settlement : jsonSettlements) {
-				int ownerIndex = settlement.getAsJsonObject().getAsJsonObject("owner").getAsInt();
+				int ownerIndex = settlement.getAsJsonObject().getAsJsonPrimitive("owner").getAsInt();
 				Piece newSettlement = new Piece(PieceType.SETTLEMENT, ownerIndex);
 				
 				JsonObject jsonSettlementLoc = settlement.getAsJsonObject().getAsJsonObject("location");
-				int locX = jsonSettlementLoc.getAsJsonObject("x").getAsInt();
-				int locY = jsonSettlementLoc.getAsJsonObject("y").getAsInt();
+				int locX = jsonSettlementLoc.getAsJsonPrimitive("x").getAsInt();
+				int locY = jsonSettlementLoc.getAsJsonPrimitive("y").getAsInt();
 				HexLocation hexLoc = new HexLocation(locX, locY);
 				
 				VertexLocation newVertexLoc = null;
-				switch(jsonSettlementLoc.getAsJsonObject("direction").getAsString()) {
+				switch(jsonSettlementLoc.getAsJsonPrimitive("direction").getAsString()) {
 				case "W":
 					newVertexLoc = new VertexLocation(hexLoc, VertexDirection.West);
 					break;
@@ -269,12 +269,12 @@ public class Deserializer {
 			// Build out the ports from the JSON
 			JsonArray jsonPorts = jsonMap.getAsJsonArray("ports");
 			for (JsonElement port : jsonPorts) {
-				int ratio = port.getAsJsonObject().getAsJsonObject("ratio").getAsInt();
+				int ratio = port.getAsJsonObject().getAsJsonPrimitive("ratio").getAsInt();
 				PortType portType = null;
 				if (ratio == 3) {
 					portType = PortType.THREE;
 				} else {
-					switch(port.getAsJsonObject().getAsJsonObject("resource").getAsString()) {
+					switch(port.getAsJsonObject().getAsJsonPrimitive("resource").getAsString()) {
 					case "wood":
 						portType = PortType.WOOD;
 						break;
@@ -293,7 +293,7 @@ public class Deserializer {
 					}
 				}
 				EdgeDirection portDir = null;
-				switch(port.getAsJsonObject().getAsJsonObject("direction").getAsString()) {
+				switch(port.getAsJsonObject().getAsJsonPrimitive("direction").getAsString()) {
 				case "NW":
 					portDir = EdgeDirection.NorthWest;
 					break;
