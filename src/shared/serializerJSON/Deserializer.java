@@ -33,7 +33,7 @@ import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.PlayerMap;
-import shared.models.mapClasses.TerrainHex;
+import shared.models.mapClasses.Hex;
 import shared.models.mapClasses.VertexMap;
 import shared.models.mapClasses.WaterHex;
 import shared.models.playerClasses.GamePlayers;
@@ -126,31 +126,31 @@ public class Deserializer {
 			JsonArray jsonHexes = jsonMap.getAsJsonArray("hexes");
 			for (JsonElement hex : jsonHexes) {
 				
-				TerrainHex newHex;
+				Hex newHex;
 				if (hex.getAsJsonObject().has("resource")) {
 					int tokenNumber = hex.getAsJsonObject().getAsJsonPrimitive("number").getAsInt();
 					switch(hex.getAsJsonObject().getAsJsonPrimitive("resource").getAsString()) {
 					case "wood":
-						newHex = new TerrainHex(HexType.WOOD, tokenNumber);
+						newHex = new Hex(HexType.WOOD, tokenNumber);
 						break;
 					case "brick":
-						newHex = new TerrainHex(HexType.BRICK, tokenNumber);
+						newHex = new Hex(HexType.BRICK, tokenNumber);
 						break;
 					case "sheep":
-						newHex = new TerrainHex(HexType.SHEEP, tokenNumber);
+						newHex = new Hex(HexType.SHEEP, tokenNumber);
 						break;
 					case "wheat":
-						newHex = new TerrainHex(HexType.WHEAT, tokenNumber);
+						newHex = new Hex(HexType.WHEAT, tokenNumber);
 						break;
 					case "ore":
-						newHex = new TerrainHex(HexType.ORE, tokenNumber);
+						newHex = new Hex(HexType.ORE, tokenNumber);
 						break;
 					default:
-						newHex = new TerrainHex(HexType.DESERT, -1);
+						newHex = new Hex(HexType.DESERT, -1);
 						break;
 					}
 				} else { // desert
-					newHex = new TerrainHex(HexType.DESERT, -1);
+					newHex = new Hex(HexType.DESERT, -1);
 				}
 				JsonObject hexJsonLoc = hex.getAsJsonObject().getAsJsonObject("location");
 				int locX = hexJsonLoc.getAsJsonPrimitive("x").getAsInt();
