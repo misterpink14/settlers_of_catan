@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import client.serverProxy.FakeProxy;
-import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.BuildSettlement;
@@ -30,11 +29,10 @@ public class ClientFacade {
 	
 	User clientUser;
 	public Game game;
-	public ProxyInterface proxy;
+	public FakeProxy proxy;
 	
-	public ClientFacade(Game game, ProxyInterface proxy) {
-		this.game = game;
-		this.proxy = proxy;
+	public ClientFacade() {
+		
 	}
 
 	/**
@@ -43,13 +41,8 @@ public class ClientFacade {
 	 * the server proxy to communicate with the server
 	 * and create the user.
 	 */
-	public String createPlayer() {
-		try {
-			return proxy.registerUser(new Credentials());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "Failed";
+	public void createPlayer() {
+		proxy.registerUser(new Credentials());
 	}
 	
 	/**
@@ -59,11 +52,7 @@ public class ClientFacade {
 	 * performing other actions on the server.
 	 */
 	public void login(Credentials credentials) {
-		try {
-			proxy.loginUser(credentials);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		proxy.loginUser(credentials);
 	}
 	
 	/** This function will query the model to make sure
@@ -99,11 +88,7 @@ public class ClientFacade {
 	 */
 	public void rollDice() {
 		if (canRollDice()) {
-			try {
-				proxy.rollNumber(new RollNumber());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			proxy.rollNumber(new RollNumber());
 		} else {
 			/* Throw exception */
 		}
@@ -132,11 +117,7 @@ public class ClientFacade {
 	 */
 	public void buildRoad(int x, int y, String direction, int ownerId) {
 		if (canBuildRoad(x, y, direction, ownerId)) {
-			try {
-				proxy.buildRoad(new BuildRoad());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			proxy.buildRoad(new BuildRoad());
 		} else {
 			/* Throw exception */
 		}
@@ -165,11 +146,7 @@ public class ClientFacade {
 	 */
 	public void buildCity(int x, int y, String direction, int ownerId) {
 		if (canBuildCity(x, y, direction, ownerId)) {
-			try {
-				proxy.buildCity(new BuildCity());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			proxy.buildCity(new BuildCity());
 		} else {
 			/* Throw exception */
 		}
@@ -198,11 +175,7 @@ public class ClientFacade {
 	 */
 	public void buildSettlement(int x, int y, String direction, int ownerId) {
 		if (canBuildSettlement(x, y, direction, ownerId)) {
-			try {
-				proxy.buildSettlement(new BuildSettlement());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			proxy.buildSettlement(new BuildSettlement());
 		} else {
 			/* Throw exception */
 		}
@@ -230,11 +203,7 @@ public class ClientFacade {
 	 */
 	public void buyDevCard() {
 		if (canBuyDevCard()) {
-			try {
-				proxy.buyDevCard(new BuyDevCard());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			proxy.buyDevCard(new BuyDevCard());
 		} else {
 			/* Throw exception */
 		}
@@ -246,11 +215,7 @@ public class ClientFacade {
 	 * @throw
 	 */
 	public void offerTrade() {
-		try {
-			proxy.offerTrade(new OfferTrade());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		proxy.offerTrade(new OfferTrade());
 	}
 	
 	/**
