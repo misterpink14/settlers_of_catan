@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -47,8 +49,16 @@ public class RealProxy implements ProxyInterface {
 	private String usercookie;
 	private String gamecookie;
 	private int playerIndex;
+	private Map<String, String> directions;
 	RealProxy(String url_in) {
 		server_url = url_in;
+		directions = new HashMap<String, String>();
+		directions.put("NorthWest", "NW");
+		directions.put("North", "N");
+		directions.put("NorthEast", "NE");
+		directions.put("SouthWest", "SW");
+		directions.put("South", "S");
+		directions.put("SouthEast", "SE");
 	}
 	/**
 	 * This function will call the server API at 
@@ -782,13 +792,13 @@ public class RealProxy implements ProxyInterface {
 		JsonObject loc1 = new JsonObject();
 		loc1.addProperty("x", roadBuilding.firstSpot.getHexLoc().getX());
 		loc1.addProperty("y", roadBuilding.firstSpot.getHexLoc().getY());
-		loc1.addProperty("direction", roadBuilding.firstSpot.getDir().name());
+		loc1.addProperty("direction", directions.get(roadBuilding.firstSpot.getDir().name()));
 		info.add("spot1", loc1);
 		
 		JsonObject loc2 = new JsonObject();
 		loc2.addProperty("x", roadBuilding.secondSpot.getHexLoc().getX());
 		loc2.addProperty("y", roadBuilding.secondSpot.getHexLoc().getY());
-		loc2.addProperty("direction", roadBuilding.secondSpot.getDir().name());
+		loc2.addProperty("direction", directions.get(roadBuilding.secondSpot.getDir().name()));
 		info.add("spot2", loc2);
 		
 		// Send post request
@@ -1011,8 +1021,10 @@ public class RealProxy implements ProxyInterface {
 		JsonObject loc = new JsonObject();
 		loc.addProperty("x", buildRoad.roadLocation.getHexLoc().getX());
 		loc.addProperty("y", buildRoad.roadLocation.getHexLoc().getY());
-		loc.addProperty("direction", buildRoad.roadLocation.getDir().name());
+		loc.addProperty("direction", directions.get(buildRoad.roadLocation.getDir().name()));
 		info.add("roadLocation", loc);
+		
+		info.addProperty("free", buildRoad.free);
 		
 		// Send post request
 		con.setDoOutput(true);
@@ -1069,8 +1081,8 @@ public class RealProxy implements ProxyInterface {
 		JsonObject loc = new JsonObject();
 		loc.addProperty("x", buildCity.vertexLocation.getHexLoc().getX());
 		loc.addProperty("y", buildCity.vertexLocation.getHexLoc().getY());
-		loc.addProperty("direction", buildCity.vertexLocation.getDir().name());
-		info.add("vertextLocation", loc);
+		loc.addProperty("direction", directions.get(buildCity.vertexLocation.getDir().name()));
+		info.add("vertexLocation", loc);
 		
 		// Send post request
 		con.setDoOutput(true);
@@ -1128,8 +1140,8 @@ public class RealProxy implements ProxyInterface {
 		JsonObject loc = new JsonObject();
 		loc.addProperty("x", buildSettlement.vertexLocation.getHexLoc().getX());
 		loc.addProperty("y", buildSettlement.vertexLocation.getHexLoc().getY());
-		loc.addProperty("direction", buildSettlement.vertexLocation.getDir().name());
-		info.add("vertextLocation", loc);
+		loc.addProperty("direction", directions.get(buildSettlement.vertexLocation.getDir().name()));
+		info.add("vertexLocation", loc);
 		
 		// Send post request
 		con.setDoOutput(true);
@@ -1299,8 +1311,8 @@ public class RealProxy implements ProxyInterface {
 		info.addProperty("type","maritimeTrade");
 		info.addProperty("playerIndex", maritimeTrade.playerIndex);
 		info.addProperty("ratio", maritimeTrade.ratio);
-		info.addProperty("inputResource", maritimeTrade.givingUp.name());
-		info.addProperty("outputResource", maritimeTrade.getting.name());
+		info.addProperty("inputResource", maritimeTrade.givingUp.name().toLowerCase());
+		info.addProperty("outputResource", maritimeTrade.getting.name().toLowerCase());
 		
 		// Send post request
 		con.setDoOutput(true);

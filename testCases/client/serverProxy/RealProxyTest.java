@@ -54,7 +54,7 @@ public class RealProxyTest {
 	@Test
 	public void testRegisterUser() {
 		Credentials credentials = new Credentials();
-		credentials.username = "Cody";
+		credentials.username = "Cody" + System.currentTimeMillis();
 		credentials.password = "cody";
 		try {
 			assertEquals(this.realProxy.registerUser(credentials), "Success");
@@ -284,7 +284,7 @@ public class RealProxyTest {
 		BuildRoad buildRoad = new BuildRoad();
 		buildRoad.free = true;
 		buildRoad.playerIndex = 0;
-		buildRoad.roadLocation = new EdgeLocation(new HexLocation(0,0), EdgeDirection.SouthWest);
+		buildRoad.roadLocation = new EdgeLocation(new HexLocation(2,0), EdgeDirection.NorthWest);
 		
 		try {
 			String result = realProxy.buildRoad(buildRoad);
@@ -300,9 +300,8 @@ public class RealProxyTest {
 	@Test
 	public void testBuildCity() {
 		BuildCity buildCity = new BuildCity();
-		buildCity.playerIndex = 1;
-		buildCity.vertexLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.SouthEast);
-		
+		buildCity.playerIndex = 0;
+		buildCity.vertexLocation = new VertexLocation(new HexLocation(0,1), VertexDirection.SouthEast);
 		
 		try {
 			String result = realProxy.buildCity(buildCity);
@@ -319,8 +318,8 @@ public class RealProxyTest {
 	public void testBuildSettlement() {
 		BuildSettlement buildSettlement = new BuildSettlement();
 		buildSettlement.free = true;
-		buildSettlement.playerIndex = 1;
-		buildSettlement.vertexLocation = new VertexLocation(new HexLocation(0,0), VertexDirection.SouthEast);
+		buildSettlement.playerIndex = 0;
+		buildSettlement.vertexLocation = new VertexLocation(new HexLocation(0,2), VertexDirection.NorthWest);
 		
 		try {
 			String result = realProxy.buildSettlement(buildSettlement);
@@ -381,16 +380,7 @@ public class RealProxyTest {
 		maritimeTrade.givingUp = ResourceType.SHEEP;
 		maritimeTrade.playerIndex = 0;
 		
-		try {
-			RollNumber rollNumber = new RollNumber();
-			rollNumber.roll = 4;
-			rollNumber.playerIndex = 0;
-			
-			realProxy.rollNumber(rollNumber);
-			realProxy.rollNumber(rollNumber);
-			realProxy.rollNumber(rollNumber);
-			realProxy.rollNumber(rollNumber);
-			
+		try {			
 			String result = realProxy.maritimeTrade(maritimeTrade);
 			Assert.assertTrue(result.length() > 0);
 			Assert.assertTrue(result != "400 Error");
