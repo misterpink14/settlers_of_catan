@@ -2,19 +2,19 @@ package shared.locations;
 
 public class RobberLocation 
 {
-	private HexLocation hexLoc;
+	private HexLocation HexLoc;
 	
 	
 	
 	public RobberLocation(HexLocation loc)
 	{
-		setHexLoc(hexLoc);
+		setHexLoc(loc);
 	}
 	
 	
 	public HexLocation getHexLoc()
 	{
-		return hexLoc;
+		return HexLoc;
 	}
 	
 	
@@ -27,7 +27,7 @@ public class RobberLocation
 	 */
 	public boolean canPlaceRobber(HexLocation loc)
 	{
-		if (loc.equals(hexLoc))
+		if (loc.equals(HexLoc))
 		{
 			return false;
 		}
@@ -41,7 +41,7 @@ public class RobberLocation
 		{
 			throw new IllegalArgumentException("hexLoc cannot be null");
 		}
-		this.hexLoc = hexLoc;
+		this.HexLoc = hexLoc;
 	}
 
 }
