@@ -33,12 +33,13 @@ public class TurnManager {
 	/**The trade manager handles everything to do with trading in the game.*/
 	TradeManager tradeManager;
 	
+	/**This keeps track of the event that is being performed within the current turn*/
+	enum turnState {ROLLING, };
+	
 	/**The index of the player whose turn it is.*/
 	int playerIndex = -1;
 	
-	/**This keeps track of the dev cards that the current player has bought this turn*/
-	private HashMap<DevCardType, Integer> unplayableCards;
-	
+	/**Keeps track of whether the player has played a dev card.*/
 	private boolean hasPlayedDevCard;
 	
 	/**This is set to true if the player has the longest road above 5 roads*/
@@ -59,18 +60,16 @@ public class TurnManager {
 		this.cardDeck = cardDeck;
 		this.bank = bank;
 		hasPlayedDevCard = false;
-		unplayableCards = new HashMap<DevCardType, Integer>();
 	}
 	
 	//serialization
 	public TurnManager(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, int longestRoad, int largestArmy) {
 		this.players = players;
 		this.map = map;
-		tradeManager = new TradeManager(players);
+		this.tradeManager = new TradeManager(players);
 		this.cardDeck = cardDeck;
 		this.bank = bank;
-		hasPlayedDevCard = false;
-		unplayableCards = new HashMap<DevCardType, Integer>();
+		this.hasPlayedDevCard = false;
 		this.longestRoad = longestRoad;
 		this.largestArmy = largestArmy;
 	}
@@ -85,6 +84,7 @@ public class TurnManager {
 	public void setCurrentTurn(int index) {
 		players.getPlayerByIndex(index).startTurn();
 		playerIndex = index;
+		this.hasPlayedDevCard = false;
 	}
 	
 	public void setHasPlayedDevCard(boolean hpdc) {
@@ -96,7 +96,6 @@ public class TurnManager {
 	 */
 	public void nextTurn() {
 		playerIndex = this.players.finishTurn(playerIndex);
-		unplayableCards.clear();
 		hasPlayedDevCard = false;
 	}
 	
@@ -131,14 +130,6 @@ public class TurnManager {
 	public void buyDevCard() throws InsufficientCardNumberException {
 		DevCardType card = cardDeck.drawCard();
 		players.getPlayerByIndex(playerIndex).buyDevCard(card);
-		
-		//add to the map, so we know that this card cannot be played this turn.
-		if(unplayableCards.containsKey(card)) {
-			unplayableCards.put(card, unplayableCards.get(card) + 1);
-		}
-		else {
-			unplayableCards.put(card, 1);
-		}
 	}
 	
 	public void playDevCard(DevCardType card) throws InsufficientCardNumberException {
@@ -163,7 +154,6 @@ public class TurnManager {
 	}
 	public boolean CanBuildRoad(int x, int y, String direction, int ownerId) {
 		return players.getPlayerByIndex(playerIndex).canBuildRoad() && map.canPlaceRoad(x, y, direction, ownerId);
-		
 	}
 	public boolean CanBuildSettlement(int x, int y, String direction, int ownerId) {
 		return players.getPlayerByIndex(playerIndex).canBuildSettlement() && map.canPlaceSettlement(x, y, direction, ownerId);
@@ -174,8 +164,8 @@ public class TurnManager {
 	public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
 	}
-	public boolean CanMaritimeTrade(int ownerId) {
-		return map.canMaritimeTrade(ownerId);
+	public boolean CanMaritimeTrade(int ownerId, ResourceType type) {
+		return map.canMaritimeTrade(ownerId, type);
 	}
 	public boolean CanFinishTurn() {
 		return false;
@@ -185,9 +175,6 @@ public class TurnManager {
 	}
 	public boolean CanPlayDevCard(DevCardType card) {
 		int numberOfCard = players.getPlayerByIndex(playerIndex).getNumOfDevCard(card);
-		if(unplayableCards.containsKey(card)) {
-			numberOfCard -= unplayableCards.get(card);
-		}
 		if(numberOfCard > 0 && hasPlayedDevCard == false) {
 			return true;
 		}
@@ -201,9 +188,7 @@ public class TurnManager {
 	}
 	public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
-	}
-	
-	
+	}	
 	
 	public String serialize() {
 		String json = "turnTracker: {status: Rolling, ";
