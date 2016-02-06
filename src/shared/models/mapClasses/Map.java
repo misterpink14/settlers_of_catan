@@ -111,7 +111,7 @@ public class Map
 	 */
 	public boolean canPlaceRobber(int x, int y)
 	{
-		HexLocation loc = null;
+		HexLocation loc = new HexLocation(x,y);
 		if (!this.Robber.canPlaceRobber(loc))
 		{
 			return false;
@@ -176,14 +176,17 @@ public class Map
 	 * Check if player can place a city at a given VertexLocation
 	 *  Constrains: Must be adjacent to a player's existing roads and must replace a settlement.
 	 * 
-	 * @param location
+	 * @param location //TODO what is direction?
 	 */
 	public boolean canPlaceCity(int x, int y, String direction, int ownerIndex)
 	{
 		try {
-			VertexLocation loc = null;
+			VertexLocation loc = new VertexLocation(new HexLocation(x, y), stringToVertexDirection(direction));
 			return this.Vertexes.canPlaceCity(loc, ownerIndex);
 		} catch (IndexOutOfBoundsException e)
+		{
+			return false;
+		} catch (InvalidTypeException e)
 		{
 			return false;
 		}
