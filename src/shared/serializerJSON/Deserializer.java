@@ -39,6 +39,11 @@ import shared.models.mapClasses.WaterHex;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
 
+/** Deserializer
+ * 
+ * @author Bo Pace
+ *
+ */
 public class Deserializer {
 	
 	// currentTurn
@@ -85,6 +90,11 @@ public class Deserializer {
 				        desCurrentTurn, desHasPlayedDevCard, desWinner);
 	}
 	
+	/**
+	 * Deserializes the deck from the game JSON
+	 * @param jsonDeck Takes in the deck JSON that has been separated from the GameModel JSON
+	 * @return returns a CardDeck object that has been successfully deserialized
+	 */
 	public CardDeck deserializeDeck(JsonObject jsonDeck) {
 		// Year of Plenty
 		JsonPrimitive jsonYearOfPlenty = jsonDeck.getAsJsonPrimitive("yearOfPlenty");
@@ -112,6 +122,11 @@ public class Deserializer {
 		return new CardDeck(cards);
 	}
 	
+	/**
+	 * Deserializes the map from the game JSON
+	 * @param jsonMap Takes in the map JSON that has been separated from the GameModel JSON
+	 * @return returns a Map object that has been successfully deserialized
+	 */
 	public Map deserializeMap(JsonObject jsonMap) {
 		HexMap hexes = new HexMap();
 		VertexMap vertices = new VertexMap();
@@ -339,6 +354,11 @@ public class Deserializer {
 		return new Map(hexes, vertices, edges, robberLocation, playerMap);
 	}
 	
+	/**
+	 * Deserializes the players from the game JSON
+	 * @param jsonPlayers Takes in the player JSON that has been separated from the GameModel JSON
+	 * @return returns a GamePlayers object that has been successfully deserialized
+	 */
 	public GamePlayers deserializePlayers(JsonArray jsonPlayers) {
 		GamePlayers players = new GamePlayers();
 		
@@ -439,6 +459,11 @@ public class Deserializer {
 		return players;
 	}
 	
+	/**
+	 * Deserializes the log from the game JSON
+	 * @param jsonLog Takes in the log JSON that has been separated from the GameModel JSON
+	 * @return returns a GameLog object that has been successfully deserialized
+	 */
 	public GameLog deserializeLog(JsonObject jsonLog) {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		JsonArray jsonLines = jsonLog.getAsJsonArray("lines");
@@ -450,6 +475,11 @@ public class Deserializer {
 		return new GameLog(messages);
 	}
 	
+	/**
+	 * Deserializes the chat from the game JSON
+	 * @param jsonChat Takes in the chat JSON that has been separated from the GameModel JSON
+	 * @return returns a GameChat object that has been successfully deserialized
+	 */
 	public GameChat deserializeChat(JsonObject jsonChat) {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		JsonArray jsonLines = jsonChat.getAsJsonArray("lines");
@@ -461,6 +491,11 @@ public class Deserializer {
 		return new GameChat(messages);
 	}
 	
+	/**
+	 * Deserializes the bank from the game JSON
+	 * @param jsonBank Takes in the bank JSON that has been separated from the GameModel JSON
+	 * @return returns a Bank object that has been successfully deserialized
+	 */
 	public Bank deserializeBank(JsonObject jsonBank) {
 		
 		HashMap<ResourceType, Integer> bankResources = new HashMap<ResourceType, Integer>();
@@ -478,6 +513,10 @@ public class Deserializer {
 		return new Bank(bankResources);
 	}
 	
+	/**
+	 * Gets the currentTurn number from the TurnTracker portion of the JSON
+	 * @param jsonTurnTracker Takes in the turnTracker JSON that has been separated from the GameModel JSON
+	 */
 	public void deserializeTurnTracker(JsonObject jsonTurnTracker) {
 		// All we pull from turnTracker at the moment is who's turn it is
 		desCurrentTurn = jsonTurnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
