@@ -102,7 +102,7 @@ public class EdgeMap
 		{
 			return false;
 		}
-		return true; // TODO: this
+		return true;
 	}
 	
 	

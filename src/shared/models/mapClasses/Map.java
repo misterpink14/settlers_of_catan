@@ -176,7 +176,7 @@ public class Map
 	 * Check if player can place a city at a given VertexLocation
 	 *  Constrains: Must be adjacent to a player's existing roads and must replace a settlement.
 	 * 
-	 * @param location //TODO what is direction?
+	 * @param location
 	 */
 	public boolean canPlaceCity(int x, int y, String direction, int ownerIndex)
 	{
@@ -218,7 +218,103 @@ public class Map
 // Private METHOD
 	private boolean isOnPort(VertexLocation loc, PortType portType) 
 	{
+		HexLocation hexLoc = loc.getHexLoc();
 		
+		switch (loc.getDir())
+		{
+			case NorthWest:
+			{
+				// Check N and NW Edges
+				Hex h = this.Hexes.getHex(hexLoc);
+				if (h.getHexType() == HexType.WATER)
+				{
+					WaterHex wh = (WaterHex) h;
+					if (wh.getPortType() != null && 
+						(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthWest))
+					{
+						return true;
+					}
+				}
+				
+
+				// Check (x-1,y) SE and NE
+				HexLocation hexLoc_ = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
+				
+				h = this.Hexes.getHex(hexLoc_);
+				if (h.getHexType() == HexType.WATER)
+				{
+					WaterHex wh = (WaterHex) h;
+					if (wh.getPortType() != null && 
+						(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast))
+					{
+						return true;
+					}
+				}
+				
+				
+				
+				// Check (x, y-1) S and SW
+				hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
+				
+				h = this.Hexes.getHex(hexLoc_);
+				if (h.getHexType() == HexType.WATER)
+				{
+					WaterHex wh = (WaterHex) h;
+					if (wh.getPortType() != null && 
+						(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest))
+					{
+						return true;
+					}
+				}
+				break;
+			}
+			case NorthEast:
+			{
+				// Check N and NE Edges
+				Hex h = this.Hexes.getHex(hexLoc);
+				if (h.getHexType() == HexType.WATER)
+				{
+					WaterHex wh = (WaterHex) h;
+					if (wh.getPortType() != null && 
+						(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthEast))
+					{
+						return true;
+					}
+				}
+				
+				
+				
+				// Check (x-1, y) S and SE
+				HexLocation hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
+				
+				h = this.Hexes.getHex(hexLoc_);
+				if (h.getHexType() == HexType.WATER)
+				{
+					WaterHex wh = (WaterHex) h;
+					if (wh.getPortType() != null && 
+						(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast))
+					{
+						return true;
+					}
+				}
+				
+
+				// Check (x+1,y-1) NW and SW
+				hexLoc_ = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
+				
+				h = this.Hexes.getHex(hexLoc_);
+				if (h.getHexType() == HexType.WATER)
+				{
+					WaterHex wh = (WaterHex) h;
+					if (wh.getPortType() != null && 
+						(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest))
+					{
+						return true;
+					}
+				}
+				break;
+			}
+		}
 		
 		
 		
