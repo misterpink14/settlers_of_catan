@@ -184,8 +184,8 @@ public class Game
 		public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 			return turnManager.CanOfferTrade(traderIndex, tradeeIndex, out, in);
 		}
-		public boolean CanMaritimeTrade(int ownerId) {
-			return turnManager.CanMaritimeTrade(ownerId);
+		public boolean CanMaritimeTrade(int ownerId, ResourceType type) {
+			return turnManager.CanMaritimeTrade(ownerId, type);
 		}
 		public boolean CanFinishTurn() {
 			return turnManager.CanFinishTurn();
