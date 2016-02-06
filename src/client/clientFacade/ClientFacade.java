@@ -66,7 +66,7 @@ public class ClientFacade {
 	 * they can't
 	 */
 	public boolean canRollDice() {
-		if (!isTurn()) {
+		if (!game.CanRollNumber()) {
 			return false;
 		}
 		/* Check if player can roll */
@@ -96,8 +96,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildRoad() {
-		if (!isTurn()) {
+	public boolean canBuildRoad(int x, int y, String direction, int ownerId) {
+		if (!game.CanBuildRoad(x, y, direction, ownerId)) {
 			return false;
 		}
 		/* Check if player can build road */
@@ -109,8 +109,8 @@ public class ClientFacade {
 	 * a road on the board.
 	 * @throws
 	 */
-	public void buildRoad() {
-		if (canBuildRoad()) {
+	public void buildRoad(int x, int y, String direction, int ownerId) {
+		if (canBuildRoad(x, y, direction, ownerId)) {
 			proxy.buildRoad(new BuildRoad());
 		} else {
 			/* Throw exception */
@@ -125,8 +125,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildCity() {
-		if (!isTurn()) {
+	public boolean canBuildCity(int x, int y, String direction, int ownerId) {
+		if (!game.CanBuildCity(x, y, direction, ownerId)) {
 			return false;
 		}
 		/* Check if player can build city */

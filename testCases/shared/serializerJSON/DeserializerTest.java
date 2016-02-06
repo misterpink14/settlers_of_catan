@@ -57,7 +57,7 @@ public class DeserializerTest {
 		// The robber is on (0, -2), so should be false
 		assertFalse(map.canPlaceRobber(0, -2));
 		// The robber is on (0, -2), so should be true
-		assertTrue(map.canPlaceRobber(-2, -2));
+		assertTrue(map.canPlaceRobber(0, 0));
 	}
 
 	@Test
