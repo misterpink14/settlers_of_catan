@@ -7,14 +7,17 @@ import shared.definitions.ResourceType;
 public class Bank 
 {	
 	/**The container for the resource cards in the bank*/
-	private ResourceCards resourceCards = new ResourceCards(19,19,19,19,19);
+	private ResourceCards resourceCards;
 
 	/**
 	 * The Bank keeps track of how many resource cards are without owners.
 	 */
-	public Bank() {}
+	public Bank() {
+		resourceCards = new ResourceCards(19,19,19,19,19);
+	}
 	
 	public Bank(HashMap<ResourceType, Integer> resources) {
+		resourceCards = new ResourceCards(0,0,0,0,0);
 		for (ResourceType type : resources.keySet()) {
 			this.resourceCards.addCard(type, resources.get(type));
 		}
