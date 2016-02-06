@@ -443,8 +443,8 @@ public class Deserializer {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		JsonArray jsonLines = jsonLog.getAsJsonArray("lines");
 		for (JsonElement line : jsonLines) {
-			String source = line.getAsJsonObject().getAsJsonObject("source").getAsString();
-			String message = line.getAsJsonObject().getAsJsonObject("message").getAsString();
+			String source = line.getAsJsonObject().getAsJsonPrimitive("source").getAsString();
+			String message = line.getAsJsonObject().getAsJsonPrimitive("message").getAsString();
 			messages.add(new Message(source, message));
 		}
 		return new GameLog(messages);
@@ -454,8 +454,8 @@ public class Deserializer {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		JsonArray jsonLines = jsonChat.getAsJsonArray("lines");
 		for (JsonElement line : jsonLines) {
-			String source = line.getAsJsonObject().getAsJsonObject("source").getAsString();
-			String message = line.getAsJsonObject().getAsJsonObject("message").getAsString();
+			String source = line.getAsJsonObject().getAsJsonPrimitive("source").getAsString();
+			String message = line.getAsJsonObject().getAsJsonPrimitive("message").getAsString();
 			messages.add(new Message(source, message));
 		}
 		return new GameChat(messages);
@@ -480,6 +480,6 @@ public class Deserializer {
 	
 	public void deserializeTurnTracker(JsonObject jsonTurnTracker) {
 		// All we pull from turnTracker at the moment is who's turn it is
-		desCurrentTurn = jsonTurnTracker.getAsJsonObject("currentTurn").getAsInt();
+		desCurrentTurn = jsonTurnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
 	}
 }

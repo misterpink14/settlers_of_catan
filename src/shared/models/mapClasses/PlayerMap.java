@@ -13,7 +13,11 @@ public class PlayerMap
 	
 	
 // CONSTRUCTOR
-	public PlayerMap() {}
+	public PlayerMap() {
+		for (int i = 0; i < 4; i++) {
+			PlayerPieces.put(i, new PlayerPieces());
+		}
+	}
 
 
 	
