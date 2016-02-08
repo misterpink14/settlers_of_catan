@@ -142,13 +142,15 @@
 	</target>
     
 	<target name="compile" depends="init" description="compile the source " >
-		<javac srcdir="${java.src}" destdir="${java.build}" debug="true" includeantruntime="true">
+		<mkdir dir="${java.build}/src"/>
+		<javac srcdir="${java.src}" destdir="${java.build}/src" debug="true" includeantruntime="true">
 			<classpath refid="java.lib.classpath" />
 		</javac>
 	</target>
 
 		<target name="compile-test" depends="init" description="compile the test dir" >
-			<javac srcdir="testCases" destdir="${java.build}" debug="true" includeantruntime="true">
+			<mkdir dir="${java.build}/testCases"/>
+			<javac srcdir="testCases" destdir="${java.build}/testCases" debug="true" includeantruntime="true">
 				<classpath refid="java.lib.classpath" />
 			</javac>
 		</target>
