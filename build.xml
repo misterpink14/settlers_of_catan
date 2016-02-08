@@ -129,6 +129,7 @@
 	<property name="java.build" location="build"/>
 	<property name="java.dist" location="dist"/>
 	<property name="java.lib" location="lib"/>
+	<property name="java.testCases" location="testCases"/>
  
 	<target name="init" description="create build directories">
 		<tstamp/>
@@ -150,7 +151,7 @@
 
 		<target name="compile-test" depends="init" description="compile the test dir" >
 			<mkdir dir="${java.build}/testCases"/>
-			<javac srcdir="testCases" destdir="${java.build}/testCases" debug="true" includeantruntime="true">
+			<javac srcdir="${java.testCases}" destdir="${java.build}/testCases" debug="true" includeantruntime="true">
 				<classpath refid="java.lib.classpath" />
 			</javac>
 		</target>
