@@ -125,7 +125,7 @@
 
   	<property name="java.dir" location=""/>
 	<property name="java.src" location="src"/>
-	<property name="java.images" location="images"/>
+	<property name="java.images" location="demo/images"/>
 	<property name="java.build" location="build"/>
 	<property name="java.dist" location="dist"/>
 	<property name="java.lib" location="lib"/>
