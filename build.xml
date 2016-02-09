@@ -76,7 +76,7 @@
 	
 	
 	<target name="test" depends="compile, compile-test, package" description="compiles, packages, and runs the JUnit tests for the project">
-			<java classname="run/RunAllTests" fork="yes">
+			<java classname="$run/RunAllTests" fork="yes">
 				<classpath>
 					<path refid="all-classpath"/>
 				</classpath>
@@ -152,6 +152,7 @@
 		<target name="compile-test" depends="init" description="compile the test dir" >
 			<mkdir dir="${java.build}/testCases"/>
 			<javac srcdir="${java.testCases}" destdir="${java.build}/testCases" debug="true" includeantruntime="true">
+				<src path="${java.src}"/>
 				<classpath refid="java.lib.classpath" />
 			</javac>
 		</target>
