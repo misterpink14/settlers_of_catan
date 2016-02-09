@@ -25,6 +25,19 @@
 	<property name="demo.dir" value="demo"/>
     <property name="server.jar.file" value="${demo.dir}/server.jar"/>
     <property name="client.jar.file" value="${demo.dir}/client.jar"/>
+	<property name="java.src" location="src"/>
+	<property name="java.images" location="demo/images"/>
+	<property name="java.build" location="build"/>
+	<property name="java.dist" location="dist"/>
+	<property name="java.lib" location="lib"/>
+	<property name="java.test" location="testCases"/>
+
+	<!-- Default command line arguments -->
+	<property name="host" value="localhost"/>
+	<property name="port" value="8081"/>
+	<property name="persistence" value="none"/>
+	<property name="delta" value="-1"/>
+	<property name="clean" value="dirty"/>
   
 	<!-- CLASSPATHS -->
 	<!-- ********** -->
@@ -34,11 +47,11 @@
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
-	
+
 	<path id="all-classpath">
-			<path refid="java.lib.classpath"/>
-			<pathelement location="${java.build}"/>
-		</path>
+		<path refid="java.lib.classpath"/>
+		<pathelement location="${java.build}"/>
+	</path>
 
 	<!-- TARGETS -->
 	<!-- ******* -->
@@ -73,44 +86,6 @@
 			</packageset>
 		</javadoc>
    </target>
-	
-	
-	<target name="test" depends="compile, compile-test, package" description="compiles, packages, and runs the JUnit tests for the project">
-			<java classname="$run/RunAllTests" fork="yes">
-				<classpath>
-					<path refid="all-classpath"/>
-				</classpath>
-				<assertions>
-					<enable/>
-				</assertions>
-			</java>
-		</target>
-	
-	<!--
-	<target name="test" >
-
-	  <junit printsummary="yes" haltonfailure="yes">
-
-	    <classpath>
-	      <pathelement location="bin" />
-	      <pathelement location="lib/junit-4.8.2.jar" />
-	    </classpath>
-
-	  	<batchtest>
-	  		<fileset dir="testCases">
-	  			<include name="**/*Test*" />
-	  		</fileset>
-	  	</batchtest>
-	    <test name="testCases"
-	             haltonfailure="no" outfile="result">
-
-	      <formatter type="plain"/>
-	      <formatter type="xml"/>
-
-	    </test>
-
-	  </junit>
-	</target>-->
     
     <!--
     <target name="make-js-doc" description="Generate the JavaScript docs">
@@ -123,13 +98,13 @@
 	</target>
     -->
 
-  	<property name="java.dir" location=""/>
+<!--   	<property name="java.dir" location="java"/>
 	<property name="java.src" location="src"/>
-	<property name="java.images" location="demo/images"/>
+	<property name="java.images" location="images"/>
 	<property name="java.build" location="build"/>
 	<property name="java.dist" location="dist"/>
 	<property name="java.lib" location="lib"/>
-	<property name="java.testCases" location="testCases"/>
+	<property name="java.test" location="test"/> -->
  
 	<target name="init" description="create build directories">
 		<tstamp/>
@@ -143,19 +118,16 @@
 	</target>
     
 	<target name="compile" depends="init" description="compile the source " >
-		<mkdir dir="${java.build}/src"/>
-		<javac srcdir="${java.src}" destdir="${java.build}/src" debug="true" includeantruntime="true">
+		<javac srcdir="${java.src}" destdir="${java.build}" debug="true" includeantruntime="true">
 			<classpath refid="java.lib.classpath" />
 		</javac>
 	</target>
 
-		<target name="compile-test" depends="init" description="compile the test dir" >
-			<mkdir dir="${java.build}/testCases"/>
-			<javac srcdir="${java.testCases}" destdir="${java.build}/testCases" debug="true" includeantruntime="true">
-				<src path="${java.src}"/>
-				<classpath refid="java.lib.classpath" />
-			</javac>
-		</target>
+	<target name="compile-test" depends="init" description="compile the test dir" >
+		<javac srcdir="${java.test}" destdir="${java.build}" debug="true" includeantruntime="true">
+			<classpath refid="java.lib.classpath" />
+		</javac>
+	</target>
 	
 	<target name="package" depends="compile" description="package the jar file" >
 		<mkdir dir="${java.dist}/lib"/>
@@ -179,7 +151,7 @@
 		</jar>
  		<jar jarfile="${java.dist}/catan-server.jar" basedir="${java.build}">
 			<manifest>
-				<attribute name="Main-Class" value="PUT THE NAME OF YOUR SERVER'S MAIN CLASS HERE"/>
+				<attribute name="Main-Class" value="server.main.Server"/>
 				<attribute name="Class-Path" 
 					value="lib/gson-2.2.4.jar" />
 			</manifest>
@@ -192,6 +164,8 @@
 			<assertions>
 				<enable/>
 			</assertions>
+			<arg value="${host}"/>
+			<arg value="${port}"/>
 		</java>
 	</target>
  	
@@ -201,12 +175,26 @@
 			<assertions>
 				<enable/>
 			</assertions>
+			<arg value="${port}"/>
+			<arg value="${persistence}"/>
+			<arg value="${delta}"/>
+			<arg value="${clean}"/>
 		</java>
 	</target>
     
     <target name="make-tester-zip" depends="package" description="makes a zip file for your testing team">
         <zip destfile="./tester.zip" basedir="${java.dist}" />
     </target>
+
+    <target name="test" depends="compile, compile-test, package" description="compiles, packages, and runs the JUnit tests for the project">
+		<java classname="run.RunAllTests" fork="yes">
+			<classpath>
+				<path refid="all-classpath"/>
+			</classpath>
+			<assertions>
+				<enable/>
+			</assertions>
+		</java>
+	</target>
   
 </project>
-
