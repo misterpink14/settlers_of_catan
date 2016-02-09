@@ -44,6 +44,7 @@ public class ResourceCardsTest {
 			resourceCards.removeCard(ResourceType.WHEAT, 4);
 			resourceCards.removeCard(ResourceType.WOOD, 5);
 		} catch (InsufficientCardNumberException e) {
+			fail();
 			e.printStackTrace();
 		}
 		
@@ -58,7 +59,6 @@ public class ResourceCardsTest {
 			resourceCards.removeCard(ResourceType.BRICK, 1);
 		} catch (InsufficientCardNumberException e) {
 			failed = true;
-			e.printStackTrace();
 		}
 		assertTrue(failed);
 	}

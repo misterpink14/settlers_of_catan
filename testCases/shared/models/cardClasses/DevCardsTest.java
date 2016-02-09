@@ -47,6 +47,7 @@ public class DevCardsTest {
 			devCards.removeCard(DevCardType.ROAD_BUILD);
 			devCards.removeCard(DevCardType.YEAR_OF_PLENTY);
 		} catch (InsufficientCardNumberException e) {
+			fail();
 			e.printStackTrace();
 		}
 		assertTrue(devCards.getSoldierCards() == 13);
@@ -61,7 +62,6 @@ public class DevCardsTest {
 			devCards.removeCard(DevCardType.MONOPOLY);
 		} catch (InsufficientCardNumberException e) {
 			failed = true;
-			e.printStackTrace();
 		}
 		assertTrue(failed);
 	}

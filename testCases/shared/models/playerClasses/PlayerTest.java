@@ -142,7 +142,6 @@ public class PlayerTest {
 			player.buyRoad();
 		} catch (InsufficientCardNumberException e) {
 			failed = true;
-			e.printStackTrace();
 		}
 		assertTrue(failed);
 	}
@@ -168,7 +167,6 @@ public class PlayerTest {
 			player.buySettlement();
 		} catch (InsufficientCardNumberException e) {
 			failed = true;
-			e.printStackTrace();
 		}
 		assertTrue(failed);
 	}
@@ -190,7 +188,6 @@ public class PlayerTest {
 			player.buyCity();
 		} catch (InsufficientCardNumberException e) {
 			failed = true;
-			e.printStackTrace();
 		}
 		assertTrue(failed);
 	}
@@ -217,7 +214,6 @@ public class PlayerTest {
 			player.buyDevCard(DevCardType.MONOPOLY);
 		} catch (InsufficientCardNumberException e) {
 			failed = true;
-			e.printStackTrace();
 		}
 		assertTrue(failed);
 	}
@@ -254,7 +250,7 @@ public class PlayerTest {
 			player.playDevCard(DevCardType.ROAD_BUILD);
 			player.playDevCard(DevCardType.YEAR_OF_PLENTY);
 		} catch (InsufficientCardNumberException e) {
-			// TODO Auto-generated catch block
+			fail();
 			e.printStackTrace();
 		}
 		

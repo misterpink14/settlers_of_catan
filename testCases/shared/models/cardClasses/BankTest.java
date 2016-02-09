@@ -28,7 +28,6 @@ public class BankTest {
 			bank.takeResourceCards(ResourceType.BRICK, 1);
 		} catch (InsufficientCardNumberException e) {
 			failed = true;
-			e.printStackTrace();
 		}
 		assertTrue(failed);
 	}

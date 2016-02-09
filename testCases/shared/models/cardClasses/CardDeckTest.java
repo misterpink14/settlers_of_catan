@@ -20,6 +20,7 @@ public class CardDeckTest {
 			card = deck.drawCard();
 		} catch (InsufficientCardNumberException e) {
 			e.printStackTrace();
+			fail();
 		}
 		switch (card) {
 		case MONOPOLY:

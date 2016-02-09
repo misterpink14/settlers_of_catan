@@ -42,7 +42,6 @@ public class GamePlayersTest {
 			players.addPlayer(5, "bob", CatanColor.BLUE);
 		} catch (Exception e) {
 			failed = true;
-			e.printStackTrace();
 		}
 		assertTrue(failed);		
 	}
