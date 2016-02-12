@@ -65,6 +65,23 @@ public class Game
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 	}
+
+	
+	
+	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
+			int currentTurn, boolean hasPlayedDevCard, int winner) {
+		this.map = map;
+		this.bank = bank;
+		this.cardDeck = cardDeck;
+		this.players = players;
+		this.log = log;
+		this.chat = chat;
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
+		this.turnManager.setCurrentTurn(currentTurn);
+		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+	}
+	
+	
 	public GamePlayers getPlayers() {
 		return players;
 	}
