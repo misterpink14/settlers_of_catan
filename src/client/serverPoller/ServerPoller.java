@@ -33,10 +33,10 @@ public class ServerPoller
 	 * @param ClientFacade
 	 * @param speed
 	 */
-	public ServerPoller (ClientFacade facade, int speed)
+	public ServerPoller (Game gameModel, ProxyInterface serverProxy, int speed)
 	{
-		this.GameModel = facade.game;
-		this.ServerProxy = facade.proxy;
+		this.GameModel = gameModel;
+		this.ServerProxy = serverProxy;
 		listener = new TimerActionListener();
 		versionID = GameModel.versionID();
 		UpdateTimer = new Timer(speed, this.listener);
@@ -77,7 +77,7 @@ public class ServerPoller
 			gameModelString = ServerProxy.getGameModel(GameModel.versionID());
 			JsonParser parser = new JsonParser();
 			JsonObject gameModelJson = parser.parse(gameModelString).getAsJsonObject();
-			GameModel = deserializer.deserialize(gameModelJson);
+			deserializer.deserialize(GameModel, gameModelJson);
 		}
 	}	
 	

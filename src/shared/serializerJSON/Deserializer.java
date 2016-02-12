@@ -49,7 +49,7 @@ public class Deserializer {
 	// currentTurn
 	private int desCurrentTurn = 0;
 	
-	public Game deserialize(JsonObject json) {
+	public void deserialize(Game game, JsonObject json) {
 		// the "des" prefix signifies that the object has been deserialized.
 		
 		// Pull out the information about "deck" from the JSON
@@ -86,7 +86,7 @@ public class Deserializer {
 		// winner
 		int desWinner = json.getAsJsonPrimitive("winner").getAsInt();
 
-		return new Game(desMap, desBank, desDeck, desPlayers, desLog, desChat,
+		game.update(desMap, desBank, desDeck, desPlayers, desLog, desChat,
 				        desCurrentTurn, desHasPlayedDevCard, desWinner);
 	}
 	
