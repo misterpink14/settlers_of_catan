@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import shared.definitions.DevCardType;
+import shared.definitions.GameState;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
@@ -21,6 +22,8 @@ import shared.models.playerClasses.TurnManager;
  */
 public class Game 
 {	
+	/**The current state of this game*/
+	GameState gameState;
 	/**The map contains all information having to do with the board.*/
 	Map map;
 	/**The bank contains all resource cards that do not belong to a player.*/
@@ -44,6 +47,7 @@ public class Game
 	int versionID;
 	
 	public Game() {
+		this.gameState = GameState.LOGIN;
 		this.map = new Map();
 		this.bank = new Bank();
 		this.cardDeck = new CardDeck();
