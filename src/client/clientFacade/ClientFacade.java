@@ -3,7 +3,6 @@ package client.clientFacade;
 import java.util.HashMap;
 import java.util.List;
 
-import client.serverProxy.FakeProxy;
 import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -14,7 +13,6 @@ import shared.communication.proxy.FinishTurn;
 import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
-import shared.communication.proxy.SendChat;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.models.Game;

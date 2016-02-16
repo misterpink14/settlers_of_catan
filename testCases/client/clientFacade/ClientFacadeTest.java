@@ -23,7 +23,8 @@ public class ClientFacadeTest {
 		JsonParser parser = new JsonParser();
 		JsonObject json = parser.parse(gameModelString).getAsJsonObject();
 		Deserializer deserializer = new Deserializer();
-		Game game = deserializer.deserialize(json);
+		Game game = new Game();
+		deserializer.deserialize(game, json);
 		facade = new ClientFacade(game, new FakeProxy()); 
 		facade.game.getTurnManager().startGame();
 	}
