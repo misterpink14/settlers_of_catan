@@ -2,6 +2,7 @@ package client.login;
 
 import client.base.*;
 import client.misc.*;
+import shared.communication.proxy.Credentials;
 
 
 /**
@@ -64,8 +65,7 @@ public class LoginController extends Controller implements ILoginController {
 	@Override
 	public void signIn() {
 		
-		// TODO: log in user
-		
+		Credentials cred = new Credentials(getLoginView().getLoginUsername(), getLoginView().getLoginPassword());
 
 		// If log in succeeded
 		getLoginView().closeModal();
@@ -75,7 +75,7 @@ public class LoginController extends Controller implements ILoginController {
 	@Override
 	public void register() {
 		
-		// TODO: register new user (which, if successful, also logs them in)
+		Credentials cred = new Credentials(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
 		
 		// If register succeeded
 		getLoginView().closeModal();
