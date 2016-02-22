@@ -31,7 +31,6 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	 * @param action The action to be executed
 	 */
 	public void setElementAction(ResourceBarElement element, IAction action) {
-
 		elementActions.put(element, action);
 	}
 
