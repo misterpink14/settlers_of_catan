@@ -74,6 +74,14 @@ public class ClientFacade {
 		return game.isTurn(0);
 	}
 	
+	public String getGamesList() throws Exception {
+		try {
+			return proxy.getGamesList();
+		} catch (Exception e) {
+			throw new Exception("Error retrieving list of games");
+		}
+	}
+	
 	/**
 	 * Checks with the model to see if it's the
 	 * player's turn and if they are able to roll
@@ -85,7 +93,6 @@ public class ClientFacade {
 		if (!game.CanRollNumber()) {
 			return false;
 		}
-		/* Check if player can roll */
 		return true;
 	}
 	
@@ -97,17 +104,16 @@ public class ClientFacade {
 	 * @return 
 	 * @throws 
 	 */
-	public String rollDice() {
+	public String rollDice() throws Exception {
 		if (canRollDice()) {
 			try {
 				return proxy.rollNumber(new RollNumber());
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new Exception("Error rolling dice");
 			}
 		} else {
-			/* Throw exception */
+			return "failure";
 		}
-		return "False";
 	}
 	
 	/**
@@ -122,7 +128,6 @@ public class ClientFacade {
 		if (!game.CanBuildRoad(x, y, direction, ownerId)) {
 			return false;
 		}
-		/* Check if player can build road */
 		return true;
 	}
 	
@@ -131,17 +136,16 @@ public class ClientFacade {
 	 * a road on the board.
 	 * @throws
 	 */
-	public String buildRoad(int x, int y, String direction, int ownerId) {
+	public String buildRoad(int x, int y, String direction, int ownerId) throws Exception {
 		if (canBuildRoad(x, y, direction, ownerId)) {
 			try {
 				return proxy.buildRoad(new BuildRoad());
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new Exception("Error building road");
 			}
 		} else {
-			/* Throw exception */
+			return "failure";
 		}
-		return "False";
 	}
 	
 	/**
@@ -156,7 +160,6 @@ public class ClientFacade {
 		if (!game.CanBuildCity(x, y, direction, ownerId)) {
 			return false;
 		}
-		/* Check if player can build city */
 		return true;
 	}
 	
@@ -165,17 +168,16 @@ public class ClientFacade {
 	 * a city on the board.
 	 * @throws
 	 */
-	public String buildCity(int x, int y, String direction, int ownerId) {
+	public String buildCity(int x, int y, String direction, int ownerId) throws Exception {
 		if (canBuildCity(x, y, direction, ownerId)) {
 			try {
 				return proxy.buildCity(new BuildCity());
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new Exception("Error building city");
 			}
 		} else {
-			/* Throw exception */
+			return "failure";
 		}
-		return "False";
 	}
 	
 	/**
@@ -190,7 +192,6 @@ public class ClientFacade {
 		if (!game.CanBuildSettlement(x, y, direction, ownerId)) {
 			return false;
 		}
-		/* Check if player can build settlement */
 		return true;
 	}
 	
@@ -199,17 +200,16 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public String buildSettlement(int x, int y, String direction, int ownerId) {
+	public String buildSettlement(int x, int y, String direction, int ownerId) throws Exception {
 		if (canBuildSettlement(x, y, direction, ownerId)) {
 			try {
 				return proxy.buildSettlement(new BuildSettlement());
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new Exception("Error building settlement");
 			}
 		} else {
-			/* Throw exception */
+			return "failure";
 		}
-		return "False";
 	}
 	
 	/**
@@ -223,7 +223,6 @@ public class ClientFacade {
 		if (!game.CanBuyDevCard()) {
 			return false;
 		}
-		/* Check if player can buy development card */
 		return true;
 	}
 	
@@ -232,17 +231,16 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public String buyDevCard() {
+	public String buyDevCard() throws Exception {
 		if (canBuyDevCard()) {
 			try {
 				return proxy.buyDevCard(new BuyDevCard());
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new Exception("Error buying dev card");
 			}
 		} else {
-			/* Throw exception */
+			return "failure";
 		}
-		return "False";
 	}
 	
 	/**
@@ -250,13 +248,12 @@ public class ClientFacade {
 	 * a trade with another player.
 	 * @throw
 	 */
-	public String offerTrade() {
+	public String offerTrade() throws Exception {
 		try {
 			return proxy.offerTrade(new OfferTrade());
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception("Error offering trade");
 		}
-		return "False";
 	}
 	
 	/**
@@ -274,17 +271,16 @@ public class ClientFacade {
 	 * with an adjoining harbor
 	 * @throws
 	 */
-	public String tradeHarbor() {
+	public String tradeHarbor() throws Exception {
 		if(isTurn()) {
 			try {
 				return proxy.maritimeTrade(new MaritimeTrade());
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new Exception("Error trading with harbor");
 			}
 		} else {
-			//throw new Exception();
+			return "failure";
 		}
-		return "False";
 	}
 	
 	/**
@@ -302,17 +298,16 @@ public class ClientFacade {
 	 * Send the end turn command to the server proxy.
 	 * @throws
 	 */
-	public String finishTurn() {
+	public String finishTurn() throws Exception {
 		if(game.CanFinishTurn()) {
 			try {
 				return proxy.finishTurn(new FinishTurn());
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new Exception("Error finishing turn");
 			}
 		} else {
-			//throw new Exception();
+			return "failure";
 		}
-		return "False";
 	}
 	
 	/**
