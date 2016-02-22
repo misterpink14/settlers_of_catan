@@ -522,7 +522,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -580,7 +580,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -633,7 +633,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -686,7 +686,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -740,7 +740,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -804,7 +804,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -863,7 +863,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -916,7 +916,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -968,7 +968,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1029,7 +1029,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1087,7 +1087,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1146,7 +1146,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1208,7 +1208,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1261,7 +1261,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1317,7 +1317,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1377,7 +1377,7 @@ public class RealProxy implements ProxyInterface {
 		System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
-			return "400 Error";
+			throw new Exception();
 		}
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));

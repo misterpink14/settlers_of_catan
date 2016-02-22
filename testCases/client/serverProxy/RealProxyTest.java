@@ -240,6 +240,8 @@ public class RealProxyTest {
 		SoldierMove soldierMove = new SoldierMove();
 		soldierMove.newLocation = new HexLocation(0,0);
 		soldierMove.playerIndex = 1;
+		soldierMove.victimIndex = 2;
+		
 		
 		try {
 			String result = realProxy.moveSoldier(soldierMove);
