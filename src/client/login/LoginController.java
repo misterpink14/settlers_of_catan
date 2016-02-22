@@ -1,5 +1,7 @@
 package client.login;
 
+import javax.swing.JOptionPane;
+
 import client.base.*;
 import client.misc.*;
 import shared.communication.proxy.Credentials;
@@ -67,11 +69,20 @@ public class LoginController extends Controller implements ILoginController {
 		
 		Credentials cred = new Credentials(getLoginView().getLoginUsername(), getLoginView().getLoginPassword());
 		
-		System.out.println(this.getClientFacade().login(cred));
-		
-		// If log in succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
+		try {
+			String result = this.getClientFacade().login(cred);
+			// If log in succeeded
+			if(result == "Success") {
+				getLoginView().closeModal();
+				loginAction.execute();
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Login Failed");
+			}
+		}
+		catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "An error occured");
+		}
 	}
 
 	@Override
