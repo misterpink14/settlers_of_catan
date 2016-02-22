@@ -66,7 +66,9 @@ public class LoginController extends Controller implements ILoginController {
 	public void signIn() {
 		
 		Credentials cred = new Credentials(getLoginView().getLoginUsername(), getLoginView().getLoginPassword());
-
+		
+		System.out.println(this.getClientFacade().login(cred));
+		
 		// If log in succeeded
 		getLoginView().closeModal();
 		loginAction.execute();

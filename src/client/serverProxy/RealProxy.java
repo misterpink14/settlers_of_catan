@@ -55,7 +55,7 @@ public class RealProxy implements ProxyInterface {
 	//Directions come from the facade as full words, we
 	//need to abbreviate them before sending them to the server
 	private Map<String, String> directions;
-	RealProxy(String url_in) {
+	public RealProxy(String url_in) {
 		server_url = url_in;
 		directions = new HashMap<String, String>();
 		directions.put("NorthWest", "NW");

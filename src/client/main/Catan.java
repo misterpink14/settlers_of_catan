@@ -3,9 +3,13 @@ package client.main;
 import javax.swing.*;
 
 import client.catan.*;
+import client.clientFacade.ClientFacade;
 import client.login.*;
 import client.join.*;
 import client.misc.*;
+import client.serverProxy.ProxyInterface;
+import client.serverProxy.RealProxy;
+import shared.models.Game;
 import client.base.*;
 
 /**
@@ -57,6 +61,14 @@ public class Catan extends JFrame
 			{
 				new Catan();
 				
+				//We use the client facade to hold our model and make calls to the server
+				//We pass in the client facade to each controller
+				//Each controller calls this.getClientFacade when they need to access it
+				Game game = new Game();
+				ProxyInterface proxy = new RealProxy("http://localhost:8081");
+				ClientFacade clientFacade = new ClientFacade(game, proxy);
+				
+				
 				PlayerWaitingView playerWaitingView = new PlayerWaitingView();
 				final PlayerWaitingController playerWaitingController = new PlayerWaitingController(
 																									playerWaitingView);
@@ -88,6 +100,7 @@ public class Catan extends JFrame
 				LoginController loginController = new LoginController(
 																	  loginView,
 																	  loginMessageView);
+				loginController.setClientFacade(clientFacade);
 				loginController.setLoginAction(new IAction() {
 					@Override
 					public void execute()
