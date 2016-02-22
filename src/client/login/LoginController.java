@@ -72,7 +72,7 @@ public class LoginController extends Controller implements ILoginController {
 		try {
 			String result = this.getClientFacade().login(cred);
 			// If log in succeeded
-			if(result == "Success") {
+			if(result.equals("Success")) {
 				getLoginView().closeModal();
 				loginAction.execute();
 			}
