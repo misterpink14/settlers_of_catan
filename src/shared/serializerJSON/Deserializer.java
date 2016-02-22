@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
+import client.data.GameInfo;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.HexType;
@@ -45,6 +46,14 @@ import shared.models.playerClasses.Player;
  *
  */
 public class Deserializer {
+	private static Deserializer instance = null;
+	
+	public static Deserializer getInstance() {
+		if (instance == null) {
+			instance = new Deserializer();
+		}
+		return instance;
+	}
 	
 	// currentTurn
 	private int desCurrentTurn = 0;
@@ -520,5 +529,9 @@ public class Deserializer {
 	public void deserializeTurnTracker(JsonObject jsonTurnTracker) {
 		// All we pull from turnTracker at the moment is who's turn it is
 		desCurrentTurn = jsonTurnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
+	}
+	
+	public GameInfo[] deserializeGamesList(String gamesListString) {
+		return new GameInfo[4];
 	}
 }
