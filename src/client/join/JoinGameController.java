@@ -1,6 +1,11 @@
 package client.join;
 
 import shared.definitions.CatanColor;
+import shared.models.Game;
+import shared.serializerJSON.Deserializer;
+
+import javax.swing.JOptionPane;
+
 import client.base.*;
 import client.data.*;
 import client.misc.*;
@@ -89,8 +94,17 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
-		
-		getJoinGameView().showModal();
+		this.getClientFacade();
+		PlayerInfo loginUser = new PlayerInfo(); 
+		String gamesString;
+		try {
+			gamesString = this.getClientFacade().getGamesList();
+			GameInfo[] games = Deserializer.getInstance().deserializeGamesList(gamesString);
+			this.getJoinGameView().setGames(games, loginUser);
+			getJoinGameView().showModal();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((JoinGameView)this.getJoinGameView(), "An error occured while fetching a list of games");
+		}	
 	}
 
 	@Override
@@ -107,7 +121,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void createNewGame() {
-		
+		this.getClientFacade().game = new Game();
+		//TODO: make random map generators in game.
 		getNewGameView().closeModal();
 	}
 

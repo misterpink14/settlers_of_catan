@@ -77,11 +77,11 @@ public class LoginController extends Controller implements ILoginController {
 				loginAction.execute();
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Login Failed");
+				JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "Login Failed");
 			}
 		}
 		catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "An error occured");
+			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "An error occured");
 		}
 	}
 

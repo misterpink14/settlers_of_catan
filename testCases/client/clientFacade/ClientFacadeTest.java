@@ -40,7 +40,7 @@ public class ClientFacadeTest {
 	}
 
 	@Test
-	public void testRollDice() {
+	public void testRollDice() throws Exception {
 		assertTrue(!facade.rollDice().equals("False"));
 	}
 
@@ -50,7 +50,7 @@ public class ClientFacadeTest {
 	}
 
 	@Test
-	public void testBuildRoad() {
+	public void testBuildRoad() throws Exception {
 		assertTrue(facade.buildRoad(0, 0, "NE", 1).equals("False"));
 	}
 
@@ -60,7 +60,7 @@ public class ClientFacadeTest {
 	}
 
 	@Test
-	public void testBuildCity() {
+	public void testBuildCity() throws Exception {
 		assertTrue(facade.buildCity(0, 0, "NE", 1).equals("False"));
 	}
 
@@ -70,7 +70,7 @@ public class ClientFacadeTest {
 	}
 
 	@Test
-	public void testBuildSettlement() {
+	public void testBuildSettlement() throws Exception {
 		assertTrue(facade.buildSettlement(0, 0, "NE", 1).equals("False"));
 	}
 
@@ -80,22 +80,22 @@ public class ClientFacadeTest {
 	}
 
 	@Test
-	public void testBuyDevCard() {
+	public void testBuyDevCard() throws Exception {
 		assertTrue(facade.buyDevCard().equals("False"));
 	}
 
 	@Test
-	public void testOfferTrade() {
+	public void testOfferTrade() throws Exception {
 		assertTrue(!facade.offerTrade().equals("False"));
 	}
 
 	@Test
-	public void testTradeHarbor() {
+	public void testTradeHarbor() throws Exception {
 		assertTrue(!facade.tradeHarbor().equals("False"));
 	}
 
 	@Test
-	public void testFinishTurn() {
+	public void testFinishTurn() throws Exception {
 		assertTrue(facade.finishTurn().equals("False"));
 	}
 
