@@ -2,6 +2,8 @@ package shared.models;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
@@ -20,7 +22,7 @@ import shared.models.playerClasses.TurnManager;
  * @author Stephen Snyder
  *
  */
-public class Game 
+public class Game extends Observable
 {	
 	/**The current state of this game*/
 	GameState gameState;
@@ -46,7 +48,8 @@ public class Game
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
-	public Game() {
+	public Game() 
+	{
 		this.gameState = GameState.LOGIN;
 		this.map = new Map();
 		this.bank = new Bank();
@@ -58,7 +61,8 @@ public class Game
 	}
 	
 	public Game(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
-			int currentTurn, boolean hasPlayedDevCard, int winner) {
+			int currentTurn, boolean hasPlayedDevCard, int winner) 
+	{
 		this.map = map;
 		this.bank = bank;
 		this.cardDeck = cardDeck;
@@ -68,6 +72,13 @@ public class Game
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+	}
+	
+	
+	
+	public void addObserver(Observer o)
+	{
+		super.addObserver(o);
 	}
 
 	
@@ -83,6 +94,7 @@ public class Game
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+		this.notifyObservers();
 	}
 	
 	
