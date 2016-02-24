@@ -65,6 +65,10 @@ public class RealProxy implements ProxyInterface {
 		directions.put("South", "S");
 		directions.put("SouthEast", "SE");
 	}
+	
+	public String getUserCookie() {
+		return usercookie;
+	}
 	/**
 	 * This function will call the server API at 
 	 * user / login
