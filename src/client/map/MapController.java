@@ -6,6 +6,7 @@ import shared.definitions.*;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
+import client.map.state.MapStateInterface;
 
 
 /**
@@ -14,6 +15,7 @@ import client.data.*;
 public class MapController extends Controller implements IMapController {
 	
 	private IRobView robView;
+	private MapStateInterface state;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -24,18 +26,42 @@ public class MapController extends Controller implements IMapController {
 		initFromModel();
 	}
 	
-	public IMapView getView() {
-		
+	
+	
+// SETTERS
+	public void setState (MapStateInterface state)
+	{
+		this.state = state;
+	}
+	
+	
+	private void setRobView(IRobView robView) 
+	{
+		this.robView = robView;
+	}
+	
+	
+	
+// GETTERS
+	public MapStateInterface getState ()
+	{
+		return this.state;
+	}
+	
+	
+	public IMapView getView()
+	{
 		return (IMapView)super.getView();
 	}
+	
 	
 	private IRobView getRobView() {
 		return robView;
 	}
-	private void setRobView(IRobView robView) {
-		this.robView = robView;
-	}
 	
+	
+	
+// Protected METHODS
 	protected void initFromModel() {
 		
 		//<temp>
@@ -103,13 +129,16 @@ public class MapController extends Controller implements IMapController {
 		//</temp>
 	}
 
-	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		
+	
+	
+// Public METHODS
+	public boolean canPlaceRoad(EdgeLocation edgeLoc) 
+	{
 		return true;
 	}
 
-	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		
+	public boolean canPlaceSettlement(VertexLocation vertLoc) 
+	{
 		return true;
 	}
 
@@ -123,8 +152,8 @@ public class MapController extends Controller implements IMapController {
 		return true;
 	}
 
-	public void placeRoad(EdgeLocation edgeLoc) {
-		
+	public void placeRoad(EdgeLocation edgeLoc) 
+	{
 		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
 	}
 
