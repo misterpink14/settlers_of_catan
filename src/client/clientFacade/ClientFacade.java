@@ -42,9 +42,9 @@ public class ClientFacade {
 	 * and create the user.
 	 * @return Returns status from proxy
 	 */
-	public String createPlayer() {
+	public String createPlayer(Credentials cred) {
 		try {
-			return proxy.registerUser(new Credentials());
+			return proxy.registerUser(cred);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

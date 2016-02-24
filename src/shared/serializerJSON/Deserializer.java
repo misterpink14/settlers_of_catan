@@ -536,6 +536,11 @@ public class Deserializer {
 		desCurrentTurn = jsonTurnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
 	}
 	
+	/**
+	 * Parses a list of games and returns game objects in a list that are usable by the client. The Join Game controller uses this.
+	 * @param gamesListString
+	 * @return A list of GameInfo objects
+	 */
 	public GameInfo[] deserializeGamesList(String gamesListString) {
 		JsonParser parser = new JsonParser();
 		//add a name to the array so I can make it a json array

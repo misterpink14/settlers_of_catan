@@ -89,7 +89,7 @@ public class LoginController extends Controller implements ILoginController {
 	public void register() {
 		
 		Credentials cred = new Credentials(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
-		
+		this.getClientFacade().createPlayer(cred);
 		// If register succeeded
 		getLoginView().closeModal();
 		loginAction.execute();
