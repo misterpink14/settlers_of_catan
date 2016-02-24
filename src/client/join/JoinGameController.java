@@ -1,5 +1,6 @@
 package client.join;
 
+import shared.communication.proxy.CreateGameRequestParams;
 import shared.definitions.CatanColor;
 import shared.models.Game;
 import shared.serializerJSON.Deserializer;
@@ -121,9 +122,18 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void createNewGame() {
-		this.getClientFacade().game = new Game();
-		//TODO: make random map generators in game.
-		getNewGameView().closeModal();
+		CreateGameRequestParams newGame = new CreateGameRequestParams();
+		newGame.name = this.getNewGameView().getTitle();
+		newGame.randomNumbers = this.getNewGameView().getRandomlyPlaceNumbers();
+		newGame.randomPorts = this.getNewGameView().getUseRandomPorts();
+		newGame.randomTiles = this.getNewGameView().getRandomlyPlaceHexes();
+		try {
+			this.getClientFacade().createGame(newGame);
+			getNewGameView().closeModal();
+			this.start();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((NewGameView)this.getNewGameView(), "An error occurred while trying to create your game");
+		}
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.BuildSettlement;
 import shared.communication.proxy.BuyDevCard;
+import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.Credentials;
 import shared.communication.proxy.FinishTurn;
 import shared.communication.proxy.MaritimeTrade;
@@ -328,5 +329,13 @@ public class ClientFacade {
 //			//throw new Exception();
 //		}
 //		return "False";
+	}
+
+	/**
+	 * creates a new game
+	 * @throws Exception 
+	 */
+	public void createGame(CreateGameRequestParams params) throws Exception {
+		this.proxy.createGame(params);
 	}
 }

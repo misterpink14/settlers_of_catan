@@ -31,7 +31,7 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testCreatePlayer() {
-		assertTrue(!facade.createPlayer().equals("False"));
+		assertTrue(!facade.createPlayer(new Credentials()).equals("False"));
 	}
 
 	@Test

@@ -562,6 +562,11 @@ public class Deserializer {
 				//build a json player and add it to a list for the game info object
 				JsonObject jsonPlayer = players.get(j).getAsJsonObject();
 				PlayerInfo player = new PlayerInfo();
+				//The player array might not have four players so skip any empty objects
+				if(!jsonPlayer.has("id")) {
+					continue;
+				}
+				
 				player.setId(jsonPlayer.get("id").getAsInt());
 				player.setName(jsonPlayer.get("name").getAsString());
 				player.setColor(CatanColor.valueOf(jsonPlayer.get("color").getAsString().toUpperCase()));
