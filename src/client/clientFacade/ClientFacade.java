@@ -17,9 +17,11 @@ import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.locations.HexLocation;
 import shared.models.Game;
 import shared.models.UserManager.User;
 import shared.models.cardClasses.InsufficientCardNumberException;
+import shared.models.mapClasses.Hex;
 
 /** ClientFacade class
  * 
@@ -350,5 +352,14 @@ public class ClientFacade {
 	 */
 	public String getUserData() {
 		return proxy.getUserCookie();
+	}
+	
+	/**
+	 * Get the hex from a coordinate
+	 * @param HexLocation
+	 * @return
+	 */
+	public Hex getHex(HexLocation loc) {
+		return this.game.getHex(loc);
 	}
 }
