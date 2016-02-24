@@ -6,7 +6,7 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 
-public class OutdatedState implements MapStateInterface {
+public class WaitingState implements MapStateInterface {
 
 	@Override
 	public void initFromModel() throws Exception {
