@@ -9,6 +9,7 @@ import shared.communication.proxy.*;
  */
 public interface ProxyInterface {
 
+	public String getUserCookie();
 	/**
 	 * This function will call the server API at 
 	 * user / login
