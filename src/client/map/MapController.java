@@ -6,16 +6,18 @@ import shared.definitions.*;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
+import client.map.state.BaseState;
+import client.map.state.LoginState;
 import client.map.state.MapStateInterface;
 
 
 /**
- * Implementation for the map controller
+ * Implementation for the map controller // TODO figure out flow of state changes
  */
 public class MapController extends Controller implements IMapController {
 	
 	private IRobView robView;
-	private MapStateInterface state;
+	private BaseState state;
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -24,12 +26,15 @@ public class MapController extends Controller implements IMapController {
 		setRobView(robView);
 		
 		initFromModel();
+		
+		state = new LoginState(this.getView());
+		
 	}
 	
 	
 	
 // SETTERS
-	public void setState (MapStateInterface state)
+	public void setState (BaseState state)
 	{
 		this.state = state;
 	}
@@ -43,7 +48,7 @@ public class MapController extends Controller implements IMapController {
 	
 	
 // GETTERS
-	public MapStateInterface getState ()
+	public BaseState getState ()
 	{
 		return this.state;
 	}

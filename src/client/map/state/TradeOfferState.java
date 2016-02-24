@@ -2,9 +2,9 @@ package client.map.state;
 
 import client.map.IMapView;
 
-public class WaitingState extends BaseState {
+public class TradeOfferState extends WaitingState {
 
-	public WaitingState(IMapView view) {
+	public TradeOfferState(IMapView view) {
 		super(view);
 		// TODO Auto-generated constructor stub
 	}
