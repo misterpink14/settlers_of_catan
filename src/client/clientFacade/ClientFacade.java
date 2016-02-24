@@ -11,6 +11,7 @@ import shared.communication.proxy.BuyDevCard;
 import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.Credentials;
 import shared.communication.proxy.FinishTurn;
+import shared.communication.proxy.JoinGameRequestParams;
 import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
@@ -64,6 +65,18 @@ public class ClientFacade {
 			e.printStackTrace();
 		}
 		return "False";
+	}
+	
+	/**
+	 * creates a new game
+	 * @throws Exception 
+	 */
+	public String createGame(CreateGameRequestParams params) throws Exception {
+		return this.proxy.createGame(params);
+	}
+	
+	public String joinGame(JoinGameRequestParams params) throws Exception {
+		return proxy.joinGame(params);
 	}
 	
 	/** This function will query the model to make sure
@@ -330,12 +343,12 @@ public class ClientFacade {
 //		}
 //		return "False";
 	}
-
+	
 	/**
-	 * creates a new game
-	 * @throws Exception 
+	 * gets an object with the information about the current user.
+	 * @return
 	 */
-	public void createGame(CreateGameRequestParams params) throws Exception {
-		this.proxy.createGame(params);
+	public String getUserData() {
+		return proxy.getUserCookie();
 	}
 }

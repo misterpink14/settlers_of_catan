@@ -1,11 +1,16 @@
 package client.join;
 
 import shared.communication.proxy.CreateGameRequestParams;
+import shared.communication.proxy.JoinGameRequestParams;
 import shared.definitions.CatanColor;
 import shared.models.Game;
 import shared.serializerJSON.Deserializer;
 
 import javax.swing.JOptionPane;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.sun.javafx.scene.paint.GradientUtils.Parser;
 
 import client.base.*;
 import client.data.*;
@@ -21,6 +26,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	private ISelectColorView selectColorView;
 	private IMessageView messageView;
 	private IAction joinAction;
+	private JoinGameRequestParams params;
 	
 	/**
 	 * JoinGameController constructor
@@ -96,7 +102,12 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void start() {
 		this.getClientFacade();
-		PlayerInfo loginUser = new PlayerInfo(); 
+		PlayerInfo loginUser = new PlayerInfo();
+		JsonParser parser = new JsonParser();
+		JsonObject loginUserJson = parser.parse(this.getClientFacade().getUserData()).getAsJsonObject();
+		loginUser.setId(loginUserJson.get("playerID").getAsInt());
+		loginUser.setName(loginUserJson.get("name").getAsString());
+		
 		String gamesString;
 		try {
 			gamesString = this.getClientFacade().getGamesList();
@@ -138,7 +149,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void startJoinGame(GameInfo game) {
-
+		params = new JoinGameRequestParams();
+		params.id = game.getId();
 		getSelectColorView().showModal();
 	}
 
@@ -149,12 +161,18 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	}
 
 	@Override
-	public void joinGame(CatanColor color) {
-		
-		// If join succeeded
-		getSelectColorView().closeModal();
-		getJoinGameView().closeModal();
-		joinAction.execute();
+	public void joinGame(CatanColor color) {		
+		params.color = color.toString().toLowerCase();
+		try {
+			String result = getClientFacade().joinGame(params);
+			if(result.equals("Success")) {
+				getSelectColorView().closeModal();
+				getJoinGameView().closeModal();
+				joinAction.execute();
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((SelectColorView) this.getSelectColorView(), "Failed to Join the Game");
+		}
 	}
 
 }
