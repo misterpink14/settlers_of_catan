@@ -2,13 +2,18 @@ package shared.serializerJSON;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.stream.JsonReader;
 
 import client.data.GameInfo;
+import client.data.PlayerInfo;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.HexType;
@@ -532,6 +537,34 @@ public class Deserializer {
 	}
 	
 	public GameInfo[] deserializeGamesList(String gamesListString) {
-		return new GameInfo[4];
+		JsonParser parser = new JsonParser();
+		//add a name to the array so I can make it a json array
+		gamesListString = "{\"games\":".concat(gamesListString) + "}";
+		JsonObject gameModelJson = parser.parse(gamesListString).getAsJsonObject();
+		JsonArray games = gameModelJson.getAsJsonArray("games");
+		GameInfo[] gameList = new GameInfo[games.size()];
+		//for each json game
+		for(int i = 0; i < games.size(); i++) {
+			//build a json object
+			JsonObject jsonGame = games.get(i).getAsJsonObject();
+			GameInfo game = new GameInfo();
+			game.setTitle(jsonGame.get("title").getAsString());
+			game.setId(jsonGame.get("id").getAsInt());
+			//split players into a json array
+			JsonArray players = jsonGame.getAsJsonArray("players");
+			//for each player
+			for(int j = 0; j < players.size(); j++) {
+				//build a json player and add it to a list for the game info object
+				JsonObject jsonPlayer = players.get(j).getAsJsonObject();
+				PlayerInfo player = new PlayerInfo();
+				player.setId(jsonPlayer.get("id").getAsInt());
+				player.setName(jsonPlayer.get("name").getAsString());
+				player.setColor(CatanColor.valueOf(jsonPlayer.get("color").getAsString().toUpperCase()));
+				player.setPlayerIndex(j);
+				game.addPlayer(player);
+			}
+			gameList[i] = game;
+		}		
+		return gameList;
 	}
 }
