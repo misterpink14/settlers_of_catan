@@ -67,7 +67,9 @@ public class RealProxy implements ProxyInterface {
 	}
 	
 	public String getUserCookie() {
-		return usercookie;
+		@SuppressWarnings("deprecation")
+		String decodedUserCookie = URLDecoder.decode(usercookie.substring(11));
+		return decodedUserCookie;
 	}
 	/**
 	 * This function will call the server API at 
