@@ -1,6 +1,8 @@
 package client.join;
 
 import client.base.*;
+import shared.definitions.GameState;
+import shared.observers.PlayerWaitingObserver;
 
 
 /**
@@ -8,9 +10,11 @@ import client.base.*;
  */
 public class PlayerWaitingController extends Controller implements IPlayerWaitingController {
 
+	PlayerWaitingObserver obs;
+	
 	public PlayerWaitingController(IPlayerWaitingView view) {
-
 		super(view);
+		obs = new PlayerWaitingObserver(this);
 	}
 
 	@Override
@@ -21,7 +25,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 	@Override
 	public void start() {
-		
+		this.getClientFacade().game.addObserver(obs);
 		getView().showModal();
 	}
 
@@ -30,6 +34,12 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 		// TEMPORARY
 		getView().closeModal();
+	}
+	
+	public void update(GameState state) {
+		if(state == GameState.SETUP1) {
+			this.getView().closeModal();
+		}
 	}
 
 }

@@ -8,7 +8,6 @@ import client.base.*;
 import client.data.*;
 import client.map.state.BaseState;
 import client.map.state.LoginState;
-import client.map.state.MapStateInterface;
 
 
 /**
