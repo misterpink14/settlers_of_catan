@@ -70,7 +70,7 @@ public class Catan extends JFrame
 				//Each controller calls this.getClientFacade when they need to access it
 				Game game = new Game();
 				ProxyInterface proxy = new RealProxy("http://localhost:8081");
-				ClientFacade clientFacade = new ClientFacade(game, proxy);
+				ClientFacade.getInstance().setup(game, proxy);
 				
 				
 				PlayerWaitingView playerWaitingView = new PlayerWaitingView();

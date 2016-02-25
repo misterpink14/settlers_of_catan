@@ -33,23 +33,27 @@ public class ClientFacade {
 	
 	public static ClientFacade instance;
 	
-	User clientUser;
-	public Game game;
+	static User clientUser;
+	public  Game game;
 	public ProxyInterface proxy;
 	private ServerPoller poller;
 	
-	public ClientFacade(Game game, ProxyInterface proxy) {
-		this.game = game;
-		this.proxy = proxy;
-		instance = new ClientFacade(game, proxy);
-	}
+	public ClientFacade() {}
 	
 	public static ClientFacade getInstance() {
+		if(instance == null) {
+			instance = new ClientFacade();
+		}
 		return instance;
 	}
 	
+	public void setup(Game game, ProxyInterface proxy) {
+		this.game = game;
+		this.proxy = proxy;
+	}
+	
 	public void startPoller() {
-		this.poller = new ServerPoller(game, proxy, 1000);
+		poller = new ServerPoller(game, proxy, 1000);
 	}
 
 	/**
