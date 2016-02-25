@@ -7,9 +7,13 @@ import client.clientFacade.ClientFacade;
 import client.login.*;
 import client.join.*;
 import client.misc.*;
+import client.roll.RollController;
+import client.roll.RollView;
 import client.serverPoller.ServerPoller;
 import client.serverProxy.ProxyInterface;
 import client.serverProxy.RealProxy;
+import client.turntracker.TurnTrackerController;
+import client.turntracker.TurnTrackerView;
 import shared.models.Game;
 import client.base.*;
 
@@ -32,7 +36,6 @@ public class Catan extends JFrame
 		
 		catanPanel = new CatanPanel();
 		this.setContentPane(catanPanel);
-		
 		display();
 	}
 	
@@ -74,7 +77,6 @@ public class Catan extends JFrame
 				final PlayerWaitingController playerWaitingController = new PlayerWaitingController(
 																									playerWaitingView);
 				playerWaitingView.setController(playerWaitingController);
-				playerWaitingController.setClientFacade(clientFacade);
 				
 				JoinGameView joinView = new JoinGameView();
 				NewGameView newGameView = new NewGameView();
@@ -85,7 +87,6 @@ public class Catan extends JFrame
 																				 newGameView,
 																				 selectColorView,
 																				 joinMessageView);
-				joinController.setClientFacade(clientFacade);
 				joinController.setJoinAction(new IAction() {
 					@Override
 					public void execute()
@@ -103,7 +104,6 @@ public class Catan extends JFrame
 				LoginController loginController = new LoginController(
 																	  loginView,
 																	  loginMessageView);
-				loginController.setClientFacade(clientFacade);
 				loginController.setLoginAction(new IAction() {
 					@Override
 					public void execute()
@@ -118,6 +118,5 @@ public class Catan extends JFrame
 			}
 		});
 	}
-	
 }
 

@@ -1,6 +1,9 @@
 package client.roll;
 
+import javax.swing.JOptionPane;
+
 import client.base.*;
+import client.clientFacade.ClientFacade;
 
 
 /**
@@ -36,8 +39,13 @@ public class RollController extends Controller implements IRollController {
 	
 	@Override
 	public void rollDice() {
-
-		getResultView().showModal();
+		try {
+			String roll = ClientFacade.getInstance().rollDice();
+			getResultView().setRollValue(Integer.parseInt(roll));
+			getResultView().showModal();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((RollView)this.getRollView(), "There was an error when rolling the dice");
+		}
 	}
 
 }

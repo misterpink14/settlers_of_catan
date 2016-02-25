@@ -109,6 +109,11 @@ public class Game extends Observable
 	{
 		super.addObserver(o);
 	}
+	
+	@Override
+	public void deleteObserver(Observer o) {
+		super.deleteObserver(o);
+	}
 
 	
 

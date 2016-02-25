@@ -3,6 +3,7 @@ package client.login;
 import javax.swing.JOptionPane;
 
 import client.base.*;
+import client.clientFacade.ClientFacade;
 import client.misc.*;
 import shared.communication.proxy.Credentials;
 
@@ -70,7 +71,7 @@ public class LoginController extends Controller implements ILoginController {
 		Credentials cred = new Credentials(getLoginView().getLoginUsername(), getLoginView().getLoginPassword());
 		
 		try {
-			String result = this.getClientFacade().login(cred);
+			String result = ClientFacade.getInstance().login(cred);
 			// If log in succeeded
 			if(result.equals("Success")) {
 				getLoginView().closeModal();
@@ -88,7 +89,7 @@ public class LoginController extends Controller implements ILoginController {
 	@Override
 	public void register() {
 		Credentials cred = new Credentials(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
-		String result = this.getClientFacade().createPlayer(cred);
+		String result = ClientFacade.getInstance().createPlayer(cred);
 		if(result.equals("Success")) {
 			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "You are now registered and can sign in!");
 		}

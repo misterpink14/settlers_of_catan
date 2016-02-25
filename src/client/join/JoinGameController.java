@@ -13,6 +13,7 @@ import com.google.gson.JsonParser;
 import com.sun.javafx.scene.paint.GradientUtils.Parser;
 
 import client.base.*;
+import client.clientFacade.ClientFacade;
 import client.data.*;
 import client.misc.*;
 
@@ -101,16 +102,15 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
-		this.getClientFacade();
 		PlayerInfo loginUser = new PlayerInfo();
 		JsonParser parser = new JsonParser();
-		JsonObject loginUserJson = parser.parse(this.getClientFacade().getUserData()).getAsJsonObject();
+		JsonObject loginUserJson = parser.parse(ClientFacade.getInstance().getUserData()).getAsJsonObject();
 		loginUser.setId(loginUserJson.get("playerID").getAsInt());
 		loginUser.setName(loginUserJson.get("name").getAsString());
 		
 		String gamesString;
 		try {
-			gamesString = this.getClientFacade().getGamesList();
+			gamesString = ClientFacade.getInstance().getGamesList();
 			GameInfo[] games = Deserializer.getInstance().deserializeGamesList(gamesString);
 			this.getJoinGameView().setGames(games, loginUser);
 			getJoinGameView().showModal();
@@ -139,7 +139,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		newGame.randomPorts = this.getNewGameView().getUseRandomPorts();
 		newGame.randomTiles = this.getNewGameView().getRandomlyPlaceHexes();
 		try {
-			this.getClientFacade().createGame(newGame);
+			ClientFacade.getInstance().createGame(newGame);
 			getNewGameView().closeModal();
 			this.start();
 		} catch (Exception e) {
@@ -164,7 +164,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	public void joinGame(CatanColor color) {		
 		params.color = color.toString().toLowerCase();
 		try {
-			String result = getClientFacade().joinGame(params);
+			String result = ClientFacade.getInstance().joinGame(params);
 			if(result.equals("Success")) {
 				getSelectColorView().closeModal();
 				getJoinGameView().closeModal();

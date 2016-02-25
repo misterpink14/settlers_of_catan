@@ -26,15 +26,5 @@ public abstract class Controller implements IController
 	{
 		return this.view;
 	}
-	
-	public void setClientFacade(ClientFacade clientFacade) 
-	{
-		this.clientFacade = clientFacade;
-	}
-	
-	public ClientFacade getClientFacade() 
-	{
-		return this.clientFacade;
-	}
 }
 

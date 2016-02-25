@@ -1,6 +1,7 @@
 package client.join;
 
 import client.base.*;
+import client.clientFacade.ClientFacade;
 import shared.definitions.GameState;
 import shared.observers.PlayerWaitingObserver;
 
@@ -24,8 +25,8 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 	@Override
 	public void start() {
-		this.getClientFacade().game.addObserver(obs);
-		this.getClientFacade().startPoller();
+		ClientFacade.getInstance().game.addObserver(obs);
+		ClientFacade.getInstance().startPoller();
 		getView().showModal();
 	}
 
@@ -37,8 +38,10 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	}
 	
 	public void update(GameState state) {
+		//if the game has four players, we create a turn tracker to start the game!
 		if(state == GameState.SETUP1) {
-			this.getView().closeModal();
+			this.getView().closeModal();	
+			ClientFacade.getInstance().game.deleteObserver(obs);
 		}
 	}
 

@@ -31,6 +31,8 @@ import shared.models.mapClasses.Hex;
  */
 public class ClientFacade {
 	
+	public static ClientFacade instance;
+	
 	User clientUser;
 	public Game game;
 	public ProxyInterface proxy;
@@ -39,6 +41,11 @@ public class ClientFacade {
 	public ClientFacade(Game game, ProxyInterface proxy) {
 		this.game = game;
 		this.proxy = proxy;
+		instance = new ClientFacade(game, proxy);
+	}
+	
+	public static ClientFacade getInstance() {
+		return instance;
 	}
 	
 	public void startPoller() {
