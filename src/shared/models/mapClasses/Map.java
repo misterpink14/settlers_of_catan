@@ -232,6 +232,10 @@ public class Map
 		return false;
 	}
 	
+	public Hex getHex(HexLocation loc) {
+		return this.Hexes.getHex(loc);
+	}
+	
 	
 	
 // Private METHOD
