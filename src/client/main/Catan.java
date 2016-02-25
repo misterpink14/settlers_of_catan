@@ -28,6 +28,12 @@ public class Catan extends JFrame
 	
 	public Catan()
 	{
+		//We use the client facade to hold our model and make calls to the server
+		//We pass in the client facade to each controller
+		//Each controller calls this.getClientFacade when they need to access it
+		Game game = new Game();
+		ProxyInterface proxy = new RealProxy("http://localhost:8081");
+		ClientFacade.getInstance().setup(game, proxy);
 		
 		client.base.OverlayView.setWindow(this);
 		
@@ -63,15 +69,7 @@ public class Catan extends JFrame
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run()
 			{
-				new Catan();
-				
-				//We use the client facade to hold our model and make calls to the server
-				//We pass in the client facade to each controller
-				//Each controller calls this.getClientFacade when they need to access it
-				Game game = new Game();
-				ProxyInterface proxy = new RealProxy("http://localhost:8081");
-				ClientFacade.getInstance().setup(game, proxy);
-				
+				new Catan();				
 				
 				PlayerWaitingView playerWaitingView = new PlayerWaitingView();
 				final PlayerWaitingController playerWaitingController = new PlayerWaitingController(

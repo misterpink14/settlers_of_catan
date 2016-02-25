@@ -38,6 +38,7 @@ public class LeftPanel extends JPanel {
 		turnView = new TurnTrackerView(titlePanel, gameStatePanel);
 		turnController = new TurnTrackerController(turnView);
 		turnView.setController(turnController);
+		turnController.setObserver();
 		
 //		gameStatePanel.setController(turnController);
 		
