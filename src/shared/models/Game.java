@@ -48,6 +48,8 @@ public class Game extends Observable
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
+	
+// CONSTRUCTORS
 	public Game() 
 	{
 		this.gameState = GameState.LOGIN;
@@ -75,14 +77,34 @@ public class Game extends Observable
 	}
 	
 	
+// GETTERS
+	public GameState getGameState()
+	{
+		return this.gameState;
+	}
 	
+	
+	public GamePlayers getPlayers() {
+		return players;
+	}
+	
+	
+	public TurnManager getTurnManager() {
+		return turnManager;
+	}
+	
+
+
+// OBSERVER
+	@Override
 	public void addObserver(Observer o)
 	{
 		super.addObserver(o);
 	}
 
 	
-	
+
+// Public METHODS
 	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
 			int currentTurn, boolean hasPlayedDevCard, int winner) {
 		this.map = map;
@@ -96,15 +118,6 @@ public class Game extends Observable
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 		this.setChanged();
 		this.notifyObservers();
-	}
-	
-	
-	public GamePlayers getPlayers() {
-		return players;
-	}
-	
-	public TurnManager getTurnManager() {
-		return turnManager;
 	}
 	
 	public boolean isTurn(int playerIndex) {

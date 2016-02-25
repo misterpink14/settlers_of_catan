@@ -1,8 +1,9 @@
-package client.map;
+package shared.observers;
 
 import java.util.Observable;
 import java.util.Observer;
 
+import client.map.MapController;
 import shared.models.Game;
 
 public class MapObserver implements Observer 
@@ -16,7 +17,8 @@ public class MapObserver implements Observer
 
 	@Override
 	public void update(Observable o, Object arg) {
-		mapController.initFromModel();
+		Game g = (Game)o;
+		mapController.update(g.getGameState());
 	}
 
 }

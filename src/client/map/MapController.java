@@ -66,6 +66,12 @@ public class MapController extends Controller implements IMapController {
 	
 	
 // Protected METHODS
+	public void update(GameState state)
+	{
+		// handle the state
+		this.initFromModel();
+	}
+	
 	protected void initFromModel() {
 		
 		//<temp>
