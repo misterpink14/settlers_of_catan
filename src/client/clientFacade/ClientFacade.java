@@ -3,6 +3,7 @@ package client.clientFacade;
 import java.util.HashMap;
 import java.util.List;
 
+import client.serverPoller.ServerPoller;
 import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -33,10 +34,15 @@ public class ClientFacade {
 	User clientUser;
 	public Game game;
 	public ProxyInterface proxy;
+	private ServerPoller poller;
 	
 	public ClientFacade(Game game, ProxyInterface proxy) {
 		this.game = game;
 		this.proxy = proxy;
+	}
+	
+	public void startPoller() {
+		this.poller = new ServerPoller(game, proxy, 1000);
 	}
 
 	/**

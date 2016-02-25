@@ -87,13 +87,10 @@ public class LoginController extends Controller implements ILoginController {
 
 	@Override
 	public void register() {
-		
 		Credentials cred = new Credentials(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
 		String result = this.getClientFacade().createPlayer(cred);
 		if(result.equals("Success")) {
-			// If register succeeded
-			getLoginView().closeModal();
-			loginAction.execute();
+			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "You are now registered and can sign in!");
 		}
 		else {
 			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "You cannot register this name and password");

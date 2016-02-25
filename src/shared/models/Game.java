@@ -95,6 +95,12 @@ public class Game extends Observable
 		return turnManager;
 	}
 	
+	
+//SETTERS
+	public void setGameState(GameState state) {
+		this.gameState = state;
+	}
+	
 
 
 // OBSERVER
@@ -118,8 +124,18 @@ public class Game extends Observable
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+		updateState();
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	public void updateState() {
+		if(players.getNumberOfPlayers() < 4) {
+			setGameState(GameState.PLAYERWAITING);
+		}
+		else {
+			setGameState(GameState.SETUP1);
+		}
 	}
 	
 	public boolean isTurn(int playerIndex) {

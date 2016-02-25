@@ -7,6 +7,7 @@ import client.clientFacade.ClientFacade;
 import client.login.*;
 import client.join.*;
 import client.misc.*;
+import client.serverPoller.ServerPoller;
 import client.serverProxy.ProxyInterface;
 import client.serverProxy.RealProxy;
 import shared.models.Game;
@@ -73,6 +74,7 @@ public class Catan extends JFrame
 				final PlayerWaitingController playerWaitingController = new PlayerWaitingController(
 																									playerWaitingView);
 				playerWaitingView.setController(playerWaitingController);
+				playerWaitingController.setClientFacade(clientFacade);
 				
 				JoinGameView joinView = new JoinGameView();
 				NewGameView newGameView = new NewGameView();

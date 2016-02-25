@@ -19,13 +19,13 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 
 	@Override
 	public IPlayerWaitingView getView() {
-
 		return (IPlayerWaitingView)super.getView();
 	}
 
 	@Override
 	public void start() {
 		this.getClientFacade().game.addObserver(obs);
+		this.getClientFacade().startPoller();
 		getView().showModal();
 	}
 
