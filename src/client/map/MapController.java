@@ -7,11 +7,20 @@ import shared.locations.*;
 import client.base.*;
 import client.data.*;
 import client.map.state.BaseState;
+import client.map.state.EndOfGameState;
 import client.map.state.LoginState;
+import client.map.state.MyTurnState;
+import client.map.state.NotMyTurnState;
+import client.map.state.RobberState;
+import client.map.state.Setup1State;
+import client.map.state.Setup2State;
+import client.map.state.TradeAcceptState;
+import client.map.state.TradeOfferState;
+import client.map.state.WaitingState;
 
 
 /**
- * Implementation for the map controller // TODO figure out flow of state changes
+ * Implementation for the map controller
  */
 public class MapController extends Controller implements IMapController {
 	
@@ -36,6 +45,47 @@ public class MapController extends Controller implements IMapController {
 	public void setState (BaseState state)
 	{
 		this.state = state;
+	}
+	
+	
+	public void setState (GameState gameState) throws Exception
+	{
+		switch(gameState)
+		{
+			case LOGIN:
+			case JOINGAME:
+			case PLAYERWAITING:
+				this.state = new LoginState(this.getView());
+				break;
+			case SETUP1:
+				this.state = new Setup1State(this.getView());
+				break;
+			case SETUP2:
+				this.state = new Setup2State(this.getView());
+				break;
+			case MYTURN:
+				this.state = new MyTurnState(this.getView());
+				break;
+			case NOTMYTURN:
+				this.state = new NotMyTurnState(this.getView());
+				break;
+			case ROBBER:
+				this.state = new RobberState(this.getView(), this.getRobView());
+				break;
+			case TRADEOFFER:
+				this.state = new TradeOfferState(this.getView());
+				break;
+			case TRADEACCEPT:
+				this.state = new TradeAcceptState(this.getView());
+				break;
+			case OUTDATED:
+			case DISCARD:
+				this.state = new WaitingState(this.getView());
+				break;
+			case ENDOFGAME:
+				this.state = new EndOfGameState(this.getView());
+				break;
+		}
 	}
 	
 	
@@ -66,10 +116,14 @@ public class MapController extends Controller implements IMapController {
 	
 	
 // Protected METHODS
-	public void update(GameState state)
+	public void update(GameState gameState)
 	{
-		// handle the state
-		this.initFromModel();
+		try {
+			this.setState(gameState);
+			this.initFromModel();
+		} catch (Exception e) {
+			// Don't do anything if an Exception is thrown in setState
+		}
 	}
 	
 	protected void initFromModel() {
