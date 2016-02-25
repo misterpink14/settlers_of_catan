@@ -8,11 +8,13 @@ import java.util.Observer;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
+import shared.locations.HexLocation;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
+import shared.models.mapClasses.Hex;
 import shared.models.mapClasses.Map;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.TurnManager;
@@ -199,6 +201,10 @@ public class Game extends Observable
 	 */
 	public int versionID() {
 		return versionID;
+	}
+	
+	public Hex getHex(HexLocation loc) {
+		return this.map.getHex(loc);
 	}
 	
 	
