@@ -6,7 +6,6 @@ public class Setup2State extends Setup1State {
 
 	public Setup2State(IMapView view) {
 		super(view);
-		// TODO Auto-generated constructor stub
 	}
 
 }

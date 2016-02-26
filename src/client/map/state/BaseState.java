@@ -22,87 +22,71 @@ public class BaseState {
 	}
 	
 // Public METHODS
-	public void initFromModel() throws Exception {
-		// TODO Auto-generated method stub
+	public void initFromModel() {
 
 	}
 
 	
-	public boolean canPlaceRoad(EdgeLocation edgeLoc) throws Exception {
-		// TODO Auto-generated method stub
+	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
 		return false;
 	}
 
 
-	public boolean canPlaceSettlement(VertexLocation vertLoc) throws Exception {
-		// TODO Auto-generated method stub
+	public boolean canPlaceSettlement(VertexLocation vertLoc) {
 		return false;
 	}
 
 
-	public boolean canPlaceCity(VertexLocation vertLoc) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
-	public boolean canPlaceRobber(HexLocation hexLoc) throws Exception {
-		// TODO Auto-generated method stub
+	public boolean canPlaceCity(VertexLocation vertLoc) {
 		return false;
 	}
 
 	
-	public void placeRoad(EdgeLocation edgeLoc) throws Exception {
-		// TODO Auto-generated method stub
+	public boolean canPlaceRobber(HexLocation hexLoc) {
+		return false;
+	}
+
+	
+	public void placeRoad(EdgeLocation edgeLoc) {
 
 	}
 
 
-	public void placeSettlement(VertexLocation vertLoc) throws Exception {
-		// TODO Auto-generated method stub
+	public void placeSettlement(VertexLocation vertLoc) {
 
 	}
 
 
-	public void placeCity(VertexLocation vertLoc) throws Exception {
-		// TODO Auto-generated method stub
+	public void placeCity(VertexLocation vertLoc) {
 
 	}
 
 
-	public void placeRobber(HexLocation hexLoc) throws Exception {
-		// TODO Auto-generated method stub
+	public void placeRobber(HexLocation hexLoc) {
 
 	}
 
 
-	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) throws Exception {
-		// TODO Auto-generated method stub
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 
 	}
 
 
-	public void cancelMove() throws Exception {
-		// TODO Auto-generated method stub
+	public void cancelMove() {
 
 	}
 
 
-	public void playSoldierCard() throws Exception {
-		// TODO Auto-generated method stub
+	public void playSoldierCard() {
 
 	}
 
 
-	public void playRoadBuildingCard() throws Exception {
-		// TODO Auto-generated method stub
-
+	public void playRoadBuildingCard() {
 	}
 
 
-	public void robPlayer(RobPlayerInfo victim) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void robPlayer(RobPlayerInfo victim) {
 	}
 
 }

@@ -6,7 +6,6 @@ public class EndOfGameState extends WaitingState {
 
 	public EndOfGameState(IMapView view) {
 		super(view);
-		// TODO Auto-generated constructor stub
 	}
 
 }

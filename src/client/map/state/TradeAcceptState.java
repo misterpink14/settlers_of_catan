@@ -6,7 +6,6 @@ public class TradeAcceptState extends NotMyTurnState {
 
 	public TradeAcceptState(IMapView view) {
 		super(view);
-		// TODO Auto-generated constructor stub
 	}
 
 }
