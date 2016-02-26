@@ -9,4 +9,7 @@ public class WaitingState extends BaseState {
 		// TODO Auto-generated constructor stub
 	}
 
+	public void initFromModel() { 
+		return;
+	}
 }
