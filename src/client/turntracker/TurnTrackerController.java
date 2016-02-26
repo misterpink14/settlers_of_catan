@@ -25,7 +25,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		super(view);
 		obs = new TurnTrackerObserver(this);
 		state = GameState.LOGIN;
-		initFromModel();
 	}
 	
 	@Override
@@ -57,6 +56,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	}
 	
 	public void update(GameState state) {
+		initFromModel();
 		this.state = state;
 		if(state == GameState.SETUP1) {
 			this.getView().updateGameState("Game Setup", false);

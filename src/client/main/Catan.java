@@ -69,7 +69,7 @@ public class Catan extends JFrame
 				ProxyInterface proxy = new RealProxy("http://localhost:8081");
 				ClientFacade.getInstance().setup(game, proxy);
 				
-				final Catan loginWindow = new Catan();				
+				new Catan();				
 				
 				PlayerWaitingView playerWaitingView = new PlayerWaitingView();
 				final PlayerWaitingController playerWaitingController = new PlayerWaitingController(
@@ -89,8 +89,6 @@ public class Catan extends JFrame
 					@Override
 					public void execute()
 					{
-						loginWindow.dispose();
-						final Catan GameWindow = new Catan();
 						playerWaitingController.start();
 					}
 				});
