@@ -238,7 +238,12 @@ public class Map
 	}
 	
 	public Hex getHex(HexLocation loc) {
-		return this.Hexes.getHex(loc);
+		try {
+			return this.Hexes.getHex(loc);
+		}
+		catch (IndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 	
 	public Piece getEdge(EdgeLocation loc) {
