@@ -262,8 +262,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuyDevCard(int ownerId) {
-		if (!game.CanBuyDevCard(ownerId)) {
+	public boolean canBuyDevCard() {
+		if (!game.CanBuyDevCard(this.getUserData().getId())) {
 			return false;
 		}
 		return true;
@@ -275,7 +275,7 @@ public class ClientFacade {
 	 * @throws
 	 */
 	public String buyDevCard() throws Exception {
-		if (canBuyDevCard(this.getUserData().getId())) {
+		if (canBuyDevCard()) {
 			try {
 				return proxy.buyDevCard(new BuyDevCard());
 			} catch (Exception e) {

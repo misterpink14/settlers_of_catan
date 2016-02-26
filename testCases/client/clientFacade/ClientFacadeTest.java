@@ -24,7 +24,7 @@ public class ClientFacadeTest {
 		Game game = new Game();
 		deserializer.deserialize(game, json);
 		ClientFacade.getInstance().setup(game, new FakeProxy()); 
-		ClientFacade.getInstance().game.getTurnManager().startGame();
+		ClientFacade.getInstance().game.getTurnManager().startGame(1);
 	}
 
 	@Test
@@ -44,32 +44,32 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testCanBuildRoad() {
-		assertTrue(!ClientFacade.getInstance().canBuildRoad(0, 0, "NE", 1));
+		assertTrue(!ClientFacade.getInstance().canBuildRoad(0, 0, "NE"));
 	}
 
 	@Test
 	public void testBuildRoad() throws Exception {
-		assertTrue(ClientFacade.getInstance().buildRoad(0, 0, "NE", 1).equals("False"));
+		assertTrue(ClientFacade.getInstance().buildRoad(0, 0, "NE").equals("False"));
 	}
 
 	@Test
 	public void testCanBuildCity() {
-		assertTrue(!ClientFacade.getInstance().canBuildCity(0, 0, "NE", 1));
+		assertTrue(!ClientFacade.getInstance().canBuildCity(0, 0, "NE"));
 	}
 
 	@Test
 	public void testBuildCity() throws Exception {
-		assertTrue(ClientFacade.getInstance().buildCity(0, 0, "NE", 1).equals("False"));
+		assertTrue(ClientFacade.getInstance().buildCity(0, 0, "NE").equals("False"));
 	}
 
 	@Test
 	public void testCanBuildSettlement() {
-		assertTrue(!ClientFacade.getInstance().canBuildSettlement(0, 0, "NE", 1));
+		assertTrue(!ClientFacade.getInstance().canBuildSettlement(0, 0, "NE"));
 	}
 
 	@Test
 	public void testBuildSettlement() throws Exception {
-		assertTrue(ClientFacade.getInstance().buildSettlement(0, 0, "NE", 1).equals("False"));
+		assertTrue(ClientFacade.getInstance().buildSettlement(0, 0, "NE").equals("False"));
 	}
 
 	@Test
