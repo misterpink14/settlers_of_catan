@@ -16,26 +16,29 @@ import shared.models.mapClasses.Map;
 public class TurnManager {
 	/**This allows two random numbers between 1 and 6 to be generated at any time.*/
 	Dice dice;
+	
 	/**The map contains all information having to do with the board.*/
 	Map map;
+	
 	/**The bank contains all resource cards that do not belong to a player.*/
 	Bank bank;
+	
 	/**The cardDeck contains all the development cards not belonging to a player.*/
 	CardDeck cardDeck;
+	
 	/**The game players object holds four player objects that represent four clients that will connect
 	 * to the server.
 	 */
 	GamePlayers players;
+	
 	/**Stores the log for the game*/
 	GameLog log;
+	
 	/**The game chat object stores and retrieves the history of the chat log between players.*/
 	GameChat chat;
+	
 	/**The trade manager handles everything to do with trading in the game.*/
 	TradeManager tradeManager;
-	
-	/**This keeps track of the event that is being performed within the current turn*/
-	enum TurnState {ROLLING, ROBBING, DISCARDING, TRADING, NORMAL};
-	TurnState state;
 	
 	/**The index of the player whose turn it is.*/
 	int playerIndex = -1;
@@ -49,9 +52,13 @@ public class TurnManager {
 	/**This is set to true if the player has the largest army above 3 knight cards played*/
 	private int largestArmy = -1;
 	
+	
+	
+// CONSTRUCTORS
 	// temporarly error fix... haha
 	public TurnManager() {}
 	 
+	
 	/**This class keeps track of everything done during a players turn. It makes sure
 	 * nothing illegal is done.*/
 	public TurnManager(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat) {
@@ -62,6 +69,7 @@ public class TurnManager {
 		this.bank = bank;
 		hasPlayedDevCard = false;
 	}
+	
 	
 	//serialization
 	public TurnManager(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, int longestRoad, int largestArmy) {
@@ -75,45 +83,43 @@ public class TurnManager {
 		this.largestArmy = largestArmy;
 	}
 	
-	public void startGame() {
-		Random rand = new Random(System.currentTimeMillis());
-		playerIndex = rand.nextInt(4) + 1;
-		players.getPlayerByIndex(playerIndex).startTurn();
-		state = TurnState.ROLLING;
-		//TODO We will need to set up the new game by having players choose settlements.
-	}
 	
+// SETTERS
 	public void setCurrentTurn(int index) {
 		players.getPlayerByIndex(index).startTurn();
 		playerIndex = index;
 		this.hasPlayedDevCard = false;
-		state = TurnState.ROLLING;
 	}
+	
 	
 	public void setHasPlayedDevCard(boolean hpdc) {
 		this.hasPlayedDevCard = hpdc;
 	}
 	
-	public String getState() {
-		return state.toString();
+	
+	
+// METHODS
+	public void startGame() {
+		Random rand = new Random(System.currentTimeMillis());
+		playerIndex = rand.nextInt(4) + 1;
+		players.getPlayerByIndex(playerIndex).startTurn();
 	}
 	
-	public void setState(TurnState state) {
-		this.state = state;
-	}
-	  
+	
+	
 	/**
 	 * @return the id of the current player whose turn it is.
 	 */
 	public void nextTurn() {
 		playerIndex = this.players.finishTurn(playerIndex);
 		hasPlayedDevCard = false;
-		state = TurnState.ROLLING;
 	}
+	
 	
 	public boolean isTurn(int index) {
 		return players.getPlayerByIndex(index).isTurn();
 	}
+	
 	
 	/**
 	 * If the specified player can roll the dice, do so
@@ -122,125 +128,113 @@ public class TurnManager {
 	 */
 	public int rollDice() {
 		int roll = Dice.rollDice();
-		if(roll == 7) {
-			state = TurnState.DISCARDING;
-		}
-		else {
-			state = TurnState.NORMAL;
-		}
 		return roll;
 	}
 	
+	
 	public void buildRoad() throws InsufficientCardNumberException {
 		players.getPlayerByIndex(playerIndex).buyRoad();
-		//map.placeRoad
 	}
+
 	
 	public void buildSettlement() throws InsufficientCardNumberException {
 		players.getPlayerByIndex(playerIndex).buySettlement();
-		//map.placeSettlement
 	}
+	
 	
 	public void buildCity() throws InsufficientCardNumberException {
 		players.getPlayerByIndex(playerIndex).buyCity();
-		//map.placeCity
 	}
+	
 	
 	public void buyDevCard() throws InsufficientCardNumberException {
 		DevCardType card = cardDeck.drawCard();
 		players.getPlayerByIndex(playerIndex).buyDevCard(card);
 	}
 	
+	
 	public void playDevCard(DevCardType card) throws InsufficientCardNumberException {
 		hasPlayedDevCard = true;
 		players.getPlayerByIndex(playerIndex).playDevCard(card);
 	}
+	
 	
 	public TradeManager getTradeManager() {
 		return tradeManager;
 	}
 	
 	
-	//***********************************************************************************************************************************
-	//														Can Functions
-	//***********************************************************************************************************************************
 	
+//***********************************************************************************************************************************
+//														Can Functions
+//***********************************************************************************************************************************
 	public boolean CanDiscardCards(ResourceType type, int num) {
-		if(state != TurnState.DISCARDING) {
-			return false;
-		}
 		return players.getPlayerByIndex(playerIndex).canDiscardCards(type, num);
 	}
+	
+	
 	public boolean CanRollNumber() {
-		if(state != TurnState.ROLLING) {
-			return false;
-		}
 		return players.getPlayerByIndex(playerIndex).canRollDice();
 	}
+	
+	
 	public boolean CanBuildRoad(int x, int y, String direction, int ownerId) {
-		if(state != TurnState.NORMAL) {
-			return false;
-		}
 		return players.getPlayerByIndex(playerIndex).canBuildRoad() && map.canPlaceRoad(x, y, direction, ownerId);
 	}
+	
+	
 	public boolean CanBuildSettlement(int x, int y, String direction, int ownerId) {
-		if(state != TurnState.NORMAL) {
-			return false;
-		}
 		return players.getPlayerByIndex(playerIndex).canBuildSettlement() && map.canPlaceSettlement(x, y, direction, ownerId);
 	}
+	
+	
 	public boolean CanBuildCity(int x, int y, String direction, int ownerId) {
-		if(state != TurnState.NORMAL) {
-			return false;
-		}
 		return players.getPlayerByIndex(playerIndex).canBuildCity() && map.canPlaceCity(x, y, direction, ownerId);
 	}
+	
 	public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
-		if(state != TurnState.NORMAL) {
-			return false;
-		}
 		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
 	}
+	
+	
 	public boolean CanMaritimeTrade(int ownerId, ResourceType type) {
-		if(state != TurnState.NORMAL) {
-			return false;
-		}
 		return map.canMaritimeTrade(ownerId, type);
 	}
+	
+	
 	public boolean CanFinishTurn() {
-		if(state != TurnState.NORMAL) {
-			return false;
-		}
 		return true;
 	}
+	
+	
 	public boolean CanBuyDevCard() {
-		if(this.hasPlayedDevCard == true || state != TurnState.NORMAL) {
-			return false;
-		}
 		return players.getPlayerByIndex(playerIndex).canBuyDevCard();
 	}
+	
+	
 	public boolean CanPlayDevCard(DevCardType card) {
-		if(state != TurnState.NORMAL) {
-			return false;
-		}	
 		int numberOfCard = players.getPlayerByIndex(playerIndex).getNumOfDevCard(card);
 		if(numberOfCard > 0 && hasPlayedDevCard == false) {
 			return true;
 		}
 		return false;
 	}
+	
+	
 	public boolean CanPlaceRobber(int x, int y) {
-		if(state != TurnState.ROBBING) {
-			return false;
-		}
 		return this.map.canPlaceRobber(x, y);
 	}
+	
+	
 	public boolean CanSendChat() {
 		return true;
 	}
+	
+	
 	public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
-	}	
+	}
+	
 	
 	public String serialize() {
 		String json = "turnTracker: {status: Rolling, ";
