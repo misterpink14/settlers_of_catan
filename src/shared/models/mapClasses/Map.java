@@ -236,7 +236,23 @@ public class Map
 		return this.Hexes.getHex(loc);
 	}
 	
+	public Piece getEdge(EdgeLocation loc) {
+		try {
+			return this.Edges.getEdge(loc);
+		}
+		catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
 	
+	public Piece getVertex(VertexLocation loc) {
+		try {
+			return this.Vertexes.getPiece(loc);
+		}
+		catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
 	
 // Private METHOD
 	/**
