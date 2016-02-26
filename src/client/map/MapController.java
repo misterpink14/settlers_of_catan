@@ -57,7 +57,6 @@ public class MapController extends Controller implements IMapController {
 	
 	public void setState (GameState gameState)
 	{
-		System.out.println(gameState.toString());
 		switch(gameState)
 		{
 			case SETUP1:
