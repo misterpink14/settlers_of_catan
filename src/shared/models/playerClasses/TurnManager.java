@@ -83,6 +83,11 @@ public class TurnManager {
 		this.largestArmy = largestArmy;
 	}
 	
+// GETTERS
+	public int getPlayerIndex() {
+		return this.playerIndex;
+	}
+	
 	
 // SETTERS
 	public void setCurrentTurn(int index) {
