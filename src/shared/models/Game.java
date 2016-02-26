@@ -32,27 +32,36 @@ public class Game extends Observable
 {	
 	/**The current state of this game*/
 	GameState gameState;
+	
 	/**The map contains all information having to do with the board.*/
 	Map map;
+	
 	/**The bank contains all resource cards that do not belong to a player.*/
 	Bank bank;
+	
 	/**The cardDeck contains all the development cards not belonging to a player.*/
 	CardDeck cardDeck;
+	
 	/**The game players object holds four player objects that represent four clients that will connect
 	 * to the server.
 	 */
 	GamePlayers players;
+	
 	/**Stores the log for the game*/
 	GameLog log;
+	
 	/**The game chat object stores and retrieves the history of the chat log between players.*/
 	GameChat chat;
+	
 	/**The turn tracker manages trades between players*/
 	TurnManager turnManager;
+	
 	/**The index of the winner of the game*/
 	int winner = -1;
 	
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
+	
 	
 	
 // CONSTRUCTORS
@@ -83,6 +92,7 @@ public class Game extends Observable
 	}
 	
 	
+	
 // GETTERS
 	public GameState getGameState()
 	{
@@ -97,6 +107,14 @@ public class Game extends Observable
 	
 	public TurnManager getTurnManager() {
 		return turnManager;
+	}
+	
+	
+	/**
+	 * Returns the version ID so the poller and proxy can request the correct model JSON.
+	 */
+	public int getVersionID() {
+		return versionID;
 	}
 	
 	
@@ -140,21 +158,26 @@ public class Game extends Observable
 	
 	
 	// This is not done!!! -- Implement all the other possible states
-	public void updateState(String currentState) {
+	/**
+	 * Intelligently calculates the current state (based on the new model)
+	 * 
+	 * @param currentState
+	 */
+	public void updateState(String currentState) { // (String currentState, int currPlayer) {
 		
 		switch (currentState) 
-		{
+		{ 	// TODO: REMAINING -> OUTDATED, TRADEOFFER, TRADEACCEPT // TODO: not sure how these work // TODO: Also I need a way to get the currPlayer (the client's player index)
 			case "Rolling":
 			{
 				this.gameState = GameState.OUTDATED;
 			}
 			case "Robbing":
 			{
-				this.gameState = GameState.ROBBER;
+				this.gameState = GameState.ROBBER; // this.isTurn(currPlayer) ? GameState.ROBBER : GameState.NOTMYTURN
 			}
 			case "Playing":
 			{
-				this.gameState = GameState.MYTURN;
+				this.gameState = GameState.MYTURN; // this.winner != -1 ? GameState.ENDOFGAME : this.isTurn(currPlayer) ? GameState.MYTURN : GameState.NOTMYTURN
 			}
 			case "Discarding":
 			{
@@ -162,18 +185,20 @@ public class Game extends Observable
 			}
 			case "FirstRound":
 			{
-				this.gameState = GameState.SETUP1;
+				this.gameState = GameState.SETUP1; // this.isTurn(currPlayer) ? GameState.SETUP1 : GameState.NOTMYTURN
 			}
 			case "SecondRound":
 			{
-				this.gameState = GameState.SETUP2;
+				this.gameState = GameState.SETUP2; // this.isTurn(currPlayer) ? GameState.SETUP2 : GameState.NOTMYTURN
 			}
 		}
 	}
 	
+	
 	public boolean isTurn(int playerIndex) {
 		return turnManager.isTurn(playerIndex);
 	}
+	
 	
 	/**
 	 * If the specified player can roll the dice, do so
@@ -184,6 +209,7 @@ public class Game extends Observable
 		return turnManager.rollDice();
 	}
 
+	
 	/**
 	 * Trades a player's resources for a new road on the map. It must connect with another of the player's
 	 * roads, settlements, or cities.
@@ -193,6 +219,7 @@ public class Game extends Observable
 	public void buildRoad(int currPlayer) throws InsufficientCardNumberException {
 		turnManager.buildRoad(currPlayer);
 	}
+	
 	
 	/**
 	 * Trades a player's resources for a new settlement on the map. The player must have a road leading to the spot wanted.
@@ -204,6 +231,7 @@ public class Game extends Observable
 		turnManager.buildSettlement(currPlayer);
 	}
 	
+	
 	/**
 	 * Trades a player's resources for a new city on the map. The player must build it in place of an existing settlement.
 	 * @throws InsufficientCardNumberException 
@@ -212,6 +240,7 @@ public class Game extends Observable
 	public void buildCity(int currPlayer) throws InsufficientCardNumberException {
 		turnManager.buildCity(currPlayer);
 	}
+	
 	
 	/**
 	 * Trades a player's resources for a development card
@@ -222,6 +251,7 @@ public class Game extends Observable
 		turnManager.buyDevCard(currPlayer);
 	}
 	
+	
 	/**
 	 * Allows a player to move the robber in exchange for a Soldier Card
 	 * @throws InsufficientCardNumberException 
@@ -230,6 +260,7 @@ public class Game extends Observable
 	public void playDevCard(DevCardType type, int currPlayer) throws InsufficientCardNumberException {
 		turnManager.playDevCard(type, currPlayer);
 	}
+	
 	
 	/**
 	 * Allows a player to trade int resources with the bank. If the player has built on a port, benefits may apply.
@@ -249,6 +280,7 @@ public class Game extends Observable
 		}
 	}
 	
+	
 	/**
 	 * Allows a player to offer an exchange of resources to one or more other players
 	 * @throws InsufficientCardNumberException 
@@ -258,74 +290,95 @@ public class Game extends Observable
 		
 	}
 	
-	/**
-	 * Returns the version ID so the poller and proxy can request the correct model JSON.
-	 */
-	public int versionID() {
-		return versionID;
-	}
 	
 	public Hex getHex(HexLocation loc) {
 		return this.map.getHex(loc);
 	}
 	
+	
 	public Piece getEdge(EdgeLocation loc) {
 		return this.map.getEdge(loc);
 	}
+	
 	
 	public Piece getVertex(VertexLocation loc) {
 		return this.map.getVertex(loc);
 	}
 	
+	
 	public RobberLocation getRobberLocation() {
 		return this.map.getRobberLocation();
 	}
 	
+
+//***********************************************************************************************************************************
+//														Can Functions
+//***********************************************************************************************************************************
 	
-	//***********************************************************************************************************************************
-	//														Can Functions
-	//***********************************************************************************************************************************
-		
+
+	public boolean CanDiscardCards(ResourceType type, int num, int currPlayer) {
+		return turnManager.CanDiscardCards(type, num, currPlayer);
+	}
 	
-		public boolean CanDiscardCards(ResourceType type, int num, int currPlayer) {
-			return turnManager.CanDiscardCards(type, num, currPlayer);
-		}
-		public boolean CanRollNumber(int currPlayer) {
-			return turnManager.CanRollNumber(currPlayer);
-		}
-		public boolean CanBuildRoad(int x, int y, String direction, int currPlayer) {
-			return turnManager.CanBuildRoad(x, y, direction, currPlayer);
-		}
-		public boolean CanBuildSettlement(int x, int y, String direction, int currPlayer) {
-			return turnManager.CanBuildSettlement(x, y, direction, currPlayer);
-		}
-		public boolean CanBuildCity(int x, int y, String direction, int currPlayer) {
-			return turnManager.CanBuildCity(x, y, direction, currPlayer);
-		}
-		public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
-			return turnManager.CanOfferTrade(traderIndex, tradeeIndex, out, in);
-		}
-		public boolean CanMaritimeTrade(int ownerId, ResourceType type) {
-			return turnManager.CanMaritimeTrade(ownerId, type);
-		}
-		public boolean CanFinishTurn() {
-			return turnManager.CanFinishTurn();
-		}
-		public boolean CanBuyDevCard(int ownerId) {
-			return turnManager.CanBuyDevCard(ownerId);
-		}
-		public boolean CanPlayDevCard(DevCardType card, int currPlayer) {
-			return turnManager.CanPlayDevCard(card, currPlayer);
-		}
-		public boolean CanPlaceRobber(int x, int y, int currPlayer) {
-			return turnManager.CanPlaceRobber(x, y, currPlayer);
-		}
-		public boolean CanSendChat() {
-			return turnManager.CanSendChat();
-		}
-		public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
-			return turnManager.CanAcceptTrade(traderIndex, tradeeIndex, out, in);
-		}
+	
+	public boolean CanRollNumber(int currPlayer) {
+		return turnManager.CanRollNumber(currPlayer);
+	}
+	
+	
+	public boolean CanBuildRoad(int x, int y, String direction, int currPlayer) {
+		return turnManager.CanBuildRoad(x, y, direction, currPlayer);
+	}
+	
+	
+	public boolean CanBuildSettlement(int x, int y, String direction, int currPlayer) {
+		return turnManager.CanBuildSettlement(x, y, direction, currPlayer);
+	}
+	
+	
+	public boolean CanBuildCity(int x, int y, String direction, int currPlayer) {
+		return turnManager.CanBuildCity(x, y, direction, currPlayer);
+	}
+	
+	
+	public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
+		return turnManager.CanOfferTrade(traderIndex, tradeeIndex, out, in);
+	}
+	
+	
+	public boolean CanMaritimeTrade(int currPlayer, ResourceType type) {
+		return turnManager.CanMaritimeTrade(currPlayer, type);
+	}
+	
+	
+	public boolean CanFinishTurn() {
+		return turnManager.CanFinishTurn();
+	}
+	
+	
+	public boolean CanBuyDevCard(int currPlayer) {
+		return turnManager.CanBuyDevCard(currPlayer);
+	}
+	
+	
+	public boolean CanPlayDevCard(DevCardType card, int currPlayer) {
+		return turnManager.CanPlayDevCard(card, currPlayer);
+	}
+	
+	
+	public boolean CanPlaceRobber(int x, int y, int currPlayer) {
+		return turnManager.CanPlaceRobber(x, y, currPlayer);
+	}
+	
+	
+	public boolean CanSendChat() {
+		return turnManager.CanSendChat();
+	}
+	
+	
+	public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
+		return turnManager.CanAcceptTrade(traderIndex, tradeeIndex, out, in);
+	}
 	
 	
 }

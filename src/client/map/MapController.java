@@ -81,8 +81,6 @@ public class MapController extends Controller implements IMapController {
 				this.state = new EndOfGameState(this.getView());
 				break;
 			case LOGIN:
-			case JOINGAME:
-			case PLAYERWAITING:
 			default:
 				this.state = new LoginState(this.getView());
 		}
