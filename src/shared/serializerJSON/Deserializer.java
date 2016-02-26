@@ -62,6 +62,7 @@ public class Deserializer {
 	
 	// currentTurn
 	private int desCurrentTurn = 0;
+	private String desCurrentState = "FirstRound";
 	
 	public void deserialize(Game game, JsonObject json) {
 		// the "des" prefix signifies that the object has been deserialized.
@@ -101,7 +102,7 @@ public class Deserializer {
 		int desWinner = json.getAsJsonPrimitive("winner").getAsInt();
 
 		game.update(desMap, desBank, desDeck, desPlayers, desLog, desChat,
-				        desCurrentTurn, desHasPlayedDevCard, desWinner);
+				        desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
 	}
 	
 	/**
@@ -536,6 +537,7 @@ public class Deserializer {
 	public void deserializeTurnTracker(JsonObject jsonTurnTracker) {
 		// All we pull from turnTracker at the moment is who's turn it is
 		desCurrentTurn = jsonTurnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
+		desCurrentState = jsonTurnTracker.getAsJsonPrimitive("status").getAsString();;
 	}
 	
 	/**

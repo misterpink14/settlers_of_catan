@@ -33,9 +33,9 @@ public class MapController extends Controller implements IMapController {
 		
 		setRobView(robView);
 		
-		initFromModel();
-		
 		this.setState(GameState.LOGIN);
+		
+		initFromModel();
 		
 	}
 	

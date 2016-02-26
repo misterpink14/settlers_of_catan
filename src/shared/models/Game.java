@@ -123,7 +123,7 @@ public class Game extends Observable
 
 // Public METHODS
 	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
-			int currentTurn, boolean hasPlayedDevCard, int winner) {
+			int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
 		this.map = map;
 		this.bank = bank;
 		this.cardDeck = cardDeck;
@@ -133,12 +133,13 @@ public class Game extends Observable
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
-		updateState();
+		updateState(currentState);
 		this.setChanged();
 		this.notifyObservers();
 	}
 	
-	public void updateState() {
+	public void updateState(String currentState) {
+		//Bad code below
 		if(players.getNumberOfPlayers() < 4) {
 			setGameState(GameState.PLAYERWAITING);
 		}
