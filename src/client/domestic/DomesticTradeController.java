@@ -1,7 +1,10 @@
 package client.domestic;
 
 import shared.definitions.*;
+import shared.models.cardClasses.ResourceCards;
+import shared.observers.DomesticTradeObserver;
 import client.base.*;
+import client.clientFacade.ClientFacade;
 import client.misc.*;
 
 
@@ -13,6 +16,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private IDomesticTradeOverlay tradeOverlay;
 	private IWaitView waitOverlay;
 	private IAcceptTradeOverlay acceptOverlay;
+	private DomesticTradeObserver obs;
+	
+	private ResourceCards amountResourceSent = new ResourceCards(0,0,0,0,0);
+	private ResourceCards amountResourceReceived = new ResourceCards(0,0,0,0,0);
+	private int playerTradingWith = -1;
 
 	/**
 	 * DomesticTradeController constructor
@@ -30,6 +38,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);
+		ClientFacade.getInstance().game.addObserver(obs);
 	}
 	
 	public IDomesticTradeView getTradeView() {
@@ -69,7 +78,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void decreaseResourceAmount(ResourceType resource) {
-
+		
 	}
 
 	@Override
@@ -86,12 +95,12 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void setPlayerToTradeWith(int playerIndex) {
-
+		playerTradingWith = playerIndex;
 	}
 
 	@Override
 	public void setResourceToReceive(ResourceType resource) {
-
+		
 	}
 
 	@Override
@@ -114,6 +123,18 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void acceptTrade(boolean willAccept) {
 
 		getAcceptOverlay().closeModal();
+		
+	}
+
+	public void update(GameState gameState) {
+		if (gameState == GameState.MYTURN) {
+			// update the GUI
+			// enable send/receive options for each resource
+			// enable player selection for trade
+			// change message in trade box
+		} else {
+			this.getTradeView().enableDomesticTrade(false);
+		}
 	}
 
 }
