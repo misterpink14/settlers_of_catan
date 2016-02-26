@@ -147,8 +147,8 @@ public class ClientFacade {
 	 * @return 
 	 * @throws 
 	 */
-	public String rollDice(int currPlayer) throws Exception {
-		if (canRollDice(currPlayer)) {
+	public String rollDice() throws Exception {
+		if (canRollDice(this.getUserData().getId())) {
 			try {
 				return proxy.rollNumber(new RollNumber());
 			} catch (Exception e) {
@@ -167,8 +167,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildRoad(int x, int y, String direction, int currPlayer) {
-		if (!game.CanBuildRoad(x, y, direction, currPlayer)) {
+	public boolean canBuildRoad(int x, int y, String direction) {
+		if (!game.CanBuildRoad(x, y, direction, this.getUserData().getId())) {
 			return false;
 		}
 		return true;
@@ -179,8 +179,8 @@ public class ClientFacade {
 	 * a road on the board.
 	 * @throws
 	 */
-	public String buildRoad(int x, int y, String direction, int currPlayer) throws Exception {
-		if (canBuildRoad(x, y, direction, currPlayer)) {
+	public String buildRoad(int x, int y, String direction) throws Exception {
+		if (canBuildRoad(x, y, direction)) {
 			try {
 				return proxy.buildRoad(new BuildRoad());
 			} catch (Exception e) {
@@ -199,8 +199,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildCity(int x, int y, String direction, int currPlayer) {
-		if (!game.CanBuildCity(x, y, direction, currPlayer)) {
+	public boolean canBuildCity(int x, int y, String direction) {
+		if (!game.CanBuildCity(x, y, direction, this.getUserData().getId())) {
 			return false;
 		}
 		return true;
@@ -211,8 +211,8 @@ public class ClientFacade {
 	 * a city on the board.
 	 * @throws
 	 */
-	public String buildCity(int x, int y, String direction, int currPlayer) throws Exception {
-		if (canBuildCity(x, y, direction, currPlayer)) {
+	public String buildCity(int x, int y, String direction) throws Exception {
+		if (canBuildCity(x, y, direction)) {
 			try {
 				return proxy.buildCity(new BuildCity());
 			} catch (Exception e) {
@@ -231,8 +231,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildSettlement(int x, int y, String direction, int currPlayer) {
-		if (!game.CanBuildSettlement(x, y, direction, currPlayer)) {
+	public boolean canBuildSettlement(int x, int y, String direction) {
+		if (!game.CanBuildSettlement(x, y, direction, this.getUserData().getId())) {
 			return false;
 		}
 		return true;
@@ -243,8 +243,8 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public String buildSettlement(int x, int y, String direction, int ownerId) throws Exception {
-		if (canBuildSettlement(x, y, direction, ownerId)) {
+	public String buildSettlement(int x, int y, String direction) throws Exception {
+		if (canBuildSettlement(x, y, direction)) {
 			try {
 				return proxy.buildSettlement(new BuildSettlement());
 			} catch (Exception e) {
@@ -274,8 +274,8 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public String buyDevCard(int currPlayer) throws Exception {
-		if (canBuyDevCard(currPlayer)) {
+	public String buyDevCard() throws Exception {
+		if (canBuyDevCard(this.getUserData().getId())) {
 			try {
 				return proxy.buyDevCard(new BuyDevCard());
 			} catch (Exception e) {
@@ -304,8 +304,8 @@ public class ClientFacade {
 	 * in four of a kind for another resource
 	 * @throws
 	 */
-	public void tradeFour(int playerID, List<Integer> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException {
-		game.offerATrade(playerID, playersToOfferTo, out, in);
+	public void tradeFour(List<Integer> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException {
+		game.offerATrade(this.getUserData().getId(), playersToOfferTo, out, in);
 	}
 	
 	/**
@@ -332,8 +332,8 @@ public class ClientFacade {
 	 * a development card.
 	 * @throws
 	 */
-	public void playDevCard(DevCardType type, int currPlayer) throws InsufficientCardNumberException {
-		game.playDevCard(type, currPlayer);
+	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
+		game.playDevCard(type, this.getUserData().getId());
 	}
 	
 	/**
