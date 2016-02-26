@@ -138,13 +138,35 @@ public class Game extends Observable
 		this.notifyObservers();
 	}
 	
+	
+	// This is not done!!! -- Implement all the other possible states
 	public void updateState(String currentState) {
-		//Bad code below
-		if(players.getNumberOfPlayers() < 4) {
-			setGameState(GameState.PLAYERWAITING);
-		}
-		else {
-			setGameState(GameState.SETUP1);
+		switch (currentState) 
+		{
+			case "Rolling":
+			{
+				this.gameState = GameState.MYTURN;
+			}
+			case "Robbing":
+			{
+				this.gameState = GameState.ROBBER;
+			}
+			case "Playing":
+			{
+				this.gameState = GameState.MYTURN;
+			}
+			case "Discarding":
+			{
+				this.gameState = GameState.DISCARD;
+			}
+			case "FirstRound":
+			{
+				this.gameState = GameState.SETUP1;
+			}
+			case "SecondRound":
+			{
+				this.gameState = GameState.SETUP2;
+			}
 		}
 	}
 	
