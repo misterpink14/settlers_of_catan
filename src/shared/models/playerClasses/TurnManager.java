@@ -43,6 +43,8 @@ public class TurnManager {
 	/**The index of the player whose turn it is.*/
 	int playerIndex = -1;
 	
+	int clientIndex = -1;
+	
 	/**Keeps track of whether the player has played a dev card.*/
 	private boolean hasPlayedDevCard;
 	
@@ -55,7 +57,6 @@ public class TurnManager {
 	
 	
 // CONSTRUCTORS
-	// temporarly error fix... haha
 	public TurnManager() {}
 	 
 	
@@ -89,6 +90,11 @@ public class TurnManager {
 	}
 	
 	
+	public TradeManager getTradeManager() {
+		return tradeManager;
+	}
+	
+	
 // SETTERS
 	public void setCurrentTurn(int index) {
 		players.getPlayerByIndex(index).startTurn();
@@ -104,10 +110,10 @@ public class TurnManager {
 	
 	
 // METHODS
-	public void startGame() {
+	public void startGame(int currPlayer) {
 		Random rand = new Random(System.currentTimeMillis());
 		playerIndex = rand.nextInt(4) + 1;
-		players.getPlayerByIndex(playerIndex).startTurn();
+		players.getPlayerByIndex(currPlayer).startTurn();
 	}
 	
 	
@@ -115,14 +121,14 @@ public class TurnManager {
 	/**
 	 * @return the id of the current player whose turn it is.
 	 */
-	public void nextTurn() {
-		playerIndex = this.players.finishTurn(playerIndex);
+	public void nextTurn(int currPlayer) {
+		playerIndex = this.players.finishTurn(currPlayer);
 		hasPlayedDevCard = false;
 	}
 	
 	
-	public boolean isTurn(int index) {
-		return players.getPlayerByIndex(index).isTurn();
+	public boolean isTurn(int currPlayer) {
+		return players.getPlayerByIndex(currPlayer).isTurn();
 	}
 	
 	
@@ -137,73 +143,66 @@ public class TurnManager {
 	}
 	
 	
-	public void buildRoad() throws InsufficientCardNumberException {
-		players.getPlayerByIndex(playerIndex).buyRoad();
+	public void buildRoad(int currPlayer) throws InsufficientCardNumberException {
+		players.getPlayerByIndex(currPlayer).buyRoad();
 	}
 
 	
-	public void buildSettlement() throws InsufficientCardNumberException {
-		players.getPlayerByIndex(playerIndex).buySettlement();
+	public void buildSettlement(int currPlayer) throws InsufficientCardNumberException {
+		players.getPlayerByIndex(currPlayer).buySettlement();
 	}
 	
 	
-	public void buildCity() throws InsufficientCardNumberException {
-		players.getPlayerByIndex(playerIndex).buyCity();
+	public void buildCity(int currPlayer) throws InsufficientCardNumberException {
+		players.getPlayerByIndex(currPlayer).buyCity();
 	}
 	
 	
-	public void buyDevCard() throws InsufficientCardNumberException {
+	public void buyDevCard(int currPlayer) throws InsufficientCardNumberException {
 		DevCardType card = cardDeck.drawCard();
-		players.getPlayerByIndex(playerIndex).buyDevCard(card);
+		players.getPlayerByIndex(currPlayer).buyDevCard(card);
 	}
 	
 	
-	public void playDevCard(DevCardType card) throws InsufficientCardNumberException {
+	public void playDevCard(DevCardType card, int currPlayer) throws InsufficientCardNumberException {
 		hasPlayedDevCard = true;
-		players.getPlayerByIndex(playerIndex).playDevCard(card);
+		players.getPlayerByIndex(currPlayer).playDevCard(card);
 	}
-	
-	
-	public TradeManager getTradeManager() {
-		return tradeManager;
-	}
-	
-	
 	
 //***********************************************************************************************************************************
 //														Can Functions
 //***********************************************************************************************************************************
-	public boolean CanDiscardCards(ResourceType type, int num) {
-		return players.getPlayerByIndex(playerIndex).canDiscardCards(type, num);
+	public boolean CanDiscardCards(ResourceType type, int num, int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canDiscardCards(type, num);
 	}
 	
 	
-	public boolean CanRollNumber() {
-		return players.getPlayerByIndex(playerIndex).canRollDice();
+	public boolean CanRollNumber(int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canRollDice();
 	}
 	
 	
-	public boolean CanBuildRoad(int x, int y, String direction, int ownerId) {
-		return players.getPlayerByIndex(playerIndex).canBuildRoad() && map.canPlaceRoad(x, y, direction, ownerId);
+	public boolean CanBuildRoad(int x, int y, String direction, int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildRoad() && map.canPlaceRoad(x, y, direction, currPlayer);
 	}
 	
 	
-	public boolean CanBuildSettlement(int x, int y, String direction, int ownerId) {
-		return players.getPlayerByIndex(playerIndex).canBuildSettlement() && map.canPlaceSettlement(x, y, direction, ownerId);
+	public boolean CanBuildSettlement(int x, int y, String direction, int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildSettlement() && map.canPlaceSettlement(x, y, direction, currPlayer);
 	}
 	
 	
-	public boolean CanBuildCity(int x, int y, String direction, int ownerId) {
-		return players.getPlayerByIndex(playerIndex).canBuildCity() && map.canPlaceCity(x, y, direction, ownerId);
+	public boolean CanBuildCity(int x, int y, String direction, int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildCity() && map.canPlaceCity(x, y, direction, currPlayer);
 	}
 	
 	public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
-		return tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
+		return this.isTurn(traderIndex) && tradeManager.canTrade(traderIndex, tradeeIndex, out, in);
 	}
 	
 	
-	public boolean CanMaritimeTrade(int ownerId, ResourceType type) {
-		return map.canMaritimeTrade(ownerId, type);
+	public boolean CanMaritimeTrade(int currPlayer, ResourceType type) {
+		return this.isTurn(currPlayer) && map.canMaritimeTrade(currPlayer, type);
 	}
 	
 	
@@ -212,22 +211,22 @@ public class TurnManager {
 	}
 	
 	
-	public boolean CanBuyDevCard() {
-		return players.getPlayerByIndex(playerIndex).canBuyDevCard();
+	public boolean CanBuyDevCard(int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuyDevCard();
 	}
 	
 	
-	public boolean CanPlayDevCard(DevCardType card) {
-		int numberOfCard = players.getPlayerByIndex(playerIndex).getNumOfDevCard(card);
-		if(numberOfCard > 0 && hasPlayedDevCard == false) {
+	public boolean CanPlayDevCard(DevCardType card, int currPlayer) {
+		int numberOfCard = players.getPlayerByIndex(currPlayer).getNumOfDevCard(card);
+		if(this.isTurn(currPlayer) && numberOfCard > 0 && hasPlayedDevCard == false) {
 			return true;
 		}
 		return false;
 	}
 	
 	
-	public boolean CanPlaceRobber(int x, int y) {
-		return this.map.canPlaceRobber(x, y);
+	public boolean CanPlaceRobber(int x, int y, int currPlayer) {
+		return this.isTurn(currPlayer) && this.map.canPlaceRobber(x, y);
 	}
 	
 	

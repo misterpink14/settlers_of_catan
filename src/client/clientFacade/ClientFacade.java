@@ -132,8 +132,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't
 	 */
-	public boolean canRollDice() {
-		if (!game.CanRollNumber()) {
+	public boolean canRollDice(int currPlayer) {
+		if (!game.CanRollNumber(currPlayer)) {
 			return false;
 		}
 		return true;
@@ -147,8 +147,8 @@ public class ClientFacade {
 	 * @return 
 	 * @throws 
 	 */
-	public String rollDice() throws Exception {
-		if (canRollDice()) {
+	public String rollDice(int currPlayer) throws Exception {
+		if (canRollDice(currPlayer)) {
 			try {
 				return proxy.rollNumber(new RollNumber());
 			} catch (Exception e) {
@@ -167,8 +167,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildRoad(int x, int y, String direction, int ownerId) {
-		if (!game.CanBuildRoad(x, y, direction, ownerId)) {
+	public boolean canBuildRoad(int x, int y, String direction, int currPlayer) {
+		if (!game.CanBuildRoad(x, y, direction, currPlayer)) {
 			return false;
 		}
 		return true;
@@ -179,8 +179,8 @@ public class ClientFacade {
 	 * a road on the board.
 	 * @throws
 	 */
-	public String buildRoad(int x, int y, String direction, int ownerId) throws Exception {
-		if (canBuildRoad(x, y, direction, ownerId)) {
+	public String buildRoad(int x, int y, String direction, int currPlayer) throws Exception {
+		if (canBuildRoad(x, y, direction, currPlayer)) {
 			try {
 				return proxy.buildRoad(new BuildRoad());
 			} catch (Exception e) {
@@ -199,8 +199,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildCity(int x, int y, String direction, int ownerId) {
-		if (!game.CanBuildCity(x, y, direction, ownerId)) {
+	public boolean canBuildCity(int x, int y, String direction, int currPlayer) {
+		if (!game.CanBuildCity(x, y, direction, currPlayer)) {
 			return false;
 		}
 		return true;
@@ -211,8 +211,8 @@ public class ClientFacade {
 	 * a city on the board.
 	 * @throws
 	 */
-	public String buildCity(int x, int y, String direction, int ownerId) throws Exception {
-		if (canBuildCity(x, y, direction, ownerId)) {
+	public String buildCity(int x, int y, String direction, int currPlayer) throws Exception {
+		if (canBuildCity(x, y, direction, currPlayer)) {
 			try {
 				return proxy.buildCity(new BuildCity());
 			} catch (Exception e) {
@@ -231,8 +231,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildSettlement(int x, int y, String direction, int ownerId) {
-		if (!game.CanBuildSettlement(x, y, direction, ownerId)) {
+	public boolean canBuildSettlement(int x, int y, String direction, int currPlayer) {
+		if (!game.CanBuildSettlement(x, y, direction, currPlayer)) {
 			return false;
 		}
 		return true;
@@ -262,8 +262,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuyDevCard() {
-		if (!game.CanBuyDevCard()) {
+	public boolean canBuyDevCard(int ownerId) {
+		if (!game.CanBuyDevCard(ownerId)) {
 			return false;
 		}
 		return true;
@@ -274,8 +274,8 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public String buyDevCard() throws Exception {
-		if (canBuyDevCard()) {
+	public String buyDevCard(int currPlayer) throws Exception {
+		if (canBuyDevCard(currPlayer)) {
 			try {
 				return proxy.buyDevCard(new BuyDevCard());
 			} catch (Exception e) {
@@ -332,8 +332,8 @@ public class ClientFacade {
 	 * a development card.
 	 * @throws
 	 */
-	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
-		game.playDevCard(type);
+	public void playDevCard(DevCardType type, int currPlayer) throws InsufficientCardNumberException {
+		game.playDevCard(type, currPlayer);
 	}
 	
 	/**

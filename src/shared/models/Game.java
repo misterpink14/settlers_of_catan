@@ -141,11 +141,12 @@ public class Game extends Observable
 	
 	// This is not done!!! -- Implement all the other possible states
 	public void updateState(String currentState) {
+		
 		switch (currentState) 
 		{
 			case "Rolling":
 			{
-				this.gameState = GameState.MYTURN;
+				this.gameState = GameState.OUTDATED;
 			}
 			case "Robbing":
 			{
@@ -189,8 +190,8 @@ public class Game extends Observable
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildRoad(int playerID) throws InsufficientCardNumberException {
-		turnManager.buildRoad();
+	public void buildRoad(int currPlayer) throws InsufficientCardNumberException {
+		turnManager.buildRoad(currPlayer);
 	}
 	
 	/**
@@ -199,8 +200,8 @@ public class Game extends Observable
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildSettlement(int playerID) throws InsufficientCardNumberException {
-		turnManager.buildSettlement();
+	public void buildSettlement(int currPlayer) throws InsufficientCardNumberException {
+		turnManager.buildSettlement(currPlayer);
 	}
 	
 	/**
@@ -208,8 +209,8 @@ public class Game extends Observable
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildCity(int playerID) throws InsufficientCardNumberException {
-		turnManager.buildCity();
+	public void buildCity(int currPlayer) throws InsufficientCardNumberException {
+		turnManager.buildCity(currPlayer);
 	}
 	
 	/**
@@ -217,8 +218,8 @@ public class Game extends Observable
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buyDevelopmentCard(int playerID) throws InsufficientCardNumberException {
-		turnManager.buyDevCard();
+	public void buyDevelopmentCard(int currPlayer) throws InsufficientCardNumberException {
+		turnManager.buyDevCard(currPlayer);
 	}
 	
 	/**
@@ -226,8 +227,8 @@ public class Game extends Observable
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
-		turnManager.playDevCard(type);
+	public void playDevCard(DevCardType type, int currPlayer) throws InsufficientCardNumberException {
+		turnManager.playDevCard(type, currPlayer);
 	}
 	
 	/**
@@ -286,20 +287,20 @@ public class Game extends Observable
 	//***********************************************************************************************************************************
 		
 	
-		public boolean CanDiscardCards(ResourceType type, int num) {
-			return turnManager.CanDiscardCards(type, num);
+		public boolean CanDiscardCards(ResourceType type, int num, int currPlayer) {
+			return turnManager.CanDiscardCards(type, num, currPlayer);
 		}
-		public boolean CanRollNumber() {
-			return turnManager.CanRollNumber();
+		public boolean CanRollNumber(int currPlayer) {
+			return turnManager.CanRollNumber(currPlayer);
 		}
-		public boolean CanBuildRoad(int x, int y, String direction, int ownerId) {
-			return turnManager.CanBuildRoad(x, y, direction, ownerId);
+		public boolean CanBuildRoad(int x, int y, String direction, int currPlayer) {
+			return turnManager.CanBuildRoad(x, y, direction, currPlayer);
 		}
-		public boolean CanBuildSettlement(int x, int y, String direction, int ownerId) {
-			return turnManager.CanBuildSettlement(x, y, direction, ownerId);
+		public boolean CanBuildSettlement(int x, int y, String direction, int currPlayer) {
+			return turnManager.CanBuildSettlement(x, y, direction, currPlayer);
 		}
-		public boolean CanBuildCity(int x, int y, String direction, int ownerId) {
-			return turnManager.CanBuildCity(x, y, direction, ownerId);
+		public boolean CanBuildCity(int x, int y, String direction, int currPlayer) {
+			return turnManager.CanBuildCity(x, y, direction, currPlayer);
 		}
 		public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 			return turnManager.CanOfferTrade(traderIndex, tradeeIndex, out, in);
@@ -310,14 +311,14 @@ public class Game extends Observable
 		public boolean CanFinishTurn() {
 			return turnManager.CanFinishTurn();
 		}
-		public boolean CanBuyDevCard() {
-			return turnManager.CanBuyDevCard();
+		public boolean CanBuyDevCard(int ownerId) {
+			return turnManager.CanBuyDevCard(ownerId);
 		}
-		public boolean CanPlayDevCard(DevCardType card) {
-			return turnManager.CanPlayDevCard(card);
+		public boolean CanPlayDevCard(DevCardType card, int currPlayer) {
+			return turnManager.CanPlayDevCard(card, currPlayer);
 		}
-		public boolean CanPlaceRobber(int x, int y) {
-			return turnManager.CanPlaceRobber(x, y);
+		public boolean CanPlaceRobber(int x, int y, int currPlayer) {
+			return turnManager.CanPlaceRobber(x, y, currPlayer);
 		}
 		public boolean CanSendChat() {
 			return turnManager.CanSendChat();
