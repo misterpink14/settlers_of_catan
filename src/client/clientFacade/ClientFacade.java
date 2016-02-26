@@ -16,13 +16,17 @@ import shared.communication.proxy.JoinGameRequestParams;
 import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
+import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import shared.models.Game;
 import shared.models.UserManager.User;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.mapClasses.Hex;
+import shared.models.mapClasses.Piece;
 
 /** ClientFacade class
  * 
@@ -378,5 +382,17 @@ public class ClientFacade {
 	 */
 	public Hex getHex(HexLocation loc) {
 		return this.game.getHex(loc);
+	}
+	
+	public Piece getEdge(EdgeLocation loc) {
+		return this.game.getEdge(loc);
+	}
+	
+	public Piece getVertex(VertexLocation loc) {
+		return this.game.getVertex(loc);
+	}
+	
+	public CatanColor getColorById(int id) {
+		return this.game.getPlayers().getPlayerByIndex(id).getColor();
 	}
 }

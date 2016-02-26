@@ -17,7 +17,9 @@ public class BaseState {
 		this.view = view;
 	}
 	
-	
+	public IMapView getView() {
+		return this.view;
+	}
 	
 // Public METHODS
 	public void initFromModel() throws Exception {
