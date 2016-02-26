@@ -31,7 +31,7 @@ public class GamePlayers {
 		if(this.getNumberOfPlayers() == 4) {
 			throw new Exception("There are already four players in this game");
 		}
-		Player newPlayer = new Player(playerID, name, color);
+		Player newPlayer = new Player(playerID, name, color, this.getNumberOfPlayers() - 1);
 		players.add(newPlayer);
 	}
 	
@@ -41,6 +41,18 @@ public class GamePlayers {
 	 */
 	public void addPlayer(Player player) throws Exception {
 		players.add(player);
+	}
+	
+	/**
+	 * Gets a player by his/her playerID
+	 */
+	public Player getPlayerByID(int playerID) {
+		for (Player p : players) {
+			if(p.getID() == playerID) {
+				return p;
+			}
+		}
+		return null;
 	}
 	
 	/**

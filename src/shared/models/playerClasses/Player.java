@@ -25,6 +25,9 @@ public class Player {
 	/**The player's color*/
 	private CatanColor color;
 	
+	/**This players index in the games player list*/
+	private int index;
+	
 	/**Set to true if it is this player's turn*/
 	private boolean isTurn = false;
 	
@@ -57,10 +60,11 @@ public class Player {
 	
 	//we need a way to represent Harbor benefits
 
-	public Player(int id, String name, CatanColor color) {
+	public Player(int id, String name, CatanColor color, int index) {
 		this.id = id;
 		this.name = name;
 		this.color = color;
+		this.index = index;
 	}
 	
 	/**
@@ -102,6 +106,10 @@ public class Player {
 	/**Gets this players Color*/
 	public CatanColor getColor() {
 		return color;
+	}
+	/**gets this players index*/
+	public int getIndex() {
+		return this.index;
 	}
 	/**Gets this players victory points*/
 	public int getVictoryPoints() {

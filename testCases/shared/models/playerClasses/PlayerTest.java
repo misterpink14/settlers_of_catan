@@ -13,7 +13,7 @@ import shared.models.cardClasses.InsufficientCardNumberException;
 
 public class PlayerTest {
 	
-	Player player = new Player(0, "Bob", CatanColor.BLUE);
+	Player player = new Player(0, "Bob", CatanColor.BLUE, 0);
 
 	@Test
 	public void testPlayer() {

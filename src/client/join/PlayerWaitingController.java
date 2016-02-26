@@ -39,7 +39,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	
 	public void update(GameState state) {
 		//if the game has four players, we create a turn tracker to start the game!
-		if(state == GameState.SETUP1) {
+		if(state != GameState.PLAYERWAITING) {
 			this.getView().closeModal();	
 			ClientFacade.getInstance().game.deleteObserver(obs);
 		}

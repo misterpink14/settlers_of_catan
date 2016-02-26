@@ -102,11 +102,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() {
-		PlayerInfo loginUser = new PlayerInfo();
-		JsonParser parser = new JsonParser();
-		JsonObject loginUserJson = parser.parse(ClientFacade.getInstance().getUserData()).getAsJsonObject();
-		loginUser.setId(loginUserJson.get("playerID").getAsInt());
-		loginUser.setName(loginUserJson.get("name").getAsString());
+		PlayerInfo loginUser = ClientFacade.getInstance().getUserData();
 		
 		String gamesString;
 		try {

@@ -14,7 +14,7 @@ public class TurnManagerTest {
 
 	@Test
 	public void testCanBuyDevCard() {
-		Player player = new Player(123, "bob", CatanColor.BLUE);
+		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
 		try {
 			game.getPlayers().addPlayer(player);
 		} catch (Exception e) {
@@ -37,7 +37,7 @@ public class TurnManagerTest {
 	
 	@Test
 	public void testCanBuyRoad() {
-		Player player = new Player(123, "bob", CatanColor.BLUE);
+		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
 		try {
 			game.getPlayers().addPlayer(player);
 		} catch (Exception e) {
@@ -52,7 +52,7 @@ public class TurnManagerTest {
 	
 	@Test
 	public void testCanBuySettlement() {
-		Player player = new Player(123, "bob", CatanColor.BLUE);
+		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
 		try {
 			game.getPlayers().addPlayer(player);
 		} catch (Exception e) {
@@ -69,7 +69,7 @@ public class TurnManagerTest {
 	
 	@Test
 	public void testCanBuyCity() {
-		Player player = new Player(123, "bob", CatanColor.BLUE);
+		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
 		try {
 			game.getPlayers().addPlayer(player);
 		} catch (Exception e) {
@@ -84,7 +84,7 @@ public class TurnManagerTest {
 	
 	@Test
 	public void testCanRollNumber() {
-		Player player = new Player(123, "bob", CatanColor.BLUE);
+		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
 		try {
 			game.getPlayers().addPlayer(player);
 		} catch (Exception e) {
@@ -102,7 +102,7 @@ public class TurnManagerTest {
 	
 	@Test
 	public void testCanFinishTurn() {
-		Player player = new Player(123, "bob", CatanColor.BLUE);
+		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
 		try {
 			game.getPlayers().addPlayer(player);
 		} catch (Exception e) {
@@ -116,7 +116,7 @@ public class TurnManagerTest {
 	
 	@Test
 	public void testCanSendChat() {
-		Player player = new Player(123, "bob", CatanColor.BLUE);
+		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
 		try {
 			game.getPlayers().addPlayer(player);
 		} catch (Exception e) {

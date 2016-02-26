@@ -3,6 +3,10 @@ package client.clientFacade;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import client.data.PlayerInfo;
 import client.serverPoller.ServerPoller;
 import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
@@ -27,6 +31,7 @@ import shared.models.UserManager.User;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.mapClasses.Hex;
 import shared.models.mapClasses.Piece;
+import shared.models.playerClasses.Player;
 
 /** ClientFacade class
  * 
@@ -371,8 +376,18 @@ public class ClientFacade {
 	 * gets an object with the information about the current user.
 	 * @return
 	 */
-	public String getUserData() {
-		return proxy.getUserCookie();
+	public PlayerInfo getUserData() {
+		PlayerInfo loginUser = new PlayerInfo();
+		JsonParser parser = new JsonParser();
+		JsonObject loginUserJson = parser.parse(proxy.getUserCookie()).getAsJsonObject();
+		loginUser.setId(loginUserJson.get("playerID").getAsInt());
+		loginUser.setName(loginUserJson.get("name").getAsString());
+		Player p = game.getPlayers().getPlayerByID(loginUser.getId());
+		if (p != null) {
+			loginUser.setColor(p.getColor());
+			loginUser.setPlayerIndex(p.getIndex());
+		}
+		return loginUser;
 	}
 	
 	/**
