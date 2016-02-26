@@ -26,7 +26,7 @@ public class Catan extends JFrame
 	
 	private CatanPanel catanPanel;
 	
-	public Catan()
+	public Catan() // cool beans
 	{
 		//We use the client facade to hold our model and make calls to the server
 		//We pass in the client facade to each controller
