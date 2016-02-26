@@ -38,6 +38,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);
+		obs = new DomesticTradeObserver(this);
 		ClientFacade.getInstance().game.addObserver(obs);
 	}
 	
