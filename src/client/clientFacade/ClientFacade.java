@@ -25,6 +25,7 @@ import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.RobberLocation;
 import shared.locations.VertexLocation;
 import shared.models.Game;
 import shared.models.UserManager.User;
@@ -409,5 +410,9 @@ public class ClientFacade {
 	
 	public CatanColor getColorById(int id) {
 		return this.game.getPlayers().getPlayerByIndex(id).getColor();
+	}
+	
+	public RobberLocation getRobberLocation() {
+		return this.game.getRobberLocation();
 	}
 }

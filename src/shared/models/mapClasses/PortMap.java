@@ -42,7 +42,7 @@ public class PortMap
 		
 		portList.add(p);
 	}
-	
+
 	
 	/**
 	 * Check's if a given user can perform a Maritime Trade

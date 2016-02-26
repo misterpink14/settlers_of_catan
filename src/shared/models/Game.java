@@ -10,6 +10,7 @@ import shared.definitions.GameState;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.RobberLocation;
 import shared.locations.VertexLocation;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
@@ -250,6 +251,10 @@ public class Game extends Observable
 	
 	public Piece getVertex(VertexLocation loc) {
 		return this.map.getVertex(loc);
+	}
+	
+	public RobberLocation getRobberLocation() {
+		return this.map.getRobberLocation();
 	}
 	
 	

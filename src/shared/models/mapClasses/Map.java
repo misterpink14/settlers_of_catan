@@ -96,6 +96,11 @@ public class Map
 		this.Robber = robber;
 	}
 	
+	public RobberLocation getRobberLocation()
+	{
+		return this.Robber;
+	}
+	
 	
 	public void setPlayerMap(PlayerMap playerPieces)
 	{
