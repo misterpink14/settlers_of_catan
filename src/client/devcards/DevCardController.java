@@ -2,6 +2,7 @@ package client.devcards;
 
 import shared.definitions.ResourceType;
 import client.base.*;
+import client.clientFacade.ClientFacade;
 
 
 /**
@@ -41,8 +42,9 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startBuyCard() {
-		
-		getBuyCardView().showModal();
+		if(ClientFacade.getInstance().isTurn()) {
+			getBuyCardView().showModal();
+		}
 	}
 
 	@Override

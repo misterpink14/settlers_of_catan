@@ -37,7 +37,7 @@ public class ServerPoller
 		this.GameModel = gameModel;
 		this.ServerProxy = serverProxy;
 		listener = new TimerActionListener();
-		versionID = GameModel.versionID();
+		versionID = GameModel.getVersionID();
 		UpdateTimer = new Timer(speed, this.listener);
 		UpdateTimer.start();
 	}
@@ -73,7 +73,7 @@ public class ServerPoller
 			// Use the game model's version ID to get the most
 			// recent model from the server.
 			String gameModelString;
-			gameModelString = ServerProxy.getGameModel(GameModel.versionID());
+			gameModelString = ServerProxy.getGameModel(GameModel.getVersionID());
 			JsonParser parser = new JsonParser();
 			JsonObject gameModelJson = parser.parse(gameModelString).getAsJsonObject();
 			deserializer.deserialize(GameModel, gameModelJson);

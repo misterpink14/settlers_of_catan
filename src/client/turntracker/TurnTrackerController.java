@@ -43,8 +43,13 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	}
 	
 	private void initFromModel() {
-		//PlayerInfo localPlayer = ClientFacade.getInstance().getUserData();
-		//getView().setLocalPlayerColor(localPlayer.getColor());
+		try{
+			PlayerInfo localPlayer = ClientFacade.getInstance().getUserData();
+			getView().setLocalPlayerColor(localPlayer.getColor());
+		}
+		catch(Exception e) {
+			//User is not logged in and this class cannot initialize.
+		}
 	}
 	
 	public void setObserver() {
