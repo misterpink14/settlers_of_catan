@@ -42,6 +42,7 @@ public class GamePlayers {
 	 */
 	public void addPlayer(Player player) throws Exception {
 		players.add(player);
+		player.setIndex(getNumberOfPlayers() - 1);
 	}
 	
 	/**

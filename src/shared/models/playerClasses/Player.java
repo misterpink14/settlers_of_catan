@@ -144,6 +144,10 @@ public class Player {
 		return group;
 	}
 	
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	
 	/** Check if it is this player's turn
 	 * @return Returns true if it's the player's turn,
 	 * otherwise, returns false;

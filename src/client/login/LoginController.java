@@ -91,7 +91,20 @@ public class LoginController extends Controller implements ILoginController {
 		Credentials cred = new Credentials(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
 		String result = ClientFacade.getInstance().createPlayer(cred);
 		if(result.equals("Success")) {
-			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "You are now registered and can sign in!");
+			try {
+				String result2 = ClientFacade.getInstance().login(cred);
+				// If log in succeeded
+				if(result2.equals("Success")) {
+					getLoginView().closeModal();
+					loginAction.execute();
+				}
+				else {
+					JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "Login Failed");
+				}
+			}
+			catch(Exception e) {
+				JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "An error occured");
+			}
 		}
 		else {
 			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "You cannot register this name and password");
