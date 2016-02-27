@@ -3,7 +3,9 @@ package shared.models.playerClasses;
 import java.util.HashMap;
 import java.util.Random;
 
+import client.clientFacade.ClientFacade;
 import shared.definitions.DevCardType;
+import shared.definitions.GameState;
 import shared.definitions.ResourceType;
 import shared.models.Dice;
 import shared.models.cardClasses.Bank;
@@ -247,5 +249,10 @@ public class TurnManager {
 		json += "largestArmy: " + this.largestArmy + ", ";
 		json += "}";
 		return json;
+	}
+
+
+	public int getMaritimeTradeRatio(int pIndex, ResourceType type) {
+		return map.getMaritimeTradeRatio(pIndex, type);
 	}
 }

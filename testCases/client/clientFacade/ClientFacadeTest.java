@@ -90,7 +90,7 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testTradeHarbor() throws Exception {
-		assertTrue(!ClientFacade.getInstance().tradeHarbor().equals("False"));
+		assertTrue(!ClientFacade.getInstance().tradeHarbor(null, null, 0).equals("False"));
 	}
 
 	@Test

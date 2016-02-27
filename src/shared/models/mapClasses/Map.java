@@ -571,4 +571,22 @@ public class Map
 		throw new InvalidTypeException();
 	}
 
+
+	public int getMaritimeTradeRatio(int pIndex, ResourceType type) {
+		PortType portType = this.convertResourceTypeToPortType(type);
+		int minRatio = 4;
+		for(VertexLocation loc: this.PlayerPieces.getVertexPieceList(pIndex))
+		{
+			if (isOnPort(loc, portType))
+			{
+				if (portType == PortType.THREE) {
+					minRatio = Math.min(minRatio, 3);
+				} else {
+					minRatio = 2;
+				}
+			}
+		}
+		return minRatio;
+	}
+
 }

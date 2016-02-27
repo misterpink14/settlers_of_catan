@@ -312,15 +312,18 @@ public class ClientFacade {
 	}
 	
 	/**
+	 * @param ratio 
+	 * @param getResource 
+	 * @param giveResource 
 	 * @throws Exception 
 	 * Send the command to the server proxy to trade
 	 * with an adjoining harbor
 	 * @throws
 	 */
-	public String tradeHarbor() throws Exception {
+	public String tradeHarbor(ResourceType givingUp, ResourceType getting, int ratio) throws Exception {
 		if(isTurn()) {
 			try {
-				return proxy.maritimeTrade(new MaritimeTrade());
+				return proxy.maritimeTrade(new MaritimeTrade(givingUp, getting, ratio, clientUser.getPlayerID()));
 			} catch (Exception e) {
 				throw new Exception("Error trading with harbor");
 			}

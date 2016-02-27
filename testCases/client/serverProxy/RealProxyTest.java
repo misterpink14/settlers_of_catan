@@ -384,11 +384,7 @@ public class RealProxyTest {
 
 	@Test
 	public void testMaritimeTrade() {
-		MaritimeTrade maritimeTrade = new MaritimeTrade();
-		maritimeTrade.ratio = 4;
-		maritimeTrade.getting = ResourceType.BRICK;
-		maritimeTrade.givingUp = ResourceType.SHEEP;
-		maritimeTrade.playerIndex = 0;
+		MaritimeTrade maritimeTrade = new MaritimeTrade(ResourceType.SHEEP, ResourceType.BRICK, 4, 0);
 		
 		try {			
 			String result = realProxy.maritimeTrade(maritimeTrade);
