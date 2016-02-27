@@ -171,7 +171,7 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildRoad(int x, int y, String direction) {
-		if (!game.CanBuildRoad(x, y, direction, this.getUserData().getId())) {
+		if (!game.CanBuildRoad(x, y, direction, this.getUserData().getPlayerIndex())) {
 			return false;
 		}
 		return true;
