@@ -14,6 +14,14 @@ import shared.locations.VertexLocation;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.WaterHex;
 
+
+/**
+ * The player is waiting for another player to respond to a 
+ * 	trade offer. All functions should be disabled. The map 
+ * 	should be visable.
+ * 		Transitions back to MyTurn
+ * 
+ */
 public class TradeOfferState extends WaitingState {
 
 	public TradeOfferState(IMapView view) {

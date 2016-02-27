@@ -14,6 +14,11 @@ import shared.locations.VertexLocation;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.WaterHex;
 
+
+/**
+ * The game is over. The map is frozen.
+ * 
+ */
 public class EndOfGameState extends WaitingState {
 
 	public EndOfGameState(IMapView view) {

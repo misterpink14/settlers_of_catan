@@ -15,6 +15,12 @@ import shared.locations.VertexLocation;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.WaterHex;
 
+
+/**
+ * The player can only move the robber
+ * 		Transitions back to MyTurn
+ * 
+ */
 public class RobberState extends WaitingState {
 	
 	private IRobView robView;

@@ -1,7 +1,6 @@
 package client.map.state;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import client.clientFacade.ClientFacade;
 import client.map.IMapView;
@@ -15,11 +14,15 @@ import shared.locations.VertexLocation;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.WaterHex;
 
+/**
+ * It is the players turn. The map is enabled.
+ * 		Transitions to NotMyTurn, Waiting, Robber, TradeOffer, EndOfGame
+ * 
+ */
 public class MyTurnState extends BaseState {
 
 	public MyTurnState(IMapView view) {
 		super(view);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void initFromModel() { 

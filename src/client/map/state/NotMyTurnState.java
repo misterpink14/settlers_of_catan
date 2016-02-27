@@ -14,6 +14,11 @@ import shared.locations.VertexLocation;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.WaterHex;
 
+/**
+ * It is not the players turn. Activity with the map is disabled.
+ * 		Transitions to MyTurn, Setup1, Setup2, EndOfGame
+ * 
+ */
 public class NotMyTurnState extends WaitingState {
 
 	public NotMyTurnState(IMapView view) {

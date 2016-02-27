@@ -14,6 +14,13 @@ import shared.locations.VertexLocation;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.WaterHex;
 
+/**
+ * This is the last phase of the Setup. Players take turns in reverse
+ * 	order and are only allowed to place one settlement with adjoining 
+ * 	road
+ * 		Transitions to NotMyTurn
+ * 
+ */
 public class Setup2State extends Setup1State {
 
 	public Setup2State(IMapView view) {

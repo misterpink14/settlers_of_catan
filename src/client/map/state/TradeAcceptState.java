@@ -14,6 +14,11 @@ import shared.locations.VertexLocation;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.WaterHex;
 
+/**
+ * The player who's turn it is is requesting a trade. The user is allowed
+ * 	to respond to the trade prompt.
+ * 		Transitions to NotMyTurn
+ */
 public class TradeAcceptState extends NotMyTurnState {
 
 	public TradeAcceptState(IMapView view) {
