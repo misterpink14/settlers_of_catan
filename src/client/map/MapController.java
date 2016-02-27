@@ -1,11 +1,8 @@
 package client.map;
 
-import java.util.*;
-
-import shared.definitions.*;
-import shared.locations.*;
-import client.base.*;
-import client.data.*;
+import client.base.Controller;
+import client.clientFacade.ClientFacade;
+import client.data.RobPlayerInfo;
 import client.map.state.BaseState;
 import client.map.state.EndOfGameState;
 import client.map.state.LoginState;
@@ -17,6 +14,13 @@ import client.map.state.Setup2State;
 import client.map.state.TradeAcceptState;
 import client.map.state.TradeOfferState;
 import client.map.state.WaitingState;
+import shared.definitions.CatanColor;
+import shared.definitions.GameState;
+import shared.definitions.PieceType;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
+import shared.observers.MapObserver;
 
 
 /**
@@ -30,6 +34,9 @@ public class MapController extends Controller implements IMapController {
 	public MapController(IMapView view, IRobView robView) {
 		
 		super(view);
+		
+		MapObserver obs = new MapObserver(this);
+		ClientFacade.getInstance().game.addObserver(obs);
 		
 		setRobView(robView);
 		

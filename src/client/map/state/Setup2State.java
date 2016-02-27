@@ -1,7 +1,6 @@
 package client.map.state;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import client.clientFacade.ClientFacade;
 import client.map.IMapView;
@@ -22,19 +21,14 @@ public class Setup2State extends Setup1State {
 	}
 
 	public void initFromModel() { 
-		Random rand = new Random();
-
 		for (int x = 0; x <= 3; ++x) {
 			
 			int maxY = 3 - x;			
 			for (int y = -3; y <= maxY; ++y) {				
-				//int r = rand.nextInt(HexType.values().length);
-				//HexType hexType = HexType.values()[r];
+
 				HexLocation hexLoc = new HexLocation(x, y);
 				HexType hexType;
 				if (ClientFacade.getInstance().getHex(hexLoc) == null) {
-					System.out.println(x);
-					System.out.println(y);
 					hexType = HexType.WATER;
 				}
 				else {
@@ -60,8 +54,6 @@ public class Setup2State extends Setup1State {
 						}
 					}
 				}
-				
-				System.out.println(hexType.toString());
 				getView().addHex(hexLoc, hexType);
 				
 				ArrayList<EdgeLocation> edges = new ArrayList<EdgeLocation>();
@@ -87,14 +79,6 @@ public class Setup2State extends Setup1State {
 								ClientFacade.getInstance().getColorById(owner));	
 					}
 				}
-
-				
-				//getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NorthWest),
-					//	CatanColor.RED);
-				//getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.SouthWest),
-					//	CatanColor.BLUE);
-				//getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.South),
-					//	CatanColor.ORANGE);
 				
 				ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 					
@@ -132,9 +116,6 @@ public class Setup2State extends Setup1State {
 						getView().addNumber(hexLoc, ClientFacade.getInstance().getHex(hexLoc).getToken());
 					}
 				}
-				
-				//getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NorthWest), CatanColor.GREEN);
-				//getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NorthEast), CatanColor.PURPLE);
 			}
 			
 			if (x != 0) {
@@ -186,14 +167,6 @@ public class Setup2State extends Setup1State {
 									ClientFacade.getInstance().getColorById(owner));	
 						}
 					}
-
-					
-					//getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NorthWest),
-						//	CatanColor.RED);
-					//getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.SouthWest),
-						//	CatanColor.BLUE);
-					//getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.South),
-						//	CatanColor.ORANGE);
 					
 					ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 						
@@ -234,37 +207,6 @@ public class Setup2State extends Setup1State {
 				}
 			}
 		}
-		/*
-		HexLocation hexLoc = new HexLocation(0, 3);
-		WaterHex hex = (WaterHex) ClientFacade.getInstance().getHex(hexLoc);
-		PortType portType = hex.getPortType();
-		getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.North), portType);
-		
-		hexLoc = new HexLocation(0, -3);
-		hex = (WaterHex) ClientFacade.getInstance().getHex(hexLoc);
-		portType = hex.getPortType();
-		getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.South), portType);
-		
-		hexLoc = new HexLocation(-3, 3);
-		hex = (WaterHex) ClientFacade.getInstance().getHex(hexLoc);
-		portType = hex.getPortType();
-		getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.NorthEast), portType);
-		
-		hexLoc = new HexLocation(-3, 0);
-		hex = (WaterHex) ClientFacade.getInstance().getHex(hexLoc);
-		portType = hex.getPortType();
-		getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.SouthEast), portType);
-		
-		hexLoc = new HexLocation(3, -3);
-		hex = (WaterHex) ClientFacade.getInstance().getHex(hexLoc);
-		portType = hex.getPortType();
-		getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.SouthWest), portType);
-		
-		hexLoc = new HexLocation(3, 0);
-		hex = (WaterHex) ClientFacade.getInstance().getHex(hexLoc);
-		portType = hex.getPortType();
-		getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.NorthWest), portType);
-		*/
 		
 		getView().placeRobber(ClientFacade.getInstance().getRobberLocation().getHexLoc());
 
