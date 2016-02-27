@@ -20,7 +20,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	public GameHistoryController(IGameHistoryView view) {
 		
 		super(view);
-		
+		ClientFacade.getInstance().game.addObserver(obs);
 		initFromModel();
 	}
 	
@@ -55,10 +55,6 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		// Shouldn't ever get here... But had to have all paths covered
 		// Should I throw an Exception instead?
 		return null;
-	}
-
-	public void start() {
-		ClientFacade.getInstance().game.addObserver(obs);
 	}
 
 	public void update(GameState gameState) {

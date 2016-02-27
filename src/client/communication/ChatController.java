@@ -22,6 +22,7 @@ public class ChatController extends Controller implements IChatController {
 	public ChatController(IChatView view) {
 		super(view);
 		obs = new ChatObserver(this);
+		ClientFacade.getInstance().game.addObserver(obs);
 	}
 
 	@Override
@@ -62,10 +63,6 @@ public class ChatController extends Controller implements IChatController {
 		// Shouldn't ever get here... But had to have all paths covered
 		// Should I throw an Exception instead?
 		return null;
-	}
-
-	public void start() {
-		ClientFacade.getInstance().game.addObserver(obs);
 	}
 }
 
