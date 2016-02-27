@@ -27,11 +27,8 @@ public class RollController extends Controller implements IRollController {
 	public RollController(IRollView view, IRollResultView resultView) {
 		super(view);
 		obs = new RollObserver(this);
-		setResultView(resultView);
-	}
-	
-	public void start() {
 		ClientFacade.getInstance().game.addObserver(obs);
+		setResultView(resultView);
 	}
 	
 	public IRollResultView getResultView() {
