@@ -109,6 +109,13 @@ public class Game extends Observable
 		return turnManager;
 	}
 	
+	public GameChat getGameChat() {
+		return chat;
+	}
+	
+	public GameLog getGameLog() {
+		return log;
+	}
 	
 	/**
 	 * Returns the version ID so the poller and proxy can request the correct model JSON.
@@ -123,6 +130,13 @@ public class Game extends Observable
 		this.gameState = state;
 	}
 	
+	public void setGameChat(GameChat chat) {
+		this.chat = chat;
+	}
+	
+	public void setGameLog(GameLog log) {
+		this.log = log;
+	}
 
 
 // OBSERVER
