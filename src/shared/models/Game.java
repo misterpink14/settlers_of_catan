@@ -347,6 +347,10 @@ public class Game extends Observable
 		return this.map.getRobberLocation();
 	}
 	
+	public int getMaritimeTradeRatio(int playerIndex, ResourceType type) {
+		return turnManager.getMaritimeTradeRatio(playerIndex, type);
+	}
+	
 
 //***********************************************************************************************************************************
 //														Can Functions
@@ -416,6 +420,4 @@ public class Game extends Observable
 	public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 		return turnManager.CanAcceptTrade(traderIndex, tradeeIndex, out, in);
 	}
-	
-	
 }

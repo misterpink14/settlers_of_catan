@@ -248,4 +248,9 @@ public class TurnManager {
 		json += "}";
 		return json;
 	}
+
+
+	public int getMaritimeTradeRatio(int playerIndex, ResourceType type) {
+		return map.getMaritimeTradeRatio(playerIndex, type);
+	}
 }
