@@ -1,21 +1,17 @@
 package client.join;
 
+import javax.swing.JOptionPane;
+
+import client.base.Controller;
+import client.base.IAction;
+import client.clientFacade.ClientFacade;
+import client.data.GameInfo;
+import client.data.PlayerInfo;
+import client.misc.IMessageView;
 import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.JoinGameRequestParams;
 import shared.definitions.CatanColor;
-import shared.models.Game;
 import shared.serializerJSON.Deserializer;
-
-import javax.swing.JOptionPane;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.sun.javafx.scene.paint.GradientUtils.Parser;
-
-import client.base.*;
-import client.clientFacade.ClientFacade;
-import client.data.*;
-import client.misc.*;
 
 
 /**
