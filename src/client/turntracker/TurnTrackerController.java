@@ -17,8 +17,6 @@ import client.data.PlayerInfo;
 public class TurnTrackerController extends Controller implements ITurnTrackerController {
 	
 	TurnTrackerObserver obs;
-	
-	GameState state;
 
 	public TurnTrackerController(ITurnTrackerView view) {
 		
@@ -52,20 +50,44 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	
 	public void update(GameState state) {
 		initFromModel();
-		this.state = state;
-		if(state == GameState.SETUP1) {
+		
+		switch (state) {
+		case DISCARD:
+			this.getView().updateGameState("It is your turn", false);
+			break;
+		case ENDOFGAME:
+			this.getView().updateGameState(ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().game.getWinner()).getName() + " has won the game", false);
+			break;
+		case LOGIN:
+			break;
+		case MYTURN:
+			this.getView().updateGameState("It is your turn", false);
+			break;
+		case NOTMYTURN:
+			this.getView().updateGameState("It is not your turn", false);
+			break;
+		case OUTDATED:
+			break;
+		case ROBBER:
+			break;
+		case ROLLING:
+			break;
+		case SETUP1:
 			this.getView().updateGameState("Game Setup", false);
 			if(ClientFacade.getInstance().isTurn()) {
 				
 			}
-		}
-		if(state == GameState.MYTURN) {
-			this.getView().updateGameState("It is your turn", false);
-		}
-		if(state == GameState.NOTMYTURN) {
-			this.getView().updateGameState("It is not your turn", false);
-		}
+			break;
+		case SETUP2:
+			break;
+		case TRADEACCEPT:
+			break;
+		case TRADEOFFER:
+			break;
+		default:
+			break;
 		
+		}
 	}
 
 }

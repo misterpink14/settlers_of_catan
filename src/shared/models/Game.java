@@ -107,6 +107,9 @@ public class Game extends Observable
 		return players;
 	}
 	
+	public int getWinner() {
+		return this.winner;
+	}
 	
 	public TurnManager getTurnManager() {
 		return turnManager;
