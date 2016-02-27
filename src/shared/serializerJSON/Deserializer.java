@@ -429,7 +429,7 @@ public class Deserializer {
 				int playerVictoryPoints = playerObj.getAsJsonPrimitive("victoryPoints").getAsInt();
 				int playerMonuments = playerObj.getAsJsonPrimitive("monuments").getAsInt();
 				int playerID = playerObj.getAsJsonPrimitive("playerID").getAsInt();
-				//int playerIndex = playerObj.getAsJsonPrimitive("playerIndex").getAsInt();
+				int playerIndex = playerObj.getAsJsonPrimitive("playerIndex").getAsInt();
 				String playerName = playerObj.getAsJsonPrimitive("name").getAsString();
 				CatanColor playerColor = null;
 				
@@ -466,7 +466,7 @@ public class Deserializer {
 				try {
 					players.addPlayer(new Player(playerResources, playerOldDevCards, playerNewDevCards,
 							playerRoads, playerCities, playerSettlements, playerSoldiers, playerVictoryPoints,
-							playerMonuments, playerID, playerName, playerColor, false, false));
+							playerMonuments, playerID, playerName, playerColor, playerIndex, false, false));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

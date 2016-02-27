@@ -72,7 +72,7 @@ public class Player {
 	 */
 	public Player(HashMap<ResourceType, Integer> resources, HashMap<DevCardType, Integer> devCards, HashMap<DevCardType, Integer> newDevCards,
 			int roads, int cities, int settlements, int soldiers, int victoryPoints, int monuments, int id, String name, CatanColor color,
-			boolean largestArmy, boolean longestRoad) {
+			int index, boolean largestArmy, boolean longestRoad) {
 		for(ResourceType type : resources.keySet()) {
 			this.resourceCards.addCard(type, resources.get(type));
 		}
@@ -93,6 +93,7 @@ public class Player {
 		this.id = id;
 		this.name = name;
 		this.color = color;
+		this.index = index;
 	}
 
 	/**Gets this players ID */
