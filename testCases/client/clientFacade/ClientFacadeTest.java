@@ -99,7 +99,7 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testSendChat() {
-		assertTrue(ClientFacade.getInstance().sendChat().equals("True"));
+		assertTrue(ClientFacade.getInstance().sendChat("hello").equals("True"));
 	}
 
 }

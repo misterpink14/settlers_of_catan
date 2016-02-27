@@ -20,6 +20,7 @@ import shared.communication.proxy.JoinGameRequestParams;
 import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
+import shared.communication.proxy.SendChat;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
@@ -354,23 +355,23 @@ public class ClientFacade {
 	}
 	
 	/**
+	 * @param message 
 	 * @throws Exception 
 	 * Send a message to the server proxy in order to
 	 * deliver it to another player.
 	 * @throws
 	 */
-	public String sendChat() {
-		return "True";
-//		if(game.CanSendChat()) {
-//			try {
-//				return proxy.sendChat(new SendChat());
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		} else {
-//			//throw new Exception();
-//		}
-//		return "False";
+	public String sendChat(String message) {
+		if(game.CanSendChat()) {
+			try {
+				return proxy.sendChat(new SendChat(getUserData().getPlayerIndex(), message));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			//throw new Exception();
+		}
+		return "False";
 	}
 	
 	/**

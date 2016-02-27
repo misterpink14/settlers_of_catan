@@ -1,6 +1,7 @@
 package shared.models.playerClasses;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
@@ -156,5 +157,9 @@ public class GamePlayers {
 		json += "]";
 		
 		return json;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
 	}
 }

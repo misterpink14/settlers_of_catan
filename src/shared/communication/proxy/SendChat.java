@@ -16,6 +16,11 @@ public class SendChat
 	public SendChat() 
 	{}
 
+	public SendChat(int playerIndex, String content) {
+		this.playerIndex = playerIndex;
+		this.content = content;
+	}
+
 
 	
 }
