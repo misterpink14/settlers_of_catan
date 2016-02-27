@@ -27,7 +27,7 @@ public class PlayerTest {
 		oldDevCards.put(DevCardType.SOLDIER, 2);
 		HashMap<DevCardType, Integer> devCards = new HashMap<DevCardType, Integer>();
 		devCards.put(DevCardType.SOLDIER, 3);
-		Player test = new Player(resources, oldDevCards, devCards, 12, 4, 3, 2, 3, 1, 12345, "bob", CatanColor.BLUE, false, false);
+		Player test = new Player(resources, oldDevCards, devCards, 12, 4, 3, 2, 3, 1, 12345, "bob", CatanColor.BLUE, 0, false, false);
 		assertTrue(test.getNumOfResource(ResourceType.BRICK) == 0);
 		assertTrue(test.getNumOfResource(ResourceType.ORE) == 27);
 		assertTrue(test.getNumOfResource(ResourceType.SHEEP) == 30);
