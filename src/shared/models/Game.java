@@ -175,7 +175,6 @@ public class Game extends Observable
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 		updateState(currentState);
-		System.out.println(this.getGameState().toString());
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -224,7 +223,6 @@ public class Game extends Observable
 				this.gameState = this.isTurn(currPlayer) ? GameState.SETUP2 : GameState.NOTMYTURN;
 				break;
 			default:
-				System.out.println(this.gameState.toString());
 				break;
 			
 		}
