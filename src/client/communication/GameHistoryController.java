@@ -1,16 +1,21 @@
 package client.communication;
 
 import java.util.*;
-import java.util.List;
 
 import client.base.*;
+import client.clientFacade.ClientFacade;
 import shared.definitions.*;
+import shared.models.chatClasses.Message;
+import shared.models.playerClasses.Player;
+import shared.observers.GameHistoryObserver;
 
 
 /**
  * Game history controller implementation
  */
 public class GameHistoryController extends Controller implements IGameHistoryController {
+	
+	private GameHistoryObserver obs;
 
 	public GameHistoryController(IGameHistoryView view) {
 		
@@ -27,21 +32,37 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	
 	private void initFromModel() {
 		
-		//<temp>
+		List<Message> messages = ClientFacade.getInstance().game.getGameLog().getMessages();
 		
-		List<LogEntry> entries = new ArrayList<LogEntry>();
-		entries.add(new LogEntry(CatanColor.BROWN, "This is a brown message"));
-		entries.add(new LogEntry(CatanColor.ORANGE, "This is an orange message ss x y z w.  This is an orange message.  This is an orange message.  This is an orange message."));
-		entries.add(new LogEntry(CatanColor.BROWN, "This is a brown message"));
-		entries.add(new LogEntry(CatanColor.ORANGE, "This is an orange message ss x y z w.  This is an orange message.  This is an orange message.  This is an orange message."));
-		entries.add(new LogEntry(CatanColor.BROWN, "This is a brown message"));
-		entries.add(new LogEntry(CatanColor.ORANGE, "This is an orange message ss x y z w.  This is an orange message.  This is an orange message.  This is an orange message."));
-		entries.add(new LogEntry(CatanColor.BROWN, "This is a brown message"));
-		entries.add(new LogEntry(CatanColor.ORANGE, "This is an orange message ss x y z w.  This is an orange message.  This is an orange message.  This is an orange message."));
+		List<LogEntry> logEntries = new ArrayList<LogEntry>();
+		for (Message m : messages) {
+			logEntries.add(new LogEntry(getColor(m.getSource()), m.getMessage()));
+		}
+		if (logEntries.isEmpty()) {
+			logEntries.add(new LogEntry(CatanColor.WHITE, "No Log Entries"));
+		}
 		
-		getView().setEntries(entries);
-	
-		//</temp>
+		getView().setEntries(logEntries);
+	}
+
+	private CatanColor getColor(String source) {
+		List<Player> players = ClientFacade.getInstance().game.getPlayers().getPlayers();
+		for (Player p : players) {
+			if (source.equals(p.getName())) {
+				return p.getColor();
+			}
+		}
+		// Shouldn't ever get here... But had to have all paths covered
+		// Should I throw an Exception instead?
+		return null;
+	}
+
+	public void start() {
+		ClientFacade.getInstance().game.addObserver(obs);
+	}
+
+	public void update(GameState gameState) {
+		initFromModel();
 	}
 	
 }
