@@ -164,11 +164,11 @@ public class Game extends Observable
 // Public METHODS
 	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
 			int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
-		this.currPlayer = ClientFacade.getInstance().getUserData().getPlayerIndex();
 		this.map = map;
 		this.bank = bank;
 		this.cardDeck = cardDeck;
 		this.players = players;
+		this.currPlayer = ClientFacade.getInstance().getUserData().getPlayerIndex();
 		this.log = log;
 		this.chat = chat;
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
