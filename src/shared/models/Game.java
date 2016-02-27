@@ -351,6 +351,10 @@ public class Game extends Observable
 		return turnManager.getMaritimeTradeRatio(playerIndex, type);
 	}
 	
+	public Bank getBank() {
+		return bank;
+	}
+	
 
 //***********************************************************************************************************************************
 //														Can Functions
