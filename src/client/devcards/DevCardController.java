@@ -1,6 +1,12 @@
 package client.devcards;
 
+import shared.definitions.DevCardType;
+import shared.definitions.GameState;
 import shared.definitions.ResourceType;
+import shared.models.cardClasses.InsufficientCardNumberException;
+
+import javax.swing.JOptionPane;
+
 import client.base.*;
 import client.clientFacade.ClientFacade;
 
@@ -13,6 +19,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	private IBuyDevCardView buyCardView;
 	private IAction soldierAction;
 	private IAction roadAction;
+	private GameState state;
 	
 	/**
 	 * DevCardController constructor
@@ -42,7 +49,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startBuyCard() {
-		if(ClientFacade.getInstance().isTurn()) {
+		if(state == GameState.MYTURN) {
 			getBuyCardView().showModal();
 		}
 	}
@@ -73,29 +80,61 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		
+		try {
+			ClientFacade.getInstance().playDevCard(DevCardType.MONOPOLY);
+		} catch (InsufficientCardNumberException e) {
+			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
+		}
 	}
 
 	@Override
 	public void playMonumentCard() {
-		
+		try {
+			ClientFacade.getInstance().playDevCard(DevCardType.MONUMENT);
+		} catch (InsufficientCardNumberException e) {
+			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
+		}
 	}
 
 	@Override
 	public void playRoadBuildCard() {
-		
+		try {
+			ClientFacade.getInstance().playDevCard(DevCardType.ROAD_BUILD);
+		} catch (InsufficientCardNumberException e) {
+			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
+		}
 		roadAction.execute();
 	}
 
 	@Override
 	public void playSoldierCard() {
-		
+		try {
+			ClientFacade.getInstance().playDevCard(DevCardType.SOLDIER);
+		} catch (InsufficientCardNumberException e) {
+			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
+		}
 		soldierAction.execute();
 	}
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
+		try {
+			ClientFacade.getInstance().playDevCard(DevCardType.YEAR_OF_PLENTY);
+		} catch (InsufficientCardNumberException e) {
+			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
+		}
+	}
+	
+	public void update(GameState state) {
+		switch(state) {
+		case MYTURN:
+			this.state = GameState.MYTURN;
+			break;
+		default:
+			this.state = GameState.NOTMYTURN;
+			break;
 		
+		}
 	}
 
 }

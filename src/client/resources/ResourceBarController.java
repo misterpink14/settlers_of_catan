@@ -3,6 +3,7 @@ package client.resources;
 import java.util.*;
 
 import client.base.*;
+import shared.definitions.GameState;
 
 
 /**
@@ -11,6 +12,8 @@ import client.base.*;
 public class ResourceBarController extends Controller implements IResourceBarController {
 
 	private Map<ResourceBarElement, IAction> elementActions;
+	
+	GameState state;
 	
 	public ResourceBarController(IResourceBarView view) {
 
@@ -36,27 +39,37 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 	@Override
 	public void buildRoad() {
-		executeElementAction(ResourceBarElement.ROAD);
+		if(this.state == GameState.MYTURN) {
+			executeElementAction(ResourceBarElement.ROAD);
+		}
 	}
 
 	@Override
 	public void buildSettlement() {
-		executeElementAction(ResourceBarElement.SETTLEMENT);
+		if(this.state == GameState.MYTURN) {
+			executeElementAction(ResourceBarElement.SETTLEMENT);
+		}
 	}
 
 	@Override
 	public void buildCity() {
-		executeElementAction(ResourceBarElement.CITY);
+		if(this.state == GameState.MYTURN) {
+			executeElementAction(ResourceBarElement.CITY);
+		}
 	}
 
 	@Override
 	public void buyCard() {
-		executeElementAction(ResourceBarElement.BUY_CARD);
+		if(this.state == GameState.MYTURN) {
+			executeElementAction(ResourceBarElement.BUY_CARD);
+		}
 	}
 
 	@Override
 	public void playCard() {
-		executeElementAction(ResourceBarElement.PLAY_CARD);
+		if(this.state == GameState.MYTURN) {
+			executeElementAction(ResourceBarElement.PLAY_CARD);
+		}
 	}
 	
 	private void executeElementAction(ResourceBarElement element) {
@@ -65,6 +78,18 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			
 			IAction action = elementActions.get(element);
 			action.execute();
+		}
+	}
+	
+	public void update(GameState state) {
+		switch(state) {
+		case MYTURN:
+			this.state = GameState.MYTURN;
+			break;
+		default:
+			this.state = GameState.NOTMYTURN;
+			break;
+		
 		}
 	}
 
