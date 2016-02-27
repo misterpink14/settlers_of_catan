@@ -18,10 +18,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private IAcceptTradeOverlay acceptOverlay;
 	private DomesticTradeObserver obs;
 	
-	private ResourceType resourceSent = null;
-	private ResourceType resourceReceived = null;
-	private int amountSent = 0;
-	private int amountReceived = 0;
+	private ResourceType resourceToSend = null;
+	private ResourceType resourceToReceive = null;
+	private int amountToSend = 0;
+	private int amountToReceive = 0;
 	private int playerTradingWith = -1;
 
 	/**
@@ -81,21 +81,35 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void decreaseResourceAmount(ResourceType resource) {
-		if (resourceReceived == resource) {
-			amountReceived--;
+		if (resourceToReceive == resource) {
+			// Make sure we can decrease
+			if (amountToReceive > 0) {
+				amountToReceive--;
+			}
+			// if we're at zero, disable decrease button
+			if (amountToReceive == 0) {
+				this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToReceive, true, false);
+			}
 		}
-		if (resourceSent == resource) {
-			amountSent--;
+		if (resourceToSend == resource) {
+			// Make sure we can decrease
+			if (amountToSend > 0) {
+				amountToSend--;
+			}
+			// if we're at zero, disable decrease button
+			if (amountToSend == 0) {
+				this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToSend, true, false);
+			}
 		}
 	}
 
 	@Override
 	public void increaseResourceAmount(ResourceType resource) {
-		if (resourceReceived == resource) {
-			amountReceived++;
+		if (resourceToReceive == resource) {
+			amountToReceive++;
 		}
-		if (resourceSent == resource) {
-			amountSent++;
+		if (resourceToSend == resource) {
+			amountToSend++;
 		}
 	}
 
@@ -113,23 +127,27 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void setResourceToReceive(ResourceType resource) {
-		resourceReceived = resource;
+		resourceToReceive = resource;
+		// can increase but not decrease as amountToReceive is 0
+		this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToReceive, true, false);
 	}
 
 	@Override
 	public void setResourceToSend(ResourceType resource) {
-		resourceSent = resource;
+		resourceToSend = resource;
+		// can increase but not decrease as amountToSend is 0
+		this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToSend, true, false);
 	}
 
 	@Override
 	public void unsetResource(ResourceType resource) {
-		if (resourceReceived == resource) {
-			resourceReceived = null;
-			amountReceived = 0;
+		if (resourceToReceive == resource) {
+			resourceToReceive = null;
+			amountToReceive = 0;
 		}
-		if (resourceSent == resource) {
-			resourceSent = null;
-			amountReceived = 0;
+		if (resourceToSend == resource) {
+			resourceToSend = null;
+			amountToReceive = 0;
 		}
 	}
 
@@ -149,11 +167,20 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void update(GameState gameState) {
 		if (gameState == GameState.MYTURN) {
 			// update the GUI
+			// enable domestic trade button
+			this.getTradeView().enableDomesticTrade(true);
 			// enable send/receive options for each resource
+			this.getTradeOverlay().setResourceSelectionEnabled(true);
 			// enable player selection for trade
+			this.getTradeOverlay().setPlayerSelectionEnabled(true);
 			// change message in trade box
+			this.getTradeOverlay().setStateMessage("Set the trade you want to make");
 		} else {
 			this.getTradeView().enableDomesticTrade(false);
+			this.getTradeOverlay().setResourceSelectionEnabled(false);
+			this.getTradeOverlay().setPlayerSelectionEnabled(false);
+			this.getTradeOverlay().setStateMessage("Nacho turn");
+			
 		}
 	}
 
