@@ -22,7 +22,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		super(view);
 		obs = new TurnTrackerObserver(this);
-		state = GameState.LOGIN;
 	}
 	
 	@Override
@@ -53,7 +52,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		switch (state) {
 		case DISCARD:
-			this.getView().updateGameState("It is your turn", false);
+			this.getView().updateGameState("Discard Phase", false);
 			break;
 		case ENDOFGAME:
 			this.getView().updateGameState(ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().game.getWinner()).getName() + " has won the game", false);
@@ -64,25 +63,27 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			this.getView().updateGameState("It is your turn", false);
 			break;
 		case NOTMYTURN:
-			this.getView().updateGameState("It is not your turn", false);
+			this.getView().updateGameState("Waiting for turn", false);
 			break;
 		case OUTDATED:
 			break;
 		case ROBBER:
+			this.getView().updateGameState("Robber", false);
 			break;
 		case ROLLING:
+			this.getView().updateGameState("Roll Phase", false);
 			break;
 		case SETUP1:
 			this.getView().updateGameState("Game Setup", false);
-			if(ClientFacade.getInstance().isTurn()) {
-				
-			}
 			break;
 		case SETUP2:
+			this.getView().updateGameState("Game Setup", false);
 			break;
 		case TRADEACCEPT:
+			this.getView().updateGameState("Trade Phase", false);
 			break;
 		case TRADEOFFER:
+			this.getView().updateGameState("Trade Phase", false);
 			break;
 		default:
 			break;
