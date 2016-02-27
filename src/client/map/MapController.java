@@ -57,6 +57,7 @@ public class MapController extends Controller implements IMapController {
 	
 	public void setState (GameState gameState)
 	{
+		System.out.println(gameState.toString());
 		switch(gameState)
 		{
 			case SETUP1:
@@ -130,7 +131,7 @@ public class MapController extends Controller implements IMapController {
 	protected void initFromModel() {
 		
 		this.state.initFromModel();
-		//<temp> TODO replace
+		//<temp>
 		
 //		Random rand = new Random();
 //

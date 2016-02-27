@@ -175,6 +175,7 @@ public class Game extends Observable
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 		updateState(currentState);
+		System.out.println(this.getGameState().toString());
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -191,15 +192,12 @@ public class Game extends Observable
 		switch (currentState) 
 		{ 	// TODO: REMAINING -> OUTDATED, TRADEOFFER, TRADEACCEPT // TODO: not sure how these work // TODO: Also I need a way to get the currPlayer (the client's player index)
 			case "Rolling":
-			{
 				this.gameState = GameState.OUTDATED;
-			}
+				break;
 			case "Robbing":
-			{
 				this.gameState = this.isTurn(this.currPlayer) ? GameState.ROBBER : GameState.NOTMYTURN;
-			}
+				break;
 			case "Playing":
-			{
 				if (this.winner != -1)
 				{
 					this.gameState = GameState.ENDOFGAME;
@@ -215,19 +213,20 @@ public class Game extends Observable
 						this.gameState = GameState.NOTMYTURN;
 					}
 				}
-			}
+				break;
 			case "Discarding":
-			{
 				this.gameState = GameState.DISCARD;
-			}
+				break;
 			case "FirstRound":
-			{
 				this.gameState = this.isTurn(currPlayer) ? GameState.SETUP1 : GameState.NOTMYTURN;
-			}
+				break;
 			case "SecondRound":
-			{
 				this.gameState = this.isTurn(currPlayer) ? GameState.SETUP2 : GameState.NOTMYTURN;
-			}
+				break;
+			default:
+				System.out.println(this.gameState.toString());
+				break;
+			
 		}
 	}
 	
