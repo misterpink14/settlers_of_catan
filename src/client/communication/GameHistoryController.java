@@ -24,7 +24,6 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		obs = new GameHistoryObserver(this);
 		logSize = 0;
 		ClientFacade.getInstance().game.addObserver(obs);
-		initFromModel();
 	}
 	
 	@Override
