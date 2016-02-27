@@ -148,6 +148,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		params = new JoinGameRequestParams();
 		params.id = game.getId();
 		getSelectColorView().showModal();
+		for(PlayerInfo p : game.getPlayers()) {
+			if (ClientFacade.getInstance().getUserData().getId() != p.getId()){
+				getSelectColorView().setColorEnabled(p.getColor(), false);
+			}
+		}
 	}
 
 	@Override
