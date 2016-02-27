@@ -18,8 +18,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private IAcceptTradeOverlay acceptOverlay;
 	private DomesticTradeObserver obs;
 	
-	private ResourceCards amountResourceSent = new ResourceCards(0,0,0,0,0);
-	private ResourceCards amountResourceReceived = new ResourceCards(0,0,0,0,0);
+	private ResourceType resourceSent = null;
+	private ResourceType resourceReceived = null;
+	private int amountSent = 0;
+	private int amountReceived = 0;
 	private int playerTradingWith = -1;
 
 	/**
@@ -79,12 +81,22 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void decreaseResourceAmount(ResourceType resource) {
-		
+		if (resourceReceived == resource) {
+			amountReceived--;
+		}
+		if (resourceSent == resource) {
+			amountSent--;
+		}
 	}
 
 	@Override
 	public void increaseResourceAmount(ResourceType resource) {
-
+		if (resourceReceived == resource) {
+			amountReceived++;
+		}
+		if (resourceSent == resource) {
+			amountSent++;
+		}
 	}
 
 	@Override
@@ -101,17 +113,24 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void setResourceToReceive(ResourceType resource) {
-		
+		resourceReceived = resource;
 	}
 
 	@Override
 	public void setResourceToSend(ResourceType resource) {
-
+		resourceSent = resource;
 	}
 
 	@Override
 	public void unsetResource(ResourceType resource) {
-
+		if (resourceReceived == resource) {
+			resourceReceived = null;
+			amountReceived = 0;
+		}
+		if (resourceSent == resource) {
+			resourceSent = null;
+			amountReceived = 0;
+		}
 	}
 
 	@Override
