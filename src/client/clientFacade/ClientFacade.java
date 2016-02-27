@@ -133,8 +133,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't
 	 */
-	public boolean canRollDice(int currPlayer) {
-		if (!game.CanRollNumber(currPlayer)) {
+	public boolean canRollDice() {
+		if (!game.CanRollNumber(this.getUserData().getPlayerIndex())) {
 			return false;
 		}
 		return true;
@@ -149,7 +149,7 @@ public class ClientFacade {
 	 * @throws 
 	 */
 	public int rollDice() throws Exception {
-		if (canRollDice(ClientFacade.getInstance().getUserData().getPlayerIndex())) {
+		if (canRollDice()) {
 			try {
 				RollNumber r = new RollNumber(ClientFacade.getInstance().getUserData().getPlayerIndex());
 				proxy.rollNumber(r);
