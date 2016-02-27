@@ -44,7 +44,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		if (logEntries.isEmpty()) {
 			logEntries.add(new LogEntry(CatanColor.WHITE, "No Log Entries"));
 		}
-		if (logEntries.size() != log.size()) {
+		if (logEntries.size() != log.size() && log.size() != 1) {
 			log = logEntries;
 			getView().setEntries(logEntries);
 		}

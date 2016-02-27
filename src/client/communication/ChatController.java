@@ -51,7 +51,7 @@ public class ChatController extends Controller implements IChatController {
 		if (logEntries.isEmpty()) {
 			logEntries.add(new LogEntry(CatanColor.WHITE, "No Messages"));
 		}
-		if (logEntries.size() != log.size()) {
+		if (logEntries.size() != log.size() && log.size() != 1) {
 			log = logEntries;
 			getView().setEntries(logEntries);
 		}
