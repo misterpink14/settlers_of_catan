@@ -1,9 +1,12 @@
 package client.roll;
 
-import javax.swing.JOptionPane;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import client.base.*;
 import client.clientFacade.ClientFacade;
+import shared.definitions.GameState;
+import shared.observers.RollObserver;
 
 
 /**
@@ -12,6 +15,8 @@ import client.clientFacade.ClientFacade;
 public class RollController extends Controller implements IRollController {
 
 	private IRollResultView resultView;
+	private Timer timer;
+	private RollObserver obs;
 
 	/**
 	 * RollController constructor
@@ -20,10 +25,13 @@ public class RollController extends Controller implements IRollController {
 	 * @param resultView Roll result view
 	 */
 	public RollController(IRollView view, IRollResultView resultView) {
-
 		super(view);
-		
+		obs = new RollObserver(this);
 		setResultView(resultView);
+	}
+	
+	public void start() {
+		ClientFacade.getInstance().game.addObserver(obs);
 	}
 	
 	public IRollResultView getResultView() {
@@ -39,14 +47,35 @@ public class RollController extends Controller implements IRollController {
 	
 	@Override
 	public void rollDice() {
+		if (this.getRollView().isModalShowing()) {
+			this.getRollView().closeModal();
+		}
+		int rollNum = -1;
 		try {
-			String roll = ClientFacade.getInstance().rollDice();
-			getResultView().setRollValue(Integer.parseInt(roll));
-			getResultView().showModal();
+			rollNum = ClientFacade.getInstance().rollDice();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog((RollView)this.getRollView(), "There was an error when rolling the dice");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		getResultView().setRollValue(rollNum);
+		getResultView().showModal();
+		timer.cancel();
+	}
+	
+	private class AutoRoll extends TimerTask {
+
+		@Override
+		public void run() {
+			rollDice();
 		}
 	}
 
+	public void update(GameState gameState) {
+		if (gameState == GameState.ROLLING) {
+			getRollView().showModal();
+			timer = new Timer();
+			timer.schedule(new AutoRoll(), 5000);
+		}
+	}
 }
 

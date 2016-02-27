@@ -1,5 +1,7 @@
 package shared.communication.proxy;
 
+import java.util.Random;
+
 public class RollNumber
 {
 
@@ -13,9 +15,16 @@ public class RollNumber
 	 */
 	public int roll;
 	
-	public RollNumber() 
-	{}
+	public RollNumber(int playerIndex) {
+		Random rand = new Random();
+		int roll1 = rand.nextInt(6) + 1;
+		int roll2 = rand.nextInt(6) + 1;
+		this.roll = roll1 + roll2;
+		this.playerIndex = playerIndex;
+	}
 
-
+	public int getRoll() {
+		return roll;
+	}
 	
 }

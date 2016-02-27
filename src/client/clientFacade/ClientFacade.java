@@ -148,15 +148,17 @@ public class ClientFacade {
 	 * @return 
 	 * @throws 
 	 */
-	public String rollDice() throws Exception {
-		if (canRollDice(this.getUserData().getId())) {
+	public int rollDice() throws Exception {
+		if (canRollDice(ClientFacade.getInstance().getUserData().getPlayerIndex())) {
 			try {
-				return proxy.rollNumber(new RollNumber());
+				RollNumber r = new RollNumber(ClientFacade.getInstance().getUserData().getPlayerIndex());
+				proxy.rollNumber(r);
+				return r.getRoll();
 			} catch (Exception e) {
 				throw new Exception("Error rolling dice");
 			}
 		} else {
-			return "failure";
+			return -1;
 		}
 	}
 	

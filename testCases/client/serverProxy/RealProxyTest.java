@@ -136,7 +136,7 @@ public class RealProxyTest {
 
 	@Test
 	public void testRollNumber() {
-		RollNumber rollNumber = new RollNumber();
+		RollNumber rollNumber = new RollNumber(1);
 		rollNumber.roll = 10;
 		rollNumber.playerIndex = 1;
 		try {

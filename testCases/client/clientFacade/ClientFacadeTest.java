@@ -39,7 +39,8 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testRollDice() throws Exception {
-		assertTrue(!ClientFacade.getInstance().rollDice().equals("False"));
+		int num = ClientFacade.getInstance().rollDice();
+		assertTrue(num <= 12 && num >= 2);
 	}
 
 	@Test
