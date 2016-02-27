@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import client.clientFacade.ClientFacade;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
@@ -62,6 +63,8 @@ public class Game extends Observable
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
+	int currPlayer = -1;  // Index of player (client)
+	
 	
 	
 // CONSTRUCTORS
@@ -117,6 +120,7 @@ public class Game extends Observable
 		return log;
 	}
 	
+	
 	/**
 	 * Returns the version ID so the poller and proxy can request the correct model JSON.
 	 */
@@ -137,6 +141,7 @@ public class Game extends Observable
 	public void setGameLog(GameLog log) {
 		this.log = log;
 	}
+	
 
 
 // OBSERVER
@@ -156,6 +161,7 @@ public class Game extends Observable
 // Public METHODS
 	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
 			int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
+		this.currPlayer = ClientFacade.getInstance().getUserData().getPlayerIndex();
 		this.map = map;
 		this.bank = bank;
 		this.cardDeck = cardDeck;
@@ -177,7 +183,7 @@ public class Game extends Observable
 	 * 
 	 * @param currentState
 	 */
-	public void updateState(String currentState) { // (String currentState, int currPlayer) {
+	public void updateState(String currentState) {
 		
 		switch (currentState) 
 		{ 	// TODO: REMAINING -> OUTDATED, TRADEOFFER, TRADEACCEPT // TODO: not sure how these work // TODO: Also I need a way to get the currPlayer (the client's player index)
@@ -187,11 +193,25 @@ public class Game extends Observable
 			}
 			case "Robbing":
 			{
-				this.gameState = GameState.ROBBER; // this.isTurn(currPlayer) ? GameState.ROBBER : GameState.NOTMYTURN
+				this.gameState = this.isTurn(this.currPlayer) ? GameState.ROBBER : GameState.NOTMYTURN;
 			}
 			case "Playing":
 			{
-				this.gameState = GameState.MYTURN; // this.winner != -1 ? GameState.ENDOFGAME : this.isTurn(currPlayer) ? GameState.MYTURN : GameState.NOTMYTURN
+				if (this.winner != -1)
+				{
+					this.gameState = GameState.ENDOFGAME;
+				}
+				else
+				{
+					if (this.isTurn(currPlayer))
+					{
+						this.gameState = GameState.MYTURN;
+					}
+					else
+					{
+						this.gameState = GameState.NOTMYTURN;
+					}
+				}
 			}
 			case "Discarding":
 			{
@@ -199,11 +219,11 @@ public class Game extends Observable
 			}
 			case "FirstRound":
 			{
-				this.gameState = GameState.SETUP1; // this.isTurn(currPlayer) ? GameState.SETUP1 : GameState.NOTMYTURN
+				this.gameState = this.isTurn(currPlayer) ? GameState.SETUP1 : GameState.NOTMYTURN;
 			}
 			case "SecondRound":
 			{
-				this.gameState = GameState.SETUP2; // this.isTurn(currPlayer) ? GameState.SETUP2 : GameState.NOTMYTURN
+				this.gameState = this.isTurn(currPlayer) ? GameState.SETUP2 : GameState.NOTMYTURN;
 			}
 		}
 	}
