@@ -1,15 +1,12 @@
 package shared.models.mapClasses;
 
-import static org.junit.Assert.*;
-
-import java.io.StringReader;
-import java.util.ArrayList;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.google.gson.JsonObject;
 
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
@@ -21,8 +18,6 @@ import shared.locations.HexLocation;
 import shared.locations.RobberLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
-import shared.serializerJSON.Deserializer;
-import org.junit.Assert.*;
 
 public class MapTest {
 	Map map;
@@ -115,6 +110,7 @@ public class MapTest {
 		hexMap.setHex(hexLoc, hex);
 		
 		
+		
 		// Build Ports (WaterHex)
 		
 		hexLoc = new HexLocation(1, -3);
@@ -152,6 +148,7 @@ public class MapTest {
 		hexLoc = new HexLocation(0, 3);
 		hex = new WaterHex(PortType.THREE, EdgeDirection.North);
 		hexMap.setHex(hexLoc, hex);
+		
 		
 		
 		// Build remaining WaterHex
@@ -193,27 +190,6 @@ public class MapTest {
 		hexMap.setHex(hexLoc, hex);
 		
 		
-		/*
-		 -3, 1
-		 -3, 3
-		 -2, -1
-		 -1. 3
-		 3, -0
-		 3, -2
-		 2, -3
-		 1, 2
-		 0, -3
-		 
-		 -3, 0 -
-		 -3, 2 -
-		 -2, 3 -
-		 -1, -2 -
-		 3, -1 -
-		 3, -3 -
-		 2, 1 -
-		 1. -3 -
-		 0, 3 -
-		 */
 		
 		// EdgeMap
 		

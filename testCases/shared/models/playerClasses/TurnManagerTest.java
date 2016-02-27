@@ -10,9 +10,11 @@ import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.models.Game;
 
-public class TurnManagerTest { // TODO: re-implement this!
+public class TurnManagerTest {
+	
 	Game game = new Game();
 
+	
 	@Test
 	public void testCanBuyDevCard() {
 		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
@@ -26,15 +28,17 @@ public class TurnManagerTest { // TODO: re-implement this!
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.WHEAT, 5);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.SHEEP, 5);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.ORE, 5);
-//		assertFalse(game.getTurnManager().CanBuyDevCard());
-//		game.getTurnManager().setState(TurnManager.TurnState.NORMAL);
-//		assertTrue(game.getTurnManager().CanBuyDevCard());
-//		try {
-//			game.getTurnManager().buyDevCard();
-//		} catch (InsufficientCardNumberException e) {
-//			fail("Could not buy dev Card");
-//		}
+		assertTrue(game.getTurnManager().CanBuyDevCard(0)); // Check if the current player can buy a development card
+		
+		player = new Player(234, "sal", CatanColor.RED, 1);
+		try {
+			game.getPlayers().addPlayer(player);
+		} catch (Exception e) {
+			fail("could not add player.");
+		}
+		assertFalse(game.getTurnManager().CanBuyDevCard(1)); // Other player's shouldn't be able to buy a dev card
 	}
+	
 	
 	@Test
 	public void testCanBuyRoad() {
@@ -45,12 +49,12 @@ public class TurnManagerTest { // TODO: re-implement this!
 			fail("could not add player.");
 		}
 		game.getTurnManager().setCurrentTurn(0);
-//		game.getTurnManager().setState(TurnManager.TurnState.NORMAL);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.WOOD, 5);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.BRICK, 5);
-		//assertTrue(game.getTurnManager().CanBuildRoad(x, y, direction, ownerId);
+		assertTrue(game.getTurnManager().getPlayers().getPlayerByIndex(0).canBuildRoad());
 	}
 	
+
 	@Test
 	public void testCanBuySettlement() {
 		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
@@ -60,13 +64,15 @@ public class TurnManagerTest { // TODO: re-implement this!
 			fail("could not add player.");
 		}
 		game.getTurnManager().setCurrentTurn(0);
-//		game.getTurnManager().setState(TurnManager.TurnState.NORMAL);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.BRICK, 5);
+		assertFalse(game.getTurnManager().getPlayers().getPlayerByIndex(0).canBuildSettlement());
+		
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.WOOD, 5);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.WHEAT, 5);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.SHEEP, 5);
-		//assertTrue(game.getTurnManager().CanBuildSettlement(x, y, direction, ownerId);
+		assertTrue(game.getTurnManager().getPlayers().getPlayerByIndex(0).canBuildSettlement());
 	}
+	
 	
 	@Test
 	public void testCanBuyCity() {
@@ -77,11 +83,15 @@ public class TurnManagerTest { // TODO: re-implement this!
 			fail("could not add player.");
 		}
 		game.getTurnManager().setCurrentTurn(0);
-//		game.getTurnManager().setState(TurnManager.TurnState.NORMAL);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.WOOD, 5);
 		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.BRICK, 5);
-		//assertTrue(game.getTurnManager().CanBuildCity(x, y, direction, ownerId);
+		assertFalse(game.getTurnManager().getPlayers().getPlayerByIndex(0).canBuildCity());
+
+		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.ORE, 5);
+		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.WHEAT, 5);
+		assertTrue(game.getTurnManager().getPlayers().getPlayerByIndex(0).canBuildCity());
 	}
+	
 	
 	@Test
 	public void testCanRollNumber() {
@@ -92,14 +102,23 @@ public class TurnManagerTest { // TODO: re-implement this!
 			fail("could not add player.");
 		}
 		game.getTurnManager().setCurrentTurn(0);
-//		assertTrue(game.getTurnManager().CanRollNumber());
+		assertTrue(game.getTurnManager().getPlayers().getPlayerByIndex(0).canRollDice());
 		game.rollDice(0);
 	}
 	
+	
 	@Test
-	public void testCanPlaceRobber() {
-		
+	public void testIsTurn() {
+		Player player = new Player(123, "bob", CatanColor.BLUE, 0);
+		try {
+			game.getPlayers().addPlayer(player);
+		} catch (Exception e) {
+			fail("could not add player.");
+		}
+		game.getTurnManager().setCurrentTurn(0);
+		assertTrue(game.getTurnManager().isTurn(0));
 	}
+	
 	
 	@Test
 	public void testCanFinishTurn() {
@@ -110,10 +129,9 @@ public class TurnManagerTest { // TODO: re-implement this!
 			fail("could not add player.");
 		}
 		game.getTurnManager().setCurrentTurn(0);
-		assertFalse(game.getTurnManager().CanFinishTurn());
-//		game.getTurnManager().setState(TurnManager.TurnState.NORMAL);
 		assertTrue(game.getTurnManager().CanFinishTurn());
 	}
+	
 	
 	@Test
 	public void testCanSendChat() {
@@ -124,10 +142,6 @@ public class TurnManagerTest { // TODO: re-implement this!
 			fail("could not add player.");
 		}
 		game.getTurnManager().setCurrentTurn(0);
-//		game.getTurnManager().setState(TurnManager.TurnState.NORMAL);
-		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.WOOD, 5);
-		game.getPlayers().getPlayerByIndex(0).addResourceToHand(ResourceType.BRICK, 5);
 		assertTrue(game.getTurnManager().CanSendChat());
 	}
-
 }

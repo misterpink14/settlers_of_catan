@@ -1,25 +1,25 @@
 package shared.serializerJSON;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import shared.definitions.ResourceType;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
 import shared.models.cardClasses.DevCards;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
-import shared.models.chatClasses.Message;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
-import shared.definitions.ResourceType;
 
 
 public class DeserializerTest {

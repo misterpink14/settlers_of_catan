@@ -1,9 +1,8 @@
 package shared.models.cardClasses;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import shared.definitions.DevCardType;

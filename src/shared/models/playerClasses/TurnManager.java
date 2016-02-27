@@ -95,6 +95,11 @@ public class TurnManager {
 	}
 	
 	
+	public GamePlayers getPlayers(){
+		return this.players;
+	}
+	
+	
 // SETTERS
 	public void setCurrentTurn(int index) {
 		players.getPlayerByIndex(index).startTurn();
