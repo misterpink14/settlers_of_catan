@@ -413,10 +413,6 @@ public class Game extends Observable
 	public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 		return turnManager.CanAcceptTrade(traderIndex, tradeeIndex, out, in);
 	}
-
-	public int getMaritimeTradeRatio(int pIndex, ResourceType type) {
-		return turnManager.getMaritimeTradeRatio(pIndex, type);
-	}
 	
 	
 }

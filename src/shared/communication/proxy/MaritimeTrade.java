@@ -24,12 +24,9 @@ public class MaritimeTrade
 	 */
 	public ResourceType getting;
 	
-	public MaritimeTrade(ResourceType givingUp, ResourceType getting, int ratio, int playerIndex)
+	public MaritimeTrade()
 	{
-		this.playerIndex = playerIndex;
-		this.ratio = ratio;
-		this.getting = getting;
-		this.givingUp = givingUp;
+		
 	}
 
 }
