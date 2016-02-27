@@ -43,6 +43,10 @@ public class Bank
 		return resourceCards.canRemove(type, num);
 	}
 	
+	public ResourceCards getResources() {
+		return resourceCards;
+	}
+	
 	public String serialize() {
     	String json = "bank: {brick: ";
     	json += resourceCards.brickCards + ", wood: ";
