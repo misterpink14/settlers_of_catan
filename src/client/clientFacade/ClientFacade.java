@@ -235,7 +235,7 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildSettlement(int x, int y, String direction) {
-		if (!game.CanBuildSettlement(x, y, direction, this.getUserData().getId())) {
+		if (!game.CanBuildSettlement(x, y, direction, this.getUserData().getPlayerIndex())) {
 			return false;
 		}
 		return true;
@@ -266,7 +266,7 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuyDevCard() {
-		if (!game.CanBuyDevCard(this.getUserData().getId())) {
+		if (!game.CanBuyDevCard(this.getUserData().getPlayerIndex())) {
 			return false;
 		}
 		return true;
@@ -308,7 +308,7 @@ public class ClientFacade {
 	 * @throws
 	 */
 	public void tradeFour(List<Integer> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException {
-		game.offerATrade(this.getUserData().getId(), playersToOfferTo, out, in);
+		game.offerATrade(this.getUserData().getPlayerIndex(), playersToOfferTo, out, in);
 	}
 	
 	/**
@@ -336,7 +336,7 @@ public class ClientFacade {
 	 * @throws
 	 */
 	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
-		game.playDevCard(type, this.getUserData().getId());
+		game.playDevCard(type, this.getUserData().getPlayerIndex());
 	}
 	
 	/**
