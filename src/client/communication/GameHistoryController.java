@@ -16,13 +16,13 @@ import shared.observers.GameHistoryObserver;
 public class GameHistoryController extends Controller implements IGameHistoryController {
 	
 	private GameHistoryObserver obs;
-	private List<LogEntry> log;
+	private int logSize;
 
 	public GameHistoryController(IGameHistoryView view) {
 		
 		super(view);
 		obs = new GameHistoryObserver(this);
-		log = new ArrayList<LogEntry>();
+		logSize = 0;
 		ClientFacade.getInstance().game.addObserver(obs);
 		initFromModel();
 	}
@@ -41,12 +41,18 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		for (Message m : messages) {
 			logEntries.add(new LogEntry(getColor(m.getSource()), m.getMessage()));
 		}
+		boolean empty = false;
 		if (logEntries.isEmpty()) {
-			logEntries.add(new LogEntry(CatanColor.WHITE, "No Log Entries"));
+			logEntries.add(new LogEntry(CatanColor.WHITE, "No Messages"));
+			empty = true;
 		}
-		if (logEntries.size() != log.size() && log.size() != 1) {
-			log = logEntries;
-			getView().setEntries(logEntries);
+		if (logEntries.size() != logSize) {
+			if (empty) {
+				getView().setEntries(logEntries);
+			} else {
+				logSize = logEntries.size();
+				getView().setEntries(logEntries);
+			}
 		}
 	}
 

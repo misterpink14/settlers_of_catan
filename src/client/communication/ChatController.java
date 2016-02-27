@@ -18,11 +18,11 @@ import shared.observers.ChatObserver;
 public class ChatController extends Controller implements IChatController {
 	
 	private ChatObserver obs;
-	private List<LogEntry> log;
+	private int logSize;
 
 	public ChatController(IChatView view) {
 		super(view);
-		log = new ArrayList<LogEntry>();
+		logSize = 0;
 		obs = new ChatObserver(this);
 		ClientFacade.getInstance().game.addObserver(obs);
 	}
@@ -48,12 +48,18 @@ public class ChatController extends Controller implements IChatController {
 		for (Message m : messages) {
 			logEntries.add(new LogEntry(getColor(m.getSource()), m.getMessage()));
 		}
+		boolean empty = false;
 		if (logEntries.isEmpty()) {
 			logEntries.add(new LogEntry(CatanColor.WHITE, "No Messages"));
+			empty = true;
 		}
-		if (logEntries.size() != log.size() && log.size() != 1) {
-			log = logEntries;
-			getView().setEntries(logEntries);
+		if (logEntries.size() != logSize) {
+			if (empty) {
+				getView().setEntries(logEntries);
+			} else {
+				logSize = logEntries.size();
+				getView().setEntries(logEntries);
+			}
 		}
 	}
 
