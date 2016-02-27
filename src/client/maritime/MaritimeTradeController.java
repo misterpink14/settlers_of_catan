@@ -1,6 +1,7 @@
 package client.maritime;
 
 import shared.definitions.*;
+import shared.models.cardClasses.ResourceCards;
 import shared.models.playerClasses.Player;
 import shared.observers.MaritimeTradeObserver;
 
@@ -83,10 +84,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		resourcesToGive = (ResourceType[])toGive.toArray();
 		
 		List<ResourceType> resourcesAvailable = new ArrayList<ResourceType>();
+		ResourceCards resources = ClientFacade.getInstance().game.getBank().getResources();
 		for (ResourceType r : ResourceType.values()) {
-			// if bank has >= 1 available, show it is available
-			// I have checks in the bank now, but just need to actually find a path to the bank
-			// Maybe make it a singleton?
+			if (resources.canRemove(r, 1)) {
+				resourcesAvailable.add(r);
+			}
 		}
 		resourcesToGet = (ResourceType[])resourcesAvailable.toArray();
 		
@@ -117,10 +119,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void setGiveResource(ResourceType resource) {
-		// Need a way to calculate the cost of the resource? How do I find if they 
-		// have a 4:1, 3:1, or 2:1 ratio.
 		giveResource = resource;
-		ratio = 0; // Should be = ratio option
+		ratio = ClientFacade.getInstance().game.getMaritimeTradeRatio(
+				ClientFacade.getInstance().getUserData().getPlayerIndex(), giveResource);
 		getTradeOverlay().selectGiveOption(giveResource, ratio);
 		getTradeOverlay().showGetOptions(resourcesToGet);
 	}
@@ -147,6 +148,4 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			this.getTradeView().enableMaritimeTrade(false);
 		}
 	}
-
 }
-
