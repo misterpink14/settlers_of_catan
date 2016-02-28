@@ -233,6 +233,7 @@ public class Setup1State extends BaseState {
 
 	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+		return false;
 	//	return ClientFacade.getInstance().canBuildCity(, y, direction)
 	}
 
