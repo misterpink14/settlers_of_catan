@@ -206,25 +206,25 @@ public class MapController extends Controller implements IMapController {
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) 
 	{
 		System.out.println("canPlaceRoad");
-		return true;
+		return this.state.canPlaceCity(edgeLoc);
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) 
 	{
 		System.out.println("canPlaceSettlement");
-		return true;
+		return this.state.canPlaceSettlement(vertLoc);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
 
 		System.out.println("canPlaceCity");
-		return true;
+		return this.state.canPlaceCity(vertLoc);
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
 
 		System.out.println("canPlaceRobber");
-		return true;
+		return this.state.canPlaceRobber(hexLoc);
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) 
@@ -236,42 +236,45 @@ public class MapController extends Controller implements IMapController {
 	public void placeSettlement(VertexLocation vertLoc) {
 
 		System.out.println("placeSettlement");
-		getView().placeSettlement(vertLoc, CatanColor.ORANGE);
+		this.state.placeSettlement(edgeLoc);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
 
-		System.out.println("placeCity");		
-		getView().placeCity(vertLoc, CatanColor.ORANGE);
+		System.out.println("placeCity");
+		this.state.placeCity(vertLoc);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
 
 		System.out.println("placeRobber");
-		getView().placeRobber(hexLoc);
-		
-		getRobView().showModal();
+		this.state.placeRobber(hexLoc);
 	}
 	
+	// allowConnected == true for setup1 and setup2 ======== isFree == true for setup1 and setup2
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
 		
-		getView().startDrop(pieceType, CatanColor.ORANGE, true);
+		this.state.startMove(pieceType, isFree, allowDisconnected);
 	}
 	
 	public void cancelMove() {
 		
+		this.state.cancelMove();
 	}
 	
 	public void playSoldierCard() {	
 		
+		this.state.playSoldierCard();
 	}
 	
 	public void playRoadBuildingCard() {	
 		
+		this.state.playRoadBuildingCard();
 	}
 	
 	public void robPlayer(RobPlayerInfo victim) {	
 		
+		this.state.robPlayer(victim);
 	}
 	
 }

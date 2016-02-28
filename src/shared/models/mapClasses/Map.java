@@ -30,29 +30,6 @@ public class Map
 	private PlayerMap PlayerPieces = new PlayerMap();
 	
 	
-
-	/* Constraints within the game board. Use for generating the board 
-	private final int NUM_SEA = 18; // Number of sea pieces
-	private final int NUM_HARBORS = 9; // Number of sea pieces with harbors
-	private final int NUM_TERRAINS = 19; // Number of terrain pieces
-	// Individual Terrain Types
-	private final int NUM_ORE = 3;
-	private final int NUM_GRAIN = 4;
-	private final int NUM_LUMBER = 4;
-	private final int NUM_WOOL = 4;
-	private final int NUM_BRICK = 3;
-	private final int NUM_DESERT = 1;
-	// Token
-	private final int[] TOKEN_VALUES = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-	private final int NUM_TOKENS = NUM_TERRAINS - 1;
-	private final int NUM_TOKEN = 2;
-	private final int NUM_TWO = 1;
-	private final int NUM_TWELVE = 1;
-	// Harbor
-	private final int NUM_HARBOR = 1;
-	private final int NUM_THREE = 4;*/
-	
-	
 	
 // CONSTRUCTORS
 	public Map() {}
@@ -133,9 +110,8 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRobber(int x, int y)
+	public boolean canPlaceRobber(HexLocation loc)
 	{
-		HexLocation loc = new HexLocation(x,y);
 		if (!this.Robber.canPlaceRobber(loc))
 		{
 			return false;
@@ -155,13 +131,10 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRoad(int x, int y, String edgeDir, int ownerIndex)
+	public boolean canPlaceRoad(EdgeLocation edgeLoc, int ownerIndex)
 	{
 		try {
-			EdgeLocation edgeLoc = (new EdgeLocation(
-				new HexLocation(x, y), 
-				this.stringToEdgeDirection(edgeDir)
-			)).getNormalizedLocation();
+			edgeLoc = edgeLoc.getNormalizedLocation();
 			return this.isValidEdge(edgeLoc) && this.Edges.canBuildRoad(edgeLoc, ownerIndex);
 		} catch (IndexOutOfBoundsException e) {
 			return false;
@@ -178,13 +151,10 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceSettlement(int x, int y, String vertexDir, int ownerIndex) 
+	public boolean canPlaceSettlement(VertexLocation vertexLoc, int ownerIndex) 
 	{
 		try {
-			VertexLocation vertexLoc = (new VertexLocation(
-				new HexLocation(x, y),
-				this.stringToVertexDirection(vertexDir)
-			)).getNormalizedLocation();
+			vertexLoc = vertexLoc.getNormalizedLocation();
 			return this._canPlaceSettlement(vertexLoc) && this.Vertexes.canPlaceSettlement(vertexLoc, ownerIndex);
 		} catch (IndexOutOfBoundsException e)
 		{
@@ -202,10 +172,10 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceCity(int x, int y, String direction, int ownerIndex)
+	public boolean canPlaceCity(VertexLocation vertexLoc, int ownerIndex)
 	{
 		try {
-			VertexLocation loc = new VertexLocation(new HexLocation(x, y), stringToVertexDirection(direction));
+			vertexLoc = vertexLoc.getNormalizedLocation();
 			return this.Vertexes.canPlaceCity(loc, ownerIndex);
 		} catch (IndexOutOfBoundsException e)
 		{

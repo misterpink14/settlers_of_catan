@@ -233,37 +233,45 @@ public class Setup1State extends BaseState {
 
 	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		return false;
-	//	return ClientFacade.getInstance().canBuildCity(, y, direction)
+		return ClientFacade.getInstance().canBuildRoad(edgeLoc);
 	}
 
 
 	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		return false;
+		return ClientFacade.getInstance().canBuildSettlement(vertLoc);
 	}
 
 	
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc) {
-		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
-
-		getView().startDrop(
+		if (ClientFacade.getInstance().canBuildRoad(edgeLoc))
+		{
+			ClientFacade.getInstance().uildRoad(edgeLoc);
+			getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+			
+			getView().startDrop(
 				PieceType.SETTLEMENT, 
-				ClientFacade.getInstance().getUserColor(), 
+				this.color, 
 				ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() < 15
 			);
+		}
 	}
 
 
 	@Override
 	public void placeSettlement(VertexLocation vertLoc) {
-
+		if (ClientFacade.getInstance().placeSettlement(placeSettlement))
+		{
+			// Add buildsettlement
+			getView().placeSettlement(vertLoc, CatanColor.ORANGE);
+		}
 	}
 	
 
 	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
-
+		
+		getView().startDrop(pieceType, this.color, true);
 	}
 }

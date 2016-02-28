@@ -173,8 +173,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildRoad(int x, int y, String direction) {
-		if (!game.CanBuildRoad(x, y, direction, this.getUserData().getPlayerIndex())) {
+	public boolean canBuildRoad(EdgeLocation edgeLoc) {
+		if (!game.CanBuildRoad(edgeLoc, this.getUserData().getPlayerIndex())) {
 			return false;
 		}
 		return true;
@@ -185,8 +185,8 @@ public class ClientFacade {
 	 * a road on the board.
 	 * @throws
 	 */
-	public String buildRoad(int x, int y, String direction) throws Exception {
-		if (canBuildRoad(x, y, direction)) {
+	public String buildRoad(EdgeLocation edgeLoc) throws Exception {
+		if (canBuildRoad(edgeLoc)) {
 			try {
 				return proxy.buildRoad(new BuildRoad());
 			} catch (Exception e) {
@@ -205,8 +205,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildCity(int x, int y, String direction) {
-		if (!game.CanBuildCity(x, y, direction, this.getUserData().getId())) {
+	public boolean canBuildCity(VertexLocation vertLoc) {
+		if (!game.CanBuildCity(vertLoc, this.getUserData().getId())) {
 			return false;
 		}
 		return true;
@@ -217,8 +217,8 @@ public class ClientFacade {
 	 * a city on the board.
 	 * @throws
 	 */
-	public String buildCity(int x, int y, String direction) throws Exception {
-		if (canBuildCity(x, y, direction)) {
+	public String buildCity(VertexLocation vertLoc) throws Exception {
+		if (canBuildCity(vertLoc)) {
 			try {
 				return proxy.buildCity(new BuildCity());
 			} catch (Exception e) {
@@ -237,8 +237,8 @@ public class ClientFacade {
 	 * @return returns true if they can, false if
 	 * they can't.
 	 */
-	public boolean canBuildSettlement(int x, int y, String direction) {
-		if (!game.CanBuildSettlement(x, y, direction, this.getUserData().getPlayerIndex())) {
+	public boolean canBuildSettlement(VertexLocation vertLoc) {
+		if (!game.CanBuildSettlement(vertLoc, this.getUserData().getPlayerIndex())) {
 			return false;
 		}
 		return true;
@@ -249,8 +249,8 @@ public class ClientFacade {
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public String buildSettlement(int x, int y, String direction) throws Exception {
-		if (canBuildSettlement(x, y, direction)) {
+	public String buildSettlement(VertexLocation vertLoc) throws Exception {
+		if (canBuildSettlement(vertLoc)) {
 			try {
 				return proxy.buildSettlement(new BuildSettlement());
 			} catch (Exception e) {

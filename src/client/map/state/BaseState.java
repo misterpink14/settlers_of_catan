@@ -19,6 +19,7 @@ public class BaseState {
 // CONSTRUCTOR
 	public BaseState(IMapView view) {
 		this.view = view;
+		this.color = ClientFacade.getInstance().getUserColor()
 	}
 	
 	public IMapView getView() {
