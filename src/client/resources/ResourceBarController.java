@@ -103,13 +103,19 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.ORE));
 		getView().setElementAmount(ResourceBarElement.SHEEP, 
 				ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.SHEEP));
+				
+		getView().setElementAmount(ResourceBarElement.ROAD, 
+				ClientFacade.getInstance().getNumOfPlayerRoads());
+		getView().setElementAmount(ResourceBarElement.CITY, 
+				ClientFacade.getInstance().getNumOfPlayerCities());
+		getView().setElementAmount(ResourceBarElement.SETTLEMENT, 
+				ClientFacade.getInstance().getNumOfPlayerSettlements());
 		
 		
 		switch(state) {
 		case SETUP1:
 		case MYTURN:
 			this.state = GameState.MYTURN;
-			getView().setElementAmount(ResourceBarElement.BRICK, 5);
 			break;
 		default:
 			this.state = GameState.NOTMYTURN;

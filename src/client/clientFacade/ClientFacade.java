@@ -432,4 +432,25 @@ public class ClientFacade {
 		
 		return currentPlayer.getNumOfResource(resourceType);
 	}
+	
+	public int getNumOfPlayerRoads() {
+		Player currentPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByID(
+				ClientFacade.getInstance().getUserData().getId());
+		
+		return currentPlayer.getRoads();
+	}
+	
+	public int getNumOfPlayerSettlements() {
+		Player currentPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByID(
+				ClientFacade.getInstance().getUserData().getId());
+		
+		return currentPlayer.getSettlements();
+	}
+	
+	public int getNumOfPlayerCities() {
+		Player currentPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByID(
+				ClientFacade.getInstance().getUserData().getId());
+		
+		return currentPlayer.getCities();
+	}
 }
