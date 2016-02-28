@@ -17,6 +17,8 @@ public class RollController extends Controller implements IRollController {
 	private IRollResultView resultView;
 	private Timer timer;
 	private RollObserver obs;
+	boolean modalShown = false;
+	
 
 	/**
 	 * RollController constructor
@@ -57,6 +59,7 @@ public class RollController extends Controller implements IRollController {
 		getResultView().setRollValue(rollNum);
 		getResultView().showModal();
 		timer.cancel();
+		//this.modalShown = false;
 	}
 	
 	private class AutoRoll extends TimerTask {
@@ -68,11 +71,42 @@ public class RollController extends Controller implements IRollController {
 	}
 
 	public void update(GameState gameState) {
-		if (gameState == GameState.ROLLING) {
-			getRollView().showModal();
-			timer = new Timer();
-			timer.schedule(new AutoRoll(), 5000);
-		}
+        switch(gameState) {
+        case DISCARD:
+            break;
+        case ENDOFGAME:
+            break;
+        case LOGIN:
+            break;
+        case MYTURN:
+            break;
+        case NOTMYTURN:
+        	this.modalShown = false;
+            break;
+        case OUTDATED:
+            break;
+        case ROBBER:
+            break;
+        case ROLLING:
+        	if(this.modalShown == false) {
+				getRollView().showModal();
+				timer = new Timer();
+				timer.schedule(new AutoRoll(), 5000);
+				this.modalShown = true;
+			}
+            break;
+        case SETUP1:
+            break;
+        case SETUP2:
+            break;
+        case TRADEACCEPT:
+            break;
+        case TRADEOFFER:
+            break;
+        default:
+            break;
+        
+        }
 	}
 }
 

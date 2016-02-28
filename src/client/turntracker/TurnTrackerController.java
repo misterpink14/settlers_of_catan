@@ -66,6 +66,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			this.getView().updateGameState("Waiting for turn", false);
 			break;
 		case OUTDATED:
+			this.getView().updateGameState("Waiting for turn", false);
 			break;
 		case ROBBER:
 			this.getView().updateGameState("Robber", false);
