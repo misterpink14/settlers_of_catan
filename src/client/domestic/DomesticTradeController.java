@@ -370,9 +370,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WHEAT, wheatIncrease, wheatDecrease);
 			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WOOD, woodIncrease, woodDecrease);
 			// enable player selection for trade
-			this.getTradeOverlay().setPlayerSelectionEnabled(true);
+			//this.getTradeOverlay().setPlayerSelectionEnabled(true);
 			// change message in trade box
-			this.getTradeOverlay().setStateMessage("Set the trade you want to make");
+			//this.getTradeOverlay().setStateMessage("Set the trade you want to make");
 		} else {
 			this.getTradeView().enableDomesticTrade(false);
 			this.getTradeOverlay().setResourceSelectionEnabled(false);
