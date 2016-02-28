@@ -371,8 +371,8 @@ public class Game extends Observable
 		return turnManager.CanBuildRoad(edgeLoc, currPlayer, isFree, isSetup);
 	}
 	
-	public boolean CanBuildSettlement(VertexLocation vertLoc, int currPlayer) {
-		return turnManager.CanBuildSettlement(vertLoc, currPlayer);
+	public boolean CanBuildSettlement(VertexLocation vertLoc, int currPlayer, boolean isFree, boolean isSetup) {
+		return turnManager.CanBuildSettlement(vertLoc, currPlayer, isFree, isSetup);
 	}
 	
 	

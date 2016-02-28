@@ -139,51 +139,35 @@ public class MapController extends Controller implements IMapController {
 	
 	
 // Public METHODS
-	public boolean canPlaceRoad(EdgeLocation edgeLoc) 
-	{
-		System.out.println("canPlaceRoad");
+	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
 		return this.state.canPlaceRoad(edgeLoc);
 	}
 
-	public boolean canPlaceSettlement(VertexLocation vertLoc) 
-	{
-		System.out.println("canPlaceSettlement");
+	public boolean canPlaceSettlement(VertexLocation vertLoc) {
 		return this.state.canPlaceSettlement(vertLoc);
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
-
-		System.out.println("canPlaceCity");
 		return this.state.canPlaceCity(vertLoc);
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-
-		System.out.println("canPlaceRobber");
 		return this.state.canPlaceRobber(hexLoc);
 	}
 
-	public void placeRoad(EdgeLocation edgeLoc) 
-	{
-		System.out.println("placeRoad");
+	public void placeRoad(EdgeLocation edgeLoc) {
 		this.state.placeRoad(edgeLoc);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-
-		System.out.println("placeSettlement");
 		this.state.placeSettlement(vertLoc);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-
-		System.out.println("placeCity");
 		this.state.placeCity(vertLoc);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
-
-		System.out.println("placeRobber");
 		this.state.placeRobber(hexLoc);
 	}
 	

@@ -100,7 +100,7 @@ public class VertexMap
 	 * @throws IndexOutOfBoundsException
 	 * @throws InvalidTypeException 
 	 */
-	public boolean canPlaceSettlement(VertexLocation loc, int ownerIndex) throws IndexOutOfBoundsException, InvalidTypeException
+	public boolean canPlaceSettlement(VertexLocation loc, int ownerIndex, boolean isSetup) throws IndexOutOfBoundsException, InvalidTypeException
 	{
 		loc = loc.getNormalizedLocation();
 		if (this.Vertexes.containsKey(loc))
@@ -108,7 +108,7 @@ public class VertexMap
 			return false;
 		}
 		
-		return this._canPlaceSettlement(loc, ownerIndex);
+		return this._canPlaceSettlement(loc, ownerIndex, isSetup);
 	}
 	
 	
@@ -125,8 +125,20 @@ public class VertexMap
 	 * @throws IndexOutOfBoundsException
 	 * @throws InvalidTypeException 
 	 */
-	private boolean _canPlaceSettlement(VertexLocation loc, int ownerIndex) throws IndexOutOfBoundsException, InvalidTypeException
+	private boolean _canPlaceSettlement(VertexLocation loc, int ownerIndex, boolean isSetup) throws IndexOutOfBoundsException, InvalidTypeException
 	{
+		// Check if the location is available
+		if (!this.checkLocation(loc.getDir(), loc.getHexLoc()))
+		{
+			return false;
+		}
+		
+		// Touch your road if isSetup // TODO <<<<<<this
+//		if (isSetup)
+//		{
+//			return true;
+//		}
+		
 		switch(loc.getDir())
 		{
 			case NorthEast:
@@ -157,7 +169,7 @@ public class VertexMap
 	
 	
 	/**
-	 * Check's if the given location
+	 * Check's if the given location is available
 	 * 
 	 * @param dir
 	 * @param hexLoc

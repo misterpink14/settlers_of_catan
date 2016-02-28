@@ -136,8 +136,6 @@ public class Map
 	{
 		try {
 			edgeLoc = edgeLoc.getNormalizedLocation();
-			System.out.println( "" + (this.isValidEdge(edgeLoc)));
-			System.out.println("" +this.Edges.canBuildRoad(edgeLoc, ownerIndex, isSetup));
 			return this.isValidEdge(edgeLoc) && this.Edges.canBuildRoad(edgeLoc, ownerIndex, isSetup);
 		} catch (IndexOutOfBoundsException e) {
 			return false;
@@ -152,11 +150,11 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceSettlement(VertexLocation vertexLoc, int ownerIndex) 
+	public boolean canPlaceSettlement(VertexLocation vertexLoc, int ownerIndex, boolean isSetup) 
 	{
 		try {
 			vertexLoc = vertexLoc.getNormalizedLocation();
-			return this._canPlaceSettlement(vertexLoc) && this.Vertexes.canPlaceSettlement(vertexLoc, ownerIndex);
+			return this._canPlaceSettlement(vertexLoc) && this.Vertexes.canPlaceSettlement(vertexLoc, ownerIndex, isSetup);
 		} catch (IndexOutOfBoundsException e)
 		{
 			return false;

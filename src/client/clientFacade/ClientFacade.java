@@ -165,6 +165,7 @@ public class ClientFacade {
 		}
 	}
 	
+	
 	/**
 	 * Checks with the model to see if it's the
 	 * player's turn, if they have the resources
@@ -188,15 +189,24 @@ public class ClientFacade {
 		return true;
 	}
 	
+	
 	/**
 	 * Send the command to the server proxy to build
 	 * a road on the board.
 	 * @throws
 	 */
-	public String buildRoad(EdgeLocation edgeLoc, boolean isFree) throws Exception {
-		if (canBuildRoad(edgeLoc, isFree)) {
+	public String buildRoad(EdgeLocation edgeLoc) throws Exception { // Used during Gameplay
+		return this.buildRoad(edgeLoc, false);
+	}
+	
+	public String buildRoad(EdgeLocation edgeLoc, boolean isFree) throws Exception { // Used for playing the RoadBuilder card
+		return this.buildRoad(edgeLoc, isFree, false);
+	}
+	
+	public String buildRoad(EdgeLocation edgeLoc, boolean isFree, boolean isSetup) throws Exception { // Used in Setup1 and Setup2
+		if (canBuildRoad(edgeLoc, isFree, isSetup)) {
 			try {
-				return proxy.buildRoad(new BuildRoad());
+				return proxy.buildRoad(new BuildRoad(edgeLoc, isFree));
 			} catch (Exception e) {
 				throw new Exception("Error building road");
 			}
@@ -204,6 +214,7 @@ public class ClientFacade {
 			return "failure";
 		}
 	}
+	
 	
 	/**
 	 * Checks with the model to see if it's the
@@ -219,6 +230,7 @@ public class ClientFacade {
 		}
 		return true;
 	}
+	
 	
 	/**
 	 * Send the command to the server proxy to build
@@ -237,6 +249,7 @@ public class ClientFacade {
 		}
 	}
 	
+	
 	/**
 	 * Checks with the model to see if it's the
 	 * player's turn, if they have the resources
@@ -246,19 +259,36 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildSettlement(VertexLocation vertLoc) {
-		if (!game.CanBuildSettlement(vertLoc, this.getUserData().getPlayerIndex())) {
+		return this.canBuildSettlement(vertLoc, false);
+	}
+	
+	public boolean canBuildSettlement(VertexLocation vertLoc, boolean isFree) {
+		return this.canBuildSettlement(vertLoc, isFree, false);
+	}
+	
+	public boolean canBuildSettlement(VertexLocation vertLoc, boolean isFree, boolean isSetup) {
+		if (!game.CanBuildSettlement(vertLoc, this.getUserData().getPlayerIndex(), isFree, isSetup)) {
 			return false;
 		}
 		return true;
 	}
+	
 	
 	/**
 	 * Send the command to the server proxy to build
 	 * a settlement on the board.
 	 * @throws
 	 */
-	public String buildSettlement(VertexLocation vertLoc) throws Exception {
-		if (canBuildSettlement(vertLoc)) {
+	public String buildSettlement(VertexLocation vertLoc) throws Exception { // Used during Gameplay
+		return this.buildSettlement(vertLoc, false);
+	}
+	
+	public String buildSettlement(VertexLocation vertLoc, boolean isFree) throws Exception { // Used for playing the RoadBuilder card
+		return this.buildSettlement(vertLoc, isFree, false);
+	}
+	
+	public String buildSettlement(VertexLocation vertLoc, boolean isFree, boolean isSetup) throws Exception {
+		if (canBuildSettlement(vertLoc, isFree, isSetup)) {
 			try {
 				return proxy.buildSettlement(new BuildSettlement());
 			} catch (Exception e) {
@@ -268,6 +298,7 @@ public class ClientFacade {
 			return "failure";
 		}
 	}
+	
 	
 	/**
 	 * Checks with the model to see if it's the
@@ -282,6 +313,7 @@ public class ClientFacade {
 		}
 		return true;
 	}
+	
 	
 	/**
 	 * Send the command to the server proxy to build
@@ -300,6 +332,7 @@ public class ClientFacade {
 		}
 	}
 	
+	
 	/**
 	 * Send the command to the server proxy to offer
 	 * a trade with another player.
@@ -313,6 +346,7 @@ public class ClientFacade {
 		}
 	}
 	
+	
 	/**
 	 * Send the command to the server proxy to trade
 	 * in four of a kind for another resource
@@ -321,6 +355,7 @@ public class ClientFacade {
 	public void tradeFour(List<Integer> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException {
 		game.offerATrade(this.getUserData().getPlayerIndex(), playersToOfferTo, out, in);
 	}
+	
 	
 	/**
 	 * @param ratio 
@@ -342,6 +377,7 @@ public class ClientFacade {
 			return "failure";
 		}
 	}
+	
 	
 	/**
 	 * @throws Exception 
@@ -380,6 +416,7 @@ public class ClientFacade {
 		}
 	}
 	
+	
 	/**
 	 * @throws Exception 
 	 * Send the end turn command to the server proxy.
@@ -396,6 +433,7 @@ public class ClientFacade {
 			return "failure";
 		}
 	}
+	
 	
 	/**
 	 * @param message 
@@ -417,6 +455,7 @@ public class ClientFacade {
 		return "False";
 	}
 	
+	
 	/**
 	 * gets an object with the information about the current user.
 	 * @return
@@ -434,6 +473,7 @@ public class ClientFacade {
 		}
 		return loginUser;
 	}
+	
 	
 	/**
 	 * Get the hex from a coordinate

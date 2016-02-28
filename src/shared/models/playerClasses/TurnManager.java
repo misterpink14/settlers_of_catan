@@ -190,17 +190,23 @@ public class TurnManager {
 	}
 	
 	public boolean CanBuildRoad(EdgeLocation edgeLoc, int currPlayer, boolean isFree, boolean isSetup) {
-		return this.isTurn(currPlayer) && (players.getPlayerByIndex(currPlayer).canBuildRoad() || isFree) && (map.canPlaceRoad(edgeLoc, currPlayer, isSetup));
+		return this.isTurn(currPlayer) && 
+				(players.getPlayerByIndex(currPlayer).canBuildRoad() || isFree) && 
+				map.canPlaceRoad(edgeLoc, currPlayer, isSetup);
 	}
 	
 	
-	public boolean CanBuildSettlement(VertexLocation vertexLoc, int currPlayer) {
-		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildSettlement() && map.canPlaceSettlement(vertexLoc, currPlayer);
+	public boolean CanBuildSettlement(VertexLocation vertexLoc, int currPlayer, boolean isFree, boolean isSetup) {
+		return this.isTurn(currPlayer) && 
+				(players.getPlayerByIndex(currPlayer).canBuildSettlement() || isFree) && 
+				map.canPlaceSettlement(vertexLoc, currPlayer, isSetup);
 	}
 	
 	
 	public boolean CanBuildCity(VertexLocation vertexLoc, int currPlayer) {
-		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildCity() && map.canPlaceCity(vertexLoc, currPlayer);
+		return this.isTurn(currPlayer) && 
+				players.getPlayerByIndex(currPlayer).canBuildCity() && 
+				map.canPlaceCity(vertexLoc, currPlayer);
 	}
 	
 	public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {

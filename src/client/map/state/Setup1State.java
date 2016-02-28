@@ -224,11 +224,13 @@ public class Setup1State extends BaseState {
 		
 		if (!this.hasRenderedOverlay) {
 			this.hasRenderedOverlay = true;
-			getView().startDrop(
-					PieceType.ROAD, 
-					ClientFacade.getInstance().getUserColor(), 
-					ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() < 15
-				);
+			
+			if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() == 15) {
+				this.startMove(PieceType.ROAD, isFree, false);
+			}
+			else if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getSettlements() == 5) {
+				this.startMove(PieceType.SETTLEMENT, isFree, false);
+			}
 		}
 	}
 
@@ -248,23 +250,25 @@ public class Setup1State extends BaseState {
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc) {
 		try {
-			ClientFacade.getInstance().buildRoad(edgeLoc, true);
+			ClientFacade.getInstance().buildRoad(edgeLoc, this.isFree, this.isSetup);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
 		getView().placeRoad(edgeLoc, this.color);
 		
-		getView().startDrop(
-			PieceType.SETTLEMENT, 
-			this.color, 
-			ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() < 15
-		);
+		this.startMove(PieceType.SETTLEMENT, isFree, false);
 	}
 
 
 	@Override
 	public void placeSettlement(VertexLocation vertLoc) {
+		try {
+			ClientFacade.getInstance().buildSettlement(vertLoc, this.isFree, this.isSetup);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
 		getView().placeSettlement(vertLoc, this.color);
 	}
 	
@@ -272,6 +276,6 @@ public class Setup1State extends BaseState {
 	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 		
-		getView().startDrop(pieceType, this.color, true);
+		getView().startDrop(pieceType, this.color, false);
 	}
 }

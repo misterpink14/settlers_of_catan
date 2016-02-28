@@ -2,8 +2,7 @@ package shared.communication.proxy;
 
 import shared.locations.EdgeLocation;
 
-public class BuildRoad
-{
+public class BuildRoad {
 
 	/**
 	 * The index of the player sending the message
@@ -16,10 +15,17 @@ public class BuildRoad
 	public Boolean free;
 	
 	public EdgeLocation roadLocation;
+
+	
 	
 	public BuildRoad() 
 	{}
-
-
+	
+	
+	public BuildRoad(EdgeLocation edgeLoc, boolean isFree)
+	{
+		this.roadLocation = edgeLoc;
+		this.free = isFree;
+	}
 	
 }
