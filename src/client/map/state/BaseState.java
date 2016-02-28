@@ -2,6 +2,7 @@ package client.map.state;
 
 import client.data.RobPlayerInfo;
 import client.map.IMapView;
+import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -10,6 +11,9 @@ import shared.locations.VertexLocation;
 public class BaseState {
 	
 	IMapView view;
+	boolean hasRenderedOverlay = false; 
+	CatanColor color;
+	
 	
 	
 // CONSTRUCTOR

@@ -3,8 +3,11 @@ package client.map.state;
 import java.util.ArrayList;
 
 import client.clientFacade.ClientFacade;
+import client.data.RobPlayerInfo;
 import client.map.IMapView;
+import shared.definitions.CatanColor;
 import shared.definitions.HexType;
+import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -26,6 +29,7 @@ public class Setup1State extends BaseState {
 		super(view);
 	}
 
+	@Override
 	public void initFromModel() { 
 		for (int x = 0; x <= 3; ++x) {
 			
@@ -215,6 +219,50 @@ public class Setup1State extends BaseState {
 		}
 		
 		getView().placeRobber(ClientFacade.getInstance().getRobberLocation().getHexLoc());
+		
+		if (!this.hasRenderedOverlay) {
+			this.hasRenderedOverlay = true;
+			getView().startDrop(
+					PieceType.ROAD, 
+					ClientFacade.getInstance().getUserColor(), 
+					ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() < 15
+				);
+		}
+	}
+
+
+	@Override
+	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+		return ClientFacade.getInstance().canBuildCity(, y, direction)
+//	}
+
+
+	@Override
+	public boolean canPlaceSettlement(VertexLocation vertLoc) {
+		return false;
+	}
+
+	
+	@Override
+	public void placeRoad(EdgeLocation edgeLoc) {
+		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+
+		getView().startDrop(
+				PieceType.SETTLEMENT, 
+				ClientFacade.getInstance().getUserColor(), 
+				ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() < 15
+			);
+	}
+
+
+	@Override
+	public void placeSettlement(VertexLocation vertLoc) {
+
+	}
+	
+
+	@Override
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 
 	}
 }

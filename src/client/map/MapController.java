@@ -60,7 +60,10 @@ public class MapController extends Controller implements IMapController {
 		switch(gameState)
 		{
 			case SETUP1:
-				this.state = new Setup1State(this.getView());
+				if (this.state.getClass() != Setup1State.class)
+				{
+					this.state = new Setup1State(this.getView());
+				}
 				break;
 			case SETUP2:
 				this.state = new Setup2State(this.getView());
@@ -92,6 +95,7 @@ public class MapController extends Controller implements IMapController {
 			default:
 				this.state = new LoginState(this.getView());
 		}
+		System.out.println(this.state.toString());
 	}
 	
 	
@@ -201,41 +205,49 @@ public class MapController extends Controller implements IMapController {
 // Public METHODS
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) 
 	{
+		System.out.println("canPlaceRoad");
 		return true;
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) 
 	{
+		System.out.println("canPlaceSettlement");
 		return true;
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc) {
-		
+
+		System.out.println("canPlaceCity");
 		return true;
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-		
+
+		System.out.println("canPlaceRobber");
 		return true;
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) 
 	{
-		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+		System.out.println("placeRoad");
+		this.state.placeRoad(edgeLoc);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		
+
+		System.out.println("placeSettlement");
 		getView().placeSettlement(vertLoc, CatanColor.ORANGE);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		
+
+		System.out.println("placeCity");		
 		getView().placeCity(vertLoc, CatanColor.ORANGE);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
-		
+
+		System.out.println("placeRobber");
 		getView().placeRobber(hexLoc);
 		
 		getRobView().showModal();

@@ -106,9 +106,9 @@ public class RealProxy implements ProxyInterface {
 		if (responseCode != 200) {
 			return "Failure";
 		}
-		//System.out.println("\nSending 'POST' request to URL : " + url);
-		//System.out.println("Post parameters : " + urlParameters);
-		//System.out.println("Response Code : " + responseCode);
+		////System.out.println("\nSending 'POST' request to URL : " + url);
+		////System.out.println("Post parameters : " + urlParameters);
+		////System.out.println("Response Code : " + responseCode);
 		
 		//When we log in the server gives us a cookie that keeps the user identity
 		usercookie = con.getHeaderField("set-cookie");
@@ -161,9 +161,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + urlParameters);
-		System.out.println("Response Code : " + responseCode);
+//		//System.out.println("\nSending 'POST' request to URL : " + url);
+//		//System.out.println("Post parameters : " + urlParameters);
+//		//System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -176,7 +176,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -201,8 +201,8 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'GET' request to URL : " + url);
-		System.out.println("Response Code : " + responseCode);
+//		//System.out.println("\nSending 'GET' request to URL : " + url);
+//		//System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -215,7 +215,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -249,9 +249,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + urlParameters);
-		System.out.println("Response Code : " + responseCode);
+//		//System.out.println("\nSending 'POST' request to URL : " + url);
+//		//System.out.println("Post parameters : " + urlParameters);
+//		//System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -264,7 +264,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -298,9 +298,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		//System.out.println("\nSending 'POST' request to URL : " + url);
-		//System.out.println("Post parameters : " + urlParameters);
-		//System.out.println("Response Code : " + responseCode);
+		////System.out.println("\nSending 'POST' request to URL : " + url);
+		////System.out.println("Post parameters : " + urlParameters);
+		////System.out.println("Response Code : " + responseCode);
 
 		gamecookie = con.getHeaderField("set-cookie");
 		gamecookie = gamecookie.substring(0, gamecookie.length() - 8);
@@ -360,8 +360,8 @@ public class RealProxy implements ProxyInterface {
 			con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 	
 			int responseCode = con.getResponseCode();
-			System.out.println("\nSending 'GET' request to URL : " + url);
-			System.out.println("Response Code : " + responseCode);
+//			//System.out.println("\nSending 'GET' request to URL : " + url);
+//			//System.out.println("Response Code : " + responseCode);
 	
 			BufferedReader in = new BufferedReader(
 			        new InputStreamReader(con.getInputStream()));
@@ -374,7 +374,7 @@ public class RealProxy implements ProxyInterface {
 			in.close();
 	
 			//print result
-			//System.out.println(response.toString());
+			////System.out.println(response.toString());
 			return response.toString();
 		}
 		catch (Exception e) {
@@ -393,10 +393,10 @@ public class RealProxy implements ProxyInterface {
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		//add request header
-		con.setRequestMethod("POST");
-		con.setRequestProperty("User-Agent", "Mozilla/5.0");
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
+//		con.setRequestMethod("POST");
+//		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+//		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+//		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 
 		String urlParameters = "";
 		// Send post request
@@ -407,9 +407,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		//System.out.println("\nSending 'POST' request to URL : " + url);
-		//System.out.println("Post parameters : " + urlParameters);
-		//System.out.println("Response Code : " + responseCode);
+		////System.out.println("\nSending 'POST' request to URL : " + url);
+		////System.out.println("Post parameters : " + urlParameters);
+		////System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -422,7 +422,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		////System.out.println(response.toString());
+		//////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -477,9 +477,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -492,7 +492,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -527,9 +527,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -545,7 +545,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -565,7 +565,7 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		System.out.println(usercookie + "; " + gamecookie);
+		//System.out.println(usercookie + "; " + gamecookie);
 		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 		
 		JsonObject info = new JsonObject();
@@ -585,9 +585,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -603,7 +603,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -623,7 +623,7 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		System.out.println(usercookie + "; " + gamecookie);
+		//System.out.println(usercookie + "; " + gamecookie);
 		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 		
 		JsonObject info = new JsonObject();
@@ -638,9 +638,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -656,7 +656,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -676,7 +676,7 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		System.out.println(usercookie + "; " + gamecookie);
+		//System.out.println(usercookie + "; " + gamecookie);
 		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 		
 		JsonObject info = new JsonObject();
@@ -691,9 +691,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -709,7 +709,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -745,9 +745,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -763,7 +763,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -809,9 +809,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -827,7 +827,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -868,9 +868,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -886,7 +886,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -921,9 +921,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -939,7 +939,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -973,9 +973,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -991,7 +991,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1034,9 +1034,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -1052,7 +1052,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1092,9 +1092,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -1110,7 +1110,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1151,9 +1151,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -1169,7 +1169,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1213,9 +1213,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -1231,7 +1231,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1266,9 +1266,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -1284,7 +1284,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1322,9 +1322,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -1340,7 +1340,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1382,9 +1382,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + info.toString());
-		System.out.println("Response Code : " + responseCode);
+		//System.out.println("\nSending 'POST' request to URL : " + url);
+		//System.out.println("Post parameters : " + info.toString());
+		//System.out.println("Response Code : " + responseCode);
 
 		if (responseCode == 400) {
 			throw new Exception();
@@ -1400,7 +1400,7 @@ public class RealProxy implements ProxyInterface {
 		in.close();
 		
 		//print result
-		//System.out.println(response.toString());
+		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
