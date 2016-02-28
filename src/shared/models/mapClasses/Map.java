@@ -138,8 +138,6 @@ public class Map
 			return this.isValidEdge(edgeLoc) && this.Edges.canBuildRoad(edgeLoc, ownerIndex);
 		} catch (IndexOutOfBoundsException e) {
 			return false;
-		} catch (InvalidTypeException e){
-			return false;
 		}
 	}
 	
@@ -176,11 +174,8 @@ public class Map
 	{
 		try {
 			vertexLoc = vertexLoc.getNormalizedLocation();
-			return this.Vertexes.canPlaceCity(loc, ownerIndex);
-		} catch (IndexOutOfBoundsException e)
-		{
-			return false;
-		} catch (InvalidTypeException e)
+			return this.Vertexes.canPlaceCity(vertexLoc, ownerIndex);
+		} catch (Exception e)
 		{
 			return false;
 		}

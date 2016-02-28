@@ -5,6 +5,8 @@ import java.util.Random;
 
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.locations.EdgeLocation;
+import shared.locations.VertexLocation;
 import shared.models.Dice;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
@@ -187,18 +189,18 @@ public class TurnManager {
 	}
 	
 	
-	public boolean CanBuildRoad(int x, int y, String direction, int currPlayer) {
-		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildRoad() && map.canPlaceRoad(x, y, direction, currPlayer);
+	public boolean CanBuildRoad(EdgeLocation edgeLoc, int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildRoad() && map.canPlaceRoad(edgeLoc, currPlayer);
 	}
 	
 	
-	public boolean CanBuildSettlement(int x, int y, String direction, int currPlayer) {
-		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildSettlement() && map.canPlaceSettlement(x, y, direction, currPlayer);
+	public boolean CanBuildSettlement(VertexLocation vertexLoc, int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildSettlement() && map.canPlaceSettlement(vertexLoc, currPlayer);
 	}
 	
 	
-	public boolean CanBuildCity(int x, int y, String direction, int currPlayer) {
-		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildCity() && map.canPlaceCity(x, y, direction, currPlayer);
+	public boolean CanBuildCity(VertexLocation vertexLoc, int currPlayer) {
+		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildCity() && map.canPlaceCity(vertexLoc, currPlayer);
 	}
 	
 	public boolean CanOfferTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
