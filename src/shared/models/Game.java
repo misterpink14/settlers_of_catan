@@ -191,7 +191,7 @@ public class Game extends Observable
 		switch (currentState) 
 		{ 	// TODO: REMAINING -> OUTDATED, TRADEOFFER, TRADEACCEPT // TODO: not sure how these work // TODO: Also I need a way to get the currPlayer (the client's player index)
 			case "Rolling":
-				this.gameState = GameState.OUTDATED;
+				this.gameState = GameState.ROLLING;
 				break;
 			case "Robbing":
 				this.gameState = this.isTurn(this.currPlayer) ? GameState.ROBBER : GameState.NOTMYTURN;
