@@ -4,6 +4,7 @@ import shared.definitions.DevCardType;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.InsufficientCardNumberException;
+import shared.observers.DevCardObserver;
 
 import javax.swing.JOptionPane;
 
@@ -20,6 +21,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	private IAction soldierAction;
 	private IAction roadAction;
 	private GameState state;
+	private DevCardObserver obs;
 	
 	/**
 	 * DevCardController constructor
@@ -34,6 +36,8 @@ public class DevCardController extends Controller implements IDevCardController 
 
 		super(view);
 		
+		this.obs = new DevCardObserver(this);	
+		ClientFacade.getInstance().game.addObserver(obs);
 		this.buyCardView = buyCardView;
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;
