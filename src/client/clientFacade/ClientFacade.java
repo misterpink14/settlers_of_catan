@@ -18,9 +18,12 @@ import shared.communication.proxy.Credentials;
 import shared.communication.proxy.FinishTurn;
 import shared.communication.proxy.JoinGameRequestParams;
 import shared.communication.proxy.MaritimeTrade;
+import shared.communication.proxy.Monopoly;
+import shared.communication.proxy.MonumentMove;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
+import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
@@ -333,13 +336,40 @@ public class ClientFacade {
 	}
 	
 	/**
+	 * @throws Exception 
 	 * @throws InsufficientCardNumberException 
 	 * Send the command to the server proxy to play
 	 * a development card.
 	 * @throws
 	 */
-	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
-		game.playDevCard(type, this.getUserData().getPlayerIndex());
+	public void playDevCard(DevCardType type, ResourceType type1, ResourceType type2) throws Exception {
+		switch(type) {
+		case MONOPOLY:
+			Monopoly monopoly = new Monopoly();
+			monopoly.playerIndex = getUserData().getPlayerIndex();
+			monopoly.resource = type1;
+			proxy.playMonopolyCard(monopoly);
+			break;
+		case MONUMENT:
+			MonumentMove monumentMove = new MonumentMove();
+			monumentMove.playerIndex = getUserData().getPlayerIndex();
+			proxy.playMonumentCard(monumentMove);
+			break;
+		case ROAD_BUILD:
+			break;
+		case SOLDIER:
+			break;
+		case YEAR_OF_PLENTY:
+			YearOfPlenty yearOfPlenty = new YearOfPlenty();
+			yearOfPlenty.playerIndex = getUserData().getPlayerIndex();
+			yearOfPlenty.resourceOne = type1;
+			yearOfPlenty.resourceTwo = type2;
+			proxy.yearOfPlenty(yearOfPlenty);
+			break;
+		default:
+			break;
+		
+		}
 	}
 	
 	/**

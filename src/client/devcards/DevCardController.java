@@ -4,6 +4,7 @@ import shared.definitions.DevCardType;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.InsufficientCardNumberException;
+import shared.models.playerClasses.Player;
 import shared.observers.DevCardObserver;
 
 import javax.swing.JOptionPane;
@@ -54,6 +55,43 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void startBuyCard() {
 		if(state == GameState.MYTURN) {
+			Player p = ClientFacade.getInstance().game.getPlayers().getPlayerByID(ClientFacade.getInstance().getUserData().getId());
+
+			this.getPlayCardView().setCardAmount(DevCardType.MONOPOLY, p.getNumOfDevCard(DevCardType.MONOPOLY));
+			if (p.getNumOfDevCard(DevCardType.MONOPOLY) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
+			}
+			this.getPlayCardView().setCardAmount(DevCardType.MONUMENT, p.getNumOfDevCard(DevCardType.MONUMENT));
+			if (p.getNumOfDevCard(DevCardType.MONUMENT) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+			}
+			this.getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, p.getNumOfDevCard(DevCardType.ROAD_BUILD));
+			if (p.getNumOfDevCard(DevCardType.ROAD_BUILD) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
+			}
+			this.getPlayCardView().setCardAmount(DevCardType.SOLDIER, p.getNumOfDevCard(DevCardType.SOLDIER));
+			if (p.getNumOfDevCard(DevCardType.SOLDIER) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.SOLDIER, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
+			}
+			this.getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY));
+			if (p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
+			}
 			getBuyCardView().showModal();
 		}
 	}
@@ -66,7 +104,17 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void buyCard() {
-		
+		try {
+			String result = ClientFacade.getInstance().buyDevCard();
+			if(result.equals("Success")) {
+				JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "You bought a dev card");
+			}
+			else {
+				JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "You cannot buy a ");
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "Error buying a dev card");
+		}
 		getBuyCardView().closeModal();
 	}
 
@@ -85,8 +133,8 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
 		try {
-			ClientFacade.getInstance().playDevCard(DevCardType.MONOPOLY);
-		} catch (InsufficientCardNumberException e) {
+			ClientFacade.getInstance().playDevCard(DevCardType.MONOPOLY, resource, null);
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
 		}
 	}
@@ -94,37 +142,27 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void playMonumentCard() {
 		try {
-			ClientFacade.getInstance().playDevCard(DevCardType.MONUMENT);
-		} catch (InsufficientCardNumberException e) {
+			ClientFacade.getInstance().playDevCard(DevCardType.MONUMENT, null, null);
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
 		}
 	}
 
 	@Override
 	public void playRoadBuildCard() {
-		try {
-			ClientFacade.getInstance().playDevCard(DevCardType.ROAD_BUILD);
-		} catch (InsufficientCardNumberException e) {
-			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
-		}
-		roadAction.execute();
+		
 	}
 
 	@Override
 	public void playSoldierCard() {
-		try {
-			ClientFacade.getInstance().playDevCard(DevCardType.SOLDIER);
-		} catch (InsufficientCardNumberException e) {
-			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
-		}
-		soldierAction.execute();
+		
 	}
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
 		try {
-			ClientFacade.getInstance().playDevCard(DevCardType.YEAR_OF_PLENTY);
-		} catch (InsufficientCardNumberException e) {
+			ClientFacade.getInstance().playDevCard(DevCardType.YEAR_OF_PLENTY, resource1, resource2);
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
 		}
 	}
