@@ -1,9 +1,13 @@
 package client.resources;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import client.base.*;
+import client.base.Controller;
+import client.base.IAction;
+import client.clientFacade.ClientFacade;
 import shared.definitions.GameState;
+import shared.observers.ResourceBarObserver;
 
 
 /**
@@ -19,6 +23,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 		super(view);
 		
+		ResourceBarObserver obs = new ResourceBarObserver(this);
+		ClientFacade.getInstance().game.addObserver(obs);
+		
+		this.state = GameState.LOGIN;
 		elementActions = new HashMap<ResourceBarElement, IAction>();
 	}
 
