@@ -60,7 +60,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		case LOGIN:
 			break;
 		case MYTURN:
-			this.getView().updateGameState("It is your turn", false);
+			this.getView().updateGameState("Finish Turn", true);
 			break;
 		case NOTMYTURN:
 			this.getView().updateGameState("Waiting for turn", false);
