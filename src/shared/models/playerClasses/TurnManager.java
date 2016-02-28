@@ -6,6 +6,7 @@ import java.util.Random;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import shared.models.Dice;
 import shared.models.cardClasses.Bank;
@@ -188,9 +189,8 @@ public class TurnManager {
 		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canRollDice();
 	}
 	
-	
-	public boolean CanBuildRoad(EdgeLocation edgeLoc, int currPlayer) {
-		return this.isTurn(currPlayer) && players.getPlayerByIndex(currPlayer).canBuildRoad() && map.canPlaceRoad(edgeLoc, currPlayer);
+	public boolean CanBuildRoad(EdgeLocation edgeLoc, int currPlayer, boolean isFree, boolean isSetup) {
+		return this.isTurn(currPlayer) && (players.getPlayerByIndex(currPlayer).canBuildRoad() || isFree) && (map.canPlaceRoad(edgeLoc, currPlayer, isSetup));
 	}
 	
 	
@@ -232,8 +232,8 @@ public class TurnManager {
 	}
 	
 	
-	public boolean CanPlaceRobber(int x, int y, int currPlayer) {
-		return this.isTurn(currPlayer) && this.map.canPlaceRobber(x, y);
+	public boolean CanPlaceRobber(HexLocation hexLoc, int currPlayer) {
+		return this.isTurn(currPlayer) && this.map.canPlaceRobber(hexLoc);
 	}
 	
 	

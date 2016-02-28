@@ -70,15 +70,17 @@ public class EdgeMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public boolean canBuildRoad(EdgeLocation loc, int ownerIndex) throws IndexOutOfBoundsException
+	public boolean canBuildRoad(EdgeLocation loc, int ownerIndex, boolean isSetup) throws IndexOutOfBoundsException
 	{
 		// check if outside edge
 		loc = loc.getNormalizedLocation();
 		
 		if (this.Edges.get(loc) == null)
 		{
-			return this._canBuildRoad(loc, ownerIndex);
+			System.out.println("ooooh");
+			return this._canBuildRoad(loc, ownerIndex, isSetup);
 		}
+		System.out.println("no.");
 		return false;
 	}
 	
@@ -111,13 +113,23 @@ public class EdgeMap
 	 * @param ownerIndex
 	 * @return
 	 */
-	private boolean _canBuildRoad(EdgeLocation loc, int ownerIndex)
+	private boolean _canBuildRoad(EdgeLocation loc, int ownerIndex, boolean isSetup)
 	{
 		EdgeLocation new_loc; // Used for checking if neighbor Edges belong to the player
 		EdgeDirectionPair pair = getNeighborDirection(loc.getDir());
 		EdgeDirection dir1 = pair.Dir1;
 		EdgeDirection dir2 = pair.Dir2;
 		
+		/* Check if the edge location is being used */
+		if (this.Edges.containsKey(loc))
+		{
+			return true;
+		}
+		
+		/* Don't continue if it is setup */
+		if (isSetup) {
+			return true;
+		}
 		
 		/* Check if any adjacent edge belongs to the player trying to place the road piece */
 		// Check dir1

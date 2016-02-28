@@ -343,8 +343,12 @@ public class Player {
 	public boolean canBuildRoad() {
 		if(this.isTurn && resourceCards.getBrickCards() >= 1
 				&& resourceCards.getWoodCards() >= 1 && roads > 0) {
+			System.out.println("trueee");
 			return true;
 		}
+		System.out.println("1 - " + resourceCards.getBrickCards());
+		System.out.println("2 - " + resourceCards.getWoodCards());
+		System.out.println("falseee");
 		return false;
 	}
 	

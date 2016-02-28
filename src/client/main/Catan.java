@@ -1,21 +1,24 @@
 package client.main;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
-import client.catan.*;
+import client.base.IAction;
+import client.catan.CatanPanel;
 import client.clientFacade.ClientFacade;
-import client.login.*;
-import client.join.*;
-import client.misc.*;
-import client.roll.RollController;
-import client.roll.RollView;
-import client.serverPoller.ServerPoller;
+import client.join.JoinGameController;
+import client.join.JoinGameView;
+import client.join.NewGameView;
+import client.join.PlayerWaitingController;
+import client.join.PlayerWaitingView;
+import client.join.SelectColorView;
+import client.login.LoginController;
+import client.login.LoginView;
+import client.misc.MessageView;
 import client.serverProxy.ProxyInterface;
 import client.serverProxy.RealProxy;
-import client.turntracker.TurnTrackerController;
-import client.turntracker.TurnTrackerView;
 import shared.models.Game;
-import client.base.*;
 
 /**
  * Main entry point for the Catan program

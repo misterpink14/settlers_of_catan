@@ -174,7 +174,15 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildRoad(EdgeLocation edgeLoc) {
-		if (!game.CanBuildRoad(edgeLoc, this.getUserData().getPlayerIndex())) {
+		return this.canBuildRoad(edgeLoc, false);
+	}
+	
+	public boolean canBuildRoad(EdgeLocation edgeLoc, boolean isFree) {
+		return this.canBuildRoad(edgeLoc, isFree, false);
+	}
+	
+	public boolean canBuildRoad(EdgeLocation edgeLoc, boolean isFree, boolean isSetup) {
+		if (!game.CanBuildRoad(edgeLoc, this.getUserData().getPlayerIndex(), isFree, isSetup)) {
 			return false;
 		}
 		return true;
@@ -185,8 +193,8 @@ public class ClientFacade {
 	 * a road on the board.
 	 * @throws
 	 */
-	public String buildRoad(EdgeLocation edgeLoc) throws Exception {
-		if (canBuildRoad(edgeLoc)) {
+	public String buildRoad(EdgeLocation edgeLoc, boolean isFree) throws Exception {
+		if (canBuildRoad(edgeLoc, isFree)) {
 			try {
 				return proxy.buildRoad(new BuildRoad());
 			} catch (Exception e) {

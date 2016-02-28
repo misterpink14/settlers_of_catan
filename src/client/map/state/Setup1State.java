@@ -3,9 +3,7 @@ package client.map.state;
 import java.util.ArrayList;
 
 import client.clientFacade.ClientFacade;
-import client.data.RobPlayerInfo;
 import client.map.IMapView;
-import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
@@ -24,9 +22,13 @@ import shared.models.mapClasses.WaterHex;
  * 
  */
 public class Setup1State extends BaseState {
+	
+
+	boolean isFree = true, isSetup = true;
 
 	public Setup1State(IMapView view) {
 		super(view);
+		this.color = ClientFacade.getInstance().getUserColor();
 	}
 
 	@Override
@@ -233,7 +235,7 @@ public class Setup1State extends BaseState {
 
 	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		return ClientFacade.getInstance().canBuildRoad(edgeLoc);
+		return ClientFacade.getInstance().canBuildRoad(edgeLoc, this.isFree, this.isSetup);
 	}
 
 
@@ -245,27 +247,25 @@ public class Setup1State extends BaseState {
 	
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc) {
-		if (ClientFacade.getInstance().canBuildRoad(edgeLoc))
-		{
-			ClientFacade.getInstance().uildRoad(edgeLoc);
-			getView().placeRoad(edgeLoc, CatanColor.ORANGE);
-			
-			getView().startDrop(
-				PieceType.SETTLEMENT, 
-				this.color, 
-				ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() < 15
-			);
+		try {
+			ClientFacade.getInstance().buildRoad(edgeLoc, true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
 		}
+		getView().placeRoad(edgeLoc, this.color);
+		
+		getView().startDrop(
+			PieceType.SETTLEMENT, 
+			this.color, 
+			ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() < 15
+		);
 	}
 
 
 	@Override
 	public void placeSettlement(VertexLocation vertLoc) {
-		if (ClientFacade.getInstance().placeSettlement(placeSettlement))
-		{
-			// Add buildsettlement
-			getView().placeSettlement(vertLoc, CatanColor.ORANGE);
-		}
+		getView().placeSettlement(vertLoc, this.color);
 	}
 	
 

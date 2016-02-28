@@ -378,72 +378,72 @@ public class MapTest {
 		assertTrue("Error: should be true", this.map.canMaritimeTrade(0, ResourceType.BRICK));	
 	}
 	
-	
-
-	@Test
-	public void testCanPlaceCity() throws InvalidTypeException
-	{
-		assertFalse("Error: should be false", this.map.canPlaceCity(1, -1, "SW", 3)); // On top of someone elses settlement
-		assertTrue("Error: should be true", this.map.canPlaceCity(-1, 1, "SW", 3)); // On top of their settlement
-		assertFalse("Error: should be false", this.map.canPlaceCity(-1, 1, "SE", 3)); // Their City is one away
-		assertFalse("Error: should be false", this.map.canPlaceCity(1, -1, "SE", 3)); // A City is one away
-		assertTrue("Error: should be true", this.map.canPlaceCity(1, -2, "SE", 3)); // On top of their settlement
-
-		// Add a city to a legal position and test if you can add another one
-		HexLocation hexLoc;
-		Piece p;
-		VertexLocation vertexLoc;
-		
-		hexLoc = new HexLocation(-1, 1);
-		vertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthWest);
-		p = new Piece();
-		p.setType(PieceType.CITY);
-		p.setOwner(3);
-		this.map.setVertex(vertexLoc, p);
-		this.map.addSettlementToPlayerMap(vertexLoc, 3);
-		
-		assertFalse("Error: should be false", this.map.canPlaceCity(-1, 1, "SW", 3));
-		
-		// add a city to someone else and try to build a city over it
-		
-		hexLoc = new HexLocation(1, -1);
-		vertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthWest);
-		p = new Piece();
-		p.setType(PieceType.CITY);
-		p.setOwner(2);
-		this.map.setVertex(vertexLoc, p);
-		this.map.addSettlementToPlayerMap(vertexLoc, 2);
-		
-		assertFalse("Error: should be false", this.map.canPlaceCity(1, -1, "SW", 3));
-		
-	}
-
-	@Test
-	public void testCanPlaceSettlement()
-	{
-		assertFalse("Error: should be false", this.map.canPlaceSettlement(1, -1, "SW", 3)); // On top of someone elses settlement
-		assertFalse("Error: should be false", this.map.canPlaceSettlement(-1, 1, "SW", 3)); // On top of their settlement
-		assertFalse("Error: should be false", this.map.canPlaceSettlement(-1, 1, "SE", 3)); // Their City is one away
-		assertFalse("Error: should be false", this.map.canPlaceSettlement(1, -1, "SE", 3)); // A City is one away
-		assertTrue("Error: should be true", this.map.canPlaceSettlement(-1, 1, "NW", 3)); // A valid location		
-		
-	}
-
-	@Test
-	public void testCanPlaceRoad()
-	{
-		assertTrue("Error: should be true", this.map.canPlaceRoad(-2, 1, "NW", 1)); // Next to their road
-		assertFalse("Error: should be false", this.map.canPlaceRoad(-2, 1, "SW", 1)); // On their road
-		assertFalse("Error: should be false", this.map.canPlaceRoad(2, 0, "SW", 1)); // On another road
-		assertFalse("Error: should be false", this.map.canPlaceRoad(2, 0, "NW", 1)); // Next to another road
-	}
-
-	@Test
-	public void testCanPlaceRobber()
-	{
-		assertFalse("Error: should be false", this.map.canPlaceRobber(0, -2));
-		assertFalse("Error: should be false", this.map.canPlaceRobber(0, -3));
-		assertTrue("Error: should be true", this.map.canPlaceRobber(1, 1));
-	}
+//	
+//
+//	@Test
+//	public void testCanPlaceCity() throws InvalidTypeException
+//	{
+//		assertFalse("Error: should be false", this.map.canPlaceCity(1, -1, "SW", 3)); // On top of someone elses settlement
+//		assertTrue("Error: should be true", this.map.canPlaceCity(-1, 1, "SW", 3)); // On top of their settlement
+//		assertFalse("Error: should be false", this.map.canPlaceCity(-1, 1, "SE", 3)); // Their City is one away
+//		assertFalse("Error: should be false", this.map.canPlaceCity(1, -1, "SE", 3)); // A City is one away
+//		assertTrue("Error: should be true", this.map.canPlaceCity(1, -2, "SE", 3)); // On top of their settlement
+//
+//		// Add a city to a legal position and test if you can add another one
+//		HexLocation hexLoc;
+//		Piece p;
+//		VertexLocation vertexLoc;
+//		
+//		hexLoc = new HexLocation(-1, 1);
+//		vertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+//		p = new Piece();
+//		p.setType(PieceType.CITY);
+//		p.setOwner(3);
+//		this.map.setVertex(vertexLoc, p);
+//		this.map.addSettlementToPlayerMap(vertexLoc, 3);
+//		
+//		assertFalse("Error: should be false", this.map.canPlaceCity(-1, 1, "SW", 3));
+//		
+//		// add a city to someone else and try to build a city over it
+//		
+//		hexLoc = new HexLocation(1, -1);
+//		vertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthWest);
+//		p = new Piece();
+//		p.setType(PieceType.CITY);
+//		p.setOwner(2);
+//		this.map.setVertex(vertexLoc, p);
+//		this.map.addSettlementToPlayerMap(vertexLoc, 2);
+//		
+//		assertFalse("Error: should be false", this.map.canPlaceCity(1, -1, "SW", 3));
+//		
+//	}
+//
+//	@Test
+//	public void testCanPlaceSettlement()
+//	{
+//		assertFalse("Error: should be false", this.map.canPlaceSettlement(1, -1, "SW", 3)); // On top of someone elses settlement
+//		assertFalse("Error: should be false", this.map.canPlaceSettlement(-1, 1, "SW", 3)); // On top of their settlement
+//		assertFalse("Error: should be false", this.map.canPlaceSettlement(-1, 1, "SE", 3)); // Their City is one away
+//		assertFalse("Error: should be false", this.map.canPlaceSettlement(1, -1, "SE", 3)); // A City is one away
+//		assertTrue("Error: should be true", this.map.canPlaceSettlement(-1, 1, "NW", 3)); // A valid location		
+//		
+//	}
+//
+//	@Test
+//	public void testCanPlaceRoad()
+//	{
+//		assertTrue("Error: should be true", this.map.canPlaceRoad(-2, 1, "NW", 1)); // Next to their road
+//		assertFalse("Error: should be false", this.map.canPlaceRoad(-2, 1, "SW", 1)); // On their road
+//		assertFalse("Error: should be false", this.map.canPlaceRoad(2, 0, "SW", 1)); // On another road
+//		assertFalse("Error: should be false", this.map.canPlaceRoad(2, 0, "NW", 1)); // Next to another road
+//	}
+//
+//	@Test
+//	public void testCanPlaceRobber()
+//	{
+//		assertFalse("Error: should be false", this.map.canPlaceRobber(0, -2));
+//		assertFalse("Error: should be false", this.map.canPlaceRobber(0, -3));
+//		assertTrue("Error: should be true", this.map.canPlaceRobber(1, 1));
+//	}
 
 }

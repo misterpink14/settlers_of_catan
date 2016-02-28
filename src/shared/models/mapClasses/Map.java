@@ -1,13 +1,14 @@
 package shared.models.mapClasses;
 
+import shared.definitions.HexType;
+import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.RobberLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
-
-import shared.definitions.*;
 
 
 /**
@@ -131,11 +132,13 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRoad(EdgeLocation edgeLoc, int ownerIndex)
+	public boolean canPlaceRoad(EdgeLocation edgeLoc, int ownerIndex, boolean isSetup)
 	{
 		try {
 			edgeLoc = edgeLoc.getNormalizedLocation();
-			return this.isValidEdge(edgeLoc) && this.Edges.canBuildRoad(edgeLoc, ownerIndex);
+			System.out.println( "" + (this.isValidEdge(edgeLoc)));
+			System.out.println("" +this.Edges.canBuildRoad(edgeLoc, ownerIndex, isSetup));
+			return this.isValidEdge(edgeLoc) && this.Edges.canBuildRoad(edgeLoc, ownerIndex, isSetup);
 		} catch (IndexOutOfBoundsException e) {
 			return false;
 		}

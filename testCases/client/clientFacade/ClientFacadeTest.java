@@ -43,35 +43,35 @@ public class ClientFacadeTest {
 		assertTrue(num <= 12 && num >= 2);
 	}
 
-	@Test
-	public void testCanBuildRoad() {
-		assertTrue(!ClientFacade.getInstance().canBuildRoad(0, 0, "NE"));
-	}
-
-	@Test
-	public void testBuildRoad() throws Exception {
-		assertTrue(ClientFacade.getInstance().buildRoad(0, 0, "NE").equals("False"));
-	}
-
-	@Test
-	public void testCanBuildCity() {
-		assertTrue(!ClientFacade.getInstance().canBuildCity(0, 0, "NE"));
-	}
-
-	@Test
-	public void testBuildCity() throws Exception {
-		assertTrue(ClientFacade.getInstance().buildCity(0, 0, "NE").equals("False"));
-	}
-
-	@Test
-	public void testCanBuildSettlement() {
-		assertTrue(!ClientFacade.getInstance().canBuildSettlement(0, 0, "NE"));
-	}
-
-	@Test
-	public void testBuildSettlement() throws Exception {
-		assertTrue(ClientFacade.getInstance().buildSettlement(0, 0, "NE").equals("False"));
-	}
+//	@Test
+//	public void testCanBuildRoad() {
+//		assertTrue(!ClientFacade.getInstance().canBuildRoad(0, 0, "NE"));
+//	}
+//
+//	@Test
+//	public void testBuildRoad() throws Exception {
+//		assertTrue(ClientFacade.getInstance().buildRoad(0, 0, "NE").equals("False"));
+//	}
+//
+//	@Test
+//	public void testCanBuildCity() {
+//		assertTrue(!ClientFacade.getInstance().canBuildCity(0, 0, "NE"));
+//	}
+//
+//	@Test
+//	public void testBuildCity() throws Exception {
+//		assertTrue(ClientFacade.getInstance().buildCity(0, 0, "NE").equals("False"));
+//	}
+//
+//	@Test
+//	public void testCanBuildSettlement() {
+//		assertTrue(!ClientFacade.getInstance().canBuildSettlement(0, 0, "NE"));
+//	}
+//
+//	@Test
+//	public void testBuildSettlement() throws Exception {
+//		assertTrue(ClientFacade.getInstance().buildSettlement(0, 0, "NE").equals("False"));
+//	}
 
 	@Test
 	public void testCanBuyDevCard() {

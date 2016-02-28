@@ -367,10 +367,9 @@ public class Game extends Observable
 	}
 	
 	
-	public boolean CanBuildRoad(EdgeLocation edgeLoc, int currPlayer) {
-		return turnManager.CanBuildRoad(edgeLoc, currPlayer);
+	public boolean CanBuildRoad(EdgeLocation edgeLoc, int currPlayer, boolean isFree, boolean isSetup) {
+		return turnManager.CanBuildRoad(edgeLoc, currPlayer, isFree, isSetup);
 	}
-	
 	
 	public boolean CanBuildSettlement(VertexLocation vertLoc, int currPlayer) {
 		return turnManager.CanBuildSettlement(vertLoc, currPlayer);
@@ -407,8 +406,8 @@ public class Game extends Observable
 	}
 	
 	
-	public boolean CanPlaceRobber(int x, int y, int currPlayer) {
-		return turnManager.CanPlaceRobber(x, y, currPlayer);
+	public boolean CanPlaceRobber(HexLocation hexLoc, int currPlayer) {
+		return turnManager.CanPlaceRobber(hexLoc, currPlayer);
 	}
 	
 	
