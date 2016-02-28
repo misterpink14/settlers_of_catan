@@ -367,18 +367,18 @@ public class Game extends Observable
 	}
 	
 	
-	public boolean CanBuildRoad(int x, int y, String direction, int currPlayer) {
-		return turnManager.CanBuildRoad(x, y, direction, currPlayer);
+	public boolean CanBuildRoad(EdgeLocation edgeLoc, int currPlayer) {
+		return turnManager.CanBuildRoad(edgeLoc, currPlayer);
 	}
 	
 	
-	public boolean CanBuildSettlement(int x, int y, String direction, int currPlayer) {
-		return turnManager.CanBuildSettlement(x, y, direction, currPlayer);
+	public boolean CanBuildSettlement(VertexLocation vertLoc, int currPlayer) {
+		return turnManager.CanBuildSettlement(vertLoc, currPlayer);
 	}
 	
 	
-	public boolean CanBuildCity(int x, int y, String direction, int currPlayer) {
-		return turnManager.CanBuildCity(x, y, direction, currPlayer);
+	public boolean CanBuildCity(VertexLocation vertLoc, int currPlayer) {
+		return turnManager.CanBuildCity(vertLoc, currPlayer);
 	}
 	
 	
