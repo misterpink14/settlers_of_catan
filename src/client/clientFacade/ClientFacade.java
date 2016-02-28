@@ -483,4 +483,11 @@ public class ClientFacade {
 		
 		return currentPlayer.getCities();
 	}
+	
+	public int getNumOfPlayerSoldiers() {
+		Player currentPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByID(
+				ClientFacade.getInstance().getUserData().getId());
+		
+		return currentPlayer.getArmy();
+	}
 }

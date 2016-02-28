@@ -1,6 +1,5 @@
 package client.resources;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,6 +109,8 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				ClientFacade.getInstance().getNumOfPlayerCities());
 		getView().setElementAmount(ResourceBarElement.SETTLEMENT, 
 				ClientFacade.getInstance().getNumOfPlayerSettlements());
+		getView().setElementAmount(ResourceBarElement.SOLDIERS, 
+				ClientFacade.getInstance().getNumOfPlayerSoldiers());
 		
 		
 		switch(state) {
