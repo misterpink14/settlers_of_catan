@@ -414,8 +414,12 @@ public class ClientFacade {
 		return this.game.getVertex(loc);
 	}
 	
-	public CatanColor getColorById(int id) {
-		return this.game.getPlayers().getPlayerByIndex(id).getColor();
+	public CatanColor getColorById(int playerIndex) { // this is actually the index
+		return this.game.getPlayers().getPlayerByIndex(playerIndex).getColor();
+	}
+	
+	public CatanColor getUserColor() {
+		return this.getColorById(this.getUserData().getPlayerIndex());
 	}
 	
 	public RobberLocation getRobberLocation() {
