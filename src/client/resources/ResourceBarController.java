@@ -1,5 +1,6 @@
 package client.resources;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import client.base.Controller;
 import client.base.IAction;
 import client.clientFacade.ClientFacade;
 import shared.definitions.GameState;
+import shared.definitions.ResourceType;
 import shared.observers.ResourceBarObserver;
 
 
@@ -90,9 +92,24 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	}
 	
 	public void update(GameState state) {
+		
+		getView().setElementAmount(ResourceBarElement.BRICK, 
+				ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.BRICK));
+		getView().setElementAmount(ResourceBarElement.WHEAT, 
+				ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WHEAT));
+		getView().setElementAmount(ResourceBarElement.WOOD, 
+				ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WOOD));
+		getView().setElementAmount(ResourceBarElement.ORE, 
+				ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.ORE));
+		getView().setElementAmount(ResourceBarElement.SHEEP, 
+				ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.SHEEP));
+		
+		
 		switch(state) {
+		case SETUP1:
 		case MYTURN:
 			this.state = GameState.MYTURN;
+			getView().setElementAmount(ResourceBarElement.BRICK, 5);
 			break;
 		default:
 			this.state = GameState.NOTMYTURN;

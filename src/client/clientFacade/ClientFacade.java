@@ -425,4 +425,11 @@ public class ClientFacade {
 	public RobberLocation getRobberLocation() {
 		return this.game.getRobberLocation();
 	}
+	
+	public int getNumOfPlayerResource(ResourceType resourceType) {
+		Player currentPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByID(
+				ClientFacade.getInstance().getUserData().getId());
+		
+		return currentPlayer.getNumOfResource(resourceType);
+	}
 }
