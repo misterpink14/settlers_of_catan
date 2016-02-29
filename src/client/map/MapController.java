@@ -62,37 +62,50 @@ public class MapController extends Controller implements IMapController {
 				if (this.state.getClass() != Setup1State.class)
 				{
 					this.state = new Setup1State(this.getView());
+					this.initFromModel();
 				}
 				break;
 			case SETUP2:
 				if (this.state.getClass() != Setup2State.class)
 				{
 					this.state = new Setup2State(this.getView());
+					this.initFromModel();
 				}
 				break;
 			case MYTURN:
 				this.state = new MyTurnState(this.getView());
+				this.initFromModel();
 				break;
 			case NOTMYTURN:
 				this.state = new NotMyTurnState(this.getView());
+				this.initFromModel();
 				break;
 			case ROBBER:
-				this.state = new RobberState(this.getView(), this.getRobView());
+				if (this.state.getClass() != RobberState.class)
+				{
+					this.state = new RobberState(this.getView(), this.getRobView());
+					this.initFromModel();
+				}
 				break;
 			case TRADEOFFER:
 				this.state = new TradeOfferState(this.getView());
+				this.initFromModel();
 				break;
 			case TRADEACCEPT:
 				this.state = new TradeAcceptState(this.getView());
+				this.initFromModel();
 				break;
 			case OUTDATED:
 				this.state = new OutdatedState(this.getView());
+				this.initFromModel();
 				break;
 			case DISCARD:
 				this.state = new OutdatedState(this.getView());
+				this.initFromModel();
 				break;
 			case ENDOFGAME:
 				this.state = new EndOfGameState(this.getView());
+				this.initFromModel();
 				break;
 			case LOGIN:
 			case ROLLING:
@@ -133,7 +146,6 @@ public class MapController extends Controller implements IMapController {
 	public void update(GameState gameState)
 	{
 		this.setState(gameState);
-		this.initFromModel();
 	}
 	
 	protected void initFromModel() {

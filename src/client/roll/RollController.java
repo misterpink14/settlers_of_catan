@@ -72,21 +72,6 @@ public class RollController extends Controller implements IRollController {
 
 	public void update(GameState gameState) {
         switch(gameState) {
-        case DISCARD:
-            break;
-        case ENDOFGAME:
-            break;
-        case LOGIN:
-            break;
-        case MYTURN:
-            break;
-        case NOTMYTURN:
-        	this.modalShown = false;
-            break;
-        case OUTDATED:
-            break;
-        case ROBBER:
-            break;
         case ROLLING:
         	if(this.modalShown == false) {
 				getRollView().showModal();
@@ -94,18 +79,7 @@ public class RollController extends Controller implements IRollController {
 				timer.schedule(new AutoRoll(), 5000);
 				this.modalShown = true;
 			}
-            break;
-        case SETUP1:
-            break;
-        case SETUP2:
-            break;
-        case TRADEACCEPT:
-            break;
-        case TRADEOFFER:
-            break;
-        default:
-            break;
-        
+            break;        
         }
 	}
 }

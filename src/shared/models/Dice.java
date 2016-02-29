@@ -15,7 +15,9 @@ public class Dice {
 	 */
 	public static int rollDice() {
 		Random rand = new Random(System.currentTimeMillis());
-		return rand.nextInt(6) + 1;
+		int first = rand.nextInt(6) + 1;
+		int second = rand.nextInt(6) + 1;
+		return first + second;
 	}
 
 }

@@ -23,6 +23,7 @@ import shared.communication.proxy.MonumentMove;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
+import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
@@ -549,5 +550,17 @@ public class ClientFacade {
 
 	public Boolean settlementTouchesPlayerRoad(VertexLocation loc) {	
 		return this.game.settlementTouchesPlayerRoad(loc, this.getUserData().getPlayerIndex());
+	}
+	
+	public boolean canPlaceRobber(HexLocation hexLoc) {
+		return getInstance().game.CanPlaceRobber(hexLoc, getUserData().getPlayerIndex());
+	}
+
+	public void placeRobber(HexLocation hexLoc, int victim) throws Exception {
+		SoldierMove move = new SoldierMove();
+		move.newLocation = hexLoc;
+		move.playerIndex = getUserData().getPlayerIndex();
+		move.victimIndex = victim;
+		this.proxy.moveSoldier(move);
 	}
 }

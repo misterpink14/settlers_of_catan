@@ -2,10 +2,14 @@ package client.map.state;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import client.clientFacade.ClientFacade;
 import client.map.IMapView;
 import client.map.IRobView;
+import client.map.MapView;
 import shared.definitions.HexType;
+import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -219,6 +223,27 @@ public class RobberState extends OutdatedState {
 		}
 		
 		getView().placeRobber(ClientFacade.getInstance().getRobberLocation().getHexLoc());
-
+		this.startMove(PieceType.ROBBER, true, true);
+	}
+	
+	@Override
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
+		getView().startDrop(pieceType, this.color, false);
+	}
+	
+	@Override
+	public void placeRobber(HexLocation hexLoc) {
+		try {
+			//temporary victim
+			int victim = 2;
+			ClientFacade.getInstance().placeRobber(hexLoc, victim);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((MapView)this.getView(), "Failed to Place the robber");
+		}
+	}
+	
+	@Override
+	public boolean canPlaceRobber(HexLocation hexLoc) {
+		return ClientFacade.getInstance().canPlaceRobber(hexLoc);
 	}
 }

@@ -1,7 +1,11 @@
 package client.map.state;
 
+import javax.swing.JOptionPane;
+
+import client.clientFacade.ClientFacade;
 import client.data.RobPlayerInfo;
 import client.map.IMapView;
+import client.map.MapView;
 import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
@@ -67,7 +71,7 @@ public class BaseState {
 
 
 	public void placeRobber(HexLocation hexLoc) {
-
+		
 	}
 
 

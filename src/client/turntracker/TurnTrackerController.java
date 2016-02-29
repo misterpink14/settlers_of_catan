@@ -1,6 +1,5 @@
 package client.turntracker;
 
-import shared.definitions.CatanColor;
 import shared.definitions.GameState;
 import shared.observers.TurnTrackerObserver;
 
@@ -9,6 +8,7 @@ import javax.swing.JOptionPane;
 import client.base.*;
 import client.clientFacade.ClientFacade;
 import client.data.PlayerInfo;
+import client.map.RobView;
 
 
 /**
