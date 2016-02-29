@@ -289,6 +289,13 @@ public class Setup1State extends BaseState {
 			return;
 		}
 		getView().placeSettlement(vertLoc, this.color);
+		
+		try {
+			ClientFacade.getInstance().finishTurn();
+		} catch (Exception e)
+		{
+			
+		}
 	}
 	
 
