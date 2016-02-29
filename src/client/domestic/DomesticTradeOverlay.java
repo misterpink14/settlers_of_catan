@@ -13,7 +13,10 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import shared.definitions.*;
+import shared.models.playerClasses.GamePlayers;
+import shared.models.playerClasses.Player;
 import client.base.*;
+import client.clientFacade.ClientFacade;
 import client.data.*;
 import client.utils.FontUtils;
 
@@ -38,7 +41,8 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 	private ArrayList<JToggleButton> playerButtons;
 	private ArrayList<JPanel> upDownPanels;
 	private Map<ResourceType, JPanel> upDownPanelByResourceType;
-	private PlayerInfo[] players;
+	//private PlayerInfo[] players = ClientFacade.getInstance().game.getPlayers();
+	private GamePlayers players = ClientFacade.getInstance().game.getPlayers();
 	private ButtonGroup toggleButtonGroup;
 	
 	private Map<ResourceType, JLabel> resourceCounts;
@@ -50,6 +54,7 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 	}
 
 	private void buildView() {
+		
 		this.resourceSelectionPanels = new ArrayList<JPanel>();
 		this.resourceCounts = new HashMap<ResourceType, JLabel>();
 		this.setOpaque(true);
@@ -63,7 +68,7 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 
 		this.add(label, BorderLayout.NORTH);
 		this.add(this.setupResourceTradePanel(), BorderLayout.CENTER);
-		this.add(this.setupUserSelectPanel(), BorderLayout.SOUTH);		
+		this.add(this.setupUserSelectPanel(), BorderLayout.SOUTH);
 	}
 
 	private JPanel setupResourceTradePanel() {
@@ -113,7 +118,7 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				getController().cancelTrade();
-//				reset();// TODO, this may not be needed here
+				reset();// TODO, this may not be needed here
 			}
 		});
 		
@@ -129,6 +134,7 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 	}
 
 	private JPanel setupUsersList() {
+
 		this.playerButtons = new ArrayList<JToggleButton>();
 		this.toggleButtonGroup = new ButtonGroup();
 		
@@ -154,10 +160,11 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 		return this.playerSelectionPanel;
 	}
 
-	private PlayerInfo getPlayerByName(String name) {
-		for (PlayerInfo pi : this.players) {
-			if(pi.getName().equals(name))
-				return pi;
+	private Player getPlayerByName(String name) {
+		for (int i = 0; i < players.getNumberOfPlayers(); i++) {
+			if (players.getPlayerByIndex(i).getName().equals(name)) {
+				return players.getPlayerByIndex(i);
+			}
 		}
 		return null;
 	}
@@ -342,8 +349,8 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JToggleButton button = (JToggleButton)e.getSource();
-			PlayerInfo pi = getPlayerByName(button.getText());
-			getController().setPlayerToTradeWith(pi.getPlayerIndex());
+			Player player = getPlayerByName(button.getText());
+			getController().setPlayerToTradeWith(player.getIndex());
 		}
 
 	};
@@ -356,26 +363,27 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 
 	@Override
 	public void reset() {
-		System.out.println("what's goin' on?");
+		
+		this.players = ClientFacade.getInstance().game.getPlayers();
 		this.removeAll();
 		this.buildView();
 		this.setPlayers(this.players);
 	}
 
 	@Override
-	public void setPlayers(PlayerInfo[] value) {
+	public void setPlayers(GamePlayers value) {
 		
-		for (int i = 0; i < value.length; i++) {
+		for (int i = 0; i < value.getNumberOfPlayers(); i++) {
 			
-			JToggleButton toggle = new JToggleButton(value[i].getName());
+			JToggleButton toggle = new JToggleButton(value.getPlayerByIndex(i).getName());
 			toggle.addActionListener(playerSelectActionListener);
-			toggle.setActionCommand(value[i].getName());
+			toggle.setActionCommand(value.getPlayerByIndex(i).getName());
 			toggle.putClientProperty( "JButton.buttonType", "segmented" );
-			if(i == value.length - 1)
+			if(i == value.getNumberOfPlayers() - 1)
 				toggle.putClientProperty( "JButton.segmentPosition", "last" );
 			else
 				toggle.putClientProperty( "JButton.segmentPosition", "middle" );
-			toggle.setForeground(value[i].getColor().getJavaColor());
+			toggle.setForeground(value.getPlayerByIndex(i).getColor().getJavaColor());
 	        toggleButtonGroup.add(toggle);
 	        this.playerSelectionPanel.add(toggle);
 	        this.playerButtons.add(toggle);
@@ -400,6 +408,7 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 	
 	@Override
 	public void setPlayerSelectionEnabled(boolean enable) {
+		reset();
 		this.playerSelectionPanel.setVisible(enable);
 	}
 

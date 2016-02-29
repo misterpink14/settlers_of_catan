@@ -3,6 +3,7 @@ package client.domestic;
 import client.base.*;
 import client.data.*;
 import shared.definitions.*;
+import shared.models.playerClasses.GamePlayers;
 
 /**
  * Implementation of the domestic trade overlay, which allows the user to
@@ -23,7 +24,8 @@ public interface IDomesticTradeOverlay extends IOverlayView
 	 * @param value
 	 *            Information about the players that can be traded with
 	 */
-	void setPlayers(PlayerInfo[] value);
+	//void setPlayers(PlayerInfo[] value);
+	void setPlayers(GamePlayers value);
 	
 	/**
 	 * Enables or disables the ability to select a player to trade with.
