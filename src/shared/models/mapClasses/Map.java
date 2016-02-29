@@ -555,4 +555,9 @@ public class Map
 		return minRatio;
 	}
 
+
+	public Boolean settlementTouchesPlayerRoad(VertexLocation loc, int ownerID) {
+		return this.Edges.settlementTouchesPlayerRoad(loc, ownerID);
+	}
+
 }

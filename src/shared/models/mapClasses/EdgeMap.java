@@ -6,6 +6,9 @@ import java.util.Map;
 import shared.definitions.PieceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 public class EdgeMap 
 {	
@@ -236,6 +239,62 @@ public class EdgeMap
 			Dir1 = dir1;
 			Dir2 = dir2;
 		}
+	}
+
+
+
+	public Boolean settlementTouchesPlayerRoad(VertexLocation loc, int ownerID) {
+		int x, y;
+		switch (loc.getDir()) 
+		{
+			case NorthEast:
+				x = loc.getHexLoc().getX();
+				y = loc.getHexLoc().getY();
+				EdgeLocation left = new EdgeLocation(loc.getHexLoc(), EdgeDirection.North);
+				EdgeLocation upper = new EdgeLocation(new HexLocation(x+1, y-1), EdgeDirection.NorthWest);
+				EdgeLocation lower = new EdgeLocation(new HexLocation(x+1, y-1), EdgeDirection.SouthWest);
+				if (this.Edges.containsKey(left)) {
+					if (this.Edges.get(left).getOwner() == ownerID) {
+						return true;
+					}
+				}
+				if (this.Edges.containsKey(upper)) {
+					if (this.Edges.get(upper).getOwner() == ownerID) {
+						return true;
+					}
+				}
+				if (this.Edges.containsKey(lower)) {
+					if (this.Edges.get(lower).getOwner() == ownerID) {
+						return true;
+					}
+				}
+				break;
+				
+			case NorthWest:
+				x = loc.getHexLoc().getX();
+				y = loc.getHexLoc().getY();
+				EdgeLocation right = new EdgeLocation(loc.getHexLoc(), EdgeDirection.North);
+				EdgeLocation upperLeft= new EdgeLocation(new HexLocation(x-1, y), EdgeDirection.SouthEast);
+				EdgeLocation lowerLeft = new EdgeLocation(loc.getHexLoc(), EdgeDirection.NorthWest);
+				if (this.Edges.containsKey(right)) {
+					if (this.Edges.get(right).getOwner() == ownerID) {
+						return true;
+					}
+				}
+				if (this.Edges.containsKey(upperLeft)) {
+					if (this.Edges.get(upperLeft).getOwner() == ownerID) {
+						return true;
+					}
+				}
+				if (this.Edges.containsKey(lowerLeft)) {
+					if (this.Edges.get(lowerLeft).getOwner() == ownerID) {
+						return true;
+					}
+				}
+				break;
+				
+		}
+		return false;
 	}
 	
 }

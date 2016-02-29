@@ -419,4 +419,8 @@ public class Game extends Observable
 	public boolean CanAcceptTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) {
 		return turnManager.CanAcceptTrade(traderIndex, tradeeIndex, out, in);
 	}
+
+	public Boolean settlementTouchesPlayerRoad(VertexLocation loc, int ownerID) {
+		return this.map.settlementTouchesPlayerRoad(loc, ownerID);
+	}
 }

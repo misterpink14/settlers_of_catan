@@ -183,10 +183,10 @@ public class ClientFacade {
 	}
 	
 	public boolean canBuildRoad(EdgeLocation edgeLoc, boolean isFree, boolean isSetup) {
-		if (!game.CanBuildRoad(edgeLoc, this.getUserData().getPlayerIndex(), isFree, isSetup)) {
-			return false;
-		}
-		return true;
+		return game.CanBuildRoad(edgeLoc, this.getUserData().getPlayerIndex(), isFree, isSetup);// {
+//			return false;
+//		}
+//		return true;
 	}
 	
 	
@@ -259,11 +259,11 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildSettlement(VertexLocation vertLoc) {
-		return this.canBuildSettlement(vertLoc, false);
+		return this.canBuildSettlement(vertLoc, true);
 	}
 	
 	public boolean canBuildSettlement(VertexLocation vertLoc, boolean isFree) {
-		return this.canBuildSettlement(vertLoc, isFree, false);
+		return this.canBuildSettlement(vertLoc, isFree, true);
 	}
 	
 	public boolean canBuildSettlement(VertexLocation vertLoc, boolean isFree, boolean isSetup) {
@@ -290,7 +290,11 @@ public class ClientFacade {
 	public String buildSettlement(VertexLocation vertLoc, boolean isFree, boolean isSetup) throws Exception {
 		if (canBuildSettlement(vertLoc, isFree, isSetup)) {
 			try {
-				return proxy.buildSettlement(new BuildSettlement());
+				BuildSettlement buildSettlement = new BuildSettlement();
+				buildSettlement.free = isFree;
+				buildSettlement.playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
+				buildSettlement.vertexLocation = vertLoc;
+				return proxy.buildSettlement(buildSettlement);
 			} catch (Exception e) {
 				throw new Exception("Error building settlement");
 			}
@@ -537,5 +541,9 @@ public class ClientFacade {
 				ClientFacade.getInstance().getUserData().getId());
 		
 		return currentPlayer.getArmy();
+	}
+
+	public Boolean settlementTouchesPlayerRoad(VertexLocation loc) {	
+		return this.game.settlementTouchesPlayerRoad(loc, this.getUserData().getId());
 	}
 }

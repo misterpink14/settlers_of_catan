@@ -1,14 +1,11 @@
 package shared.models.mapClasses;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import antlr.collections.List;
+import client.clientFacade.ClientFacade;
 import shared.definitions.PieceType;
 import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -134,10 +131,10 @@ public class VertexMap
 		}
 		
 		// Touch your road if isSetup // TODO <<<<<<this
-//		if (isSetup)
-//		{
-//			return true;
-//		}
+		if (isSetup)
+		{
+			return ClientFacade.getInstance().settlementTouchesPlayerRoad(loc);
+		}
 		
 		switch(loc.getDir())
 		{
