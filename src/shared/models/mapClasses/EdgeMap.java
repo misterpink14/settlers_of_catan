@@ -135,11 +135,10 @@ public class EdgeMap
 		if (isSetup) {
 			
 			//Make sure that you can build a settlement on one end of this road
-			int owner = ClientFacade.getInstance().getUserData().getPlayerIndex();
 			
 			ArrayList<VertexLocation> adjacentVertices = findAdjacentVertice(loc.getNormalizedLocation());
 			
-			if (adjacentVertices.isEmpty()) {
+			if (adjacentVertices.get(0) == null || adjacentVertices.get(1) == null) {
 				return false;
 			}
 			return ClientFacade.getInstance().canBuildSettlement(adjacentVertices.get(0), true, false)
