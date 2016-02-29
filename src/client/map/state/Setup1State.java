@@ -25,10 +25,13 @@ public class Setup1State extends BaseState {
 	
 
 	boolean isFree = true, isSetup = true;
+	int num_roads, num_settlements;
 
 	public Setup1State(IMapView view) {
 		super(view);
 		this.color = ClientFacade.getInstance().getUserColor();
+		this.num_roads = 15;
+		this.num_settlements = 5;
 	}
 
 	@Override
@@ -225,28 +228,26 @@ public class Setup1State extends BaseState {
 		if (!this.hasRenderedOverlay) {
 			this.hasRenderedOverlay = true;
 			
-			if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() == 15) {
+			if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() == num_roads) {
 				this.startMove(PieceType.ROAD, isFree, false);
 			}
-			else if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getSettlements() == 5) {
+			else if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getSettlements() == num_settlements) {
 				this.startMove(PieceType.SETTLEMENT, isFree, false);
 			}
 			else {
 				try {
 					ClientFacade.getInstance().finishTurn();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		}
-		if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() == 14
-				&& ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getSettlements() == 4)
+		if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() == num_roads -1
+				&& ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getSettlements() == num_settlements -1)
 		{
 			try {
 				ClientFacade.getInstance().finishTurn();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
