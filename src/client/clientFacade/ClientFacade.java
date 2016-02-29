@@ -527,6 +527,19 @@ public class ClientFacade {
 		return currentPlayer.getRoads();
 	}
 	
+	public int getPlayerWithMostRoads() {
+		int index = -1;
+		int highestnumber = 0;
+		for(Player p : game.getPlayers().getPlayers()) {
+			if (p.getRoads() > highestnumber) {
+				highestnumber = p.getRoads();
+				index = p.getIndex();
+			}
+		}
+		
+		return index;
+	}
+	
 	public int getNumOfPlayerSettlements() {
 		Player currentPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByID(
 				ClientFacade.getInstance().getUserData().getId());
