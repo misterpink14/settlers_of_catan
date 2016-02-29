@@ -429,7 +429,9 @@ public class ClientFacade {
 	public String finishTurn() throws Exception {
 		if(game.CanFinishTurn()) {
 			try {
-				return proxy.finishTurn(new FinishTurn());
+				FinishTurn finishTurn = new FinishTurn();
+				finishTurn.playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
+				return proxy.finishTurn(finishTurn);
 			} catch (Exception e) {
 				throw new Exception("Error finishing turn");
 			}

@@ -133,12 +133,7 @@ public class VertexMap
 		// Touch your road if isSetup // TODO <<<<<<this
 		if (isSetup)
 		{
-			System.out.println(loc.getHexLoc());
-			System.out.println(loc.getDir());
-			System.out.println(loc.getNormalizedLocation());
-			
-			return ClientFacade.getInstance().settlementTouchesPlayerRoad(loc);
-			
+			return ClientFacade.getInstance().settlementTouchesPlayerRoad(loc);	
 		}
 		
 		switch(loc.getDir())
