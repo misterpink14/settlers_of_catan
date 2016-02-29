@@ -1,8 +1,10 @@
 package shared.models.mapClasses;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import client.clientFacade.ClientFacade;
 import shared.definitions.PieceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -131,7 +133,18 @@ public class EdgeMap
 		
 		/* Don't continue if it is setup */
 		if (isSetup) {
-			return true;
+			
+			//Make sure that you can build a settlement on one end of this road
+			int owner = ClientFacade.getInstance().getUserData().getPlayerIndex();
+			
+			ArrayList<VertexLocation> adjacentVertices = findAdjacentVertice(loc.getNormalizedLocation());
+			
+			if (adjacentVertices.isEmpty()) {
+				return false;
+			}
+			return ClientFacade.getInstance().canBuildSettlement(adjacentVertices.get(0), true, false)
+					|| ClientFacade.getInstance().canBuildSettlement(adjacentVertices.get(1), true, false);
+
 		}
 		
 		/* Check if any adjacent edge belongs to the player trying to place the road piece */
@@ -175,6 +188,36 @@ public class EdgeMap
 	}
 	
 	
+	private ArrayList<VertexLocation> findAdjacentVertice(EdgeLocation loc) {
+		ArrayList<VertexLocation> adjacentVertices = new ArrayList<VertexLocation>();
+		VertexLocation first = null, second = null;
+		
+		switch (loc.getDir()) {
+			case North:
+				first = new VertexLocation(loc.getHexLoc(), VertexDirection.NorthWest);
+				second = new VertexLocation(loc.getHexLoc(), VertexDirection.NorthEast);
+				break;
+				
+			case NorthWest:
+				first = new VertexLocation(loc.getHexLoc(), VertexDirection.NorthWest);
+				second = new VertexLocation(loc.getHexLoc(), VertexDirection.West);
+				break;
+			
+			case NorthEast:
+				first = new VertexLocation(loc.getHexLoc(), VertexDirection.NorthEast);
+				second = new VertexLocation(loc.getHexLoc(), VertexDirection.East);
+				break;
+			default:
+				System.out.println("adjacent vertices error");
+				break;
+		}
+		adjacentVertices.add(first.getNormalizedLocation());
+		adjacentVertices.add(second.getNormalizedLocation());
+		return adjacentVertices;
+	}
+
+
+
 	/**
 	 * Helper function for _canBuildRoad. Gets the neighbors of the given EdgeDirection (for a Hex)
 	 * 
