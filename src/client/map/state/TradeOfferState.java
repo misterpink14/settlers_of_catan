@@ -22,7 +22,7 @@ import shared.models.mapClasses.WaterHex;
  * 		Transitions back to MyTurn
  * 
  */
-public class TradeOfferState extends WaitingState {
+public class TradeOfferState extends OutdatedState {
 
 	public TradeOfferState(IMapView view) {
 		super(view);

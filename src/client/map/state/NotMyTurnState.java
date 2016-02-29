@@ -19,7 +19,7 @@ import shared.models.mapClasses.WaterHex;
  * 		Transitions to MyTurn, Setup1, Setup2, EndOfGame
  * 
  */
-public class NotMyTurnState extends WaitingState {
+public class NotMyTurnState extends OutdatedState {
 
 	public NotMyTurnState(IMapView view) {
 		super(view);

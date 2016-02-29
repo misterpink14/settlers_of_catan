@@ -21,7 +21,7 @@ import shared.models.mapClasses.WaterHex;
  * 		Transitions back to MyTurn
  * 
  */
-public class RobberState extends WaitingState {
+public class RobberState extends OutdatedState {
 	
 	private IRobView robView;
 

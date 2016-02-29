@@ -8,12 +8,12 @@ import client.map.state.EndOfGameState;
 import client.map.state.LoginState;
 import client.map.state.MyTurnState;
 import client.map.state.NotMyTurnState;
+import client.map.state.OutdatedState;
 import client.map.state.RobberState;
 import client.map.state.Setup1State;
 import client.map.state.Setup2State;
 import client.map.state.TradeAcceptState;
 import client.map.state.TradeOfferState;
-import client.map.state.WaitingState;
 import shared.definitions.GameState;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
@@ -86,10 +86,10 @@ public class MapController extends Controller implements IMapController {
 				this.state = new TradeAcceptState(this.getView());
 				break;
 			case OUTDATED:
-				this.state = new WaitingState(this.getView());
+				this.state = new OutdatedState(this.getView());
 				break;
 			case DISCARD:
-				this.state = new WaitingState(this.getView());
+				this.state = new OutdatedState(this.getView());
 				break;
 			case ENDOFGAME:
 				this.state = new EndOfGameState(this.getView());

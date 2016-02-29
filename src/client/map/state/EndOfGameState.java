@@ -19,7 +19,7 @@ import shared.models.mapClasses.WaterHex;
  * The game is over. The map is frozen.
  * 
  */
-public class EndOfGameState extends WaitingState {
+public class EndOfGameState extends OutdatedState {
 
 	public EndOfGameState(IMapView view) {
 		super(view);
