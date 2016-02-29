@@ -375,7 +375,7 @@ public class ClientFacade {
 	public String tradeHarbor(ResourceType givingUp, ResourceType getting, int ratio) throws Exception {
 		if(isTurn()) {
 			try {
-				return proxy.maritimeTrade(new MaritimeTrade(givingUp, getting, ratio, clientUser.getPlayerID()));
+				return proxy.maritimeTrade(new MaritimeTrade(givingUp, getting, ratio, getUserData().getPlayerIndex()));
 			} catch (Exception e) {
 				throw new Exception("Error trading with harbor");
 			}

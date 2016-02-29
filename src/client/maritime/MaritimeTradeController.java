@@ -81,7 +81,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		if (p.getNumOfResource(ResourceType.ORE) >= oreRatio) {
 			toGive.add(ResourceType.ORE);
 		}
-		resourcesToGive = (ResourceType[])toGive.toArray();
+		
+		resourcesToGive = new ResourceType[toGive.size()];
+		for (int i = 0; i < toGive.size(); i++) {
+			resourcesToGive[i] = toGive.get(i);
+		}
 		
 		List<ResourceType> resourcesAvailable = new ArrayList<ResourceType>();
 		ResourceCards resources = ClientFacade.getInstance().game.getBank().getResources();
@@ -90,8 +94,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				resourcesAvailable.add(r);
 			}
 		}
-		resourcesToGet = (ResourceType[])resourcesAvailable.toArray();
-		
+		resourcesToGet = new ResourceType[resourcesAvailable.size()];
+		for (int i = 0; i < resourcesAvailable.size(); i++) {
+			resourcesToGet[i] = resourcesAvailable.get(i);
+		}
+		getTradeOverlay().showGiveOptions(resourcesToGive);
 		getTradeOverlay().showModal();
 	}
 
