@@ -425,9 +425,9 @@ public class Map
 		{
 			case NorthEast:
 			{
-				// -1, 0 ; 0, -1
-				if (this.Hexes.getHex(new HexLocation(hexLoc.getX()-1, hexLoc.getY())) == null ||
-					this.Hexes.getHex(new HexLocation(hexLoc.getX(), hexLoc.getY()-1)) == null)
+				// 1, 1 ; 0, 1
+				if (this.Hexes.getHex(new HexLocation(hexLoc.getX()+1, hexLoc.getY()+1)) == null ||
+					this.Hexes.getHex(new HexLocation(hexLoc.getX(), hexLoc.getY()+1)) == null)
 				{
 					return false;
 				}
@@ -435,9 +435,9 @@ public class Map
 			}
 			case NorthWest:
 			{
-				// 0, -1 ; 1, -1
-				if (this.Hexes.getHex(new HexLocation(hexLoc.getX(), hexLoc.getY()-1)) == null ||
-						this.Hexes.getHex(new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1)) == null)
+				// -1, 0 ; 0, 1
+				if (this.Hexes.getHex(new HexLocation(hexLoc.getX()-1, hexLoc.getY())) == null ||
+						this.Hexes.getHex(new HexLocation(hexLoc.getX(), hexLoc.getY()+1)) == null)
 					{
 						return false;
 					}
