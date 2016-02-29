@@ -74,9 +74,15 @@ public class HexMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public HexType getHexType(HexLocation loc) throws IndexOutOfBoundsException
+	public HexType getHexType(HexLocation loc)
 	{
-		return this.getHex(loc).getHexType();
+		HexType hexType;
+		try{
+			hexType = this.getHex(loc).getHexType();
+		} catch (IndexOutOfBoundsException e) {
+			hexType = HexType.WATER;
+		}
+		return hexType;
 	}
 	
 }
