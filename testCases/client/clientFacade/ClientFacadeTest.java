@@ -10,6 +10,9 @@ import com.google.gson.JsonParser;
 
 import client.serverProxy.FakeProxy;
 import shared.communication.proxy.Credentials;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 import shared.models.Game;
 import shared.serializerJSON.Deserializer;
 
@@ -43,16 +46,27 @@ public class ClientFacadeTest {
 		assertTrue(num <= 12 && num >= 2);
 	}
 
-//	@Test
-//	public void testCanBuildRoad() {
-//		assertTrue(!ClientFacade.getInstance().canBuildRoad(0, 0, "NE"));
-//	}
-//
-//	@Test
-//	public void testBuildRoad() throws Exception {
-//		assertTrue(ClientFacade.getInstance().buildRoad(0, 0, "NE").equals("False"));
-//	}
-//
+	@Test
+	public void testCanBuildRoad() {
+		assertTrue(!ClientFacade.getInstance().canBuildRoad(
+			new EdgeLocation(
+				new HexLocation(0, 0), 
+				EdgeDirection.NorthEast
+				)
+			)
+		);
+	}
+
+	@Test
+	public void testBuildRoad() throws Exception {
+		assertTrue(ClientFacade.getInstance().buildRoad(
+			new EdgeLocation(
+				new HexLocation(0, 0), 
+				EdgeDirection.NorthEast
+			)
+		).equals("False"));
+	}
+
 //	@Test
 //	public void testCanBuildCity() {
 //		assertTrue(!ClientFacade.getInstance().canBuildCity(0, 0, "NE"));
