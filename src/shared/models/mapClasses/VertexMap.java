@@ -152,7 +152,7 @@ public class VertexMap
 			{
 				if (this.checkLocation(VertexDirection.West, loc.getHexLoc()) && 
 						this.checkLocation(VertexDirection.NorthEast, loc.getHexLoc()) &&
-						this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest)))
+						this.checkLocation(VertexDirection.NorthEast, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest)))
 				{
 					return true;
 				}

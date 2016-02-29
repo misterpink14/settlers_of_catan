@@ -136,7 +136,7 @@ public class EdgeMap
 			
 			//Make sure that you can build a settlement on one end of this road
 			
-			ArrayList<VertexLocation> adjacentVertices = findAdjacentVertice(loc.getNormalizedLocation());
+			ArrayList<VertexLocation> adjacentVertices = findAdjacentVertices(loc.getNormalizedLocation());
 			
 			if (adjacentVertices.get(0) == null || adjacentVertices.get(1) == null) {
 				return false;
@@ -187,7 +187,7 @@ public class EdgeMap
 	}
 	
 	
-	private ArrayList<VertexLocation> findAdjacentVertice(EdgeLocation loc) {
+	private ArrayList<VertexLocation> findAdjacentVertices(EdgeLocation loc) {
 		ArrayList<VertexLocation> adjacentVertices = new ArrayList<VertexLocation>();
 		VertexLocation first = null, second = null;
 		

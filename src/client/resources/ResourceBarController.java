@@ -119,13 +119,48 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
 			}
 		case MYTURN:
+			getView().setElementEnabled(ResourceBarElement.ROAD, this.canBuildRoad());
+			getView().setElementEnabled(ResourceBarElement.SETTLEMENT, this.canBuildSettlement());
+			getView().setElementEnabled(ResourceBarElement.CITY, this.canBuildCity());
+			getView().setElementEnabled(ResourceBarElement.BUY_CARD, this.canBuyDevCard());
 			this.state = GameState.MYTURN;
 			break;
 		default:
+			getView().setElementEnabled(ResourceBarElement.ROAD, false);
+			getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+			getView().setElementEnabled(ResourceBarElement.CITY, false);
+			getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 			this.state = GameState.NOTMYTURN;
 			break;
 		
 		}
+	}
+
+	private boolean canBuyDevCard() {
+		
+		return ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.SHEEP) >= 1
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.ORE) >= 1
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WHEAT) >= 1;
+	}
+
+	private boolean canBuildCity() {
+		
+		return ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WHEAT) >= 2
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.ORE) >= 3;
+	}
+
+	private boolean canBuildSettlement() {
+		
+		return ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WOOD) >= 1
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.BRICK) >= 1
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.SHEEP) >= 1
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WHEAT) >= 1;
+	}
+
+	private boolean canBuildRoad() {
+		
+		return ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WOOD) >= 1
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.BRICK) >= 1;
 	}
 
 }
