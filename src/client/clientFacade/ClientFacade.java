@@ -544,6 +544,6 @@ public class ClientFacade {
 	}
 
 	public Boolean settlementTouchesPlayerRoad(VertexLocation loc) {	
-		return this.game.settlementTouchesPlayerRoad(loc, this.getUserData().getId());
+		return this.game.settlementTouchesPlayerRoad(loc, this.getUserData().getPlayerIndex());
 	}
 }

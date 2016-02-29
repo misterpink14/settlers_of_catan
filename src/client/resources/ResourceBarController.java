@@ -115,6 +115,9 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		
 		switch(state) {
 		case SETUP1:
+			if (ClientFacade.getInstance().getNumOfPlayerSettlements() == 4) {
+				getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+			}
 		case MYTURN:
 			this.state = GameState.MYTURN;
 			break;

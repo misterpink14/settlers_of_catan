@@ -245,14 +245,15 @@ public class EdgeMap
 
 	public Boolean settlementTouchesPlayerRoad(VertexLocation loc, int ownerID) {
 		int x, y;
+
 		switch (loc.getDir()) 
 		{
 			case NorthEast:
 				x = loc.getHexLoc().getX();
 				y = loc.getHexLoc().getY();
-				EdgeLocation left = new EdgeLocation(loc.getHexLoc(), EdgeDirection.North);
-				EdgeLocation upper = new EdgeLocation(new HexLocation(x+1, y-1), EdgeDirection.NorthWest);
-				EdgeLocation lower = new EdgeLocation(new HexLocation(x+1, y-1), EdgeDirection.SouthWest);
+				EdgeLocation left = new EdgeLocation(loc.getHexLoc(), EdgeDirection.North).getNormalizedLocation();
+				EdgeLocation upper = new EdgeLocation(new HexLocation(x+1, y-1), EdgeDirection.NorthWest).getNormalizedLocation();
+				EdgeLocation lower = new EdgeLocation(loc.getHexLoc(), EdgeDirection.NorthEast).getNormalizedLocation();
 				if (this.Edges.containsKey(left)) {
 					if (this.Edges.get(left).getOwner() == ownerID) {
 						return true;
@@ -273,9 +274,9 @@ public class EdgeMap
 			case NorthWest:
 				x = loc.getHexLoc().getX();
 				y = loc.getHexLoc().getY();
-				EdgeLocation right = new EdgeLocation(loc.getHexLoc(), EdgeDirection.North);
-				EdgeLocation upperLeft= new EdgeLocation(new HexLocation(x-1, y), EdgeDirection.SouthEast);
-				EdgeLocation lowerLeft = new EdgeLocation(loc.getHexLoc(), EdgeDirection.NorthWest);
+				EdgeLocation right = new EdgeLocation(loc.getHexLoc(), EdgeDirection.North).getNormalizedLocation();
+				EdgeLocation upperLeft= new EdgeLocation(new HexLocation(x, y-1), EdgeDirection.SouthWest).getNormalizedLocation();
+				EdgeLocation lowerLeft = new EdgeLocation(loc.getHexLoc(), EdgeDirection.NorthWest).getNormalizedLocation();
 				if (this.Edges.containsKey(right)) {
 					if (this.Edges.get(right).getOwner() == ownerID) {
 						return true;
