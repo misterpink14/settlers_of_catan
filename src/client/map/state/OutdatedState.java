@@ -21,9 +21,9 @@ import shared.models.mapClasses.WaterHex;
  * 		Transitions back to MyTurn
  * 
  */
-public class WaitingState extends BaseState {
+public class OutdatedState extends BaseState {
 
-	public WaitingState(IMapView view) {
+	public OutdatedState(IMapView view) {
 		super(view);
 	}
 

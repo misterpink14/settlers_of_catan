@@ -65,7 +65,10 @@ public class MapController extends Controller implements IMapController {
 				}
 				break;
 			case SETUP2:
-				this.state = new Setup2State(this.getView());
+				if (this.state.getClass() != Setup2State.class)
+				{
+					this.state = new Setup2State(this.getView());
+				}
 				break;
 			case MYTURN:
 				this.state = new MyTurnState(this.getView());
@@ -83,6 +86,8 @@ public class MapController extends Controller implements IMapController {
 				this.state = new TradeAcceptState(this.getView());
 				break;
 			case OUTDATED:
+				this.state = new WaitingState(this.getView());
+				break;
 			case DISCARD:
 				this.state = new WaitingState(this.getView());
 				break;
