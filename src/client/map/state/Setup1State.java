@@ -231,6 +231,24 @@ public class Setup1State extends BaseState {
 			else if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getSettlements() == 5) {
 				this.startMove(PieceType.SETTLEMENT, isFree, false);
 			}
+			else {
+				try {
+					ClientFacade.getInstance().finishTurn();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		if (ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getRoads() == 14
+				&& ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(ClientFacade.getInstance().getUserData().getPlayerIndex()).getSettlements() == 4)
+		{
+			try {
+				ClientFacade.getInstance().finishTurn();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -206,7 +206,9 @@ public class ClientFacade {
 	public String buildRoad(EdgeLocation edgeLoc, boolean isFree, boolean isSetup) throws Exception { // Used in Setup1 and Setup2
 		if (canBuildRoad(edgeLoc, isFree, isSetup)) {
 			try {
-				return proxy.buildRoad(new BuildRoad(edgeLoc, isFree));
+				BuildRoad buildRoad = new BuildRoad(edgeLoc, isFree);
+				buildRoad.playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
+				return proxy.buildRoad(buildRoad);
 			} catch (Exception e) {
 				throw new Exception("Error building road");
 			}
