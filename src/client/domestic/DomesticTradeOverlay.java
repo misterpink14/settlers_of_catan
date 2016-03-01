@@ -426,6 +426,12 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 		this.resourceButtonsMap.get(resource).get(1).setEnabled(canDecrease);
 		this.resourceButtonsMap.get(resource).get(1).setVisible(canIncrease || canDecrease);
 	}
+	
+	public void setResourceAmountVisible(ResourceType resource) {
+		this.resourceButtonsMap.get(resource).get(0).setVisible(true);
+		this.resourceCounts.get(resource).setVisible(true);
+		this.resourceButtonsMap.get(resource).get(1).setVisible(true);
+	}
 
 	@Override
 	public void setResourceSelectionEnabled(boolean enable) {

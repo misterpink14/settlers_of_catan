@@ -1,6 +1,7 @@
 package client.domestic;
 
 import shared.definitions.*;
+import shared.models.playerClasses.Player;
 import shared.observers.DomesticTradeObserver;
 import client.base.*;
 import client.clientFacade.ClientFacade;
@@ -22,6 +23,12 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private int amountToSend = 0;
 	private int amountToReceive = 0;
 	private int playerTradingWith = -1;
+	
+	private int brickAmount;
+	private int oreAmount;
+	private int sheepAmount;
+	private int wheatAmount;
+	private int woodAmount;
 	
 	private boolean brickIncrease = false;
 	private boolean brickDecrease = false;
@@ -46,6 +53,14 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 									IWaitView waitOverlay, IAcceptTradeOverlay acceptOverlay) {
 
 		super(tradeView);
+		
+		int playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
+		Player currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
+		brickAmount = currPlayer.getNumOfResource(ResourceType.BRICK);
+		oreAmount = currPlayer.getNumOfResource(ResourceType.ORE);
+		sheepAmount = currPlayer.getNumOfResource(ResourceType.SHEEP);
+		wheatAmount = currPlayer.getNumOfResource(ResourceType.WHEAT);
+		woodAmount = currPlayer.getNumOfResource(ResourceType.WOOD);
 		
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
@@ -88,6 +103,137 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 		getTradeOverlay().showModal();
 	}
+	
+	public void setDecreaseFalse(ResourceType resource) {
+		switch(resource) {
+		case BRICK:
+			brickDecrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.BRICK, brickIncrease, brickDecrease);
+			break;
+		case ORE:
+			oreDecrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.ORE, oreIncrease, oreDecrease);
+			break;
+		case SHEEP:
+			sheepDecrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.SHEEP, sheepIncrease, sheepDecrease);
+			break;
+		case WHEAT:
+			wheatDecrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WHEAT, wheatIncrease, wheatDecrease);
+			break;
+		case WOOD:
+			woodDecrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WOOD, woodIncrease, woodDecrease);
+			break;
+		}
+	}
+	
+	public void setDecreaseTrue(ResourceType resource) {
+		switch(resource) {
+		case BRICK:
+			brickDecrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.BRICK, brickIncrease, brickDecrease);
+			break;
+		case ORE:
+			oreDecrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.ORE, oreIncrease, oreDecrease);
+			break;
+		case SHEEP:
+			sheepDecrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.SHEEP, sheepIncrease, sheepDecrease);
+			break;
+		case WHEAT:
+			wheatDecrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WHEAT, wheatIncrease, wheatDecrease);
+			break;
+		case WOOD:
+			woodDecrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WOOD, woodIncrease, woodDecrease);
+			break;
+		}
+	}
+	
+	public void setIncreaseFalse(ResourceType resource) {
+		switch(resource) {
+		case BRICK:
+			brickIncrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.BRICK, brickIncrease, brickDecrease);
+			break;
+		case ORE:
+			oreIncrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.ORE, oreIncrease, oreDecrease);
+			break;
+		case SHEEP:
+			sheepIncrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.SHEEP, sheepIncrease, sheepDecrease);
+			break;
+		case WHEAT:
+			wheatIncrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WHEAT, wheatIncrease, wheatDecrease);
+			break;
+		case WOOD:
+			woodIncrease = false;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WOOD, woodIncrease, woodDecrease);
+			break;
+		}
+	}
+	
+	public void setIncreaseTrue(ResourceType resource) {
+		switch(resource) {
+		case BRICK:
+			brickIncrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.BRICK, brickIncrease, brickDecrease);
+			break;
+		case ORE:
+			oreIncrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.ORE, oreIncrease, oreDecrease);
+			break;
+		case SHEEP:
+			sheepIncrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.SHEEP, sheepIncrease, sheepDecrease);
+			break;
+		case WHEAT:
+			wheatIncrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WHEAT, wheatIncrease, wheatDecrease);
+			break;
+		case WOOD:
+			woodIncrease = true;
+			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WOOD, woodIncrease, woodDecrease);
+			break;
+		}
+	}
+	
+	public boolean canIncreaseResource(ResourceType resource, int amount) {
+		switch(resource) {
+		case BRICK:
+			if (amount > brickAmount) {
+				return false;
+			}
+			return true;
+		case ORE:
+			if (amount > oreAmount) {
+				return false;
+			}
+			return true;
+		case SHEEP:
+			if (amount > sheepAmount) {
+				return false;
+			}
+			return true;
+		case WHEAT:
+			if (amount > wheatAmount) {
+				return false;
+			}
+			return true;
+		case WOOD:
+			if (amount > woodAmount) {
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public void decreaseResourceAmount(ResourceType resource) {
@@ -98,24 +244,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 			// if we're at zero, disable decrease button
 			if (amountToReceive == 0) {
-				this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToReceive, true, false);
-				switch(resource) {
-				case BRICK:
-					brickDecrease = false;
-					break;
-				case ORE:
-					oreDecrease = false;
-					break;
-				case SHEEP:
-					sheepDecrease = false;
-					break;
-				case WHEAT:
-					wheatDecrease = false;
-					break;
-				case WOOD:
-					woodDecrease = false;
-					break;
-				}
+				setDecreaseFalse(resource);
 			}
 		}
 		if (resourceToSend == resource) {
@@ -125,72 +254,28 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 			// if we're at zero, disable decrease button
 			if (amountToSend == 0) {
-				this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToSend, true, false);
-				switch(resource) {
-				case BRICK:
-					brickDecrease = false;
-					break;
-				case ORE:
-					oreDecrease = false;
-					break;
-				case SHEEP:
-					sheepDecrease = false;
-					break;
-				case WHEAT:
-					wheatDecrease = false;
-					break;
-				case WOOD:
-					woodDecrease = false;
-					break;
-				}
+				setDecreaseFalse(resource);
 			}
 		}
 	}
+	
+	
 
 	@Override
 	public void increaseResourceAmount(ResourceType resource) {
 		if (resourceToReceive == resource) {
 			amountToReceive++;
-			this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToReceive, true, true);
-			switch(resource) {
-			case BRICK:
-				brickDecrease = true;
-				break;
-			case ORE:
-				oreDecrease = true;
-				break;
-			case SHEEP:
-				sheepDecrease = true;
-				break;
-			case WHEAT:
-				wheatDecrease = true;
-				break;
-			case WOOD:
-				woodDecrease = true;
-				break;
+			if (canIncreaseResource(resource, amountToReceive + 1)) {
+				setIncreaseFalse(resource);
 			}
-			
+			setDecreaseTrue(resource);
 		}
 		if (resourceToSend == resource) {
 			amountToSend++;
-			this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToSend, true, true);
-			switch(resource) {
-			case BRICK:
-				brickDecrease = true;
-				break;
-			case ORE:
-				oreDecrease = true;
-				break;
-			case SHEEP:
-				sheepDecrease = true;
-				break;
-			case WHEAT:
-				wheatDecrease = true;
-				break;
-			case WOOD:
-				woodDecrease = true;
-				break;
+			if (canIncreaseResource(resource, amountToSend + 1)) {
+				setIncreaseFalse(resource);
 			}
+			setDecreaseTrue(resource);
 		}
 	}
 
@@ -208,139 +293,45 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void setResourceToReceive(ResourceType resource) {
-		if (resourceToReceive != null) {
-			this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToReceive, false, false);
-			
-			switch(resourceToReceive) {
-			case BRICK:
-				brickIncrease = false;
-				brickDecrease = false;
-				break;
-			case ORE:
-				oreIncrease = false;
-				oreDecrease = false;
-				break;
-			case SHEEP:
-				sheepIncrease = false;
-				sheepDecrease = false;
-				break;
-			case WHEAT:
-				wheatIncrease = false;
-				wheatDecrease = false;
-				break;
-			case WOOD:
-				woodIncrease = false;
-				woodDecrease = false;
-				break;
-			}
-		}
-		
-		resourceToReceive = resource;
-		// can increase but not decrease as amountToReceive is 0
 		amountToReceive = 0;
-		this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToReceive, true, false);
-		switch(resource) {
-		case BRICK:
-			brickIncrease = true;
-			break;
-		case ORE:
-			oreIncrease = true;
-			break;
-		case SHEEP:
-			sheepIncrease = true;
-			break;
-		case WHEAT:
-			wheatIncrease = true;
-			break;
-		case WOOD:
-			woodIncrease = true;
-			break;
+		if (resourceToReceive != null) {
+			setIncreaseFalse(resourceToReceive);
+			setDecreaseFalse(resourceToReceive);
 		}
+		resourceToReceive = resource;
+		setIncreaseTrue(resource);
+		setDecreaseFalse(resource);
 	}
 
 	@Override
 	public void setResourceToSend(ResourceType resource) {
-		if (resourceToSend != null) {
-			this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToSend, false, false);
-			
-			switch(resourceToSend) {
-			case BRICK:
-				brickIncrease = false;
-				brickDecrease = false;
-				break;
-			case ORE:
-				oreIncrease = false;
-				oreDecrease = false;
-				break;
-			case SHEEP:
-				sheepIncrease = false;
-				sheepDecrease = false;
-				break;
-			case WHEAT:
-				wheatIncrease = false;
-				wheatDecrease = false;
-				break;
-			case WOOD:
-				woodIncrease = false;
-				woodDecrease = false;
-				break;
-			}
-		}
-		
-		resourceToSend = resource;
-		// can increase but not decrease as amountToSend is 0
 		amountToSend = 0;
-		this.getTradeOverlay().setResourceAmountChangeEnabled(resourceToSend, true, false);
-		switch(resource) {
-		case BRICK:
-			brickIncrease = true;
-			break;
-		case ORE:
-			oreIncrease = true;
-			break;
-		case SHEEP:
-			sheepIncrease = true;
-			break;
-		case WHEAT:
-			wheatIncrease = true;
-			break;
-		case WOOD:
-			woodIncrease = true;
-			break;
+		if (resourceToSend != null) {
+			setIncreaseFalse(resourceToSend);
+			setDecreaseFalse(resourceToSend);
 		}
+		resourceToSend = resource;
+		if (canIncreaseResource(resource, amountToSend + 1)) {
+			setIncreaseFalse(resource);
+		} else {
+			setIncreaseTrue(resource);
+		}
+		setDecreaseFalse(resource);
 	}
 
 	@Override
 	public void unsetResource(ResourceType resource) {
 		if (resourceToReceive == resource) {
+			setIncreaseFalse(resourceToReceive);
+			setDecreaseFalse(resourceToReceive);
 			resourceToReceive = null;
 			amountToReceive = 0;
 		}
 		if (resourceToSend == resource) {
+			setIncreaseFalse(resourceToSend);
+			setDecreaseFalse(resourceToSend);
 			resourceToSend = null;
 			amountToReceive = 0;
-		}
-		switch(resource) {
-		case BRICK:
-			brickIncrease = false;
-			brickDecrease = false;
-			break;
-		case ORE:
-			oreIncrease = false;
-			oreDecrease = false;
-			break;
-		case SHEEP:
-			sheepIncrease = false;
-			sheepDecrease = false;
-			break;
-		case WHEAT:
-			wheatIncrease = false;
-			wheatDecrease = false;
-			break;
-		case WOOD:
-			woodIncrease = false;
-			woodDecrease = false;
-			break;
 		}
 	}
 
@@ -359,20 +350,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	public void update(GameState gameState) {
 		if (gameState == GameState.MYTURN) {
-			// update the GUI
-			// enable domestic trade button
 			this.getTradeView().enableDomesticTrade(true);
-			// enable send/receive options for each resource
 			this.getTradeOverlay().setResourceSelectionEnabled(true);
-			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.BRICK, brickIncrease, brickDecrease);
-			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.ORE, oreIncrease, oreDecrease);
-			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.SHEEP, sheepIncrease, sheepDecrease);
-			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WHEAT, wheatIncrease, wheatDecrease);
-			this.getTradeOverlay().setResourceAmountChangeEnabled(ResourceType.WOOD, woodIncrease, woodDecrease);
-			// enable player selection for trade
-			this.getTradeOverlay().setPlayerSelectionEnabled(true);
-			// change message in trade box
-			//this.getTradeOverlay().setStateMessage("Set the trade you want to make");
 		} else {
 			this.getTradeView().enableDomesticTrade(false);
 			this.getTradeOverlay().setResourceSelectionEnabled(false);
