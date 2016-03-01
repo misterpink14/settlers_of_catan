@@ -212,6 +212,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 			return true;
 		case SHEEP:
+			System.out.println(amount);
+			System.out.println(sheepAmount);
 			if (amount > sheepAmount) {
 				return false;
 			}
@@ -250,6 +252,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			// if we're at zero, disable decrease button
 			if (amountToSend == 0) {
 				setDecreaseFalse(resource);
+				if (!canIncreaseResource(resource, amountToSend + 1)) {
+					setIncreaseFalse(resource);
+				} else {
+					setIncreaseTrue(resource);
+				}
 			}
 		}
 	}
@@ -260,14 +267,12 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void increaseResourceAmount(ResourceType resource) {
 		if (resourceToReceive == resource) {
 			amountToReceive++;
-			if (canIncreaseResource(resource, amountToReceive + 1)) {
-				setIncreaseFalse(resource);
-			}
+			setIncreaseTrue(resource);
 			setDecreaseTrue(resource);
 		}
 		if (resourceToSend == resource) {
 			amountToSend++;
-			if (canIncreaseResource(resource, amountToSend + 1)) {
+			if (!canIncreaseResource(resource, amountToSend + 1)) {
 				setIncreaseFalse(resource);
 			}
 			setDecreaseTrue(resource);
@@ -293,6 +298,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			setIncreaseFalse(resourceToReceive);
 			setDecreaseFalse(resourceToReceive);
 		}
+		if (resource == resourceToSend) {
+			amountToSend = 0;
+			setIncreaseFalse(resourceToSend);
+			setDecreaseFalse(resourceToSend);
+		}
 		resourceToReceive = resource;
 		setIncreaseTrue(resource);
 		setDecreaseFalse(resource);
@@ -305,8 +315,14 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			setIncreaseFalse(resourceToSend);
 			setDecreaseFalse(resourceToSend);
 		}
+		if (resource == resourceToReceive) {
+			amountToReceive = 0;
+			setIncreaseFalse(resourceToReceive);
+			setDecreaseFalse(resourceToReceive);
+		}
 		resourceToSend = resource;
-		if (canIncreaseResource(resource, amountToSend + 1)) {
+		if (!canIncreaseResource(resource, amountToSend + 1)) {
+			this.getTradeOverlay().setResourceAmountVisible(resource);
 			setIncreaseFalse(resource);
 		} else {
 			setIncreaseTrue(resource);
@@ -350,7 +366,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
 			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
 			brickAmount = currPlayer.getNumOfResource(ResourceType.BRICK);
-			System.out.println(brickAmount);
 			oreAmount = currPlayer.getNumOfResource(ResourceType.ORE);
 			sheepAmount = currPlayer.getNumOfResource(ResourceType.SHEEP);
 			wheatAmount = currPlayer.getNumOfResource(ResourceType.WHEAT);

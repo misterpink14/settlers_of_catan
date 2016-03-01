@@ -94,6 +94,8 @@ public interface IDomesticTradeOverlay extends IOverlayView
 	 *            Whether or not the user may cancel the trade operation
 	 */
 	void setCancelEnabled(boolean enabled);
+
+	void setResourceAmountVisible(ResourceType resource);
 	
 }
 
