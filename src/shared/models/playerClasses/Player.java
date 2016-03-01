@@ -346,9 +346,6 @@ public class Player {
 			System.out.println("trueee");
 			return true;
 		}
-		System.out.println("1 - " + resourceCards.getBrickCards());
-		System.out.println("2 - " + resourceCards.getWoodCards());
-		System.out.println("falseee");
 		return false;
 	}
 	
