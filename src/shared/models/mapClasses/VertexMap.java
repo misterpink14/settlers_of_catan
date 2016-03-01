@@ -133,7 +133,10 @@ public class VertexMap
 		// Touch your road if isSetup // TODO <<<<<<this
 		if (isSetup)
 		{
-			return ClientFacade.getInstance().settlementTouchesPlayerRoad(loc);	
+			if (!ClientFacade.getInstance().settlementTouchesPlayerRoad(loc))
+			{
+				return false;
+			}
 		}
 		
 		switch(loc.getDir())
