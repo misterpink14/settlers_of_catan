@@ -123,4 +123,9 @@ public class ResourceCards {
 		return true;
 	}
 
+	public int getTotal() {
+		return getWoodCards() + getBrickCards() + getSheepCards() 
+							  + getWheatCards() + getOreCards();
+	}
+
 }

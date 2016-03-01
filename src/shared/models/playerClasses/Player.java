@@ -219,6 +219,10 @@ public class Player {
 		return number;
 	}
 	
+	public int getTotalResources() {
+		return resourceCards.getTotal();
+	}
+	
 	/**
 	 * Deducts resources from this player
 	 * in order to buy a development card.
