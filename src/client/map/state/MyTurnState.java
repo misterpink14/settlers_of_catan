@@ -259,6 +259,6 @@ public class MyTurnState extends BaseState {
 	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 		
-		getView().startDrop(pieceType, this.color, false);
+		getView().startDrop(pieceType, this.color, true);
 	}
 }
