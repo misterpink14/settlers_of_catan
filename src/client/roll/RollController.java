@@ -81,8 +81,9 @@ public class RollController extends Controller implements IRollController {
 			}
         	break;
         case DISCARD:
-        case MYTURN:
         	getRollView().closeModal();
+        	break;
+        case MYTURN:
         	this.modalShown = false;
             break;        
         }

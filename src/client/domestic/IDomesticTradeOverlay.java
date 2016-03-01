@@ -95,7 +95,7 @@ public interface IDomesticTradeOverlay extends IOverlayView
 	 */
 	void setCancelEnabled(boolean enabled);
 
-	void setResourceAmountVisible(ResourceType resource);
+	void setResourceAmountVisible(ResourceType resource, boolean visible);
 	
 }
 

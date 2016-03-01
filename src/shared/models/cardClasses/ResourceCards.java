@@ -25,6 +25,22 @@ public class ResourceCards {
 		this.wheatCards = wheatCards;
 		this.oreCards = oreCards;
 	}
+	
+	public int getCards(ResourceType resource) {
+		switch(resource) {
+		case BRICK:
+			return brickCards;
+		case ORE:
+			return oreCards;
+		case SHEEP:
+			return sheepCards;
+		case WHEAT:
+			return wheatCards;
+		case WOOD:
+			return woodCards;
+		}
+		return -1;
+	}
 
 	public int getWoodCards() {
 		return woodCards;
@@ -67,6 +83,26 @@ public class ResourceCards {
 			case WOOD:
 				this.woodCards += num;
 				break;
+		}
+	}
+	
+	public void setZeroCards(ResourceType resource) {
+		switch(resource){
+		case BRICK:
+			this.brickCards = 0;
+			break;
+		case ORE:
+			this.oreCards = 0;
+			break;
+		case SHEEP:
+			this.sheepCards = 0;
+			break;
+		case WHEAT:
+			this.wheatCards = 0;
+			break;
+		case WOOD:
+			this.woodCards  = 0;
+			break;
 		}
 	}
 	

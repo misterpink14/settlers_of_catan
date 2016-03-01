@@ -2,8 +2,13 @@ package client.map.state;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import client.clientFacade.ClientFacade;
+import client.data.RobPlayerInfo;
 import client.map.IMapView;
+import client.map.MapView;
+import client.map.RobView;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
@@ -21,6 +26,11 @@ import shared.models.mapClasses.WaterHex;
  * 
  */
 public class MyTurnState extends BaseState {
+	
+	HexLocation newRobberLoc;
+	RobView robView = new RobView();
+	boolean firstRoadPlaced = true;
+	boolean secondRoadPlaced = true;
 
 	public MyTurnState(IMapView view) {
 		super(view);
@@ -233,15 +243,36 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc) {
-		try {
-			ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
+		if(this.firstRoadPlaced = false) {
+			this.firstRoadPlaced = true;
+			this.startMove(PieceType.ROAD, true, false);
+			try {
+				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			getView().placeRoad(edgeLoc, this.color);
 		}
-		getView().placeRoad(edgeLoc, this.color);
-		
-		//this.startMove(PieceType.SETTLEMENT, isFree, false);
+		else if(this.secondRoadPlaced) {
+			this.secondRoadPlaced = true;
+			try {
+				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			getView().placeRoad(edgeLoc, this.color);
+		}
+		else {
+			try {
+				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			getView().placeRoad(edgeLoc, this.color);
+		}
 	}
 
 
@@ -260,5 +291,48 @@ public class MyTurnState extends BaseState {
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 		
 		getView().startDrop(pieceType, this.color, true);
+	}
+	
+	@Override
+	public void playSoldierCard() {
+		this.getView().startDrop(PieceType.ROBBER, this.color, false);
+		
+	}
+	
+	@Override
+	public boolean canPlaceRobber(HexLocation hexLoc) {
+		return ClientFacade.getInstance().canPlaceRobber(hexLoc);
+	}
+	
+	@Override
+	public void placeRobber(HexLocation hexLoc) {
+		newRobberLoc = hexLoc;
+		RobPlayerInfo[] candidateVictims;
+//		if(candidateVictims.length == 0) {
+//			
+//		}
+//		else if(candidateVictims.length == 1) {
+//			
+//		}
+//		else {
+//			this.robView.setPlayers(candidateVictims);
+//			this.robView.showModal();
+//		}
+	}
+	
+	@Override
+	public void robPlayer(RobPlayerInfo victim) {
+		try {
+			ClientFacade.getInstance().robPlayer(victim.getPlayerIndex(), this.newRobberLoc);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((MapView)this.getView(), "Failed to Place the robber");
+		}
+	}
+	
+	@Override
+	public void playRoadBuildingCard() {
+		this.firstRoadPlaced = false;
+		this.secondRoadPlaced = false;
+		this.startMove(PieceType.ROAD, true, false);
 	}
 }

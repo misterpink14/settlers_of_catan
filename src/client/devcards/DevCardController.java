@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import client.base.*;
 import client.clientFacade.ClientFacade;
+import client.map.IMapView;
 
 
 /**
@@ -146,12 +147,12 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playRoadBuildCard() {
-		
+		roadAction.execute();
 	}
 
 	@Override
 	public void playSoldierCard() {
-		
+		soldierAction.execute();
 	}
 
 	@Override
