@@ -64,7 +64,13 @@ public class Deserializer {
 	private int desCurrentTurn = 0;
 	private String desCurrentState = "FirstRound";
 	
-	public void deserialize(Game game, JsonObject json) {
+	
+	public void deserialize(Game game, JsonObject json) { 
+		this.deserialize(game, json, false);
+	}
+	
+	
+	public void deserialize(Game game, JsonObject json, boolean isTest) {
 		// the "des" prefix signifies that the object has been deserialized.
 		
 		// Pull out the information about "deck" from the JSON
@@ -101,8 +107,14 @@ public class Deserializer {
 		// winner
 		int desWinner = json.getAsJsonPrimitive("winner").getAsInt();
 
-		game.update(desMap, desBank, desDeck, desPlayers, desLog, desChat,
+		if (isTest) { // Used with testing the poller
+			game.updateForTest(desMap, desBank, desDeck, desPlayers, desLog, desChat,
 				        desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
+		}
+		else {
+			game.update(desMap, desBank, desDeck, desPlayers, desLog, desChat,
+				        desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
+		}
 	}
 	
 	/**

@@ -47,7 +47,7 @@ public class ServerPoller
 	{
 		JsonParser parser = new JsonParser();
 		JsonObject gameModelJson = parser.parse(gameModelString).getAsJsonObject();
-		deserializer.deserialize(GameModel, gameModelJson);
+		deserializer.deserialize(GameModel, gameModelJson, true);
 	}
 	
 	class TimerActionListener implements ActionListener 

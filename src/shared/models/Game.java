@@ -179,6 +179,36 @@ public class Game extends Observable
 		this.notifyObservers();
 	}
 	
+
+	/**
+	 * Use for testing the Server Poller. Removes the need for the ClientFacade
+	 * 
+	 * @param map
+	 * @param bank
+	 * @param cardDeck
+	 * @param players
+	 * @param log
+	 * @param chat
+	 * @param currentTurn
+	 * @param currentState
+	 * @param hasPlayedDevCard
+	 * @param winner
+	 */
+	public void updateForTest(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
+			int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
+		this.map = map;
+		this.bank = bank;
+		this.cardDeck = cardDeck;
+		this.players = players;
+		this.log = log;
+		this.chat = chat;
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
+		this.turnManager.setCurrentTurn(currentTurn);
+		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	
 	// This is not done!!! -- Implement all the other possible states
 	/**

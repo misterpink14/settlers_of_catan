@@ -18,6 +18,7 @@ public class ServerPollerTest {
 		String gameModelString = proxy.getGameModel(0);
 		poller.updateModelTester(gameModelString);
 		assertTrue(poller.GameModel.getPlayers().getPlayerByIndex(0).getName().equals("Sam"));
+		assertTrue(true);
 	}
 
 }
