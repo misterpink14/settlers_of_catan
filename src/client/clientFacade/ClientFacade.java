@@ -120,7 +120,7 @@ public class ClientFacade {
 	 * otherwise, returns false;
 	 */
 	public boolean isTurn() {
-		return game.isTurn(0);
+		return game.isTurn(getUserData().getPlayerIndex());
 	}
 	
 	public String getGamesList() throws Exception {

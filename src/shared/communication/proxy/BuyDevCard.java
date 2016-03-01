@@ -8,9 +8,13 @@ public class BuyDevCard
 	 */
 	public int playerIndex;
 	
-	
 	public BuyDevCard() 
 	{}
+	
+	public BuyDevCard(int playerIndex) 
+	{
+		this.playerIndex = playerIndex;
+	}
 
 
 	

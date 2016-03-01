@@ -54,46 +54,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startBuyCard() {
-		if(state == GameState.MYTURN) {
-			Player p = ClientFacade.getInstance().game.getPlayers().getPlayerByID(ClientFacade.getInstance().getUserData().getId());
-
-			this.getPlayCardView().setCardAmount(DevCardType.MONOPOLY, p.getNumOfDevCard(DevCardType.MONOPOLY));
-			if (p.getNumOfDevCard(DevCardType.MONOPOLY) > 0) {
-				this.getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, true);
-			}
-			else {
-				this.getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
-			}
-			this.getPlayCardView().setCardAmount(DevCardType.MONUMENT, p.getNumOfDevCard(DevCardType.MONUMENT));
-			if (p.getNumOfDevCard(DevCardType.MONUMENT) > 0) {
-				this.getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
-			}
-			else {
-				this.getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
-			}
-			this.getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, p.getNumOfDevCard(DevCardType.ROAD_BUILD));
-			if (p.getNumOfDevCard(DevCardType.ROAD_BUILD) > 0) {
-				this.getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, true);
-			}
-			else {
-				this.getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
-			}
-			this.getPlayCardView().setCardAmount(DevCardType.SOLDIER, p.getNumOfDevCard(DevCardType.SOLDIER));
-			if (p.getNumOfDevCard(DevCardType.SOLDIER) > 0) {
-				this.getPlayCardView().setCardEnabled(DevCardType.SOLDIER, true);
-			}
-			else {
-				this.getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
-			}
-			this.getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY));
-			if (p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) > 0) {
-				this.getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, true);
-			}
-			else {
-				this.getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
-			}
-			getBuyCardView().showModal();
-		}
+		getBuyCardView().showModal();
 	}
 
 	@Override
@@ -105,13 +66,10 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void buyCard() {
 		try {
-			String result = ClientFacade.getInstance().buyDevCard();
-			if(result.equals("Success")) {
-				JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "You bought a dev card");
-			}
-			else {
-				JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "You cannot buy a dev card");
-			}
+			ClientFacade.getInstance().buyDevCard();
+			JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "You bought a dev card");
+			this.getBuyCardView().closeModal();
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "Error buying a dev card");
 		}
@@ -120,8 +78,46 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startPlayCard() {
-		
-		getPlayCardView().showModal();
+		if(state == GameState.MYTURN) {
+			Player p = ClientFacade.getInstance().game.getPlayers().getPlayerByID(ClientFacade.getInstance().getUserData().getId());
+
+			this.getPlayCardView().setCardAmount(DevCardType.MONOPOLY, p.getNumOfDevCard(DevCardType.MONOPOLY) + p.getNewDevCards().getMonopolyCards());
+			if (p.getNumOfDevCard(DevCardType.MONOPOLY) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
+			}
+			this.getPlayCardView().setCardAmount(DevCardType.MONUMENT, p.getNumOfDevCard(DevCardType.MONUMENT) + p.getNewDevCards().getMonumentCards());
+			if (p.getNumOfDevCard(DevCardType.MONUMENT) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
+			}
+			this.getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, p.getNumOfDevCard(DevCardType.ROAD_BUILD) + p.getNewDevCards().getRoadBuilderCards());
+			if (p.getNumOfDevCard(DevCardType.ROAD_BUILD) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
+			}
+			this.getPlayCardView().setCardAmount(DevCardType.SOLDIER, p.getNumOfDevCard(DevCardType.SOLDIER) + p.getNewDevCards().getSoldierCards());
+			if (p.getNumOfDevCard(DevCardType.SOLDIER) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.SOLDIER, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
+			}
+			this.getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) + p.getNewDevCards().getYearOfPlentyCards());
+			if (p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) > 0) {
+				this.getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, true);
+			}
+			else {
+				this.getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, false);
+			}
+			getPlayCardView().showModal();
+		}
 	}
 
 	@Override
