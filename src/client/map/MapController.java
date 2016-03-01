@@ -4,6 +4,7 @@ import client.base.Controller;
 import client.clientFacade.ClientFacade;
 import client.data.RobPlayerInfo;
 import client.map.state.BaseState;
+import client.map.state.DiscardState;
 import client.map.state.EndOfGameState;
 import client.map.state.LoginState;
 import client.map.state.MyTurnState;
@@ -104,7 +105,7 @@ public class MapController extends Controller implements IMapController {
 				this.initFromModel();
 				break;
 			case DISCARD:
-				this.state = new OutdatedState(this.getView());
+				this.state = new DiscardState(this.getView());
 				this.initFromModel();
 				break;
 			case ENDOFGAME:
