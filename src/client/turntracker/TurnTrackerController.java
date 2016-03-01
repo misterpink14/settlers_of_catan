@@ -1,7 +1,10 @@
 package client.turntracker;
 
 import shared.definitions.GameState;
+import shared.models.playerClasses.Player;
 import shared.observers.TurnTrackerObserver;
+
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -41,6 +44,29 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	private void initFromModel() {
 		PlayerInfo localPlayer = ClientFacade.getInstance().getUserData();
 		getView().setLocalPlayerColor(localPlayer.getColor());
+		
+		int currentTurn = ClientFacade.getInstance().game.getTurnManager().getPlayerIndex();
+		int longestRoad = ClientFacade.getInstance().getPlayerWithMostRoads();
+		int largestArmy = -1; // Change when function gets implemented
+		List<Player> players = ClientFacade.getInstance().game.getPlayers().getPlayers();
+		initializePlayers(players);
+		for (Player p : players) {
+			int playerIndex = p.getIndex();
+			boolean isMyTurn = playerIndex == currentTurn;
+			boolean isLargestArmy = playerIndex == largestArmy;
+			boolean isLongestRoad = playerIndex == longestRoad;
+			int victoryPoints = p.getVictoryPoints();
+			if (isLongestRoad) {
+				victoryPoints += 2;
+			}
+			this.getView().updatePlayer(playerIndex, victoryPoints, isMyTurn, isLargestArmy, isLongestRoad);
+		}
+	}
+	
+	private void initializePlayers(List<Player> players) {
+		for (Player p : players) {
+			this.getView().initializePlayer(p.getIndex(), p.getName(), p.getColor());
+		}
 	}
 	
 	public void setObserver() {
