@@ -133,6 +133,19 @@ public class TurnTrackerView extends PanelView implements ITurnTrackerView {
 		gameStatePanel.updateGameState(stateMessage, enable);
 	}
 	
+	public void reset() {
+		this.removeAll();
+		this.revalidate();
+		this.repaint();
+		playerPanel = new JPanel[NUM_PLAYERS];
+		for (int i = 0; i < NUM_PLAYERS; i++) {
+			playerPanel[i] = new JPanel();
+			this.add(playerPanel[i]);
+		}
+		this.revalidate();
+		this.repaint();
+	}
+	
 }
 
 
