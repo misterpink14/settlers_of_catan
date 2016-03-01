@@ -235,18 +235,29 @@ public class RobberState extends OutdatedState {
 	
 	@Override
 	public void placeRobber(HexLocation hexLoc) {
-		this.newRobberLoc = hexLoc;
+		newRobberLoc = hexLoc;
 		RobPlayerInfo[] candidateVictims;
-//		if(candidateVictims.length == 0) {
-//			
-//		}
-//		else if(candidateVictims.length == 1) {
-//			
-//		}
-//		else {
-//			this.robView.setPlayers(candidateVictims);
-//			this.robView.showModal();
-//		}
+		try {
+			candidateVictims = ClientFacade.getInstance().getVictims(hexLoc);
+		
+			if(candidateVictims.length == 0) {
+				try {
+					ClientFacade.getInstance().robPlayer(-1, hexLoc);
+				} catch (Exception e) {}
+			}
+			else if(candidateVictims.length == 1) {
+				try {
+					ClientFacade.getInstance().robPlayer(candidateVictims[0].getPlayerIndex(), hexLoc);
+				} catch (Exception e) {}
+			}
+			else {
+				this.robView.setPlayers(candidateVictims);
+				this.robView.showModal();
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	
 	@Override
