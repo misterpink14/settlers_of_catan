@@ -1,5 +1,6 @@
 package client.clientFacade;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import client.data.PlayerInfo;
+import client.data.RobPlayerInfo;
 import client.serverPoller.ServerPoller;
 import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
@@ -589,5 +591,44 @@ public class ClientFacade {
 		move.playerIndex = getUserData().getPlayerIndex();
 		move.victimIndex = victim;
 		this.proxy.moveSoldier(move);
+	}
+	
+	public RobPlayerInfo[] placeRobber(HexLocation hexLoc) throws Exception {
+		ArrayList<Piece> playerIndexes = this.game.placeRobber(hexLoc);
+		RobPlayerInfo [] robPlayerInfos = new RobPlayerInfo[playerIndexes.size()];
+		ResourceType t;
+		
+		switch(this.game.getHex(hexLoc).getHexType()) {
+		case WOOD:
+			t = ResourceType.WOOD;
+			break;
+		case BRICK:
+			t = ResourceType.BRICK;
+			break;
+		case SHEEP:
+			t = ResourceType.SHEEP;
+			break;
+		case WHEAT:
+			t = ResourceType.WHEAT;
+			break;
+		case ORE:
+			t = ResourceType.ORE;
+			break;
+		default:
+			throw new Exception("placeRobber failure");
+		}
+		
+		int i = 0;
+		
+		// int id, int playerIndex, String name, CatanColor color, int numCards
+		for (Piece p: playerIndexes)
+		{
+			Player player = this.game.getPlayers().getPlayerByIndex(p.getOwner());
+			RobPlayerInfo rob = new RobPlayerInfo(player.getID(), player.getIndex(), player.getName(), player.getColor(), player.getNumOfResource(t));
+			robPlayerInfos[i] = rob;
+			i++;
+		}
+		
+		return robPlayerInfos;
 	}
 }

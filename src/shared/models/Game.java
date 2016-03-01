@@ -1,5 +1,6 @@
 package shared.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
@@ -162,6 +163,13 @@ public class Game extends Observable
 	
 
 // Public METHODS
+	public ArrayList<Piece> placeRobber (HexLocation hexLoc)
+	{
+		return this.map.placeRobber(hexLoc);
+	}
+	
+	
+	
 	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
 			int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
 		this.map = map;

@@ -1,5 +1,10 @@
 package shared.models.mapClasses;
 
+import java.util.ArrayList;
+
+import antlr.collections.List;
+import client.data.RobPlayerInfo;
+import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
@@ -93,6 +98,73 @@ public class Map
 	
 
 // Public METHODS
+	public ArrayList<Piece> placeRobber(HexLocation hexLoc) {
+		ArrayList<Piece> playerIndexes = new ArrayList<Piece> ();
+		VertexLocation vertexLoc = new VertexLocation(hexLoc, VertexDirection.East).getNormalizedLocation();
+		Piece piece;
+		try {
+			piece = this.Vertexes.getPiece(vertexLoc);
+			if (piece.getOwner() != -1) {
+				playerIndexes.add(piece);
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		vertexLoc = new VertexLocation(hexLoc, VertexDirection.NorthEast).getNormalizedLocation();
+		try {
+			piece = this.Vertexes.getPiece(vertexLoc);
+			if (piece.getOwner() != -1) {
+				playerIndexes.add(piece);
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		vertexLoc = new VertexLocation(hexLoc, VertexDirection.NorthWest).getNormalizedLocation();
+		try {
+			piece = this.Vertexes.getPiece(vertexLoc);
+			if (piece.getOwner() != -1) {
+				playerIndexes.add(piece);
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		vertexLoc = new VertexLocation(hexLoc, VertexDirection.West).getNormalizedLocation();
+		try {
+			piece = this.Vertexes.getPiece(vertexLoc);
+			if (piece.getOwner() != -1) {
+				playerIndexes.add(piece);
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		vertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthWest).getNormalizedLocation();
+		try {
+			piece = this.Vertexes.getPiece(vertexLoc);
+			if (piece.getOwner() != -1) {
+				playerIndexes.add(piece);
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		vertexLoc = new VertexLocation(hexLoc, VertexDirection.SouthEast).getNormalizedLocation();
+		try {
+			piece = this.Vertexes.getPiece(vertexLoc);
+			if (piece.getOwner() != -1) {
+				playerIndexes.add(piece);
+			}
+		} catch (Exception e) {
+			
+		}
+		
+		return playerIndexes;
+	}
+	
+	
 	/**
 	 * Use to add a settlement to the player map
 	 * 
