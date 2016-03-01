@@ -117,7 +117,6 @@ public class MapController extends Controller implements IMapController {
 			default:
 				this.state = new LoginState(this.getView());
 		}
-		System.out.println(this.state.toString());
 	}
 	
 	
