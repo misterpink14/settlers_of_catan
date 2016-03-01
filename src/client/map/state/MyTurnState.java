@@ -29,6 +29,8 @@ public class MyTurnState extends BaseState {
 	
 	HexLocation newRobberLoc;
 	RobView robView = new RobView();
+	boolean firstRoadPlaced = true;
+	boolean secondRoadPlaced = true;
 
 	public MyTurnState(IMapView view) {
 		super(view);
@@ -241,15 +243,36 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc) {
-		try {
-			ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
+		if(this.firstRoadPlaced = false) {
+			this.firstRoadPlaced = true;
+			this.startMove(PieceType.ROAD, true, false);
+			try {
+				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			getView().placeRoad(edgeLoc, this.color);
 		}
-		getView().placeRoad(edgeLoc, this.color);
-		
-		//this.startMove(PieceType.SETTLEMENT, isFree, false);
+		else if(this.secondRoadPlaced) {
+			this.secondRoadPlaced = true;
+			try {
+				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			getView().placeRoad(edgeLoc, this.color);
+		}
+		else {
+			try {
+				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}
+			getView().placeRoad(edgeLoc, this.color);
+		}
 	}
 
 
@@ -272,7 +295,7 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public void playSoldierCard() {
-		this.getView().startDrop(PieceType.ROBBER, this.color, true);
+		this.getView().startDrop(PieceType.ROBBER, this.color, false);
 		
 	}
 	
@@ -304,5 +327,12 @@ public class MyTurnState extends BaseState {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog((MapView)this.getView(), "Failed to Place the robber");
 		}
+	}
+	
+	@Override
+	public void playRoadBuildingCard() {
+		this.firstRoadPlaced = false;
+		this.secondRoadPlaced = false;
+		this.startMove(PieceType.ROAD, true, false);
 	}
 }
