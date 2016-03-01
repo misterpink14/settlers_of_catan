@@ -59,7 +59,11 @@ public class MapController extends Controller implements IMapController {
 		switch(gameState)
 		{
 			case SETUP1:
-				if (this.state.getClass() != Setup1State.class)
+				if (ClientFacade.getInstance().game.getPlayers().getNumberOfPlayers() != 4)
+				{
+					this.state = new LoginState(this.getView());
+				}
+				else if (this.state.getClass() != Setup1State.class)
 				{
 					this.state = new Setup1State(this.getView());
 					this.initFromModel();
