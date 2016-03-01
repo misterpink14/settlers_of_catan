@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import client.clientFacade.ClientFacade;
 import client.map.IMapView;
 import shared.definitions.HexType;
+import shared.definitions.PieceType;
 import shared.definitions.PortType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -23,6 +24,7 @@ public class MyTurnState extends BaseState {
 
 	public MyTurnState(IMapView view) {
 		super(view);
+		this.color = ClientFacade.getInstance().getUserColor();
 	}
 
 	public void initFromModel() { 
@@ -215,5 +217,48 @@ public class MyTurnState extends BaseState {
 		
 		getView().placeRobber(ClientFacade.getInstance().getRobberLocation().getHexLoc());
 
+	}
+	
+	@Override
+	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+		return ClientFacade.getInstance().canBuildRoad(edgeLoc, false, false);
+	}
+
+
+	@Override
+	public boolean canPlaceSettlement(VertexLocation vertLoc) {
+		return ClientFacade.getInstance().canBuildSettlement(vertLoc);
+	}
+
+	
+	@Override
+	public void placeRoad(EdgeLocation edgeLoc) {
+		try {
+			ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		getView().placeRoad(edgeLoc, this.color);
+		
+		//this.startMove(PieceType.SETTLEMENT, isFree, false);
+	}
+
+
+	@Override
+	public void placeSettlement(VertexLocation vertLoc) {
+		try {
+			ClientFacade.getInstance().buildSettlement(vertLoc, false, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		getView().placeSettlement(vertLoc, this.color);
+	}
+	
+	@Override
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
+		
+		getView().startDrop(pieceType, this.color, false);
 	}
 }

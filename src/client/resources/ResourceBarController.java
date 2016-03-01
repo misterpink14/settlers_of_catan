@@ -49,6 +49,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void buildRoad() {
 		if(this.state == GameState.MYTURN) {
+			System.out.println("Got to here");
 			executeElementAction(ResourceBarElement.ROAD);
 		}
 	}
@@ -84,7 +85,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	private void executeElementAction(ResourceBarElement element) {
 		
 		if (elementActions.containsKey(element)) {
-			
+
 			IAction action = elementActions.get(element);
 			action.execute();
 		}
