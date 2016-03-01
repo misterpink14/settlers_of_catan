@@ -248,7 +248,7 @@ public class EdgeMap
 				// Check North and adjacent hex South
 				dir1 = EdgeDirection.North;
 				// Check SouthEast and adjacent hex NorthWest
-				dir2 = EdgeDirection.SouthWest;
+				dir2 = EdgeDirection.SouthEast;
 				break;
 			}
 			default:
