@@ -12,6 +12,8 @@ import client.misc.*;
  * Domestic trade controller implementation
  */
 public class DomesticTradeController extends Controller implements IDomesticTradeController {
+	
+	private boolean hasRendered;
 
 	private IDomesticTradeOverlay tradeOverlay;
 	private IWaitView waitOverlay;
@@ -56,6 +58,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 									IWaitView waitOverlay, IAcceptTradeOverlay acceptOverlay) {
 
 		super(tradeView);
+		
+		hasRendered = false;
 		
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
@@ -252,11 +256,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			// if we're at zero, disable decrease button
 			if (amountToSend == 0) {
 				setDecreaseFalse(resource);
-				if (!canIncreaseResource(resource, amountToSend + 1)) {
-					setIncreaseFalse(resource);
-				} else {
-					setIncreaseTrue(resource);
-				}
 			}
 		}
 	}
@@ -302,6 +301,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			amountToSend = 0;
 			setIncreaseFalse(resourceToSend);
 			setDecreaseFalse(resourceToSend);
+			resourceToSend = null;
 		}
 		resourceToReceive = resource;
 		setIncreaseTrue(resource);
@@ -348,7 +348,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void cancelTrade() {
-
+		hasRendered = false;
 		getTradeOverlay().closeModal();
 	}
 
@@ -361,15 +361,18 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	public void update(GameState gameState) {
 		if (gameState == GameState.MYTURN) {
-			this.getTradeView().enableDomesticTrade(true);
-			this.getTradeOverlay().setResourceSelectionEnabled(true);
-			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
-			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
-			brickAmount = currPlayer.getNumOfResource(ResourceType.BRICK);
-			oreAmount = currPlayer.getNumOfResource(ResourceType.ORE);
-			sheepAmount = currPlayer.getNumOfResource(ResourceType.SHEEP);
-			wheatAmount = currPlayer.getNumOfResource(ResourceType.WHEAT);
-			woodAmount = currPlayer.getNumOfResource(ResourceType.WOOD);
+			if (!hasRendered) {
+				this.getTradeView().enableDomesticTrade(true);
+				this.getTradeOverlay().setResourceSelectionEnabled(true);
+				currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
+				playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
+				brickAmount = currPlayer.getNumOfResource(ResourceType.BRICK);
+				oreAmount = currPlayer.getNumOfResource(ResourceType.ORE);
+				sheepAmount = currPlayer.getNumOfResource(ResourceType.SHEEP);
+				wheatAmount = currPlayer.getNumOfResource(ResourceType.WHEAT);
+				woodAmount = currPlayer.getNumOfResource(ResourceType.WOOD);
+				hasRendered = true;
+			}
 		} else {
 			this.getTradeView().enableDomesticTrade(false);
 			this.getTradeOverlay().setResourceSelectionEnabled(false);
