@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import client.clientFacade.ClientFacade;
+import client.data.RobPlayerInfo;
 import client.map.IMapView;
 import client.map.IRobView;
 import client.map.MapView;
@@ -28,6 +29,7 @@ import shared.models.mapClasses.WaterHex;
 public class RobberState extends OutdatedState {
 	
 	private IRobView robView;
+	private HexLocation newRobberLoc;
 
 	public RobberState(IMapView view, IRobView robView) {
 		super(view);
@@ -233,17 +235,31 @@ public class RobberState extends OutdatedState {
 	
 	@Override
 	public void placeRobber(HexLocation hexLoc) {
-		try {
-			//temporary victim
-			int victim = 2;
-			ClientFacade.getInstance().placeRobber(hexLoc, victim);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog((MapView)this.getView(), "Failed to Place the robber");
-		}
+		this.newRobberLoc = hexLoc;
+		RobPlayerInfo[] candidateVictims;
+//		if(candidateVictims.length == 0) {
+//			
+//		}
+//		else if(candidateVictims.length == 1) {
+//			
+//		}
+//		else {
+//			this.robView.setPlayers(candidateVictims);
+//			this.robView.showModal();
+//		}
 	}
 	
 	@Override
 	public boolean canPlaceRobber(HexLocation hexLoc) {
 		return ClientFacade.getInstance().canPlaceRobber(hexLoc);
+	}
+	
+	@Override
+	public void robPlayer(RobPlayerInfo victim) {
+		try {
+			ClientFacade.getInstance().robPlayer(victim.getPlayerIndex(), this.newRobberLoc);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((MapView)this.getView(), "Failed to Place the robber");
+		}
 	}
 }

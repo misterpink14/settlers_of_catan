@@ -205,7 +205,6 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	public void playSoldierCard() {	
-		
 		this.state.playSoldierCard();
 	}
 	

@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import client.data.PlayerInfo;
+import client.data.RobPlayerInfo;
 import client.serverPoller.ServerPoller;
 import client.serverProxy.ProxyInterface;
 import shared.communication.proxy.BuildCity;
@@ -22,6 +23,7 @@ import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.Monopoly;
 import shared.communication.proxy.MonumentMove;
 import shared.communication.proxy.OfferTrade;
+import shared.communication.proxy.RobPlayer;
 import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
@@ -583,11 +585,18 @@ public class ClientFacade {
 		return getInstance().game.CanPlaceRobber(hexLoc, getUserData().getPlayerIndex());
 	}
 
-	public void placeRobber(HexLocation hexLoc, int victim) throws Exception {
+	public void placeRobber(HexLocation hexLoc) throws Exception {
 		SoldierMove move = new SoldierMove();
 		move.newLocation = hexLoc;
 		move.playerIndex = getUserData().getPlayerIndex();
-		move.victimIndex = victim;
 		this.proxy.moveSoldier(move);
+	}
+	
+	public void robPlayer(int victim, HexLocation hexLoc) throws Exception {
+		RobPlayer rob = new RobPlayer();
+		rob.playerIndex = getUserData().getPlayerIndex();
+		rob.victimIndex = victim;
+		rob.newLocation = hexLoc;
+		proxy.robPlayer(rob);
 	}
 }

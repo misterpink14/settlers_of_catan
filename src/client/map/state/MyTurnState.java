@@ -2,8 +2,13 @@ package client.map.state;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import client.clientFacade.ClientFacade;
+import client.data.RobPlayerInfo;
 import client.map.IMapView;
+import client.map.MapView;
+import client.map.RobView;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
@@ -21,6 +26,9 @@ import shared.models.mapClasses.WaterHex;
  * 
  */
 public class MyTurnState extends BaseState {
+	
+	HexLocation newRobberLoc;
+	RobView robView = new RobView();
 
 	public MyTurnState(IMapView view) {
 		super(view);
@@ -260,5 +268,41 @@ public class MyTurnState extends BaseState {
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 		
 		getView().startDrop(pieceType, this.color, true);
+	}
+	
+	@Override
+	public void playSoldierCard() {
+		this.getView().startDrop(PieceType.ROBBER, this.color, true);
+		
+	}
+	
+	@Override
+	public boolean canPlaceRobber(HexLocation hexLoc) {
+		return ClientFacade.getInstance().canPlaceRobber(hexLoc);
+	}
+	
+	@Override
+	public void placeRobber(HexLocation hexLoc) {
+		newRobberLoc = hexLoc;
+		RobPlayerInfo[] candidateVictims;
+//		if(candidateVictims.length == 0) {
+//			
+//		}
+//		else if(candidateVictims.length == 1) {
+//			
+//		}
+//		else {
+//			this.robView.setPlayers(candidateVictims);
+//			this.robView.showModal();
+//		}
+	}
+	
+	@Override
+	public void robPlayer(RobPlayerInfo victim) {
+		try {
+			ClientFacade.getInstance().robPlayer(victim.getPlayerIndex(), this.newRobberLoc);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog((MapView)this.getView(), "Failed to Place the robber");
+		}
 	}
 }
