@@ -50,7 +50,8 @@ public class PointsController extends Controller implements IPointsController {
 				ClientFacade.getInstance().getUserData().getPlayerIndex());
 		ClientFacade.getInstance().getNumOfPlayerRoads();
 		int victoryPoints = player.getVictoryPoints();
-		if(ClientFacade.getInstance().getPlayerWithMostRoads() == player.getIndex()) {
+		if(ClientFacade.getInstance().getPlayerWithMostRoads() == player.getIndex() && 
+				ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(player.getIndex()).getRoads() > 4) {
 			victoryPoints += 2;
 		} 
 		return victoryPoints;
