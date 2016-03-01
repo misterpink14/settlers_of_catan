@@ -425,30 +425,84 @@ public class Map
 		{
 			case NorthEast:
 			{
-				// 1, -1 ; 0, -1
-				if (this.Hexes.getHex(new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1)) == null ||
-					this.Hexes.getHex(new HexLocation(hexLoc.getX(), hexLoc.getY()-1)) == null)
-				{
+				HexLocation bottomLeft = vertexLoc.getHexLoc();
+				HexLocation right = vertexLoc.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast);
+				HexLocation topLeft = vertexLoc.getHexLoc().getNeighborLoc(EdgeDirection.North);
+				
+				Boolean allWater = true;
+				
+				try {
+					if (this.Hexes.getHexType(bottomLeft) != HexType.WATER) {
+						allWater = false;
+					}
+				}
+				catch (IndexOutOfBoundsException e) {
+				}
+				try {
+					if (this.Hexes.getHexType(right) != HexType.WATER) {
+						allWater = false;
+					}
+				}
+				catch (IndexOutOfBoundsException e) {
+				}
+				try {
+					if (this.Hexes.getHexType(topLeft) != HexType.WATER) {
+						allWater = false;
+					}
+				}
+				catch (IndexOutOfBoundsException e) {
+				}
+				//If all the hexes surrounding this settlement are water, return false
+				if (allWater) {
 					return false;
 				}
-				break;
+				else {
+					return true;
+				}
 			}
 			case NorthWest:
 			{
-				// -1, 0 ; 0, -1
-				if (this.Hexes.getHex(new HexLocation(hexLoc.getX()-1, hexLoc.getY())) == null ||
-						this.Hexes.getHex(new HexLocation(hexLoc.getX(), hexLoc.getY()-1)) == null)
-					{
-						return false;
+				HexLocation bottomRight = vertexLoc.getHexLoc();
+				HexLocation left = vertexLoc.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest);
+				HexLocation topRight = vertexLoc.getHexLoc().getNeighborLoc(EdgeDirection.North);
+				
+				Boolean allWater = true;
+				
+				try {
+					if (this.Hexes.getHexType(bottomRight) != HexType.WATER) {
+						allWater = false;
 					}
-				break;
+				}
+				catch (IndexOutOfBoundsException e) {
+				}
+				try {
+					if (this.Hexes.getHexType(left) != HexType.WATER) {
+						allWater = false;
+					}
+				}
+				catch (IndexOutOfBoundsException e) {
+				}
+				try {
+					if (this.Hexes.getHexType(topRight) != HexType.WATER) {
+						allWater = false;
+					}
+				}
+				catch (IndexOutOfBoundsException e) {
+				}
+				//If all the hexes surrounding this settlement are water, return false
+				if (allWater) {
+					return false;
+				}
+				else {
+					return true;
+				}
 			}
 			default:
 			{
 				throw new InvalidTypeException();
 			}
 		}
-		return true;
+		//return true;
 	}
 	
 	
