@@ -79,6 +79,9 @@ public class RollController extends Controller implements IRollController {
 				timer.schedule(new AutoRoll(), 5000);
 				this.modalShown = true;
 			}
+        	break;
+        case MYTURN:
+        	this.modalShown = false;
             break;        
         }
 	}

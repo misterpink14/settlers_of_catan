@@ -110,7 +110,7 @@ public class DevCardController extends Controller implements IDevCardController 
 				JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "You bought a dev card");
 			}
 			else {
-				JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "You cannot buy a ");
+				JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "You cannot buy a dev card");
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog((BuyDevCardView)this.getBuyCardView(), "Error buying a dev card");
