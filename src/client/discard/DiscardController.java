@@ -2,6 +2,7 @@ package client.discard;
 
 import shared.definitions.*;
 import client.base.*;
+import client.clientFacade.ClientFacade;
 import client.misc.*;
 
 
@@ -11,6 +12,21 @@ import client.misc.*;
 public class DiscardController extends Controller implements IDiscardController {
 
 	private IWaitView waitView;
+	
+	private int maxBrick;
+	private int maxOre;
+	private int maxSheep;
+	private int maxWheat;
+	private int maxWood;
+	
+	private int currBrick;
+	private int currOre;
+	private int currSheep;
+	private int currWheat;
+	private int currWood;
+	
+	private int totalToDiscard;
+	private int currTotal;
 	
 	/**
 	 * DiscardController constructor
@@ -35,7 +51,33 @@ public class DiscardController extends Controller implements IDiscardController 
 
 	@Override
 	public void increaseAmount(ResourceType resource) {
-		
+		switch(resource) {
+		case BRICK:
+			if(++currBrick < maxBrick)this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
+			this.getDiscardView().setResourceDiscardAmount(resource, currBrick);
+			break;
+		case ORE:
+			if(++currOre < maxOre) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
+			this.getDiscardView().setResourceDiscardAmount(resource, currOre);
+			break;
+		case SHEEP:
+			if(++currSheep < maxSheep) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
+			this.getDiscardView().setResourceDiscardAmount(resource, currSheep);
+			break;
+		case WHEAT:
+			if(++currWheat < maxWheat) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
+			this.getDiscardView().setResourceDiscardAmount(resource, currWheat);
+			break;
+		case WOOD:
+			if(++currWood < maxWood) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
+			this.getDiscardView().setResourceDiscardAmount(resource, currWood);
+			break;
+		}
 	}
 
 	@Override
@@ -43,10 +85,16 @@ public class DiscardController extends Controller implements IDiscardController 
 		
 	}
 
+	public void update(GameState gameState) {
+		if(gameState == GameState.DISCARD) {
+			
+		}
+	}
+
 	@Override
 	public void discard() {
+		// TODO Auto-generated method stub
 		
-		getDiscardView().closeModal();
 	}
 
 }
