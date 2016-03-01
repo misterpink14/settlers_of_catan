@@ -82,10 +82,8 @@ public class EdgeMap
 		
 		if (this.Edges.get(loc) == null)
 		{
-			System.out.println("ooooh");
 			return this._canBuildRoad(loc, ownerIndex, isSetup);
 		}
-		System.out.println("no.");
 		return false;
 	}
 	
@@ -207,7 +205,6 @@ public class EdgeMap
 				second = new VertexLocation(loc.getHexLoc(), VertexDirection.East);
 				break;
 			default:
-				System.out.println("adjacent vertices error");
 				break;
 		}
 		adjacentVertices.add(first.getNormalizedLocation());
