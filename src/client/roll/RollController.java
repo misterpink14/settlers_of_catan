@@ -80,7 +80,9 @@ public class RollController extends Controller implements IRollController {
 				this.modalShown = true;
 			}
         	break;
+        case DISCARD:
         case MYTURN:
+        	getRollView().closeModal();
         	this.modalShown = false;
             break;        
         }

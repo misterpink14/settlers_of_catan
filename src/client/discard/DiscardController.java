@@ -21,6 +21,7 @@ public class DiscardController extends Controller implements IDiscardController 
 	private int maxSheep;
 	private int maxWheat;
 	private int maxWood;
+	private boolean firstTime;
 	
 	private int brickToDiscard;
 	private int oreToDiscard;
@@ -47,6 +48,7 @@ public class DiscardController extends Controller implements IDiscardController 
 		this.waitView = waitView;
 		discarding = false;
 		waiting = false;
+		firstTime = true;
 	}
 
 	public IDiscardView getDiscardView() {
@@ -135,8 +137,46 @@ public class DiscardController extends Controller implements IDiscardController 
 			break;
 		}
 		
+		if (--currTotal < totalToDiscard) {
+			if (woodToDiscard < maxWood) {
+				if (woodToDiscard > 0) {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, true, true);
+				} else {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, true, false);
+				}
+			}
+			if (brickToDiscard < maxBrick) {
+				if (brickToDiscard > 0) {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, true);
+				} else {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, false);
+				}
+			}
+			if (wheatToDiscard < maxWheat) {
+				if (wheatToDiscard > 0) {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, true, true);
+				} else {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
+				}
+			}
+			if (sheepToDiscard < maxSheep) {
+				if (sheepToDiscard > 0) {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, true, true);
+				} else {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
+				}
+			}
+			if (oreToDiscard < maxOre) {
+				if (oreToDiscard > 0) {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, true);
+				} else {
+					this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, false);
+				}
+			}
+		}
+		
 		this.getDiscardView().setDiscardButtonEnabled(false);
-		this.getDiscardView().setStateMessage("Still " + (totalToDiscard-(--currTotal)) + " cards to discard");
+		this.getDiscardView().setStateMessage("Still " + (totalToDiscard-(currTotal)) + " cards to discard");
 	}
 	
 	private void initialize(Player p) {
@@ -184,7 +224,7 @@ public class DiscardController extends Controller implements IDiscardController 
 			int pIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
 			Player p = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(pIndex);
 			int res = p.getTotalResources();
-			if (!discarding && res > 7) {
+			if (!discarding && res > 7 && !firstTime) {
 				discarding = true;
 				initialize(p);
 			} else if (waiting) {
@@ -194,6 +234,8 @@ public class DiscardController extends Controller implements IDiscardController 
 				waiting = true;
 				waitView.setMessage("Waiting for slow pokes to discard");
 				waitView.showModal();
+			} else if (firstTime) {
+				firstTime = false;
 			}
 		}
 		else {
@@ -206,14 +248,15 @@ public class DiscardController extends Controller implements IDiscardController 
 
 	@Override
 	public void discard() {
-		this.getDiscardView().closeModal();
 		discarding = false;
 		waiting = true;
+		firstTime = true;
 		try {
 			ClientFacade.getInstance().discardCards(sheepToDiscard, woodToDiscard, brickToDiscard, wheatToDiscard, oreToDiscard);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		this.getDiscardView().closeModal();
 	}
 
 }
