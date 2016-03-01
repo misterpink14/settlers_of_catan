@@ -15,6 +15,7 @@ import shared.communication.proxy.BuildSettlement;
 import shared.communication.proxy.BuyDevCard;
 import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.Credentials;
+import shared.communication.proxy.DiscardedCards;
 import shared.communication.proxy.FinishTurn;
 import shared.communication.proxy.JoinGameRequestParams;
 import shared.communication.proxy.MaritimeTrade;
@@ -350,6 +351,19 @@ public class ClientFacade {
 			return proxy.offerTrade(new OfferTrade());
 		} catch (Exception e) {
 			throw new Exception("Error offering trade");
+		}
+	}
+	
+	/**
+	 * Send the command to the server proxy to discard
+	 * the selected cards
+	 * @throw
+	 */
+	public String discardCards(int sheepDiscard, int woodDiscard, int brickDiscard, int wheatDiscard, int oreDiscard) throws Exception {
+		try {
+			return proxy.discardCards(new DiscardedCards(getUserData().getPlayerIndex(), sheepDiscard, woodDiscard, oreDiscard, wheatDiscard, brickDiscard));
+		} catch (Exception e) {
+			throw new Exception("Error discarding cards");
 		}
 	}
 	

@@ -1,6 +1,8 @@
 package client.discard;
 
 import shared.definitions.*;
+import shared.models.playerClasses.Player;
+import shared.observers.DiscardObserver;
 import client.base.*;
 import client.clientFacade.ClientFacade;
 import client.misc.*;
@@ -12,6 +14,7 @@ import client.misc.*;
 public class DiscardController extends Controller implements IDiscardController {
 
 	private IWaitView waitView;
+	private DiscardObserver obs;
 	
 	private int maxBrick;
 	private int maxOre;
@@ -19,15 +22,17 @@ public class DiscardController extends Controller implements IDiscardController 
 	private int maxWheat;
 	private int maxWood;
 	
-	private int currBrick;
-	private int currOre;
-	private int currSheep;
-	private int currWheat;
-	private int currWood;
+	private int brickToDiscard;
+	private int oreToDiscard;
+	private int sheepToDiscard;
+	private int wheatToDiscard;
+	private int woodToDiscard;
 	
 	private int totalToDiscard;
 	private int currTotal;
 	
+	private boolean discarding;
+	private boolean waiting;
 	/**
 	 * DiscardController constructor
 	 * 
@@ -37,8 +42,11 @@ public class DiscardController extends Controller implements IDiscardController 
 	public DiscardController(IDiscardView view, IWaitView waitView) {
 		
 		super(view);
-		
+		this.obs = new DiscardObserver(this);
+		ClientFacade.getInstance().game.addObserver(obs);
 		this.waitView = waitView;
+		discarding = false;
+		waiting = false;
 	}
 
 	public IDiscardView getDiscardView() {
@@ -53,48 +61,159 @@ public class DiscardController extends Controller implements IDiscardController 
 	public void increaseAmount(ResourceType resource) {
 		switch(resource) {
 		case BRICK:
-			if(++currBrick < maxBrick)this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			if(++brickToDiscard < maxBrick)this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
 			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
-			this.getDiscardView().setResourceDiscardAmount(resource, currBrick);
+			this.getDiscardView().setResourceDiscardAmount(resource, brickToDiscard);
 			break;
 		case ORE:
-			if(++currOre < maxOre) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			if(++oreToDiscard < maxOre) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
 			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
-			this.getDiscardView().setResourceDiscardAmount(resource, currOre);
+			this.getDiscardView().setResourceDiscardAmount(resource, oreToDiscard);
 			break;
 		case SHEEP:
-			if(++currSheep < maxSheep) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			if(++sheepToDiscard < maxSheep) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
 			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
-			this.getDiscardView().setResourceDiscardAmount(resource, currSheep);
+			this.getDiscardView().setResourceDiscardAmount(resource, sheepToDiscard);
 			break;
 		case WHEAT:
-			if(++currWheat < maxWheat) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			if(++wheatToDiscard < maxWheat) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
 			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
-			this.getDiscardView().setResourceDiscardAmount(resource, currWheat);
+			this.getDiscardView().setResourceDiscardAmount(resource, wheatToDiscard);
 			break;
 		case WOOD:
-			if(++currWood < maxWood) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			if(++woodToDiscard < maxWood) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
 			else this.getDiscardView().setResourceAmountChangeEnabled(resource, false, true);
-			this.getDiscardView().setResourceDiscardAmount(resource, currWood);
+			this.getDiscardView().setResourceDiscardAmount(resource, woodToDiscard);
 			break;
+		}
+		
+		if (++currTotal == totalToDiscard) {
+			if (brickToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, false, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, false, false);
+			if (sheepToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, false, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, false, false);
+			if (wheatToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, false, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, false, false);
+			if (woodToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, false, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, false, false);
+			if (oreToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, false, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, false, false);
+			this.getDiscardView().setStateMessage("Click to Discard");
+			this.getDiscardView().setDiscardButtonEnabled(true);
+		} else {
+			this.getDiscardView().setStateMessage("Still " + (totalToDiscard-currTotal) + " cards to discard");
 		}
 	}
 
 	@Override
 	public void decreaseAmount(ResourceType resource) {
+		switch(resource) {
+		case BRICK:
+			if(--brickToDiscard > 0)this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, true, false);
+			this.getDiscardView().setResourceDiscardAmount(resource, brickToDiscard);
+			break;
+		case ORE:
+			if(--oreToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, true, false);
+			this.getDiscardView().setResourceDiscardAmount(resource, oreToDiscard);
+			break;
+		case SHEEP:
+			if(--sheepToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, true, false);
+			this.getDiscardView().setResourceDiscardAmount(resource, sheepToDiscard);
+			break;
+		case WHEAT:
+			if(--wheatToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, true, false);
+			this.getDiscardView().setResourceDiscardAmount(resource, wheatToDiscard);
+			break;
+		case WOOD:
+			if(--woodToDiscard > 0) this.getDiscardView().setResourceAmountChangeEnabled(resource, true, true);
+			else this.getDiscardView().setResourceAmountChangeEnabled(resource, true, false);
+			this.getDiscardView().setResourceDiscardAmount(resource, woodToDiscard);
+			break;
+		}
 		
+		this.getDiscardView().setDiscardButtonEnabled(false);
+		this.getDiscardView().setStateMessage("Still " + (totalToDiscard-(--currTotal)) + " cards to discard");
+	}
+	
+	private void initialize(Player p) {
+		
+		brickToDiscard = 0;
+		wheatToDiscard = 0;
+		woodToDiscard = 0;
+		oreToDiscard = 0;
+		sheepToDiscard = 0;
+		
+		maxBrick = p.getNumOfResource(ResourceType.BRICK);
+		maxSheep = p.getNumOfResource(ResourceType.SHEEP);
+		maxWood = p.getNumOfResource(ResourceType.WOOD);
+		maxOre = p.getNumOfResource(ResourceType.ORE);
+		maxWheat = p.getNumOfResource(ResourceType.WHEAT);
+		
+		totalToDiscard = p.getTotalResources() / 2;
+		currTotal = 0;
+		
+		this.getDiscardView().setResourceMaxAmount(ResourceType.BRICK, maxBrick);
+		this.getDiscardView().setResourceMaxAmount(ResourceType.SHEEP, maxSheep);
+		this.getDiscardView().setResourceMaxAmount(ResourceType.WOOD, maxWood);
+		this.getDiscardView().setResourceMaxAmount(ResourceType.ORE, maxOre);
+		this.getDiscardView().setResourceMaxAmount(ResourceType.WHEAT, maxWheat);
+		
+		this.getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, brickToDiscard);
+		this.getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, sheepToDiscard);
+		this.getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, woodToDiscard);
+		this.getDiscardView().setResourceDiscardAmount(ResourceType.ORE, oreToDiscard);
+		this.getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, wheatToDiscard);
+		
+		this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, maxBrick > 0, false);
+		this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, maxSheep > 0, false);
+		this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, maxWood > 0, false);
+		this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, maxOre > 0, false);
+		this.getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, maxWheat > 0, false);
+		
+		this.getDiscardView().setStateMessage("Still " + totalToDiscard + " cards to discard");
+		this.getDiscardView().setDiscardButtonEnabled(false);
+		this.getDiscardView().showModal();
 	}
 
 	public void update(GameState gameState) {
 		if(gameState == GameState.DISCARD) {
-			
+			int pIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
+			Player p = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(pIndex);
+			int res = p.getTotalResources();
+			if (!discarding && res > 7) {
+				discarding = true;
+				initialize(p);
+			} else if (waiting) {
+				waitView.setMessage("Waiting for slow pokes to discard");
+				waitView.showModal();
+			} else if (!discarding) {
+				waiting = true;
+				waitView.setMessage("Waiting for slow pokes to discard");
+				waitView.showModal();
+			}
+		}
+		else {
+			waiting = false;
+			if(waitView.isModalShowing()) {
+				waitView.closeModal();
+			}
 		}
 	}
 
 	@Override
 	public void discard() {
-		// TODO Auto-generated method stub
-		
+		this.getDiscardView().closeModal();
+		discarding = false;
+		waiting = true;
+		try {
+			ClientFacade.getInstance().discardCards(sheepToDiscard, woodToDiscard, brickToDiscard, wheatToDiscard, oreToDiscard);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

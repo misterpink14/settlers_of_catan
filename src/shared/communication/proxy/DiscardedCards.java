@@ -1,9 +1,5 @@
 package shared.communication.proxy;
 
-import java.util.ArrayList;
-
-import shared.definitions.ResourceType;;
-
 public class DiscardedCards
 {
 
@@ -26,9 +22,15 @@ public class DiscardedCards
 	/**
 	 * The cards they are discarded
 	 */
-	public DiscardedCards() 
-	{}
+	public DiscardedCards(int playerIndex, int sheep, int wood, int ore, int wheat, int brick) {
+		this.playerIndex = playerIndex;
+		this.sheep = sheep;
+		this.wood = wood;
+		this.ore = ore;
+		this.wheat = wheat;
+		this.brick = brick;
+	}
 
-
+	public DiscardedCards(){}
 	
 }
