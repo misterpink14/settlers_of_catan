@@ -24,6 +24,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private int amountToReceive = 0;
 	private int playerTradingWith = -1;
 	
+	int playerIndex;
+	Player currPlayer;
+	
 	private int brickAmount;
 	private int oreAmount;
 	private int sheepAmount;
@@ -53,14 +56,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 									IWaitView waitOverlay, IAcceptTradeOverlay acceptOverlay) {
 
 		super(tradeView);
-		
-		int playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
-		Player currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
-		brickAmount = currPlayer.getNumOfResource(ResourceType.BRICK);
-		oreAmount = currPlayer.getNumOfResource(ResourceType.ORE);
-		sheepAmount = currPlayer.getNumOfResource(ResourceType.SHEEP);
-		wheatAmount = currPlayer.getNumOfResource(ResourceType.WHEAT);
-		woodAmount = currPlayer.getNumOfResource(ResourceType.WOOD);
 		
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
@@ -352,6 +347,14 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		if (gameState == GameState.MYTURN) {
 			this.getTradeView().enableDomesticTrade(true);
 			this.getTradeOverlay().setResourceSelectionEnabled(true);
+			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
+			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
+			brickAmount = currPlayer.getNumOfResource(ResourceType.BRICK);
+			System.out.println(brickAmount);
+			oreAmount = currPlayer.getNumOfResource(ResourceType.ORE);
+			sheepAmount = currPlayer.getNumOfResource(ResourceType.SHEEP);
+			wheatAmount = currPlayer.getNumOfResource(ResourceType.WHEAT);
+			woodAmount = currPlayer.getNumOfResource(ResourceType.WOOD);
 		} else {
 			this.getTradeView().enableDomesticTrade(false);
 			this.getTradeOverlay().setResourceSelectionEnabled(false);
