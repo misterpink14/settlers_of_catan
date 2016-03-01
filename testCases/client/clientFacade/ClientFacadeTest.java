@@ -13,6 +13,8 @@ import shared.communication.proxy.Credentials;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import shared.models.Game;
 import shared.serializerJSON.Deserializer;
 
@@ -25,7 +27,7 @@ public class ClientFacadeTest {
 		JsonObject json = parser.parse(gameModelString).getAsJsonObject();
 		Deserializer deserializer = new Deserializer();
 		Game game = new Game();
-		deserializer.deserialize(game, json);
+		deserializer.deserialize(game, json, true);
 		ClientFacade.getInstance().setup(game, new FakeProxy()); 
 		ClientFacade.getInstance().game.getTurnManager().startGame(1);
 	}
@@ -64,28 +66,48 @@ public class ClientFacadeTest {
 				new HexLocation(0, 0), 
 				EdgeDirection.NorthEast
 			)
-		).equals("False"));
+		).equals("failure"));
 	}
 
-//	@Test
-//	public void testCanBuildCity() {
-//		assertTrue(!ClientFacade.getInstance().canBuildCity(0, 0, "NE"));
-//	}
-//
-//	@Test
-//	public void testBuildCity() throws Exception {
-//		assertTrue(ClientFacade.getInstance().buildCity(0, 0, "NE").equals("False"));
-//	}
-//
-//	@Test
-//	public void testCanBuildSettlement() {
-//		assertTrue(!ClientFacade.getInstance().canBuildSettlement(0, 0, "NE"));
-//	}
-//
-//	@Test
-//	public void testBuildSettlement() throws Exception {
-//		assertTrue(ClientFacade.getInstance().buildSettlement(0, 0, "NE").equals("False"));
-//	}
+	@Test
+	public void testCanBuildCity() {
+		assertTrue(!ClientFacade.getInstance().canBuildCity(
+				new VertexLocation(
+						new HexLocation(0, 0), 
+						VertexDirection.NorthEast
+					)
+				));
+	}
+
+	@Test
+	public void testBuildCity() throws Exception {
+		assertTrue(ClientFacade.getInstance().buildCity(
+				new VertexLocation(
+						new HexLocation(0, 0), 
+						VertexDirection.NorthEast
+					)
+				).equals("failure"));
+	}
+
+	@Test
+	public void testCanBuildSettlement() {
+		assertTrue(!ClientFacade.getInstance().canBuildSettlement(
+				new VertexLocation(
+						new HexLocation(0, 0), 
+						VertexDirection.NorthEast
+					)
+				));
+	}
+
+	@Test
+	public void testBuildSettlement() throws Exception {
+		assertTrue(ClientFacade.getInstance().buildSettlement(
+				new VertexLocation(
+						new HexLocation(0, 0), 
+						VertexDirection.NorthEast
+					)
+				).equals("failure"));
+	}
 
 	@Test
 	public void testCanBuyDevCard() {
@@ -94,7 +116,7 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testBuyDevCard() throws Exception {
-		assertTrue(ClientFacade.getInstance().buyDevCard().equals("False"));
+		assertTrue(ClientFacade.getInstance().buyDevCard().equals("failure"));
 	}
 
 	@Test
@@ -109,12 +131,12 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testFinishTurn() throws Exception {
-		assertTrue(ClientFacade.getInstance().finishTurn().equals("False"));
+		assertTrue(ClientFacade.getInstance().finishTurn().charAt(0) == '{');
 	}
 
 	@Test
 	public void testSendChat() {
-		assertTrue(ClientFacade.getInstance().sendChat("hello").equals("True"));
+		assertTrue(ClientFacade.getInstance().sendChat("hello").charAt(0) == '{');
 	}
 
 }
