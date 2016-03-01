@@ -1,8 +1,13 @@
 package client.domestic;
 
 import shared.definitions.*;
+import shared.models.cardClasses.InsufficientCardNumberException;
+import shared.models.cardClasses.ResourceCards;
 import shared.models.playerClasses.Player;
 import shared.observers.DomesticTradeObserver;
+
+import java.util.Arrays;
+
 import client.base.*;
 import client.clientFacade.ClientFacade;
 import client.misc.*;
@@ -18,20 +23,14 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private IAcceptTradeOverlay acceptOverlay;
 	private DomesticTradeObserver obs;
 	
-	private ResourceType resourceToSend = null;
-	private ResourceType resourceToReceive = null;
-	private int amountToSend = 0;
-	private int amountToReceive = 0;
+	private ResourceCards resourceToSend;
+	private boolean[] sendingResource;
+	private ResourceCards resourceToReceive;
+	private boolean[] receivingResource;
 	private int playerTradingWith = -1;
 	
 	int playerIndex;
 	Player currPlayer;
-	
-	private int brickAmount;
-	private int oreAmount;
-	private int sheepAmount;
-	private int wheatAmount;
-	private int woodAmount;
 	
 	private boolean brickIncrease = false;
 	private boolean brickDecrease = false;
@@ -63,6 +62,12 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		obs = new DomesticTradeObserver(this);
 		ClientFacade.getInstance().game.addObserver(obs);
 		this.getTradeView().enableDomesticTrade(false);
+		resourceToSend = new ResourceCards(0,0,0,0,0);
+		receivingResource = new boolean[5];
+		Arrays.fill(receivingResource, Boolean.FALSE);
+		resourceToReceive = new ResourceCards(0,0,0,0,0);
+		sendingResource = new boolean[5];
+		Arrays.fill(sendingResource, Boolean.FALSE);
 	}
 	
 	public IDomesticTradeView getTradeView() {
@@ -100,13 +105,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		this.getTradeOverlay().setResourceSelectionEnabled(false);
 		currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
 		playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
-		brickAmount = currPlayer.getNumOfResource(ResourceType.BRICK);
-		oreAmount = currPlayer.getNumOfResource(ResourceType.ORE);
-		sheepAmount = currPlayer.getNumOfResource(ResourceType.SHEEP);
-		wheatAmount = currPlayer.getNumOfResource(ResourceType.WHEAT);
-		woodAmount = currPlayer.getNumOfResource(ResourceType.WOOD);
 		
 		this.getTradeOverlay().setResourceSelectionEnabled(true);
+		this.getTradeOverlay().setPlayerSelectionEnabled(true);
 		
 		getTradeOverlay().showModal();
 	}
@@ -211,58 +212,44 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		}
 	}
 	
-	public boolean canIncreaseResource(ResourceType resource, int amount) {
+	public int getIsTrading(ResourceType resource) {
 		switch(resource) {
 		case BRICK:
-			if (amount > brickAmount) {
-				return false;
-			}
-			return true;
+			return 0;
 		case ORE:
-			if (amount > oreAmount) {
-				return false;
-			}
-			return true;
+			return 1;
 		case SHEEP:
-			System.out.println(amount);
-			System.out.println(sheepAmount);
-			if (amount > sheepAmount) {
-				return false;
-			}
-			return true;
+			return 2;
 		case WHEAT:
-			if (amount > wheatAmount) {
-				return false;
-			}
-			return true;
+			return 3;
 		case WOOD:
-			if (amount > woodAmount) {
-				return false;
-			}
-			return true;
+			return 4;
 		}
-		return false;
+		return -1;
 	}
 
 	@Override
 	public void decreaseResourceAmount(ResourceType resource) {
-		if (resourceToReceive == resource) {
-			// Make sure we can decrease
-			if (amountToReceive > 0) {
-				amountToReceive--;
+		
+		if (resourceToReceive.getCards(resource) > 0) {
+			try {
+				resourceToReceive.removeCard(resource, 1);
+			} catch (InsufficientCardNumberException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			// if we're at zero, disable decrease button
-			if (amountToReceive == 0) {
+			if (resourceToReceive.getCards(resource) == 0) {
 				setDecreaseFalse(resource);
 			}
 		}
-		if (resourceToSend == resource) {
-			// Make sure we can decrease
-			if (amountToSend > 0) {
-				amountToSend--;
+		if (resourceToSend.getCards(resource) > 0) {
+			try {
+				resourceToSend.removeCard(resource, 1);
+			} catch (InsufficientCardNumberException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			// if we're at zero, disable decrease button
-			if (amountToSend == 0) {
+			if (resourceToSend.getCards(resource) == 0) {
 				setDecreaseFalse(resource);
 			}
 		}
@@ -272,17 +259,15 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void increaseResourceAmount(ResourceType resource) {
-		if (resourceToReceive == resource) {
-			amountToReceive++;
-			setIncreaseTrue(resource);
-			setDecreaseTrue(resource);
+		
+		if (receivingResource[getIsTrading(resource)]) {
+			resourceToReceive.addCard(resource, 1);
 		}
-		if (resourceToSend == resource) {
-			amountToSend++;
-			if (!canIncreaseResource(resource, amountToSend + 1)) {
+		if (sendingResource[getIsTrading(resource)])  {
+			resourceToSend.addCard(resource, 1);
+			if (resourceToSend.getCards(resource) == currPlayer.getNumOfResource(resource)) {
 				setIncreaseFalse(resource);
 			}
-			setDecreaseTrue(resource);
 		}
 	}
 
@@ -300,37 +285,21 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void setResourceToReceive(ResourceType resource) {
-		amountToReceive = 0;
-		if (resourceToReceive != null) {
-			setIncreaseFalse(resourceToReceive);
-			setDecreaseFalse(resourceToReceive);
-		}
-		if (resource == resourceToSend) {
-			amountToSend = 0;
-			setIncreaseFalse(resourceToSend);
-			setDecreaseFalse(resourceToSend);
-			resourceToSend = null;
-		}
-		resourceToReceive = resource;
+		receivingResource[getIsTrading(resource)] = true;
+		sendingResource[getIsTrading(resource)] = false;
+		resourceToReceive.setZeroCards(resource);
+		resourceToSend.setZeroCards(resource);
 		setIncreaseTrue(resource);
 		setDecreaseFalse(resource);
 	}
 
 	@Override
 	public void setResourceToSend(ResourceType resource) {
-		amountToSend = 0;
-		if (resourceToSend != null) {
-			setIncreaseFalse(resourceToSend);
-			setDecreaseFalse(resourceToSend);
-		}
-		if (resource == resourceToReceive) {
-			amountToReceive = 0;
-			setIncreaseFalse(resourceToReceive);
-			setDecreaseFalse(resourceToReceive);
-		}
-		resourceToSend = resource;
-		if (!canIncreaseResource(resource, amountToSend + 1)) {
-			this.getTradeOverlay().setResourceAmountVisible(resource);
+		receivingResource[getIsTrading(resource)] = false;
+		sendingResource[getIsTrading(resource)] = true;
+		resourceToReceive.setZeroCards(resource);
+		resourceToSend.setZeroCards(resource);
+		if (currPlayer.getNumOfResource(resource) == 0) {
 			setIncreaseFalse(resource);
 		} else {
 			setIncreaseTrue(resource);
@@ -340,18 +309,13 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void unsetResource(ResourceType resource) {
-		if (resourceToReceive == resource) {
-			setIncreaseFalse(resourceToReceive);
-			setDecreaseFalse(resourceToReceive);
-			resourceToReceive = null;
-			amountToReceive = 0;
-		}
-		if (resourceToSend == resource) {
-			setIncreaseFalse(resourceToSend);
-			setDecreaseFalse(resourceToSend);
-			resourceToSend = null;
-			amountToReceive = 0;
-		}
+		receivingResource[getIsTrading(resource)] = false;
+		sendingResource[getIsTrading(resource)] = false;
+		resourceToReceive.setZeroCards(resource);
+		resourceToSend.setZeroCards(resource);
+		setIncreaseFalse(resource);
+		setDecreaseFalse(resource);
+		this.getTradeOverlay().setResourceAmountVisible(resource, false);
 	}
 
 	@Override
@@ -372,11 +336,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			
 			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
 			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
-			brickAmount = currPlayer.getNumOfResource(ResourceType.BRICK);
-			oreAmount = currPlayer.getNumOfResource(ResourceType.ORE);
-			sheepAmount = currPlayer.getNumOfResource(ResourceType.SHEEP);
-			wheatAmount = currPlayer.getNumOfResource(ResourceType.WHEAT);
-			woodAmount = currPlayer.getNumOfResource(ResourceType.WOOD);
 				
 		} else {
 			this.getTradeView().enableDomesticTrade(false);
