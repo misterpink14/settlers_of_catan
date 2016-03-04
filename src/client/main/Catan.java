@@ -68,8 +68,17 @@ public class Catan extends JFrame
 				//We use the client facade to hold our model and make calls to the server
 				//We pass in the client facade to each controller
 				//Each controller calls this.getClientFacade when they need to access it
+				
+				String host = "localhost";
+				String port = "8081";
+				
+				if (args.length == 2) {
+					host = args[0];
+					port = args[1];
+				}
+				
 				Game game = new Game();
-				ProxyInterface proxy = new RealProxy("http://localhost:8081");
+				ProxyInterface proxy = new RealProxy("http://" + host + ":" + port);
 				ClientFacade.getInstance().setup(game, proxy);
 				
 				new Catan();				

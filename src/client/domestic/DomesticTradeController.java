@@ -332,8 +332,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	public void update(GameState gameState) {
 		if (gameState == GameState.MYTURN) {
-			//this.getTradeView().enableDomesticTrade(true);
-			this.getTradeView().enableDomesticTrade(false);
+			this.getTradeView().enableDomesticTrade(true);
+			//this.getTradeView().enableDomesticTrade(false);
 			
 			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
 			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
