@@ -2,6 +2,9 @@ package client.join;
 
 import javax.swing.JOptionPane;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import client.base.Controller;
 import client.base.IAction;
 import client.clientFacade.ClientFacade;
@@ -131,7 +134,12 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		newGame.randomPorts = this.getNewGameView().getUseRandomPorts();
 		newGame.randomTiles = this.getNewGameView().getRandomlyPlaceHexes();
 		try {
-			ClientFacade.getInstance().createGame(newGame);
+			JsonParser parser = new JsonParser();
+			JsonObject game = parser.parse(ClientFacade.getInstance().createGame(newGame)).getAsJsonObject();
+			JoinGameRequestParams params = new JoinGameRequestParams();
+			params.id = game.get("id").getAsInt();
+			params.color = "blue";
+			ClientFacade.getInstance().joinGame(params);
 			getNewGameView().closeModal();
 			this.start();
 		} catch (Exception e) {
