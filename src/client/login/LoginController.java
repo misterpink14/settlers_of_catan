@@ -92,7 +92,7 @@ public class LoginController extends Controller implements ILoginController {
 			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "Username should be within 3 and 7 characters");
 			return;
 		}
-		if(getLoginView().getRegisterPassword().length() <= 5) {
+		if(getLoginView().getRegisterPassword().length() < 5) {
 			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "Passwords must be 5 characters long at least");
 			return;
 		}
