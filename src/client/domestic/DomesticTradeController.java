@@ -124,6 +124,13 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		}
 	}
 	
+	public boolean isReadyToTrade() {
+		if (playerTradingWith != -1 && resourceToSend.isEmpty() && resourceToReceive.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
 	public int getIsTrading(ResourceType resource) {
 		switch(resource) {
 		case BRICK:

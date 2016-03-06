@@ -158,6 +158,14 @@ public class ResourceCards {
 		}
 		return true;
 	}
+	
+	/**Checks if the container is empty*/
+	public boolean isEmpty() {
+		if (brickCards != 0 || oreCards != 0 || sheepCards != 0 || wheatCards != 0 || woodCards != 0) {
+			return false;
+		}
+		return true;
+	}
 
 	public int getTotal() {
 		return getWoodCards() + getBrickCards() + getSheepCards() 
