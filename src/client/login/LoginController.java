@@ -88,6 +88,18 @@ public class LoginController extends Controller implements ILoginController {
 
 	@Override
 	public void register() {
+		if(getLoginView().getRegisterUsername().length() > 7 || getLoginView().getRegisterUsername().length() < 3) {
+			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "Username should be within 3 and 7 characters");
+			return;
+		}
+		if(getLoginView().getRegisterPassword().length() <= 5) {
+			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "Passwords must be 5 characters long at least");
+			return;
+		}
+		if(!getLoginView().getRegisterPassword().equals(getLoginView().getRegisterPasswordRepeat())) {
+			JOptionPane.showMessageDialog((LoginView)this.getLoginView(), "Passwords dont match");
+			return;
+		}
 		Credentials cred = new Credentials(getLoginView().getRegisterUsername(), getLoginView().getRegisterPassword());
 		String result = ClientFacade.getInstance().createPlayer(cred);
 		if(result.equals("Success")) {
