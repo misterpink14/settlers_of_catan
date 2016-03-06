@@ -1,5 +1,7 @@
 package client.serverProxy;
 
+import java.util.ArrayList;
+
 import shared.communication.proxy.*;
 
 /** ProxyInterface interface
@@ -322,7 +324,7 @@ public interface ProxyInterface {
 	 * 
 	 * @return
 	 */
-	public String getListAI();
+	public ArrayList<String> getListAI();
 	
 	
 	

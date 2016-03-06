@@ -1,6 +1,31 @@
 package client.serverProxy;
 
-import shared.communication.proxy.*;
+import java.util.ArrayList;
+
+import shared.communication.proxy.AcceptTrade;
+import shared.communication.proxy.BuildCity;
+import shared.communication.proxy.BuildRoad;
+import shared.communication.proxy.BuildSettlement;
+import shared.communication.proxy.BuyDevCard;
+import shared.communication.proxy.ChangeLogLevelRequest;
+import shared.communication.proxy.CreateGameRequestParams;
+import shared.communication.proxy.Credentials;
+import shared.communication.proxy.DiscardedCards;
+import shared.communication.proxy.FinishTurn;
+import shared.communication.proxy.JoinGameRequestParams;
+import shared.communication.proxy.ListOfCommands;
+import shared.communication.proxy.LoadGameRequestParams;
+import shared.communication.proxy.MaritimeTrade;
+import shared.communication.proxy.Monopoly;
+import shared.communication.proxy.MonumentMove;
+import shared.communication.proxy.OfferTrade;
+import shared.communication.proxy.RoadBuilding;
+import shared.communication.proxy.RobPlayer;
+import shared.communication.proxy.RollNumber;
+import shared.communication.proxy.SaveGameRequestParams;
+import shared.communication.proxy.SendChat;
+import shared.communication.proxy.SoldierMove;
+import shared.communication.proxy.YearOfPlenty;
 
 /** FakeProxy class
  * 
@@ -349,8 +374,9 @@ public class FakeProxy implements ProxyInterface {
 		return "Failure";
 	}
 	@Override
-	public String getListAI() {
-		return "[\"LARGEST_ARMY\"]";
+	public ArrayList<String> getListAI() {
+		ArrayList<String>ret =  new ArrayList<String>();
+		return ret;
 	}
 	
 	

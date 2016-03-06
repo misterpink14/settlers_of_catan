@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -496,8 +498,8 @@ public class RealProxyTest {
 	@Test
 	public void testGetListAI() {
 		try {
-			String result = realProxy.getListAI();
-			assertTrue(result.equals("LARGEST_ARMY"));
+			ArrayList<String> result = realProxy.getListAI();
+			assertTrue(result.get(0).equals("LARGEST_ARMY"));
 		} catch (Exception e) {
 		}
 	}

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -438,6 +439,10 @@ public class RealProxy implements ProxyInterface {
 //		System.out.println("\nSending 'POST' request to URL : " + url);
 //		System.out.println("Post parameters : " + urlParameters);
 //		System.out.println("Response Code : " + responseCode);
+		
+		if (responseCode == 400) {
+			throw new Exception();
+		}
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1494,7 +1499,7 @@ public class RealProxy implements ProxyInterface {
 	
 
 	@Override
-	public String getListAI() {
+	public ArrayList<String> getListAI() {
 
 		try {
 			String url = server_url + "/game/listAI";
@@ -1528,11 +1533,17 @@ public class RealProxy implements ProxyInterface {
 			
 			
 			JsonArray res = new JsonParser().parse(response.toString()).getAsJsonArray();
-	
-			return res.get(0).getAsString();
+			
+			ArrayList<String> listAI = new ArrayList<String>();
+			
+			for (int i = 0; i < res.size(); i ++) {
+				listAI.add(res.get(i).getAsString());
+			}
+			
+			return listAI;
 		}
 		catch (Exception e) {
-			return "error";
 		}
+		return new ArrayList<String>();
 	}
 }

@@ -639,4 +639,12 @@ public class ClientFacade {
 		rob.newLocation = hexLoc;
 		proxy.robPlayer(rob);
 	}
+	
+	
+	public ArrayList<String> getListAI() {
+		return this.proxy.getListAI();
+	}
+	
+	
+	
 }
