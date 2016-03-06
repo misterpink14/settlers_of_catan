@@ -374,19 +374,20 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 	public void setPlayers(GamePlayers value) {
 		
 		for (int i = 0; i < value.getNumberOfPlayers(); i++) {
-			
-			JToggleButton toggle = new JToggleButton(value.getPlayerByIndex(i).getName());
-			toggle.addActionListener(playerSelectActionListener);
-			toggle.setActionCommand(value.getPlayerByIndex(i).getName());
-			toggle.putClientProperty( "JButton.buttonType", "segmented" );
-			if(i == value.getNumberOfPlayers() - 1)
-				toggle.putClientProperty( "JButton.segmentPosition", "last" );
-			else
-				toggle.putClientProperty( "JButton.segmentPosition", "middle" );
-			toggle.setForeground(value.getPlayerByIndex(i).getColor().getJavaColor());
-	        toggleButtonGroup.add(toggle);
-	        this.playerSelectionPanel.add(toggle);
-	        this.playerButtons.add(toggle);
+			if (i != ClientFacade.getInstance().getUserData().getPlayerIndex()) {
+				JToggleButton toggle = new JToggleButton(value.getPlayerByIndex(i).getName());
+				toggle.addActionListener(playerSelectActionListener);
+				toggle.setActionCommand(value.getPlayerByIndex(i).getName());
+				toggle.putClientProperty( "JButton.buttonType", "segmented" );
+				if(i == value.getNumberOfPlayers() - 1)
+					toggle.putClientProperty( "JButton.segmentPosition", "last" );
+				else
+					toggle.putClientProperty( "JButton.segmentPosition", "middle" );
+				toggle.setForeground(value.getPlayerByIndex(i).getColor().getJavaColor());
+		        toggleButtonGroup.add(toggle);
+		        this.playerSelectionPanel.add(toggle);
+		        this.playerButtons.add(toggle);
+			}
 		}
 		this.players = value;
 		for (JPanel panel : this.upDownPanels) {

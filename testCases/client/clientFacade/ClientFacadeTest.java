@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 
 import client.serverProxy.FakeProxy;
 import shared.communication.proxy.Credentials;
+import shared.communication.proxy.OfferTrade;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -121,7 +122,7 @@ public class ClientFacadeTest {
 
 	@Test
 	public void testOfferTrade() throws Exception {
-		assertTrue(!ClientFacade.getInstance().offerTrade().equals("False"));
+		assertTrue(!ClientFacade.getInstance().offerTrade(new OfferTrade()).equals("False"));
 	}
 
 	@Test

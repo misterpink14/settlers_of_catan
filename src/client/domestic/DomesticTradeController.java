@@ -1,5 +1,6 @@
 package client.domestic;
 
+import shared.communication.proxy.OfferTrade;
 import shared.definitions.*;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.cardClasses.ResourceCards;
@@ -193,7 +194,13 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void sendTradeOffer() {
 
 		getTradeOverlay().closeModal();
-//		getWaitOverlay().showModal();
+		getWaitOverlay().showModal();
+		OfferTrade offer = new OfferTrade(currPlayer.getIndex(), playerTradingWith, resourceToSend, resourceToReceive);
+		try {
+			ClientFacade.getInstance().offerTrade(offer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -254,7 +261,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			
 			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
 			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
-				
+			
 		} else {
 			this.getTradeView().enableDomesticTrade(false);
 			/*this.getTradeOverlay().setResourceSelectionEnabled(false);

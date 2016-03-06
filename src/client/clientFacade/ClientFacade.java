@@ -349,9 +349,9 @@ public class ClientFacade {
 	 * a trade with another player.
 	 * @throw
 	 */
-	public String offerTrade() throws Exception {
+	public String offerTrade(OfferTrade offerTrade) throws Exception {
 		try {
-			return proxy.offerTrade(new OfferTrade());
+			return proxy.offerTrade(offerTrade);
 		} catch (Exception e) {
 			throw new Exception("Error offering trade");
 		}

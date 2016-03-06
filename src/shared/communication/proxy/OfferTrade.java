@@ -2,6 +2,7 @@ package shared.communication.proxy;
 import java.util.ArrayList;
 
 import shared.definitions.ResourceType;
+import shared.models.cardClasses.ResourceCards;
 
 public class OfferTrade
 {
@@ -23,14 +24,24 @@ public class OfferTrade
 	
 	public int sheep;
 	
-	public int wheat;
-	
 	public int ore;
+	
+	public int wheat;
 	
 	public int wood;
 	
-	public OfferTrade() 
-	{}
+	public OfferTrade(int playerIndex, int receiverIndex, ResourceCards resourceToSend, ResourceCards resourceToReceive) {
+		this.playerIndex = playerIndex;
+		this.receiverIndex = receiverIndex;
+		brick = resourceToSend.getBrickCards() + resourceToReceive.getBrickCards();
+		sheep = resourceToSend.getSheepCards() + resourceToReceive.getSheepCards();
+		ore = resourceToSend.getBrickCards() + resourceToReceive.getBrickCards();
+		wheat = resourceToSend.getWheatCards() + resourceToReceive.getWheatCards();
+		wood = resourceToSend.getWoodCards() + resourceToReceive.getWoodCards();
+	}
+
+	public OfferTrade() {
+	}
 
 
 	
