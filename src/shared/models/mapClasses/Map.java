@@ -314,121 +314,122 @@ public class Map
 	{
 		HexLocation hexLoc = loc.getHexLoc();
 		
-		switch (loc.getDir())
-		{
-			case NorthWest:
+		try {
+			switch (loc.getDir())
 			{
-				// Check N and NW Edges
-				Hex h = this.Hexes.getHex(hexLoc);
-				if (h.getHexType() == HexType.WATER)
+				case NorthWest:
 				{
-					WaterHex wh = (WaterHex) h;
-					if (wh.getPortType() != null && 
-						(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthWest))
+					// Check N and NW Edges
+					Hex h = this.Hexes.getHex(hexLoc);
+					if (h.getHexType() == HexType.WATER)
 					{
-						if (wh.getPortType() == portType)
+						WaterHex wh = (WaterHex) h;
+						if (wh.getPortType() != null && 
+							(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthWest))
 						{
-							return true;
+							if (wh.getPortType() == portType)
+							{
+								return true;
+							}
 						}
 					}
-				}
-				
-
-				// Check (x-1,y) SE and NE
-				HexLocation hexLoc_ = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
-				
-				h = this.Hexes.getHex(hexLoc_);
-				if (h.getHexType() == HexType.WATER)
-				{
-					WaterHex wh = (WaterHex) h;
-					if (wh.getPortType() != null && 
-						(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast))
+					
+	
+					// Check (x-1,y) SE and NE
+					HexLocation hexLoc_ = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
+					
+					h = this.Hexes.getHex(hexLoc_);
+					if (h.getHexType() == HexType.WATER)
 					{
-						if (wh.getPortType() == portType)
+						WaterHex wh = (WaterHex) h;
+						if (wh.getPortType() != null && 
+							(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast))
 						{
-							return true;
+							if (wh.getPortType() == portType)
+							{
+								return true;
+							}
 						}
 					}
-				}
-				
-				
-				
-				// Check (x, y-1) S and SW
-				hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
-				
-				h = this.Hexes.getHex(hexLoc_);
-				if (h.getHexType() == HexType.WATER)
-				{
-					WaterHex wh = (WaterHex) h;
-					if (wh.getPortType() != null && 
-						(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest))
+					
+					
+					
+					// Check (x, y-1) S and SW
+					hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
+					
+					h = this.Hexes.getHex(hexLoc_);
+					if (h.getHexType() == HexType.WATER)
 					{
-						if (wh.getPortType() == portType)
+						WaterHex wh = (WaterHex) h;
+						if (wh.getPortType() != null && 
+							(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest))
 						{
-							return true;
+							if (wh.getPortType() == portType)
+							{
+								return true;
+							}
 						}
 					}
+					break;
 				}
-				break;
+				case NorthEast:
+				{
+					// Check N and NE Edges
+					Hex h = this.Hexes.getHex(hexLoc);
+					if (h.getHexType() == HexType.WATER)
+					{
+						WaterHex wh = (WaterHex) h;
+						if (wh.getPortType() != null && 
+							(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthEast))
+						{
+							if (wh.getPortType() == portType)
+							{
+								return true;
+							}
+						}
+					}
+					
+					
+					
+					// Check (x-1, y) S and SE
+					HexLocation hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
+					
+					h = this.Hexes.getHex(hexLoc_);
+					if (h.getHexType() == HexType.WATER)
+					{
+						WaterHex wh = (WaterHex) h;
+						if (wh.getPortType() != null && 
+							(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast))
+						{
+							if (wh.getPortType() == portType)
+							{
+								return true;
+							}
+						}
+					}
+					
+	
+					// Check (x+1,y-1) NW and SW
+					hexLoc_ = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
+					
+					h = this.Hexes.getHex(hexLoc_);
+					if (h.getHexType() == HexType.WATER)
+					{
+						WaterHex wh = (WaterHex) h;
+						if (wh.getPortType() != null && 
+							(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest))
+						{
+							if (wh.getPortType() == portType)
+							{
+								return true;
+							}
+						}
+					}
+					break;
+				}
 			}
-			case NorthEast:
-			{
-				// Check N and NE Edges
-				Hex h = this.Hexes.getHex(hexLoc);
-				if (h.getHexType() == HexType.WATER)
-				{
-					WaterHex wh = (WaterHex) h;
-					if (wh.getPortType() != null && 
-						(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthEast))
-					{
-						if (wh.getPortType() == portType)
-						{
-							return true;
-						}
-					}
-				}
-				
-				
-				
-				// Check (x-1, y) S and SE
-				HexLocation hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
-				
-				h = this.Hexes.getHex(hexLoc_);
-				if (h.getHexType() == HexType.WATER)
-				{
-					WaterHex wh = (WaterHex) h;
-					if (wh.getPortType() != null && 
-						(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast))
-					{
-						if (wh.getPortType() == portType)
-						{
-							return true;
-						}
-					}
-				}
-				
-
-				// Check (x+1,y-1) NW and SW
-				hexLoc_ = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
-				
-				h = this.Hexes.getHex(hexLoc_);
-				if (h.getHexType() == HexType.WATER)
-				{
-					WaterHex wh = (WaterHex) h;
-					if (wh.getPortType() != null && 
-						(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest))
-					{
-						if (wh.getPortType() == portType)
-						{
-							return true;
-						}
-					}
-				}
-				break;
-			}
+		} catch (Exception e) {
 		}
-		
-		
 		
 		return false;
 	}
