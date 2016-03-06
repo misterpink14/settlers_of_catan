@@ -125,9 +125,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 	
 	public boolean isReadyToTrade() {
-		if (playerTradingWith != -1 && resourceToSend.isEmpty() && resourceToReceive.isEmpty()) {
+		if (playerTradingWith != -1 && !resourceToSend.isEmpty() && !resourceToReceive.isEmpty()) {
+			this.getTradeOverlay().setStateMessage("Trade!");
 			return true;
 		}
+		this.getTradeOverlay().setStateMessage("set the trade you want to make");
 		return false;
 	}
 	
@@ -168,6 +170,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			}
 			setIncreaseDecrease(resource);
 		}
+		this.getTradeOverlay().setTradeEnabled(isReadyToTrade());
 	}
 	
 	
@@ -183,6 +186,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			resourceToSend.addCard(resource, 1);
 			setIncreaseDecrease(resource);
 		}
+		this.getTradeOverlay().setTradeEnabled(isReadyToTrade());
 	}
 
 	@Override
@@ -195,6 +199,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void setPlayerToTradeWith(int playerIndex) {
 		playerTradingWith = playerIndex;
+		this.getTradeOverlay().setTradeEnabled(isReadyToTrade());
 	}
 
 	@Override
@@ -228,6 +233,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		this.getTradeOverlay().setResourceAmount(resource, "0");
 		setIncreaseDecrease(resource);
 		this.getTradeOverlay().setResourceAmountVisible(resource, false);
+		this.getTradeOverlay().setTradeEnabled(isReadyToTrade());
 	}
 
 	@Override
