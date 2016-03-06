@@ -9,7 +9,7 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.JsonElement;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -50,11 +50,13 @@ public class RealProxy implements ProxyInterface {
 	
 	private String usercookie;
 	private String gamecookie;
-	//private int playerIndex;
 	
 	//Directions come from the facade as full words, we
 	//need to abbreviate them before sending them to the server
 	private Map<String, String> directions;
+	
+	
+	
 	public RealProxy(String url_in) {
 		server_url = url_in;
 		directions = new HashMap<String, String>();
@@ -71,6 +73,8 @@ public class RealProxy implements ProxyInterface {
 		String decodedUserCookie = URLDecoder.decode(usercookie.substring(11));
 		return decodedUserCookie;
 	}
+	
+	
 	/**
 	 * This function will call the server API at 
 	 * user / login
@@ -110,15 +114,19 @@ public class RealProxy implements ProxyInterface {
 		////System.out.println("Post parameters : " + urlParameters);
 		////System.out.println("Response Code : " + responseCode);
 		
+		if (responseCode == 400) {
+			throw new Exception();
+		}
+		
 		//When we log in the server gives us a cookie that keeps the user identity
 		usercookie = con.getHeaderField("set-cookie");
 		usercookie = usercookie.substring(0, usercookie.length() - 8);
 
-		@SuppressWarnings("deprecation")
-		String decodedUserCookie = URLDecoder.decode(usercookie.substring(11));
-		
-		JsonParser jsonParser = new JsonParser();
-		JsonObject element = jsonParser.parse(decodedUserCookie).getAsJsonObject();
+//		@SuppressWarnings("deprecation")
+//		String decodedUserCookie = URLDecoder.decode(usercookie.substring(11));
+//		
+//		JsonParser jsonParser = new JsonParser();
+//		JsonObject element = jsonParser.parse(decodedUserCookie).getAsJsonObject();
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -164,6 +172,10 @@ public class RealProxy implements ProxyInterface {
 //		//System.out.println("\nSending 'POST' request to URL : " + url);
 //		//System.out.println("Post parameters : " + urlParameters);
 //		//System.out.println("Response Code : " + responseCode);
+		
+		if (responseCode == 400) {
+			throw new Exception();
+		}
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -203,6 +215,10 @@ public class RealProxy implements ProxyInterface {
 		int responseCode = con.getResponseCode();
 //		//System.out.println("\nSending 'GET' request to URL : " + url);
 //		//System.out.println("Response Code : " + responseCode);
+		
+		if (responseCode == 400) {
+			throw new Exception();
+		}
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -252,6 +268,10 @@ public class RealProxy implements ProxyInterface {
 //		//System.out.println("\nSending 'POST' request to URL : " + url);
 //		//System.out.println("Post parameters : " + urlParameters);
 //		//System.out.println("Response Code : " + responseCode);
+		
+		if (responseCode == 400) {
+			throw new Exception();
+		}
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -301,6 +321,10 @@ public class RealProxy implements ProxyInterface {
 		////System.out.println("\nSending 'POST' request to URL : " + url);
 		////System.out.println("Post parameters : " + urlParameters);
 		////System.out.println("Response Code : " + responseCode);
+		
+		if (responseCode == 400) {
+			throw new Exception();
+		}
 
 		gamecookie = con.getHeaderField("set-cookie");
 		gamecookie = gamecookie.substring(0, gamecookie.length() - 8);
@@ -362,6 +386,10 @@ public class RealProxy implements ProxyInterface {
 			int responseCode = con.getResponseCode();
 //			//System.out.println("\nSending 'GET' request to URL : " + url);
 //			//System.out.println("Response Code : " + responseCode);
+			
+			if (responseCode == 400) {
+				throw new Exception();
+			}
 	
 			BufferedReader in = new BufferedReader(
 			        new InputStreamReader(con.getInputStream()));
@@ -407,9 +435,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + urlParameters);
-		System.out.println("Response Code : " + responseCode);
+//		System.out.println("\nSending 'POST' request to URL : " + url);
+//		System.out.println("Post parameters : " + urlParameters);
+//		System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -481,6 +509,10 @@ public class RealProxy implements ProxyInterface {
 		//System.out.println("Post parameters : " + info.toString());
 		//System.out.println("Response Code : " + responseCode);
 
+		if (responseCode == 400) {
+			throw new Exception();
+		}
+		
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
 		String inputLine;
@@ -491,8 +523,6 @@ public class RealProxy implements ProxyInterface {
 		}
 		in.close();
 		
-		//print result
-		////System.out.println(response.toString());
 		return response.toString();
 	}
 	
@@ -1414,11 +1444,54 @@ public class RealProxy implements ProxyInterface {
 	//Will never be implemented
 	public String changeLogLevel(ChangeLogLevelRequest logLevel){return "";}
 
-	@Override
-	public String addAI() {
 
-		return null;
+	@Override
+	public String addAI(String aiType) {
+		
+		try {
+			String url = server_url + "/game/addAI";
+			URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	
+			//add request header
+			con.setRequestMethod("POST");
+			con.setRequestProperty("User-Agent", "Mozilla/5.0");
+			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+			con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
+			
+			JsonObject info = new JsonObject();
+			info.addProperty("AIType", aiType);
+			
+			// Send post request
+			con.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.writeBytes(info.toString());
+			wr.flush();
+			wr.close();
+	
+			int responseCode = con.getResponseCode();
+	
+			if (responseCode == 400) {
+				throw new Exception();
+			}
+			BufferedReader in = new BufferedReader(
+			        new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+	
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+			
+			//print result
+			return response.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "Failure";
 	}
+	
 
 	@Override
 	public String getListAI() {
@@ -1438,6 +1511,10 @@ public class RealProxy implements ProxyInterface {
 	
 			int responseCode = con.getResponseCode();
 	
+			if (responseCode == 400) {
+				throw new Exception();
+			}
+	
 			BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream())
 			);
@@ -1448,20 +1525,14 @@ public class RealProxy implements ProxyInterface {
 				response.append(inputLine);
 			}
 			in.close();
+			
+			
+			JsonArray res = new JsonParser().parse(response.toString()).getAsJsonArray();
 	
-			return response.toString();
+			return res.get(0).getAsString();
 		}
 		catch (Exception e) {
 			return "error";
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

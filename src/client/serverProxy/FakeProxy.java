@@ -342,9 +342,11 @@ public class FakeProxy implements ProxyInterface {
 		return "Success";
 	}
 	@Override
-	public String addAI() {
-		// TODO Auto-generated method stub
-		return null;
+	public String addAI(String aiType) {
+		if (aiType.equals("LARGEST_ARMY")) {
+			return "Success";
+		}
+		return "Failure";
 	}
 	@Override
 	public String getListAI() {

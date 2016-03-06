@@ -309,9 +309,19 @@ public interface ProxyInterface {
 	public String changeLogLevel(ChangeLogLevelRequest logLevel);
 	
 	
+	/**
+	 * Adds an AI to the game the client has joined
+	 * 
+	 * @param aiType
+	 * @return
+	 */
+	public String addAI(String aiType);
 	
-	public String addAI();
-	
+	/**
+	 * Gets the list of available AI's from the server
+	 * 
+	 * @return
+	 */
 	public String getListAI();
 	
 	
