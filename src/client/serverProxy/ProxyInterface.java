@@ -310,6 +310,11 @@ public interface ProxyInterface {
 	
 	
 	
+	public String addAI();
+	
+	public String getListAI();
+	
+	
 	
 	
 	

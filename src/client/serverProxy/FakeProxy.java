@@ -341,6 +341,15 @@ public class FakeProxy implements ProxyInterface {
 	public String changeLogLevel(ChangeLogLevelRequest logLevel) {
 		return "Success";
 	}
+	@Override
+	public String addAI() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getListAI() {
+		return "[\"LARGEST_ARMY\"]";
+	}
 	
 	
 	

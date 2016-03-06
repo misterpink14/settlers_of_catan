@@ -393,10 +393,10 @@ public class RealProxy implements ProxyInterface {
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		//add request header
-//		con.setRequestMethod("POST");
-//		con.setRequestProperty("User-Agent", "Mozilla/5.0");
-//		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-//		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
+		con.setRequestMethod("POST");
+		con.setRequestProperty("User-Agent", "Mozilla/5.0");
+		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
 
 		String urlParameters = "";
 		// Send post request
@@ -407,9 +407,9 @@ public class RealProxy implements ProxyInterface {
 		wr.close();
 
 		int responseCode = con.getResponseCode();
-		////System.out.println("\nSending 'POST' request to URL : " + url);
-		////System.out.println("Post parameters : " + urlParameters);
-		////System.out.println("Response Code : " + responseCode);
+		System.out.println("\nSending 'POST' request to URL : " + url);
+		System.out.println("Post parameters : " + urlParameters);
+		System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));
@@ -1413,6 +1413,48 @@ public class RealProxy implements ProxyInterface {
 	 */
 	//Will never be implemented
 	public String changeLogLevel(ChangeLogLevelRequest logLevel){return "";}
+
+	@Override
+	public String addAI() {
+
+		return null;
+	}
+
+	@Override
+	public String getListAI() {
+
+		try {
+			String url = server_url + "/game/listAI";
+			
+			URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	
+			// optional default is GET
+			con.setRequestMethod("GET");
+	
+			//add request header
+			con.setRequestProperty("User-Agent", "Mozilla/5.0");
+			con.setRequestProperty("Cookie", usercookie + "; " + gamecookie);
+	
+			int responseCode = con.getResponseCode();
+	
+			BufferedReader in = new BufferedReader(
+		        new InputStreamReader(con.getInputStream())
+			);
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+	
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+	
+			return response.toString();
+		}
+		catch (Exception e) {
+			return "error";
+		}
+	}
 	
 	
 	

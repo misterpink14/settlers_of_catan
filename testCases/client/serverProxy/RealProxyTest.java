@@ -1,8 +1,8 @@
 package client.serverProxy;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,9 +11,32 @@ import org.junit.Test;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import shared.communication.proxy.*;
+import shared.communication.proxy.AcceptTrade;
+import shared.communication.proxy.BuildCity;
+import shared.communication.proxy.BuildRoad;
+import shared.communication.proxy.BuildSettlement;
+import shared.communication.proxy.BuyDevCard;
+import shared.communication.proxy.CreateGameRequestParams;
+import shared.communication.proxy.Credentials;
+import shared.communication.proxy.DiscardedCards;
+import shared.communication.proxy.FinishTurn;
+import shared.communication.proxy.JoinGameRequestParams;
+import shared.communication.proxy.MaritimeTrade;
+import shared.communication.proxy.Monopoly;
+import shared.communication.proxy.MonumentMove;
+import shared.communication.proxy.OfferTrade;
+import shared.communication.proxy.RoadBuilding;
+import shared.communication.proxy.RobPlayer;
+import shared.communication.proxy.RollNumber;
+import shared.communication.proxy.SendChat;
+import shared.communication.proxy.SoldierMove;
+import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.ResourceType;
-import shared.locations.*;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 public class RealProxyTest {
 
@@ -416,6 +439,16 @@ public class RealProxyTest {
 		catch (Exception e) {
 			e.printStackTrace();
 			fail("error");
+		}
+	}
+	
+
+	@Test
+	public void testGetListAI() {
+		try {
+			String result = realProxy.getListAI();
+			assertTrue(result.equals("[\"LARGEST_ARMY\"]"));
+		} catch (Exception e) {
 		}
 	}
 
