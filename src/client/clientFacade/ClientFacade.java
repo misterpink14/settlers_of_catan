@@ -649,4 +649,17 @@ public class ClientFacade {
 		return this.proxy.addAI(aiType);
 	}
 	
+	public PlayerInfo[] getListOfPlayers() {
+		PlayerInfo[] players = new PlayerInfo[this.game.getPlayers().getNumberOfPlayers()];
+		for (Player p : game.getPlayers().getPlayers()) {
+			PlayerInfo player = new PlayerInfo();
+			player.setColor(p.getColor());
+			player.setId(p.getID());
+			player.setName(p.getName());
+			player.setPlayerIndex(p.getIndex());
+			players[p.getIndex()] = player;
+		}
+		return players;
+	}
+	
 }
