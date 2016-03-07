@@ -128,6 +128,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void createNewGame() {
+		this.getJoinGameView().closeModal();
 		CreateGameRequestParams newGame = new CreateGameRequestParams();
 		newGame.name = this.getNewGameView().getTitle();
 		newGame.randomNumbers = this.getNewGameView().getRandomlyPlaceNumbers();
