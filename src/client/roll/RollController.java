@@ -46,6 +46,7 @@ public class RollController extends Controller implements IRollController {
 	
 	@Override
 	public void rollDice() {
+		timer.cancel();
 		if (this.getRollView().isModalShowing()) {
 			this.getRollView().closeModal();
 		}
@@ -58,7 +59,6 @@ public class RollController extends Controller implements IRollController {
 		}
 		getResultView().setRollValue(rollNum);
 		getResultView().showModal();
-		timer.cancel();
 		//this.modalShown = false;
 	}
 	
