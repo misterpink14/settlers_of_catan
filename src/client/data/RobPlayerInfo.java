@@ -29,6 +29,11 @@ public class RobPlayerInfo extends PlayerInfo
 	{
 		super();
 		this.numCards = numCards;
+		this.setId(id);
+		this.setPlayerIndex(playerIndex);
+		this.setName(name);
+		this.setColor(color);
+		this.setNumCards(numCards);
 	}
 	
 	public int getNumCards()
