@@ -30,7 +30,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public void start() {
 		ClientFacade.getInstance().game.addObserver(obs);
 		ClientFacade.getInstance().startPoller();
-		this.getView().setPlayers(ClientFacade.getInstance().getListOfPlayers());
+//		this.getView().setPlayers(ClientFacade.getInstance().getListOfPlayers());
 		getView().showModal();
 		this.setAIUsers();
 	}
@@ -43,8 +43,8 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	}
 	
 	public void update(GameState state) {
-		this.getView().setPlayers(ClientFacade.getInstance().getListOfPlayers());
-		this.getView().showModal();
+//		this.getView().setPlayers(ClientFacade.getInstance().getListOfPlayers());
+//		this.getView().showModal();
 		//if the game has four players, we create a turn tracker to start the game!
 		if(ClientFacade.getInstance().game.getPlayers().getNumberOfPlayers() == 4) {
 			this.getView().closeModal();	
