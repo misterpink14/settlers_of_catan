@@ -633,6 +633,9 @@ public class ClientFacade {
 				i++;
 			}
 		}
+		
+		return robPlayerInfos;
+	}
 
 	public void robPlayer(int victim, HexLocation hexLoc) throws Exception {
 		RobPlayer rob = new RobPlayer();
