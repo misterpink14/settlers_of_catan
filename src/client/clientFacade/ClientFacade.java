@@ -619,18 +619,20 @@ public class ClientFacade {
 		}
 		
 		int i = 0;
+		HashMap <String, Boolean> addedPlayers = new HashMap<String, Boolean>();
 		
 		// int id, int playerIndex, String name, CatanColor color, int numCards
 		for (Piece p: playerIndexes)
 		{
 			Player player = this.game.getPlayers().getPlayerByIndex(p.getOwner());
-			RobPlayerInfo rob = new RobPlayerInfo(player.getID(), player.getIndex(), player.getName(), player.getColor(), player.getNumOfResource(t));
-			robPlayerInfos[i] = rob;
-			i++;
+			int numOfResources = player.getNumOfResource(t);
+			if (numOfResources != 0 && addedPlayers.containsKey(player.getName())) {
+				RobPlayerInfo rob = new RobPlayerInfo(player.getID(), player.getIndex(), player.getName(), player.getColor(), numOfResources);
+				robPlayerInfos[i] = rob;
+				addedPlayers.put(player.getName(), true);
+				i++;
+			}
 		}
-		
-		return robPlayerInfos;
-	}
 
 	public void robPlayer(int victim, HexLocation hexLoc) throws Exception {
 		RobPlayer rob = new RobPlayer();

@@ -107,7 +107,11 @@ public class RobView extends OverlayView implements IRobView {
 			
 			victimButtons = new ArrayList<JButton>();
 			
+			
 			for(int i=0; i < numberOfPlayers; i++){
+				if (victims[i] == null) {
+					continue;
+				}
 				JButton victimButton = new JButton("<html>"
 						+ "<body style=\"text-align:center\">"
 						+ "<p style=\"font-size:" + TOP_SIZE + "%\">" + victims[i].getName() + "</p>"
