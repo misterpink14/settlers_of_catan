@@ -366,6 +366,8 @@ public class FakeProxy implements ProxyInterface {
 	public String changeLogLevel(ChangeLogLevelRequest logLevel) {
 		return "Success";
 	}
+	
+	
 	@Override
 	public String addAI(String aiType) {
 		if (aiType.equals("LARGEST_ARMY")) {
@@ -373,6 +375,8 @@ public class FakeProxy implements ProxyInterface {
 		}
 		return "Failure";
 	}
+	
+	
 	@Override
 	public ArrayList<String> getListAI() {
 		ArrayList<String>ret =  new ArrayList<String>();

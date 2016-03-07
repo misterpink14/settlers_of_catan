@@ -100,7 +100,7 @@ public class PlayerWaitingView extends OverlayView implements IPlayerWaitingView
 	private ActionListener actionListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == addAiButton) {			
+			if (e.getSource() == addAiButton) {
 				getController().addAI();
 			}
 		}	
@@ -150,7 +150,7 @@ public class PlayerWaitingView extends OverlayView implements IPlayerWaitingView
 	}
 
 	@Override
-	public void setAIChoices(String[] value) {	
+	public void setAIChoices(String[] value) {
 		
 		java.util.List<String> choiceList = new ArrayList<String>();
 		for (String v : value) {

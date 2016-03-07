@@ -645,6 +645,8 @@ public class ClientFacade {
 		return this.proxy.getListAI();
 	}
 	
-	
+	public String addAI(String aiType) {
+		return this.proxy.addAI(aiType);
+	}
 	
 }

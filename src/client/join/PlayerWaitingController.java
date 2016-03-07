@@ -1,7 +1,10 @@
 package client.join;
 
+import java.util.ArrayList;
+
 import client.base.*;
 import client.clientFacade.ClientFacade;
+import client.clientFacade.ClientFacadeTest;
 import shared.definitions.GameState;
 import shared.observers.PlayerWaitingObserver;
 
@@ -28,13 +31,14 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		ClientFacade.getInstance().game.addObserver(obs);
 		ClientFacade.getInstance().startPoller();
 		getView().showModal();
+		this.setAIUsers();
 	}
 
 	@Override
 	public void addAI() {
-
-		// TEMPORARY
-		getView().closeModal();
+		
+		String aiType = getView().getSelectedAI();
+		ClientFacade.getInstance().addAI(aiType);
 	}
 	
 	public void update(GameState state) {
@@ -44,6 +48,20 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 			ClientFacade.getInstance().game.deleteObserver(obs);
 		}
 	}
-
+	
+	
+	private void setAIUsers () {
+		
+		ArrayList<String> aiList = ClientFacade.getInstance().getListAI();
+		String [] aiArray = new String[aiList.size()];
+		
+		int i = 0;
+		for (String s: aiList) {
+			aiArray[i] = s;
+			i++;
+		}
+		
+		getView().setAIChoices(aiArray);	
+	}
 }
 
