@@ -595,7 +595,8 @@ public class ClientFacade {
 	
 	public RobPlayerInfo[] getVictims(HexLocation hexLoc) throws Exception {
 		ArrayList<Piece> playerIndexes = this.game.placeRobber(hexLoc);
-		RobPlayerInfo [] robPlayerInfos = new RobPlayerInfo[playerIndexes.size()];
+
+		HashMap <String, Boolean> addedPlayers = new HashMap<String, Boolean>();
 		ResourceType t;
 		
 		switch(this.game.getHex(hexLoc).getHexType()) {
@@ -618,15 +619,29 @@ public class ClientFacade {
 			throw new Exception("placeRobber failure");
 		}
 		
+		int sizeVictims = 0;
+		
+		for (Piece p: playerIndexes)
+		{
+			Player player = this.game.getPlayers().getPlayerByIndex(p.getOwner());
+			int numOfResources = player.getNumOfResource(t);
+			if (numOfResources != 0 && !addedPlayers.containsKey(player.getName())) {
+				addedPlayers.put(player.getName(), true);
+				sizeVictims++;
+			}
+		}
+		
+		RobPlayerInfo [] robPlayerInfos = new RobPlayerInfo[sizeVictims];
+	
 		int i = 0;
-		HashMap <String, Boolean> addedPlayers = new HashMap<String, Boolean>();
+		addedPlayers = new HashMap<String, Boolean>();
 		
 		// int id, int playerIndex, String name, CatanColor color, int numCards
 		for (Piece p: playerIndexes)
 		{
 			Player player = this.game.getPlayers().getPlayerByIndex(p.getOwner());
 			int numOfResources = player.getNumOfResource(t);
-			if (numOfResources != 0 && addedPlayers.containsKey(player.getName())) {
+			if (numOfResources != 0 && !addedPlayers.containsKey(player.getName())) {
 				RobPlayerInfo rob = new RobPlayerInfo(player.getID(), player.getIndex(), player.getName(), player.getColor(), numOfResources);
 				robPlayerInfos[i] = rob;
 				addedPlayers.put(player.getName(), true);
