@@ -194,7 +194,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void sendTradeOffer() {
 
 		getTradeOverlay().closeModal();
-		getWaitOverlay().showModal();
+		//getWaitOverlay().showModal();
 		OfferTrade offer = new OfferTrade(currPlayer.getIndex(), playerTradingWith, resourceToSend, resourceToReceive);
 		try {
 			ClientFacade.getInstance().offerTrade(offer);
