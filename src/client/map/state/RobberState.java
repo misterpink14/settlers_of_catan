@@ -236,10 +236,20 @@ public class RobberState extends OutdatedState {
 	@Override
 	public void placeRobber(HexLocation hexLoc) {
 		newRobberLoc = hexLoc;
-		RobPlayerInfo[] candidateVictims;
+		RobPlayerInfo[] candidateVictims = new RobPlayerInfo[0];
 		try {
-			candidateVictims = ClientFacade.getInstance().getVictims(hexLoc);
 		
+			try {
+				candidateVictims = ClientFacade.getInstance().getVictims(hexLoc);
+			} catch (Exception e) {
+				if (e.getMessage() == "placeRobber failure") {
+					
+				}
+				else {
+					throw e;
+				}
+			}
+	
 			if(candidateVictims.length == 0) {
 				try {
 					ClientFacade.getInstance().robPlayer(-1, hexLoc);
@@ -255,7 +265,6 @@ public class RobberState extends OutdatedState {
 				this.robView.showModal();
 			}
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
