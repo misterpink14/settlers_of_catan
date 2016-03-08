@@ -208,8 +208,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		if (offerTrade == null) {
 			return false;
 		}
-		System.out.println(offerTrade.receiverIndex);
-		System.out.println(playerIndex);
 		if (offerTrade.receiverIndex == playerIndex) {
 			return true;
 		}
@@ -297,7 +295,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			this.getTradeOverlay().setPlayerSelectionEnabled(false);
 			this.getTradeOverlay().setStateMessage("Nacho turn");*/
 			if (hasBeenOfferedTrade()) {
-				System.out.println("gets here...");
 				this.getAcceptOverlay().showModal();
 			}
 		}
