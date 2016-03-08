@@ -597,34 +597,17 @@ public class ClientFacade {
 		ArrayList<Piece> playerIndexes = this.game.placeRobber(hexLoc);
 
 		HashMap <String, Boolean> addedPlayers = new HashMap<String, Boolean>();
-		ResourceType t;
-		
-		switch(this.game.getHex(hexLoc).getHexType()) {
-		case WOOD:
-			t = ResourceType.WOOD;
-			break;
-		case BRICK:
-			t = ResourceType.BRICK;
-			break;
-		case SHEEP:
-			t = ResourceType.SHEEP;
-			break;
-		case WHEAT:
-			t = ResourceType.WHEAT;
-			break;
-		case ORE:
-			t = ResourceType.ORE;
-			break;
-		default:
-			throw new Exception("placeRobber failure");
-		}
 		
 		int sizeVictims = 0;
 		
 		for (Piece p: playerIndexes)
 		{
 			Player player = this.game.getPlayers().getPlayerByIndex(p.getOwner());
-			int numOfResources = player.getNumOfResource(t);
+			int numOfResources = player.getNumOfResource(ResourceType.BRICK);
+			numOfResources += player.getNumOfResource(ResourceType.ORE);
+			numOfResources += player.getNumOfResource(ResourceType.SHEEP);
+			numOfResources += player.getNumOfResource(ResourceType.WHEAT);
+			numOfResources += player.getNumOfResource(ResourceType.WOOD);
 			if (numOfResources != 0 && !addedPlayers.containsKey(player.getName())) {
 				addedPlayers.put(player.getName(), true);
 				sizeVictims++;
@@ -640,7 +623,11 @@ public class ClientFacade {
 		for (Piece p: playerIndexes)
 		{
 			Player player = this.game.getPlayers().getPlayerByIndex(p.getOwner());
-			int numOfResources = player.getNumOfResource(t);
+			int numOfResources = player.getNumOfResource(ResourceType.BRICK);
+			numOfResources += player.getNumOfResource(ResourceType.ORE);
+			numOfResources += player.getNumOfResource(ResourceType.SHEEP);
+			numOfResources += player.getNumOfResource(ResourceType.WHEAT);
+			numOfResources += player.getNumOfResource(ResourceType.WOOD);
 			if (numOfResources != 0 && !addedPlayers.containsKey(player.getName())) {
 				RobPlayerInfo rob = new RobPlayerInfo(player.getID(), player.getIndex(), player.getName(), player.getColor(), numOfResources);
 				robPlayerInfos[i] = rob;

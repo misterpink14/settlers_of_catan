@@ -8,6 +8,7 @@ import client.base.IAction;
 import client.clientFacade.ClientFacade;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
+import shared.models.Game;
 import shared.observers.ResourceBarObserver;
 
 
@@ -92,7 +93,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	}
 	
 	public void update(GameState state) {
-		
+		Game game = ClientFacade.getInstance().game;
 		getView().setElementAmount(ResourceBarElement.BRICK, 
 				ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.BRICK));
 		getView().setElementAmount(ResourceBarElement.WHEAT, 
