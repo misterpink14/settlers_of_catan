@@ -46,7 +46,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		getView().setLocalPlayerColor(localPlayer.getColor());
 		
 		int currentTurn = ClientFacade.getInstance().game.getTurnManager().getPlayerIndex();
-		int longestRoad = ClientFacade.getInstance().getPlayerWithMostRoads();
+		int longestRoad = ClientFacade.getInstance().getLongestRoad();
 		int largestArmy = -1; // Change when function gets implemented
 		List<Player> players = ClientFacade.getInstance().game.getPlayers().getPlayers();
 		getView().reset();
@@ -56,7 +56,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			boolean isMyTurn = playerIndex == currentTurn;
 			boolean isLargestArmy = playerIndex == largestArmy;
 			boolean isLongestRoad = false;
-			if (playerIndex == longestRoad && p.getRoads() < 11) {
+			if (playerIndex == longestRoad) {
 				isLongestRoad = true;
 			}
 			int victoryPoints = p.getVictoryPoints();

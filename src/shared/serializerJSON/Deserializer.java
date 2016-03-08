@@ -64,6 +64,7 @@ public class Deserializer {
 	// currentTurn
 	private int desCurrentTurn = 0;
 	private String desCurrentState = "FirstRound";
+	private int desLongestRoad = -1;
 	
 	
 	public void deserialize(Game game, JsonObject json) { 
@@ -115,12 +116,12 @@ public class Deserializer {
 		int desWinner = json.getAsJsonPrimitive("winner").getAsInt();
 
 		if (isTest) { // Used with testing the poller
-			game.updateForTest(desMap, desBank, desDeck, desPlayers, desLog, desChat,
-				        desOfferTrade, desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
+			game.updateForTest(desMap, desBank, desDeck, desPlayers, desLog, desChat, desOfferTrade, 
+					desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner, desLongestRoad);
 		}
 		else {
-			game.update(desMap, desBank, desDeck, desPlayers, desLog, desChat,
-				        desOfferTrade, desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
+			game.update(desMap, desBank, desDeck, desPlayers, desLog, desChat, desOfferTrade, 
+					desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner, desLongestRoad);
 		}
 	}
 	
@@ -568,7 +569,12 @@ public class Deserializer {
 	public void deserializeTurnTracker(JsonObject jsonTurnTracker) {
 		// All we pull from turnTracker at the moment is who's turn it is
 		desCurrentTurn = jsonTurnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
-		desCurrentState = jsonTurnTracker.getAsJsonPrimitive("status").getAsString();;
+		desCurrentState = jsonTurnTracker.getAsJsonPrimitive("status").getAsString();
+		try {
+			desLongestRoad = jsonTurnTracker.getAsJsonPrimitive("longestRoad").getAsInt();
+		} catch (Exception e) {
+			desLongestRoad = -1; // This is an optional value, the default value is -1
+		}
 	}
 	
 	/**

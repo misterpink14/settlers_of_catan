@@ -65,13 +65,14 @@ public class TurnManager {
 	
 	/**This class keeps track of everything done during a players turn. It makes sure
 	 * nothing illegal is done.*/
-	public TurnManager(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat) {
+	public TurnManager(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, int longestRoad) {
 		this.players = players;
 		this.map = map;
 		tradeManager = new TradeManager(players);
 		this.cardDeck = cardDeck;
 		this.bank = bank;
 		hasPlayedDevCard = false;
+		this.longestRoad = longestRoad;
 	}
 	
 	
@@ -100,6 +101,10 @@ public class TurnManager {
 	
 	public GamePlayers getPlayers(){
 		return this.players;
+	}
+	
+	public int getLongestRoad() {
+		return this.longestRoad;
 	}
 	
 	

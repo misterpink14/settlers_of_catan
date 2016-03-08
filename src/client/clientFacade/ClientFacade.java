@@ -566,6 +566,16 @@ public class ClientFacade {
 		return index;
 	}
 	
+	
+	/**
+	 * Returns the index of the player who has the longest road
+	 * 
+	 * @return
+	 */
+	public int getLongestRoad() {
+		return this.game.getLongestRoad();
+	}
+	
 	public int getNumOfPlayerSettlements() {
 		Player currentPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByID(
 				ClientFacade.getInstance().getUserData().getId());

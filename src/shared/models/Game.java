@@ -72,7 +72,7 @@ public class Game extends Observable
 	
 	
 // CONSTRUCTORS
-	public Game() 
+	public Game()
 	{
 		this.gameState = GameState.LOGIN;
 		this.map = new Map();
@@ -81,11 +81,11 @@ public class Game extends Observable
 		this.players = new GamePlayers();
 		this.log = new GameLog();
 		this.chat = new GameChat();
-		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, -1);
 	}
 	
 	public Game(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
-			int currentTurn, boolean hasPlayedDevCard, int winner) 
+			int currentTurn, boolean hasPlayedDevCard, int winner, int longestRoad) 
 	{
 		this.map = map;
 		this.bank = bank;
@@ -93,7 +93,7 @@ public class Game extends Observable
 		this.players = players;
 		this.log = log;
 		this.chat = chat;
-		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, longestRoad);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 	}
@@ -136,6 +136,10 @@ public class Game extends Observable
 	}
 	
 	
+	public int getLongestRoad() {
+		return this.turnManager.getLongestRoad();
+	}
+	
 //SETTERS
 	public void setGameState(GameState state) {
 		this.gameState = state;
@@ -174,7 +178,7 @@ public class Game extends Observable
 	
 	
 	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
-			OfferTrade offerTrade, int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
+			OfferTrade offerTrade, int currentTurn, String currentState, boolean hasPlayedDevCard, int winner, int longestRoad) {
 		this.map = map;
 		this.bank = bank;
 		this.cardDeck = cardDeck;
@@ -183,13 +187,14 @@ public class Game extends Observable
 		this.log = log;
 		this.chat = chat;
 		this.offerTrade = offerTrade;
-		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, longestRoad);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 		updateState(currentState);
 		this.setChanged();
 		this.notifyObservers();
 	}
+	
 	
 
 	/**
@@ -207,7 +212,7 @@ public class Game extends Observable
 	 * @param winner
 	 */
 	public void updateForTest(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
-			OfferTrade offerTrade, int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
+			OfferTrade offerTrade, int currentTurn, String currentState, boolean hasPlayedDevCard, int winner, int longestRoad) {
 		this.map = map;
 		this.bank = bank;
 		this.cardDeck = cardDeck;
@@ -215,7 +220,7 @@ public class Game extends Observable
 		this.log = log;
 		this.chat = chat;
 		this.offerTrade = offerTrade;
-		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, longestRoad);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
 		this.setChanged();
