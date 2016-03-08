@@ -35,7 +35,7 @@ public class OfferTrade
 		this.receiverIndex = receiverIndex;
 		brick = resourceToReceive.getBrickCards() - resourceToSend.getBrickCards();
 		sheep = resourceToReceive.getSheepCards() - resourceToSend.getSheepCards();
-		ore = resourceToReceive.getBrickCards() - resourceToSend.getBrickCards();
+		ore = resourceToReceive.getOreCards() - resourceToSend.getOreCards();
 		wheat = resourceToReceive.getWheatCards() - resourceToSend.getWheatCards();
 		wood = resourceToReceive.getWoodCards() - resourceToSend.getWoodCards();
 	}

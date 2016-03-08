@@ -30,6 +30,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private boolean[] receivingResource;
 	private int playerTradingWith = -1;
 	
+	private boolean setAccept = false;
+	
 	int playerIndex;
 	Player currPlayer;
 
@@ -269,6 +271,36 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void cancelTrade() {
 		getTradeOverlay().closeModal();
 	}
+	
+	public void setAcceptResources() {
+		setAccept = true;
+		OfferTrade offerTrade = ClientFacade.getInstance().getOfferTrade();
+		if (offerTrade.brick > 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.BRICK, offerTrade.brick);
+		} else if (offerTrade.brick < 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.BRICK, offerTrade.brick * -1);
+		}
+		if (offerTrade.ore > 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.ORE, offerTrade.ore);
+		} else if (offerTrade.ore < 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.ORE, offerTrade.ore * -1);
+		}
+		if (offerTrade.sheep > 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.SHEEP, offerTrade.sheep);
+		} else if (offerTrade.sheep < 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.SHEEP, offerTrade.sheep * -1);
+		}
+		if (offerTrade.wheat > 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.WHEAT, offerTrade.wheat);
+		} else if (offerTrade.wheat < 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.WHEAT, offerTrade.wheat * -1);
+		}
+		if (offerTrade.wood > 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.WOOD, offerTrade.wood);
+		} else if (offerTrade.wood < 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.WOOD, offerTrade.wood * -1);
+		}
+	}
 
 	@Override
 	public void acceptTrade(boolean willAccept) {
@@ -291,10 +323,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
 			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
 			this.getTradeView().enableDomesticTrade(false);
-			/*this.getTradeOverlay().setResourceSelectionEnabled(false);
-			this.getTradeOverlay().setPlayerSelectionEnabled(false);
-			this.getTradeOverlay().setStateMessage("Nacho turn");*/
 			if (hasBeenOfferedTrade()) {
+				if (!setAccept) {
+					setAcceptResources();
+				}
 				this.getAcceptOverlay().showModal();
 			}
 		}
