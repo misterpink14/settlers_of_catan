@@ -392,7 +392,7 @@ public class RealProxyTest {
 
 	@Test
 	public void testAcceptTrade() {
-		AcceptTrade acceptTrade = new AcceptTrade();
+		AcceptTrade acceptTrade = new AcceptTrade(1, false);
 		acceptTrade.response = false;
 		acceptTrade.playerIndex = 1;
 		

@@ -1,5 +1,6 @@
 package client.domestic;
 
+import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.*;
 import shared.models.cardClasses.InsufficientCardNumberException;
@@ -31,6 +32,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private int playerTradingWith = -1;
 	
 	private boolean setAccept = false;
+	private boolean tradeOffered = false;
+	private boolean waiting = false;
 	
 	int playerIndex;
 	Player currPlayer;
@@ -93,6 +96,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void startTrade() {
+		
+		tradeOffered = false;
+		waiting = false;
 
 		this.getTradeOverlay().setResourceSelectionEnabled(false);
 		currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
@@ -197,12 +203,17 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 		getTradeOverlay().closeModal();
 		getWaitOverlay().showModal();
+		tradeOffered = true;
+		waiting = true;
 		OfferTrade offer = new OfferTrade(currPlayer.getIndex(), playerTradingWith, resourceToSend, resourceToReceive);
 		try {
 			ClientFacade.getInstance().offerTrade(offer);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		playerTradingWith = -1;
+		resourceToSend = new ResourceCards(0,0,0,0,0);
+		resourceToReceive = new ResourceCards(0,0,0,0,0);
 	}
 	
 	public boolean hasBeenOfferedTrade() {
@@ -273,9 +284,10 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 	
 	public void setAcceptResources() {
+		this.getAcceptOverlay().reset();
 		setAccept = true;
 		OfferTrade offerTrade = ClientFacade.getInstance().getOfferTrade();
-		if (offerTrade.brick > 0) {
+		/*if (offerTrade.brick > 0) {
 			this.getAcceptOverlay().addGiveResource(ResourceType.BRICK, offerTrade.brick);
 		} else if (offerTrade.brick < 0) {
 			this.getAcceptOverlay().addGetResource(ResourceType.BRICK, offerTrade.brick * -1);
@@ -299,14 +311,43 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			this.getAcceptOverlay().addGiveResource(ResourceType.WOOD, offerTrade.wood);
 		} else if (offerTrade.wood < 0) {
 			this.getAcceptOverlay().addGetResource(ResourceType.WOOD, offerTrade.wood * -1);
+		}*/
+		if (offerTrade.brick < 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.BRICK, offerTrade.brick * -1);
+		} else if (offerTrade.brick > 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.BRICK, offerTrade.brick);
+		}
+		if (offerTrade.ore < 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.ORE, offerTrade.ore * -1);
+		} else if (offerTrade.ore > 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.ORE, offerTrade.ore);
+		}
+		if (offerTrade.sheep < 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.SHEEP, offerTrade.sheep * -1);
+		} else if (offerTrade.sheep > 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.SHEEP, offerTrade.sheep);
+		}
+		if (offerTrade.wheat < 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.WHEAT, offerTrade.wheat * -1);
+		} else if (offerTrade.wheat > 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.WHEAT, offerTrade.wheat);
+		}
+		if (offerTrade.wood < 0) {
+			this.getAcceptOverlay().addGiveResource(ResourceType.WOOD, offerTrade.wood * -1);
+		} else if (offerTrade.wood > 0) {
+			this.getAcceptOverlay().addGetResource(ResourceType.WOOD, offerTrade.wood);
 		}
 	}
 
 	@Override
 	public void acceptTrade(boolean willAccept) {
-
+		try {
+			ClientFacade.getInstance().acceptTrade(new AcceptTrade(playerIndex, willAccept));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		getAcceptOverlay().closeModal();
-		
+		setAccept = false;
 	}
 
 	public void update(GameState gameState) {
@@ -317,7 +358,16 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
 			
 			if (isOfferingTrade()) {
-				this.getWaitOverlay().showModal();
+				if (!tradeOffered) {
+					tradeOffered = true;
+					waiting = true;
+					this.getWaitOverlay().showModal();
+				}
+			} else {
+				if (waiting) {
+					this.getWaitOverlay().closeModal();
+					waiting = false;
+				}
 			}
 		} else {
 			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
@@ -326,8 +376,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			if (hasBeenOfferedTrade()) {
 				if (!setAccept) {
 					setAcceptResources();
+					this.getAcceptOverlay().showModal();
 				}
-				this.getAcceptOverlay().showModal();
 			}
 		}
 	}

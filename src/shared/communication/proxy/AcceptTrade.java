@@ -13,8 +13,10 @@ public class AcceptTrade
 	 */
 	public Boolean response;
 	
-	public AcceptTrade() 
-	{}
+	public AcceptTrade(int playerIndex, Boolean response) {
+		this.playerIndex = playerIndex;
+		this.response = response;
+	}
 
 
 	

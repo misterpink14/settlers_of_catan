@@ -11,6 +11,7 @@ import client.data.PlayerInfo;
 import client.data.RobPlayerInfo;
 import client.serverPoller.ServerPoller;
 import client.serverProxy.ProxyInterface;
+import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.BuildSettlement;
@@ -354,6 +355,14 @@ public class ClientFacade {
 			return proxy.offerTrade(offerTrade);
 		} catch (Exception e) {
 			throw new Exception("Error offering trade");
+		}
+	}
+	
+	public String acceptTrade(AcceptTrade acceptTrade) throws Exception {
+		try {
+			return proxy.acceptTrade(acceptTrade);
+		} catch (Exception e) {
+			throw new Exception("Error accepting trade");
 		}
 	}
 	

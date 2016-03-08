@@ -33,11 +33,11 @@ public class OfferTrade
 	public OfferTrade(int playerIndex, int receiverIndex, ResourceCards resourceToSend, ResourceCards resourceToReceive) {
 		this.playerIndex = playerIndex;
 		this.receiverIndex = receiverIndex;
-		brick = resourceToReceive.getBrickCards() - resourceToSend.getBrickCards();
-		sheep = resourceToReceive.getSheepCards() - resourceToSend.getSheepCards();
-		ore = resourceToReceive.getOreCards() - resourceToSend.getOreCards();
-		wheat = resourceToReceive.getWheatCards() - resourceToSend.getWheatCards();
-		wood = resourceToReceive.getWoodCards() - resourceToSend.getWoodCards();
+		brick = resourceToSend.getBrickCards() - resourceToReceive.getBrickCards();
+		sheep = resourceToSend.getSheepCards() - resourceToReceive.getSheepCards();
+		ore = resourceToSend.getOreCards() - resourceToReceive.getOreCards();
+		wheat = resourceToSend.getWheatCards() - resourceToReceive.getWheatCards();
+		wood = resourceToSend.getWoodCards() - resourceToReceive.getWoodCards();
 	}
 	
 	public OfferTrade(int playerIndex, int receiverIndex, int brick, int sheep, int ore, int wheat, int wood) {
