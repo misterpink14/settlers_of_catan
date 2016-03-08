@@ -287,53 +287,43 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		this.getAcceptOverlay().reset();
 		setAccept = true;
 		OfferTrade offerTrade = ClientFacade.getInstance().getOfferTrade();
-		/*if (offerTrade.brick > 0) {
-			this.getAcceptOverlay().addGiveResource(ResourceType.BRICK, offerTrade.brick);
-		} else if (offerTrade.brick < 0) {
-			this.getAcceptOverlay().addGetResource(ResourceType.BRICK, offerTrade.brick * -1);
-		}
-		if (offerTrade.ore > 0) {
-			this.getAcceptOverlay().addGiveResource(ResourceType.ORE, offerTrade.ore);
-		} else if (offerTrade.ore < 0) {
-			this.getAcceptOverlay().addGetResource(ResourceType.ORE, offerTrade.ore * -1);
-		}
-		if (offerTrade.sheep > 0) {
-			this.getAcceptOverlay().addGiveResource(ResourceType.SHEEP, offerTrade.sheep);
-		} else if (offerTrade.sheep < 0) {
-			this.getAcceptOverlay().addGetResource(ResourceType.SHEEP, offerTrade.sheep * -1);
-		}
-		if (offerTrade.wheat > 0) {
-			this.getAcceptOverlay().addGiveResource(ResourceType.WHEAT, offerTrade.wheat);
-		} else if (offerTrade.wheat < 0) {
-			this.getAcceptOverlay().addGetResource(ResourceType.WHEAT, offerTrade.wheat * -1);
-		}
-		if (offerTrade.wood > 0) {
-			this.getAcceptOverlay().addGiveResource(ResourceType.WOOD, offerTrade.wood);
-		} else if (offerTrade.wood < 0) {
-			this.getAcceptOverlay().addGetResource(ResourceType.WOOD, offerTrade.wood * -1);
-		}*/
 		if (offerTrade.brick < 0) {
 			this.getAcceptOverlay().addGiveResource(ResourceType.BRICK, offerTrade.brick * -1);
+			if ((offerTrade.brick * -1) > currPlayer.getNumOfResource(ResourceType.BRICK)) {
+				this.getAcceptOverlay().setAcceptEnabled(false);
+			}
 		} else if (offerTrade.brick > 0) {
 			this.getAcceptOverlay().addGetResource(ResourceType.BRICK, offerTrade.brick);
 		}
 		if (offerTrade.ore < 0) {
 			this.getAcceptOverlay().addGiveResource(ResourceType.ORE, offerTrade.ore * -1);
+			if ((offerTrade.ore * -1) > currPlayer.getNumOfResource(ResourceType.ORE)) {
+				this.getAcceptOverlay().setAcceptEnabled(false);
+			}
 		} else if (offerTrade.ore > 0) {
 			this.getAcceptOverlay().addGetResource(ResourceType.ORE, offerTrade.ore);
 		}
 		if (offerTrade.sheep < 0) {
 			this.getAcceptOverlay().addGiveResource(ResourceType.SHEEP, offerTrade.sheep * -1);
+			if ((offerTrade.sheep * -1) > currPlayer.getNumOfResource(ResourceType.SHEEP)) {
+				this.getAcceptOverlay().setAcceptEnabled(false);
+			}
 		} else if (offerTrade.sheep > 0) {
 			this.getAcceptOverlay().addGetResource(ResourceType.SHEEP, offerTrade.sheep);
 		}
 		if (offerTrade.wheat < 0) {
 			this.getAcceptOverlay().addGiveResource(ResourceType.WHEAT, offerTrade.wheat * -1);
+			if ((offerTrade.wheat * -1) > currPlayer.getNumOfResource(ResourceType.WHEAT)) {
+				this.getAcceptOverlay().setAcceptEnabled(false);
+			}
 		} else if (offerTrade.wheat > 0) {
 			this.getAcceptOverlay().addGetResource(ResourceType.WHEAT, offerTrade.wheat);
 		}
 		if (offerTrade.wood < 0) {
 			this.getAcceptOverlay().addGiveResource(ResourceType.WOOD, offerTrade.wood * -1);
+			if ((offerTrade.wood * -1) > currPlayer.getNumOfResource(ResourceType.WOOD)) {
+				this.getAcceptOverlay().setAcceptEnabled(false);
+			}
 		} else if (offerTrade.wood > 0) {
 			this.getAcceptOverlay().addGetResource(ResourceType.WOOD, offerTrade.wood);
 		}
@@ -377,6 +367,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				if (!setAccept) {
 					setAcceptResources();
 					this.getAcceptOverlay().showModal();
+					//this.getAcceptOverlay().setAcceptEnabled(canAcceptTrade);
 				}
 			}
 		}
