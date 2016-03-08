@@ -612,6 +612,14 @@ public class ClientFacade {
 		this.proxy.moveSoldier(move);
 	}
 	
+	
+	/**
+	 * Returns an array of players to rob
+	 * 
+	 * @param hexLoc
+	 * @return
+	 * @throws Exception
+	 */
 	public RobPlayerInfo[] getVictims(HexLocation hexLoc) throws Exception {
 		ArrayList<Piece> playerIndexes = this.game.placeRobber(hexLoc);
 
@@ -627,7 +635,9 @@ public class ClientFacade {
 			numOfResources += player.getNumOfResource(ResourceType.SHEEP);
 			numOfResources += player.getNumOfResource(ResourceType.WHEAT);
 			numOfResources += player.getNumOfResource(ResourceType.WOOD);
-			if (numOfResources != 0 && !addedPlayers.containsKey(player.getName())) {
+			if (numOfResources != 0 && 
+					!addedPlayers.containsKey(player.getName()) && 
+					player.getIndex() != this.getUserData().getPlayerIndex()) {
 				addedPlayers.put(player.getName(), true);
 				sizeVictims++;
 			}
@@ -647,7 +657,9 @@ public class ClientFacade {
 			numOfResources += player.getNumOfResource(ResourceType.SHEEP);
 			numOfResources += player.getNumOfResource(ResourceType.WHEAT);
 			numOfResources += player.getNumOfResource(ResourceType.WOOD);
-			if (numOfResources != 0 && !addedPlayers.containsKey(player.getName())) {
+			if (numOfResources != 0 && 
+					!addedPlayers.containsKey(player.getName()) && 
+					player.getIndex() != this.getUserData().getPlayerIndex()) {
 				RobPlayerInfo rob = new RobPlayerInfo(player.getID(), player.getIndex(), player.getName(), player.getColor(), numOfResources);
 				robPlayerInfos[i] = rob;
 				addedPlayers.put(player.getName(), true);
@@ -658,6 +670,14 @@ public class ClientFacade {
 		return robPlayerInfos;
 	}
 
+	
+	/**
+	 * Robs a given player/victim
+	 * 
+	 * @param victim
+	 * @param hexLoc
+	 * @throws Exception
+	 */
 	public void robPlayer(int victim, HexLocation hexLoc) throws Exception {
 		RobPlayer rob = new RobPlayer();
 		rob.playerIndex = getUserData().getPlayerIndex();
