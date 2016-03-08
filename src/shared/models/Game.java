@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.clientFacade.ClientFacade;
+import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
@@ -171,7 +172,7 @@ public class Game extends Observable
 	
 	
 	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
-			int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
+			OfferTrade offerTrade, int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
 		this.map = map;
 		this.bank = bank;
 		this.cardDeck = cardDeck;
@@ -203,7 +204,7 @@ public class Game extends Observable
 	 * @param winner
 	 */
 	public void updateForTest(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
-			int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
+			OfferTrade offerTrade, int currentTurn, String currentState, boolean hasPlayedDevCard, int winner) {
 		this.map = map;
 		this.bank = bank;
 		this.cardDeck = cardDeck;
