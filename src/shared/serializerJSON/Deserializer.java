@@ -14,6 +14,7 @@ import com.google.gson.stream.JsonReader;
 
 import client.data.GameInfo;
 import client.data.PlayerInfo;
+import shared.communication.proxy.OfferTrade;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.HexType;
@@ -97,6 +98,12 @@ public class Deserializer {
 		JsonObject jsonBank = json.getAsJsonObject("bank");
 		Bank desBank = deserializeBank(jsonBank);
 		
+		// "tradeOffer"
+		OfferTrade desOfferTrade = null;
+		if (json.has("tradeOffer")) {
+			desOfferTrade = deserializeOfferTrade(json.getAsJsonObject("tradeOffer"));
+		}
+		
 		// "turnTracker"
 		JsonObject jsonTurnTracker = json.getAsJsonObject("turnTracker");
 		deserializeTurnTracker(jsonTurnTracker);
@@ -109,11 +116,11 @@ public class Deserializer {
 
 		if (isTest) { // Used with testing the poller
 			game.updateForTest(desMap, desBank, desDeck, desPlayers, desLog, desChat,
-				        desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
+				        desOfferTrade, desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
 		}
 		else {
 			game.update(desMap, desBank, desDeck, desPlayers, desLog, desChat,
-				        desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
+				        desOfferTrade, desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner);
 		}
 	}
 	
@@ -540,6 +547,18 @@ public class Deserializer {
 		bankResources.put(ResourceType.ORE, oreCount);
 		
 		return new Bank(bankResources);
+	}
+	
+	public OfferTrade deserializeOfferTrade(JsonObject jsonOfferTrade) {
+		int sender = jsonOfferTrade.getAsJsonPrimitive("sender").getAsInt();
+		int receiver = jsonOfferTrade.getAsJsonPrimitive("receiver").getAsInt();
+		JsonObject offer = jsonOfferTrade.getAsJsonObject("offer");
+		int brick = offer.getAsJsonPrimitive("brick").getAsInt();
+		int sheep = offer.getAsJsonPrimitive("sheep").getAsInt();
+		int ore = offer.getAsJsonPrimitive("ore").getAsInt();
+		int wheat = offer.getAsJsonPrimitive("wheat").getAsInt();
+		int wood = offer.getAsJsonPrimitive("wood").getAsInt();
+		return new OfferTrade(sender, receiver, brick, sheep, ore, wheat, wood);
 	}
 	
 	/**
