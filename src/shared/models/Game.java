@@ -56,6 +56,8 @@ public class Game extends Observable
 	/**The game chat object stores and retrieves the history of the chat log between players.*/
 	GameChat chat;
 	
+	OfferTrade offerTrade = null;
+	
 	/**The turn tracker manages trades between players*/
 	TurnManager turnManager;
 	
@@ -180,6 +182,7 @@ public class Game extends Observable
 		this.currPlayer = ClientFacade.getInstance().getUserData().getPlayerIndex();
 		this.log = log;
 		this.chat = chat;
+		this.offerTrade = offerTrade;
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
@@ -211,6 +214,7 @@ public class Game extends Observable
 		this.players = players;
 		this.log = log;
 		this.chat = chat;
+		this.offerTrade = offerTrade;
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
@@ -388,6 +392,10 @@ public class Game extends Observable
 	
 	public Bank getBank() {
 		return bank;
+	}
+	
+	public OfferTrade getOfferTrade() {
+		return offerTrade;
 	}
 	
 

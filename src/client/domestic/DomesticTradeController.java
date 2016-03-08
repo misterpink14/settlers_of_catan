@@ -194,13 +194,37 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	public void sendTradeOffer() {
 
 		getTradeOverlay().closeModal();
-		//getWaitOverlay().showModal();
+		getWaitOverlay().showModal();
 		OfferTrade offer = new OfferTrade(currPlayer.getIndex(), playerTradingWith, resourceToSend, resourceToReceive);
 		try {
 			ClientFacade.getInstance().offerTrade(offer);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean hasBeenOfferedTrade() {
+		OfferTrade offerTrade = ClientFacade.getInstance().getOfferTrade();
+		if (offerTrade == null) {
+			return false;
+		}
+		System.out.println(offerTrade.receiverIndex);
+		System.out.println(playerIndex);
+		if (offerTrade.receiverIndex == playerIndex) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isOfferingTrade() {
+		OfferTrade offerTrade = ClientFacade.getInstance().getOfferTrade();
+		if (offerTrade == null) {
+			return false;
+		}
+		if (offerTrade.playerIndex == playerIndex) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -262,12 +286,20 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
 			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
 			
+			if (isOfferingTrade()) {
+				this.getWaitOverlay().showModal();
+			}
 		} else {
+			currPlayer = ClientFacade.getInstance().game.getPlayers().getPlayerByIndex(playerIndex);
+			playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
 			this.getTradeView().enableDomesticTrade(false);
 			/*this.getTradeOverlay().setResourceSelectionEnabled(false);
 			this.getTradeOverlay().setPlayerSelectionEnabled(false);
 			this.getTradeOverlay().setStateMessage("Nacho turn");*/
-			
+			if (hasBeenOfferedTrade()) {
+				System.out.println("gets here...");
+				this.getAcceptOverlay().showModal();
+			}
 		}
 	}
 

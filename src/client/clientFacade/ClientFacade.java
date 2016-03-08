@@ -669,4 +669,8 @@ public class ClientFacade {
 		return players;
 	}
 	
+	public OfferTrade getOfferTrade() {
+		return game.getOfferTrade();
+	}
+	
 }
