@@ -165,7 +165,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			try {
 				resourceToReceive.removeCard(resource, 1);
 			} catch (InsufficientCardNumberException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			setIncreaseDecrease(resource);
@@ -174,7 +173,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			try {
 				resourceToSend.removeCard(resource, 1);
 			} catch (InsufficientCardNumberException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			setIncreaseDecrease(resource);
@@ -367,7 +365,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				if (!setAccept) {
 					setAcceptResources();
 					this.getAcceptOverlay().showModal();
-					//this.getAcceptOverlay().setAcceptEnabled(canAcceptTrade);
 				}
 			}
 		}
