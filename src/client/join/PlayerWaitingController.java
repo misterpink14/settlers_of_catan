@@ -2,9 +2,8 @@ package client.join;
 
 import java.util.ArrayList;
 
-import client.base.*;
+import client.base.Controller;
 import client.clientFacade.ClientFacade;
-import client.clientFacade.ClientFacadeTest;
 import shared.definitions.GameState;
 import shared.observers.PlayerWaitingObserver;
 
