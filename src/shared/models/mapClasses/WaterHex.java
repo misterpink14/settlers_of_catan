@@ -24,31 +24,36 @@ public class WaterHex extends Hex
 	 * @param type
 	 * @param port
 	 */
-	public WaterHex(PortType port, EdgeDirection dir) 
-	{
+	public WaterHex(PortType port, EdgeDirection dir) {
 		super(HexType.WATER);
-		this.Port = port;
-		this.Dir = dir;
+		setPortType(port);
+		setDir(dir);
 	}
 	
 	
 	
-// GETTER
-	/**
-	 * Returns the Port Type of the Water Hex
-	 * 
-	 * @return
-	 */
-	public PortType getPortType() 
-	{
+// GETTERS
+	public PortType getPortType() {
 		return this.Port;
 	}
 	
 	
-	public EdgeDirection getDir()
-	{
+	public EdgeDirection getDir() {
 		return this.Dir;
 	}
+	
+
+	
+// SETTERS
+	public void setPortType(PortType type) {
+		this.Port = type;
+	}
+	
+	
+	public void setDir(EdgeDirection dir) {
+		this.Dir = dir;
+	}
+	
 	
 	
 // PUBLIC METHOD
@@ -57,14 +62,11 @@ public class WaterHex extends Hex
 	 * 
 	 * @return
 	 */
-	public boolean isPort(EdgeDirection dir)
-	{
-		if (Port == null)
-		{
+	public boolean isPort(EdgeDirection dir) {
+		if (Port == null) {
 			return false;
 		}
-		else
-		{
+		else {
 			return Dir.equals(dir);
 		}
 	}

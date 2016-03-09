@@ -1,7 +1,6 @@
 package shared.models.mapClasses;
 
 import shared.definitions.PieceType;
-import shared.models.playerClasses.Player;
 
 public class Piece 
 {
@@ -15,15 +14,13 @@ public class Piece
 	public Piece() {}
 	
 	
-	public Piece(PieceType type)
-	{
+	public Piece(PieceType type) {
 		this.Type = type;
 		this.OwnerIndex = -1;
 	}
 	
 	
-	public Piece(PieceType type, int ownerIndex)
-	{
+	public Piece(PieceType type, int ownerIndex) {
 		this.Type = type;
 		this.OwnerIndex = ownerIndex;
 	}
@@ -31,28 +28,24 @@ public class Piece
 	
 
 // GETTERS
-	public PieceType getType() 
-	{
+	public PieceType getType() {
 		return this.Type;
 	}
 	
 	
-	public int getOwner() 
-	{
+	public int getOwner() {
 		return this.OwnerIndex;
 	}
 	
 	
 	
 // SETTERS
-	public void setType(PieceType type)
-	{
+	public void setType(PieceType type) {
 		this.Type = type;
 	}
 	
 	
-	public void setOwner(int ownerIndex)
-	{
+	public void setOwner(int ownerIndex) {
 		this.OwnerIndex = ownerIndex;
 	}
 	
@@ -65,8 +58,7 @@ public class Piece
 	 * @param p
 	 * @return
 	 */
-	public boolean isOwner(int ownerIndex)
-	{
+	public boolean isOwner(int ownerIndex) {
 		return this.OwnerIndex == ownerIndex;
 	}
 	

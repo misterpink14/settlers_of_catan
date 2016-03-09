@@ -2,9 +2,6 @@ package shared.models.mapClasses;
 
 import java.util.ArrayList;
 
-import antlr.collections.List;
-import client.data.RobPlayerInfo;
-import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
@@ -44,8 +41,8 @@ public class Map
 	/**
 	 * Constructor generates a new map. Requires a String to be validated/parsed
 	 */
-	public Map(HexMap h, VertexMap v, EdgeMap e, RobberLocation r, PlayerMap playerPieces) 
-	{
+	public Map(HexMap h, VertexMap v, EdgeMap e, RobberLocation r, PlayerMap playerPieces) {
+		
 		this.Hexes = h;
 		this.Vertexes = v;
 		this.Edges = e;
@@ -56,42 +53,36 @@ public class Map
 	
 	
 // SETTERS
-	public void setHexMap(HexMap hexes)
-	{
+	public void setHexMap(HexMap hexes) {
 		this.Hexes = hexes;
 	}
 
 	
-	public void setEdgeMap(EdgeMap edges)
-	{
+	public void setEdgeMap(EdgeMap edges) {
 		this.Edges = edges;
 	}
 	
 	
-	public void setVertexMap(VertexMap vertexes)
-	{
+	public void setVertexMap(VertexMap vertexes) {
 		this.Vertexes = vertexes;
 	}
 	
 	
-	public void setRobberLocation(RobberLocation robber)
-	{
+	public void setRobberLocation(RobberLocation robber) {
 		this.Robber = robber;
 	}
 	
-	public RobberLocation getRobberLocation()
-	{
+	public RobberLocation getRobberLocation() {
 		return this.Robber;
 	}
 	
 	
-	public void setPlayerMap(PlayerMap playerPieces)
-	{
+	public void setPlayerMap(PlayerMap playerPieces) {
 		this.PlayerPieces = playerPieces;
 	}
 	
-	public void setVertex(VertexLocation loc, Piece p) throws InvalidTypeException
-	{
+	
+	public void setVertex(VertexLocation loc, Piece p) throws InvalidTypeException {
 		this.Vertexes.setVertex(loc, p);
 	}
 	
@@ -99,6 +90,7 @@ public class Map
 
 // Public METHODS
 	public ArrayList<Piece> placeRobber(HexLocation hexLoc) {
+		
 		ArrayList<Piece> playerIndexes = new ArrayList<Piece> ();
 		VertexLocation vertexLoc = new VertexLocation(hexLoc, VertexDirection.East).getNormalizedLocation();
 		Piece piece;
@@ -171,8 +163,7 @@ public class Map
 	 * @param loc
 	 * @param playerIndex
 	 */
-	public void addSettlementToPlayerMap(VertexLocation loc, int playerIndex)
-	{
+	public void addSettlementToPlayerMap(VertexLocation loc, int playerIndex) {
 		this.PlayerPieces.addSettlement(loc, playerIndex);
 	}
 
@@ -183,18 +174,11 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRobber(HexLocation loc)
-	{
-		if (!this.Robber.canPlaceRobber(loc))
-		{
+	public boolean canPlaceRobber(HexLocation loc) {
+		if (!this.Robber.canPlaceRobber(loc)){
 			return false;
 		}
-		
-		if (!this.Hexes.canPlaceRobber(loc))
-		{
-			return false;
-		}
-		return true;
+		return this.Hexes.canPlaceRobber(loc);
 	}
 	
 	
@@ -204,8 +188,7 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceRoad(EdgeLocation edgeLoc, int ownerIndex, boolean isSetup)
-	{
+	public boolean canPlaceRoad(EdgeLocation edgeLoc, int ownerIndex, boolean isSetup) {
 		try {
 			edgeLoc = edgeLoc.getNormalizedLocation();
 			return this.isValidEdge(edgeLoc) && this.Edges.canBuildRoad(edgeLoc, ownerIndex, isSetup);
@@ -222,16 +205,14 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceSettlement(VertexLocation vertexLoc, int ownerIndex, boolean isSetup) 
-	{
+	public boolean canPlaceSettlement(VertexLocation vertexLoc, int ownerIndex, boolean isSetup) {
+		
 		try {
 			vertexLoc = vertexLoc.getNormalizedLocation();
 			return this._canPlaceSettlement(vertexLoc) && this.Vertexes.canPlaceSettlement(vertexLoc, ownerIndex, isSetup);
-		} catch (IndexOutOfBoundsException e)
-		{
+		} catch (IndexOutOfBoundsException e) {
 			return false;
-		} catch (InvalidTypeException e)
-		{
+		} catch (InvalidTypeException e) {
 			return false;
 		}
 	}
@@ -243,13 +224,12 @@ public class Map
 	 * 
 	 * @param location
 	 */
-	public boolean canPlaceCity(VertexLocation vertexLoc, int ownerIndex)
-	{
+	public boolean canPlaceCity(VertexLocation vertexLoc, int ownerIndex) {
+		
 		try {
 			vertexLoc = vertexLoc.getNormalizedLocation();
 			return this.Vertexes.canPlaceCity(vertexLoc, ownerIndex);
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
 	}
@@ -261,14 +241,11 @@ public class Map
 	 * @param ownerIndex
 	 * @return
 	 */
-	public boolean canMaritimeTrade(int ownerIndex, ResourceType type)
-	{
-		PortType portType = this.convertResourceTypeToPortType(type);
+	public boolean canMaritimeTrade(int ownerIndex, ResourceType type) {
 		
-		for(VertexLocation loc: this.PlayerPieces.getVertexPieceList(ownerIndex))
-		{
-			if (isOnPort(loc, portType))
-			{
+		PortType portType = this.convertResourceTypeToPortType(type);
+		for(VertexLocation loc: this.PlayerPieces.getVertexPieceList(ownerIndex)) {
+			if (isOnPort(loc, portType)) {
 				return true;
 			}
 		}
@@ -278,8 +255,7 @@ public class Map
 	public Hex getHex(HexLocation loc) {
 		try {
 			return this.Hexes.getHex(loc);
-		}
-		catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
 	}
@@ -287,8 +263,7 @@ public class Map
 	public Piece getEdge(EdgeLocation loc) {
 		try {
 			return this.Edges.getEdge(loc);
-		}
-		catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
 	}
@@ -296,8 +271,7 @@ public class Map
 	public Piece getVertex(VertexLocation loc) {
 		try {
 			return this.Vertexes.getPiece(loc);
-		}
-		catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
 	}
@@ -310,10 +284,9 @@ public class Map
 	 * @param portType
 	 * @return
 	 */
-	private boolean isOnPort(VertexLocation loc, PortType portType) 
-	{
-		HexLocation hexLoc = loc.getHexLoc();
+	private boolean isOnPort(VertexLocation loc, PortType portType)  {
 		
+		HexLocation hexLoc = loc.getHexLoc();
 		try {
 			switch (loc.getDir())
 			{
@@ -321,14 +294,12 @@ public class Map
 				{
 					// Check N and NW Edges
 					Hex h = this.Hexes.getHex(hexLoc);
-					if (h.getHexType() == HexType.WATER)
-					{
+					if (h.getHexType() == HexType.WATER) {
+						
 						WaterHex wh = (WaterHex) h;
 						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthWest))
-						{
-							if (wh.getPortType() == portType)
-							{
+							(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthWest)) {
+							if (wh.getPortType() == portType) {
 								return true;
 							}
 						}
@@ -339,14 +310,11 @@ public class Map
 					HexLocation hexLoc_ = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
 					
 					h = this.Hexes.getHex(hexLoc_);
-					if (h.getHexType() == HexType.WATER)
-					{
+					if (h.getHexType() == HexType.WATER) {
 						WaterHex wh = (WaterHex) h;
 						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast))
-						{
-							if (wh.getPortType() == portType)
-							{
+							(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast)) {
+							if (wh.getPortType() == portType) {
 								return true;
 							}
 						}
@@ -358,14 +326,11 @@ public class Map
 					hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 					
 					h = this.Hexes.getHex(hexLoc_);
-					if (h.getHexType() == HexType.WATER)
-					{
+					if (h.getHexType() == HexType.WATER) {
 						WaterHex wh = (WaterHex) h;
 						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest))
-						{
-							if (wh.getPortType() == portType)
-							{
+							(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest)) {
+							if (wh.getPortType() == portType) {
 								return true;
 							}
 						}
@@ -376,14 +341,11 @@ public class Map
 				{
 					// Check N and NE Edges
 					Hex h = this.Hexes.getHex(hexLoc);
-					if (h.getHexType() == HexType.WATER)
-					{
+					if (h.getHexType() == HexType.WATER) {
 						WaterHex wh = (WaterHex) h;
 						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthEast))
-						{
-							if (wh.getPortType() == portType)
-							{
+							(wh.getDir() == EdgeDirection.North || wh.getDir() == EdgeDirection.NorthEast)) {
+							if (wh.getPortType() == portType) {
 								return true;
 							}
 						}
@@ -395,14 +357,11 @@ public class Map
 					HexLocation hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 					
 					h = this.Hexes.getHex(hexLoc_);
-					if (h.getHexType() == HexType.WATER)
-					{
+					if (h.getHexType() == HexType.WATER) {
 						WaterHex wh = (WaterHex) h;
 						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast))
-						{
-							if (wh.getPortType() == portType)
-							{
+							(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast)) {
+							if (wh.getPortType() == portType) {
 								return true;
 							}
 						}
@@ -413,14 +372,11 @@ public class Map
 					hexLoc_ = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
 					
 					h = this.Hexes.getHex(hexLoc_);
-					if (h.getHexType() == HexType.WATER)
-					{
+					if (h.getHexType() == HexType.WATER) {
 						WaterHex wh = (WaterHex) h;
 						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest))
-						{
-							if (wh.getPortType() == portType)
-							{
+							(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest)) {
+							if (wh.getPortType() == portType) {
 								return true;
 							}
 						}
@@ -442,8 +398,7 @@ public class Map
 	 * @param t
 	 * @return
 	 */
-	private PortType convertResourceTypeToPortType (ResourceType t)
-	{
+	private PortType convertResourceTypeToPortType (ResourceType t) {
 		try{
 			switch(t)
 			{
@@ -473,8 +428,7 @@ public class Map
 				}
 			
 			}
-		} catch(NullPointerException e)
-		{
+		} catch(NullPointerException e) {
 			return PortType.THREE;
 		}
 	}
@@ -486,13 +440,9 @@ public class Map
 	 * @return
 	 * @throws InvalidTypeException 
 	 */
-	private boolean _canPlaceSettlement(VertexLocation vertexLoc) throws InvalidTypeException, IndexOutOfBoundsException
-	{
+	private boolean _canPlaceSettlement(VertexLocation vertexLoc) throws InvalidTypeException, IndexOutOfBoundsException {
+		
 		HexLocation hexLoc = vertexLoc.getHexLoc();
-//		if (this.Hexes.getHex(hexLoc).getHexType() == HexType.WATER)
-//		{
-//			return false;
-//		}
 		
 		switch (vertexLoc.getDir())
 		{
@@ -508,30 +458,22 @@ public class Map
 					if (this.Hexes.getHexType(bottomLeft) != HexType.WATER) {
 						allWater = false;
 					}
-				}
-				catch (IndexOutOfBoundsException e) {
-				}
+				} catch (IndexOutOfBoundsException e) { }
+				
 				try {
 					if (this.Hexes.getHexType(right) != HexType.WATER) {
 						allWater = false;
 					}
-				}
-				catch (IndexOutOfBoundsException e) {
-				}
+				} catch (IndexOutOfBoundsException e) { }
+				
 				try {
 					if (this.Hexes.getHexType(topLeft) != HexType.WATER) {
 						allWater = false;
 					}
-				}
-				catch (IndexOutOfBoundsException e) {
-				}
+				} catch (IndexOutOfBoundsException e) { }
+				
 				//If all the hexes surrounding this settlement are water, return false
-				if (allWater) {
-					return false;
-				}
-				else {
-					return true;
-				}
+				return !allWater;
 			}
 			case NorthWest:
 			{
@@ -545,37 +487,29 @@ public class Map
 					if (this.Hexes.getHexType(bottomRight) != HexType.WATER) {
 						allWater = false;
 					}
-				}
-				catch (IndexOutOfBoundsException e) {
-				}
+				} catch (IndexOutOfBoundsException e) { }
+				
 				try {
 					if (this.Hexes.getHexType(left) != HexType.WATER) {
 						allWater = false;
 					}
-				}
-				catch (IndexOutOfBoundsException e) {
-				}
+				} catch (IndexOutOfBoundsException e) { }
+				
 				try {
 					if (this.Hexes.getHexType(topRight) != HexType.WATER) {
 						allWater = false;
 					}
 				}
-				catch (IndexOutOfBoundsException e) {
-				}
+				catch (IndexOutOfBoundsException e) { }
+				
 				//If all the hexes surrounding this settlement are water, return false
-				if (allWater) {
-					return false;
-				}
-				else {
-					return true;
-				}
+				return !allWater;
 			}
 			default:
 			{
 				throw new InvalidTypeException();
 			}
 		}
-		//return true;
 	}
 	
 	
@@ -590,15 +524,12 @@ public class Map
 	{
 		try {
 			HexLocation hexLoc = edgeLoc.getHexLoc();
-			if (this.Hexes.getHexType(hexLoc) != HexType.WATER)
-			{
+			if (this.Hexes.getHexType(hexLoc) != HexType.WATER) {
 				return true;
 			}
-			else 
-			{
+			else {
 				hexLoc = hexLoc.getNeighborLoc(edgeLoc.getDir());
-				if (this.Hexes.getHexType(hexLoc) != HexType.WATER)
-				{
+				if (this.Hexes.getHexType(hexLoc) != HexType.WATER) {
 					return true;
 				}
 			}
@@ -616,9 +547,9 @@ public class Map
 	 * @return
 	 * @throws InvalidTypeException
 	 */
-	private EdgeDirection stringToEdgeDirection(String edgeDir) throws InvalidTypeException
-	{
-		switch (edgeDir) 
+	private EdgeDirection stringToEdgeDirection(String edgeDir) throws InvalidTypeException {
+		
+		switch (edgeDir)
 		{
 			case "NW":
 				return EdgeDirection.NorthWest;
@@ -644,8 +575,8 @@ public class Map
 	 * @return
 	 * @throws InvalidTypeException
 	 */
-	private VertexDirection stringToVertexDirection(String edgeDir) throws InvalidTypeException
-	{
+	private VertexDirection stringToVertexDirection(String edgeDir) throws InvalidTypeException {
+		
 		switch (edgeDir) 
 		{
 			case "NW":
@@ -666,12 +597,12 @@ public class Map
 
 
 	public int getMaritimeTradeRatio(int playerIndex, ResourceType type) {
+		
 		PortType portType = this.convertResourceTypeToPortType(type);
 		int minRatio = 4;
-		for(VertexLocation loc: this.PlayerPieces.getVertexPieceList(playerIndex))
-		{
-			if (isOnPort(loc, portType))
-			{
+		for(VertexLocation loc: this.PlayerPieces.getVertexPieceList(playerIndex)) {
+			
+			if (isOnPort(loc, portType)) {
 				if (portType == PortType.THREE) {
 					minRatio = Math.min(minRatio, 3);
 				} else {

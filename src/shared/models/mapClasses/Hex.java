@@ -17,14 +17,13 @@ public class Hex
 	
 
 	// CONSTRUTOR
-		
+	public Hex () {}
 		
 		
 	// GETTER
-		public int getToken()
-		{
-			return this.Token;
-		}
+	public int getToken() {
+		return this.Token;
+	}
 
 	
 
@@ -38,15 +37,13 @@ public class Hex
 	 * @throws InvalidTokenException 
 	 * @throws InvalidTypeException 
 	 */
-	public Hex(HexType type, int token) throws InvalidTokenException, InvalidTypeException
-	{
+	public Hex(HexType type, int token) throws InvalidTokenException, InvalidTypeException {
+		
 		this.Type = type;
-		if (type == HexType.WATER)
-		{
+		if (type == HexType.WATER) {
 			throw new InvalidTypeException();
 		}
-		if ((token < 2 || token > 12) && token != -1) // -1 is the Dessert piece
-		{
+		if ((token < 2 || token > 12) && token != -1) { // -1 is the Dessert piece
 			throw new InvalidTokenException();
 		}
 		this.Token = token;
@@ -59,8 +56,7 @@ public class Hex
 	 * 
 	 * @param type
 	 */
-	public Hex(HexType type) 
-	{
+	public Hex(HexType type) {
 		this.Type = type;
 		this.Token = -1;
 	}
@@ -73,8 +69,7 @@ public class Hex
 	 * 
 	 * @return
 	 */
-	public HexType getHexType() 
-	{
+	public HexType getHexType() {
 		return this.Type;
 	}
 

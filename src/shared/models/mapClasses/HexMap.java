@@ -24,10 +24,8 @@ public class HexMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public Hex getHex(HexLocation loc) throws IndexOutOfBoundsException
-	{
-		if (!this.Hexes.containsKey(loc))
-		{
+	public Hex getHex(HexLocation loc) throws IndexOutOfBoundsException {
+		if (!this.Hexes.containsKey(loc)) {
 			throw new IndexOutOfBoundsException();
 		}
 		return Hexes.get(loc);
@@ -43,8 +41,7 @@ public class HexMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public void setHex(HexLocation loc, Hex hex)
-	{
+	public void setHex(HexLocation loc, Hex hex) {
 		this.Hexes.put(loc, hex);
 	}
 	
@@ -57,13 +54,8 @@ public class HexMap
 	 * @param loc
 	 * @return
 	 */
-	public boolean canPlaceRobber(HexLocation loc)
-	{
-		if (this.getHexType(loc) == HexType.WATER)
-		{
-			return false;
-		}
-		return true;
+	public boolean canPlaceRobber(HexLocation loc) {
+		return this.getHexType(loc) != HexType.WATER;
 	}
 	
 	
@@ -74,8 +66,8 @@ public class HexMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public HexType getHexType(HexLocation loc)
-	{
+	public HexType getHexType(HexLocation loc) {
+		
 		HexType hexType;
 		try{
 			hexType = this.getHex(loc).getHexType();

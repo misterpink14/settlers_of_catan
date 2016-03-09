@@ -24,7 +24,7 @@ public class EdgeMap
 	 * 
 	 * @param json
 	 */
-	public EdgeMap() {}
+	public EdgeMap() { }
 	
 	
 	
@@ -35,11 +35,10 @@ public class EdgeMap
 	 * @param loc
 	 * @return
 	 */
-	public Piece getEdge(EdgeLocation loc) throws IndexOutOfBoundsException
-	{
+	public Piece getEdge(EdgeLocation loc) throws IndexOutOfBoundsException {
+		
 		loc = loc.getNormalizedLocation();
-		if (!Edges.containsKey(loc))
-		{
+		if (!Edges.containsKey(loc)) {
 			throw new IndexOutOfBoundsException();
 		}
 		return Edges.get(loc);
@@ -54,11 +53,10 @@ public class EdgeMap
 	 * @param loc
 	 * @param p
 	 */
-	public void setEdge(EdgeLocation loc, Piece p) throws InvalidTypeException
-	{
+	public void setEdge(EdgeLocation loc, Piece p) throws InvalidTypeException {
+		
 		loc = loc.getNormalizedLocation();
-		if (p.getType() != PieceType.ROAD)
-		{
+		if (p.getType() != PieceType.ROAD) {
 			throw new InvalidTypeException();
 		}
 		this.Edges.put(loc, p);
@@ -75,13 +73,12 @@ public class EdgeMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public boolean canBuildRoad(EdgeLocation loc, int ownerIndex, boolean isSetup) throws IndexOutOfBoundsException
-	{
+	public boolean canBuildRoad(EdgeLocation loc, int ownerIndex, boolean isSetup) throws IndexOutOfBoundsException {
+		
 		// check if outside edge
 		loc = loc.getNormalizedLocation();
 		
-		if (this.Edges.get(loc) == null)
-		{
+		if (this.Edges.get(loc) == null) {
 			return this._canBuildRoad(loc, ownerIndex, isSetup);
 		}
 		return false;
@@ -93,15 +90,13 @@ public class EdgeMap
 	 * 
 	 * @return
 	 */
-	public boolean canBuildSettlement(EdgeLocation edgeLoc, int ownerIndex)
-	{
-		if (!this.Edges.containsKey(edgeLoc))
-		{
+	public boolean canBuildSettlement(EdgeLocation edgeLoc, int ownerIndex) {
+		
+		if (!this.Edges.containsKey(edgeLoc)) {
 			throw new IndexOutOfBoundsException();
 		}
 		
-		if (this.Edges.get(edgeLoc).getOwner() != ownerIndex)
-		{
+		if (this.Edges.get(edgeLoc).getOwner() != ownerIndex) {
 			return false;
 		}
 		return true;
@@ -116,16 +111,15 @@ public class EdgeMap
 	 * @param ownerIndex
 	 * @return
 	 */
-	private boolean _canBuildRoad(EdgeLocation loc, int ownerIndex, boolean isSetup)
-	{
+	private boolean _canBuildRoad(EdgeLocation loc, int ownerIndex, boolean isSetup) {
+		
 		EdgeLocation new_loc; // Used for checking if neighbor Edges belong to the player
 		EdgeDirectionPair pair = getNeighborDirection(loc.getDir());
 		EdgeDirection dir1 = pair.Dir1;
 		EdgeDirection dir2 = pair.Dir2;
 		
 		/* Check if the edge location is being used */
-		if (this.Edges.containsKey(loc))
-		{
+		if (this.Edges.containsKey(loc)) {
 			return true;
 		}
 		
@@ -133,7 +127,6 @@ public class EdgeMap
 		if (isSetup) {
 			
 			//Make sure that you can build a settlement on one end of this road
-			
 			ArrayList<VertexLocation> adjacentVertices = findAdjacentVertices(loc.getNormalizedLocation());
 			
 			if (adjacentVertices.get(0) == null || adjacentVertices.get(1) == null) {
@@ -147,15 +140,13 @@ public class EdgeMap
 		/* Check if any adjacent edge belongs to the player trying to place the road piece */
 		// Check dir1
 		new_loc = (new EdgeLocation(loc.getHexLoc(), dir1)).getNormalizedLocation();
-		if (this.Edges.containsKey(new_loc) && this.Edges.get(new_loc).getOwner() == ownerIndex)
-		{
+		if (this.Edges.containsKey(new_loc) && this.Edges.get(new_loc).getOwner() == ownerIndex) {
 			return true;
 		}
 
 		// Check dir2
 		new_loc = (new EdgeLocation(loc.getHexLoc(), dir2)).getNormalizedLocation();
-		if (this.Edges.containsKey(new_loc) && this.Edges.get(new_loc).getOwner() == ownerIndex)
-		{
+		if (this.Edges.containsKey(new_loc) && this.Edges.get(new_loc).getOwner() == ownerIndex) {
 			return true;
 		}
 
@@ -164,8 +155,8 @@ public class EdgeMap
 				loc.getHexLoc().getNeighborLoc(loc.getDir()), 
 				dir1.getOppositeDirection()
 		).getNormalizedLocation();
-		if (this.Edges.containsKey(new_loc) && this.Edges.get(new_loc).getOwner() == ownerIndex)
-		{
+		
+		if (this.Edges.containsKey(new_loc) && this.Edges.get(new_loc).getOwner() == ownerIndex) {
 			return true;
 		}
 
@@ -174,8 +165,8 @@ public class EdgeMap
 				loc.getHexLoc().getNeighborLoc(loc.getDir()), 
 				dir2.getOppositeDirection()
 		).getNormalizedLocation();
-		if (this.Edges.containsKey(new_loc) && this.Edges.get(new_loc).getOwner() == ownerIndex)
-		{
+		
+		if (this.Edges.containsKey(new_loc) && this.Edges.get(new_loc).getOwner() == ownerIndex) {
 			return true;
 		}
 
@@ -186,6 +177,7 @@ public class EdgeMap
 	
 	
 	private ArrayList<VertexLocation> findAdjacentVertices(EdgeLocation loc) {
+		
 		ArrayList<VertexLocation> adjacentVertices = new ArrayList<VertexLocation>();
 		VertexLocation first = null, second = null;
 		
@@ -220,8 +212,8 @@ public class EdgeMap
 	 * @param dir
 	 * @return
 	 */
-	private EdgeDirectionPair getNeighborDirection(EdgeDirection dir)
-	{
+	private EdgeDirectionPair getNeighborDirection(EdgeDirection dir) {
+		
 		EdgeDirection dir1 = null;
 		EdgeDirection dir2 = null;
 		
@@ -268,13 +260,10 @@ public class EdgeMap
 	 * @author benthompson
 	 *
 	 */
-	class EdgeDirectionPair 
-	{
+	class EdgeDirectionPair {
 		EdgeDirection Dir1;
 		EdgeDirection Dir2;
-		
-		EdgeDirectionPair(EdgeDirection dir1, EdgeDirection dir2)
-		{
+		EdgeDirectionPair(EdgeDirection dir1, EdgeDirection dir2) {
 			Dir1 = dir1;
 			Dir2 = dir2;
 		}
@@ -283,6 +272,7 @@ public class EdgeMap
 
 
 	public Boolean settlementTouchesPlayerRoad(VertexLocation loc, int ownerID) {
+		
 		int x, y;
 
 		switch (loc.getDir()) 

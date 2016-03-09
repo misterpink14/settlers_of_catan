@@ -22,21 +22,18 @@ public class PortMap
 	 * @param ownerIndex
 	 * @throws InvalidTypeException 
 	 */
-	public void addPort(PortType p, int ownerIndex) throws InvalidTypeException
-	{
-		if (p == null)
-		{
+	public void addPort(PortType p, int ownerIndex) throws InvalidTypeException {
+		
+		if (p == null) {
 			throw new InvalidTypeException();
 		}
 		
 		ArrayList<PortType> portList;
-		if (!this.Ports.containsKey(ownerIndex))
-		{
+		if (!this.Ports.containsKey(ownerIndex)) {
 			portList = new ArrayList<PortType>();
 			this.Ports.put(ownerIndex, portList);
 		}
-		else
-		{
+		else {
 			portList = this.Ports.get(ownerIndex);
 		}
 		
@@ -50,13 +47,8 @@ public class PortMap
 	 * @param ownerIndex
 	 * @return
 	 */
-	public boolean canMaritimeTrade(int ownerIndex)
-	{
-		if (!this.Ports.containsKey(ownerIndex))
-		{
-			return false;
-		}
-		return true;
+	public boolean canMaritimeTrade(int ownerIndex) {
+		return this.Ports.containsKey(ownerIndex);
 	}
 	
 }

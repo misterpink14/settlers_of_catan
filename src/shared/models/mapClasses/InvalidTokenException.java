@@ -9,8 +9,5 @@ public class InvalidTokenException extends Exception
 
 	public InvalidTokenException(Throwable throwable) { super(throwable); }
 
-	public InvalidTokenException(String message, Throwable throwable) 
-	{
-		super(message, throwable);
-	}
+	public InvalidTokenException(String message, Throwable throwable) { super(message, throwable); }
 }

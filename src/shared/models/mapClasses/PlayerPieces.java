@@ -19,60 +19,51 @@ public class PlayerPieces
 
 
 // GETTERS
-	public ArrayList<VertexLocation> getSettlements()
-	{
+	public ArrayList<VertexLocation> getSettlements() {
 		return this.Settlements;
 	}
 	
 	
-	public ArrayList<VertexLocation> getCities()
-	{
+	public ArrayList<VertexLocation> getCities() {
 		return this.Cities;
 	}
 	
 	
-	public ArrayList<EdgeLocation> getLocation()
-	{
+	public ArrayList<EdgeLocation> getLocation() { 
 		return this.Roads;
 	}
 	
 	
 	
 // SETTERS
-	public void setSettlements(ArrayList<VertexLocation> settlements)
-	{
+	public void setSettlements(ArrayList<VertexLocation> settlements) {
 		this.Settlements = settlements;
 	}
 	
 	
-	public void setCities(ArrayList<VertexLocation> cities)
-	{
+	public void setCities(ArrayList<VertexLocation> cities) {
 		this.Cities = cities; 
 	}
 	
 	
-	public void setRoads(ArrayList<EdgeLocation> roads)
-	{
+	public void setRoads(ArrayList<EdgeLocation> roads) {
 		this.Roads = roads;
 	}
 	
 
 
 // Public METHODS
-	public void addSettlement(VertexLocation loc)
-	{
+	public void addSettlement(VertexLocation loc) {
 		this.Settlements.add(loc);
 	}
 	
 	
-	public void addCity(VertexLocation loc)
-	{
+	public void addCity(VertexLocation loc) {
 		this.Cities.add(loc); 
 	}
 	
 	
-	public void addRoad(EdgeLocation loc)
-	{
+	public void addRoad(EdgeLocation loc) {
 		this.Roads.add(loc);
 	}
 	

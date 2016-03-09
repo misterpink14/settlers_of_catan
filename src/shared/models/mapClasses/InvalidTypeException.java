@@ -9,8 +9,5 @@ public class InvalidTypeException extends Exception
 
 	public InvalidTypeException(Throwable throwable) { super(throwable); }
 
-	public InvalidTypeException(String message, Throwable throwable) 
-	{
-		super(message, throwable);
-	}
+	public InvalidTypeException(String message, Throwable throwable) { super(message, throwable); }
 }

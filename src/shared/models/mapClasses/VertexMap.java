@@ -29,10 +29,9 @@ public class VertexMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public Piece getPiece(VertexLocation loc) throws IndexOutOfBoundsException
-	{
-		if (!Vertexes.containsKey(loc.getNormalizedLocation()))
-		{
+	public Piece getPiece(VertexLocation loc) throws IndexOutOfBoundsException {
+		
+		if (!Vertexes.containsKey(loc.getNormalizedLocation())) {
 			throw new IndexOutOfBoundsException();
 		}
 		return Vertexes.get(loc.getNormalizedLocation());
@@ -47,11 +46,10 @@ public class VertexMap
 	 * @param loc
 	 * @param p
 	 */
-	public void setVertex(VertexLocation loc, Piece p) throws InvalidTypeException
-	{
-		if (p.getType() == PieceType.ROAD)
-		{
-			throw new InvalidTypeException();
+	public void setVertex(VertexLocation loc, Piece p) throws InvalidTypeException {
+		
+		if (p.getType() == PieceType.ROAD) {
+			throw new InvalidTypeException("Expecting a City/Settlement");
 		}
 		this.Vertexes.put(loc.getNormalizedLocation(), p);
 	}
@@ -67,24 +65,19 @@ public class VertexMap
 	 * @return
 	 * @throws IndexOutOfBoundsException
 	 */
-	public boolean canPlaceCity(VertexLocation loc, int ownerIndex) throws IndexOutOfBoundsException
-	{
+	public boolean canPlaceCity(VertexLocation loc, int ownerIndex) throws IndexOutOfBoundsException {
+		
 		loc = loc.getNormalizedLocation();
-		if (!this.Vertexes.containsKey(loc))
-		{
+		if (!this.Vertexes.containsKey(loc)) {
 			throw new IndexOutOfBoundsException();
 		}
-		if (this.Vertexes.get(loc) == null)
-		{
+		
+		if (this.Vertexes.get(loc) == null) {
 			return false;
 		}
 		
 		Piece p = this.Vertexes.get(loc);
-		if (p.getOwner() == ownerIndex && p.getType() == PieceType.SETTLEMENT)
-		{
-			return true;
-		}
-		return false;
+		return p.getOwner() == ownerIndex && p.getType() == PieceType.SETTLEMENT;
 	}
 	
 	
@@ -97,14 +90,13 @@ public class VertexMap
 	 * @throws IndexOutOfBoundsException
 	 * @throws InvalidTypeException 
 	 */
-	public boolean canPlaceSettlement(VertexLocation loc, int ownerIndex, boolean isSetup) throws IndexOutOfBoundsException, InvalidTypeException
-	{
+	public boolean canPlaceSettlement(VertexLocation loc, int ownerIndex, boolean isSetup) 
+			throws IndexOutOfBoundsException, InvalidTypeException {
+		
 		loc = loc.getNormalizedLocation();
-		if (this.Vertexes.containsKey(loc))
-		{
+		if (this.Vertexes.containsKey(loc)) {
 			return false;
 		}
-		
 		return this._canPlaceSettlement(loc, ownerIndex, isSetup);
 	}
 	
@@ -122,31 +114,26 @@ public class VertexMap
 	 * @throws IndexOutOfBoundsException
 	 * @throws InvalidTypeException 
 	 */
-	private boolean _canPlaceSettlement(VertexLocation loc, int ownerIndex, boolean isSetup) throws IndexOutOfBoundsException, InvalidTypeException
-	{
+	private boolean _canPlaceSettlement(VertexLocation loc, int ownerIndex, boolean isSetup) throws IndexOutOfBoundsException, InvalidTypeException {
+
 		// Check if the location is available
-		if (!this.checkLocation(loc.getDir(), loc.getHexLoc()))
-		{
+		if (!this.checkLocation(loc.getDir(), loc.getHexLoc())) {
 			return false;
 		}
 		
-		// Touch your road if isSetup // TODO <<<<<<this
-		if (isSetup)
-		{
-			if (!ClientFacade.getInstance().settlementTouchesPlayerRoad(loc))
-			{
+		// You must touch your road if isSetup
+		if (isSetup) {
+			if (!ClientFacade.getInstance().settlementTouchesPlayerRoad(loc)) {
 				return false;
 			}
 		}
 		
-		switch(loc.getDir())
-		{
+		switch(loc.getDir()) {
 			case NorthEast:
 			{
 				if (this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc()) && 
 						this.checkLocation(VertexDirection.East, loc.getHexLoc()) &&
-						this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast)))
-				{
+						this.checkLocation(VertexDirection.NorthWest, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast))) {
 					return true;
 				}
 				break;
@@ -155,8 +142,7 @@ public class VertexMap
 			{
 				if (this.checkLocation(VertexDirection.West, loc.getHexLoc()) && 
 						this.checkLocation(VertexDirection.NorthEast, loc.getHexLoc()) &&
-						this.checkLocation(VertexDirection.NorthEast, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest)))
-				{
+						this.checkLocation(VertexDirection.NorthEast, loc.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest))) {
 					return true;
 				}
 				break;
@@ -175,14 +161,9 @@ public class VertexMap
 	 * @param hexLoc
 	 * @return
 	 */
-	private boolean checkLocation(VertexDirection dir, HexLocation hexLoc)
-	{
+	private boolean checkLocation(VertexDirection dir, HexLocation hexLoc) {
 		VertexLocation new_loc = (new VertexLocation(hexLoc, dir)).getNormalizedLocation();
-		if (this.Vertexes.containsKey(new_loc))
-		{
-			return false;
-		}
-		return true;
+		return !this.Vertexes.containsKey(new_loc);
 	}
 	
 }
