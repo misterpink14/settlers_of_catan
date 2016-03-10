@@ -90,7 +90,7 @@ public class Server {
 		server.start();
 	}
 
-	private HttpHandler dB = new DownloadBatchHandler();
+	private HttpHandler dB = new ServerHandler();
 	
 	public static void main(String[] args) {
 		port = Integer.parseInt(args[0]);

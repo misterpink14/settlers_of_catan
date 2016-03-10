@@ -21,14 +21,14 @@ import com.sun.net.httpserver.HttpHandler;
  * @author ssnyder
  *
  */
-public class DownloadBatchHandler implements HttpHandler
+public class ServerHandler implements HttpHandler
 {
 
 	private Logger logger = Logger.getLogger("contactmanager"); 
 	
 	private XStream xmlStream = new XStream(new DomDriver());
 	
-	public DownloadBatchHandler()
+	public ServerHandler()
 	{
 		// TODO Auto-generated constructor stub
 	}
