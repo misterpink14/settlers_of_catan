@@ -71,7 +71,12 @@ public class Deserializer {
 		this.deserialize(game, json, false);
 	}
 	
-	
+	/**
+	 * Update the game model after deserializing all of the different pieces.
+	 * @param game The game model to be updated.
+	 * @param json The json to be deserialized.
+	 * @param isTest Is this for a test?
+	 */
 	public void deserialize(Game game, JsonObject json, boolean isTest) {
 		// the "des" prefix signifies that the object has been deserialized.
 		
