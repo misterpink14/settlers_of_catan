@@ -6,14 +6,20 @@ import shared.definitions.DevCardType;
 
 public class CardDeck {
 	
-	/**This holds the number of each type of card left in the deck */
+	/**
+	 * This holds the number of each type of card left in the deck.
+	 */
 	DevCards devCards;
-	/**This holds representations of cards that can be shuffled randomly, then drawn one at a time.*/
+	/**
+	 * This holds representations of cards that can be shuffled randomly, then drawn one at a time.
+	 */
 	DevCardType[] deck = new DevCardType[25];
 	
 	private int cardsInDeck = 25;
 
-	/**The container that holds the development cards in the deck*/
+	/**
+	 * The container that holds the development cards in the deck.
+	 */
 	public CardDeck() {
 		devCards = new DevCards(14,2,2,2,5);
 		//adds the right number of cards to the deck representation.
@@ -88,6 +94,10 @@ public class CardDeck {
         }
     }
     
+    /**
+     * Build out a string of JSON that represents the current deck of development cards.
+     * @return a string of JSON that represents the current deck of development cards
+     */
     public String serialize() {
     	String json = "deck: {yearOfPlenty: ";
     	json += devCards.yearOfPlentyCards + ", monopoly: ";

@@ -6,7 +6,9 @@ import shared.definitions.ResourceType;
 
 public class Bank 
 {	
-	/**The container for the resource cards in the bank*/
+	/**
+	 * The container for the resource cards in the bank
+	 */
 	private ResourceCards resourceCards;
 
 	/**
@@ -38,11 +40,18 @@ public class Bank
 		resourceCards.addCard(type, num);
 	}
 	
-	/**Checks if there is sufficient resources of a specified in this type to remove the specified number.*/
+	/**
+	 * Checks if there is sufficient resources of a specified in this type to remove the specified number.
+	 * @return if a card can be removed (true or false)
+	 */
 	public boolean canRemove(ResourceType type, int num) {
 		return resourceCards.canRemove(type, num);
 	}
 	
+	/**
+	 * Gets the resource cards available in the bank
+	 * @return a ResourceCards object containing all available resource cards
+	 */
 	public ResourceCards getResources() {
 		return resourceCards;
 	}
