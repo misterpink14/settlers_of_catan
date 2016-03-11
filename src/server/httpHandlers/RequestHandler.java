@@ -17,7 +17,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 /**
- * Handles the HTTP requests for DownloadBatch. Calls the matching method in the Server Facade
+ * Handles the HTTP requests for the server. Calls the appropriate factory based on the url of the request
  * @author ssnyder
  *
  */
