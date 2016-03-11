@@ -1,14 +1,20 @@
 package server;
 
-import java.io.*;
-import java.net.*;
-import java.util.logging.*;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
-import com.sun.net.httpserver.*;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
 import server.database.DatabaseException;
 import server.database.DatabaseRepresentation;
-import server.httpHandlers.*;
+import server.httpHandlers.RequestHandler;
 
 /**
  * The HTTP Server. Passes all requests to their appropriate handlers
@@ -17,7 +23,7 @@ import server.httpHandlers.*;
  */
 public class Server {
 
-	private static final int SERVER_PORT_NUMBER = 8080;
+	private static final int SERVER_PORT_NUMBER = 8081;
 	private static final int MAX_WAITING_CONNECTIONS = 10;
 	static int port = SERVER_PORT_NUMBER;
 	
@@ -83,14 +89,14 @@ public class Server {
 
 		server.setExecutor(null); // use the default executor
 		
-		server.createContext("/DownloadBatch", dB);
+		server.createContext("/", rq);
 		
 		logger.info("Starting HTTP Server");
 
 		server.start();
 	}
 
-	private HttpHandler dB = new ServerHandler();
+	private HttpHandler rq = new RequestHandler();
 	
 	public static void main(String[] args) {
 		port = Integer.parseInt(args[0]);
