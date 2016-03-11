@@ -170,13 +170,30 @@ public class Game extends Observable
 	
 
 // Public METHODS
+	/*
+	 * method to move the robber.
+	 */
 	public ArrayList<Piece> placeRobber (HexLocation hexLoc)
 	{
 		return this.map.placeRobber(hexLoc);
 	}
 	
 	
-	
+	/**
+	 * Update the game from a collection of parameters deserialized from a json object.
+	 * @param map
+	 * @param bank
+	 * @param cardDeck
+	 * @param players
+	 * @param log
+	 * @param chat
+	 * @param offerTrade
+	 * @param currentTurn
+	 * @param currentState
+	 * @param hasPlayedDevCard
+	 * @param winner
+	 * @param longestRoad
+	 */
 	public void update(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
 			OfferTrade offerTrade, int currentTurn, String currentState, boolean hasPlayedDevCard, int winner, int longestRoad) {
 		this.map = map;
@@ -275,7 +292,11 @@ public class Game extends Observable
 		}
 	}
 	
-	
+	/**
+	 * returns if the specified player index contains the player whose turn it is.
+	 * @param playerIndex
+	 * @return
+	 */
 	public boolean isTurn(int playerIndex) {
 		return turnManager.isTurn(playerIndex);
 	}
@@ -399,6 +420,10 @@ public class Game extends Observable
 		return bank;
 	}
 	
+	/**
+	 * returns a trade offer that has been made and is currently open.
+	 * @return
+	 */
 	public OfferTrade getOfferTrade() {
 		return offerTrade;
 	}
