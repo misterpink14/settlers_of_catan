@@ -2,9 +2,15 @@ package server.command.moves;
 
 import server.command.ICommand;
 
+/**
+ * Command for building a settlement
+ * 	Server end-point: /moves/buildSettlement POST
+ * 
+ * @author benthompson
+ */
 public class BuildSettlementCommand implements ICommand {
 
-	public BuildSettlementCommand() {
+	public BuildSettlementCommand(int playerIndex, int x, int y, String direction) {
 		// TODO Auto-generated constructor stub
 	}
 

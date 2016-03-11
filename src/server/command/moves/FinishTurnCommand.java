@@ -2,9 +2,15 @@ package server.command.moves;
 
 import server.command.ICommand;
 
+/**
+ * Command for finishing a player's turn
+ * 	Server end-point: /moves/finishTurn POST
+ * 
+ * @author benthompson
+ */
 public class FinishTurnCommand implements ICommand {
 
-	public FinishTurnCommand() {
+	public FinishTurnCommand(int playerIndex) {
 		// TODO Auto-generated constructor stub
 	}
 
