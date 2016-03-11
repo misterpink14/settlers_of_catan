@@ -1,8 +1,5 @@
 package server.facade;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -23,9 +20,18 @@ import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
-import shared.models.Game;
 
 public class ServerFacade implements IServerFacade {
+	private static ServerFacade instance;
+	
+	private ServerFacade(){}
+	
+	public static ServerFacade getInstance() {
+		if(instance == null) {
+			instance = new ServerFacade();
+		}
+		return instance;
+	}
 
 	@Override
 	public String login(Credentials credentials) {
