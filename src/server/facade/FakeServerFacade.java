@@ -25,154 +25,160 @@ import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 import shared.models.Game;
 
-public class FakeServerFacade implements ServerFacade {
+public class FakeServerFacade implements IServerFacade {
 
 	@Override
-	public int login(Credentials credentials) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int register(Credentials credentials) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Game> getGamesList() {
+	public String login(Credentials credentials) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game createGame(CreateGameRequestParams params) {
+	public String register(Credentials credentials) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean joinGame(JoinGameRequestParams params) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Game getModel(int versionNumber) {
+	public String getGamesList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game sendChat(SendChat sendChat) {
+	public String createGame(CreateGameRequestParams params) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game rollNumber(RollNumber rollNumber) {
+	public String joinGame(JoinGameRequestParams params) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game robPlayer(RobPlayer robPlayer) {
+	public String getModel(int versionNumber) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game finishTurn(FinishTurn finishTurn) {
+	public String sendChat(SendChat sendChat) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game buyDevCard(BuyDevCard buyDevCard) {
+	public String rollNumber(RollNumber rollNumber) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game yearOfPlenty(YearOfPlenty yearOfPlenty) {
+	public String robPlayer(RobPlayer robPlayer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game roadBuilding(RoadBuilding roadBuilding) {
+	public String finishTurn(FinishTurn finishTurn) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game moveSoldier(SoldierMove soldierMove) {
+	public String buyDevCard(BuyDevCard buyDevCard) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game playMonopolyCard(Monopoly monopoly) {
+	public String yearOfPlenty(YearOfPlenty yearOfPlenty) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game playMonumentCard(MonumentMove monumentMove) {
+	public String roadBuilding(RoadBuilding roadBuilding) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game buildRoad(BuildRoad buildRoad) {
+	public String moveSoldier(SoldierMove soldierMove) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game buildCity(BuildCity buildCity) {
+	public String playMonopolyCard(Monopoly monopoly) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game buildSettlement(BuildSettlement buildSettlement) {
+	public String playMonumentCard(MonumentMove monumentMove) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game offerTrade(OfferTrade offerTrade) {
+	public String buildRoad(BuildRoad buildRoad) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game acceptTrade(AcceptTrade acceptTrade) {
+	public String buildCity(BuildCity buildCity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game maritimeTrade(MaritimeTrade maritimeTrade) {
+	public String buildSettlement(BuildSettlement buildSettlement) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game discardCards(DiscardedCards discardedCards) {
+	public String offerTrade(OfferTrade offerTrade) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Game addAI(String aiType) {
+	public String acceptTrade(AcceptTrade acceptTrade) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getListAI() {
+	public String maritimeTrade(MaritimeTrade maritimeTrade) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String discardCards(DiscardedCards discardedCards) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String addAI(String aiType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getListAI() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String serializeGame() {
 		// TODO Auto-generated method stub
 		return null;
 	}
