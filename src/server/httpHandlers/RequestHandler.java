@@ -11,6 +11,9 @@ import com.sun.net.httpserver.HttpHandler;
 
 import server.command.ICommand;
 import server.command.user.LoginCommand;
+import server.facade.FakeServerFacade;
+import server.facade.IServerFacade;
+import server.facade.ServerFacade;
 
 /**
  * Handles the HTTP requests for the server. Calls the appropriate factory based on the url of the request
@@ -22,8 +25,17 @@ public class RequestHandler implements HttpHandler
 
 	Logger logger = Logger.getLogger("settlers"); 
 	ICommand command;
+	IServerFacade facade;
 	
-	public RequestHandler() { }
+	
+	public RequestHandler(boolean isTest) {
+		if (isTest) {
+			facade = new FakeServerFacade();
+		}
+		else {
+			facade = new ServerFacade();
+		}
+	}
 	
 	/**
 	 * Handles the request from the client. Will call the appropriate factory

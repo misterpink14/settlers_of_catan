@@ -22,17 +22,8 @@ import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 
 public class ServerFacade implements IServerFacade {
-	private static ServerFacade instance;
 	
-	private ServerFacade(){}
 	
-	public static ServerFacade getInstance() {
-		if(instance == null) {
-			instance = new ServerFacade();
-		}
-		return instance;
-	}
-
 	@Override
 	public String login(Credentials credentials) {
 		// TODO Auto-generated method stub

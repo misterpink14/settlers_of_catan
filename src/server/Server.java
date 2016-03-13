@@ -27,7 +27,6 @@ public class Server {
 	private static final int MAX_WAITING_CONNECTIONS = 10;
 	
 	private int port;
-	private boolean isTest;
 	private HttpHandler handler;
 	private static Logger logger;
 	private HttpServer server;
@@ -47,15 +46,13 @@ public class Server {
 	
 	private Server() {
 		this.port = DEFAULT_PORT_NUMBER;
-		this.isTest = false;
-		this.handler = new RequestHandler();
+		this.handler = new RequestHandler(false);
 		return;
 	}
 	
 	private Server(int port, boolean isTest) {
 		this.port = port;
-		this.isTest = isTest;
-		this.handler = new RequestHandler();
+		this.handler = new RequestHandler(isTest);
 		return;
 	}
 	
