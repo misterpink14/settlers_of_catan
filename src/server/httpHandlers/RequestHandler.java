@@ -2,19 +2,15 @@ package server.httpHandlers;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.sql.SQLException;
-import java.util.logging.*;
-
-//import com.sun.net.httpserver.*;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
-import shared.communication.*;
-import server.database.DatabaseException;
-import server.facade.*;
+import java.rmi.ServerException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+
+import server.command.ICommand;
+import server.command.user.LoginCommand;
 
 /**
  * Handles the HTTP requests for the server. Calls the appropriate factory based on the url of the request
@@ -24,14 +20,10 @@ import com.sun.net.httpserver.HttpHandler;
 public class RequestHandler implements HttpHandler
 {
 
-	private Logger logger = Logger.getLogger("contactmanager"); 
+	Logger logger = Logger.getLogger("settlers"); 
+	ICommand command;
 	
-	private XStream xmlStream = new XStream(new DomDriver());
-	
-	public RequestHandler()
-	{
-		// TODO Auto-generated constructor stub
-	}
+	public RequestHandler() { }
 	
 	/**
 	 * Handles the request from the client. Will call the appropriate factory
@@ -40,43 +32,49 @@ public class RequestHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
-		/*DownloadBatchInput params = (DownloadBatchInput)xmlStream.fromXML(exchange.getRequestBody());
-		try
-		{
-			DownloadBatchOutput output = ServerFacade.DownloadBatch(params);
-			if(output == null)
-			{
-				exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
-				return;
+		String[] path = exchange.getRequestURI().toString().split("/");
+		if (path.length != 3) {
+			this.handleError(exchange);
+			return;
+		}
+		String factoryType = path[1];
+		String commandType = path[2];
+		
+		try {
+			switch(factoryType) {
+				case "user":
+					this.handleUser(commandType);
+					break;
+				case "games":
+					this.handleGames(commandType);
+					break;
+				case "game":
+					this.handleGame(commandType);
+					break;
+				case "moves":
+					this.handleMoves(commandType);
+					break;
+				default:
+					this.handleError(exchange);
+					return;
 			}
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-			xmlStream.toXML(output, exchange.getResponseBody());
-			exchange.getResponseBody().close();	
-			return;
-		} catch (DatabaseException e)
-		{
-			System.out.println("DownloadBatch threw a database error");
+			
+			System.out.println(command.execute());
+		} catch (ServerException e) {
 			e.printStackTrace();
-			logger.log(Level.SEVERE, e.getMessage(), e);
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
-			return;
-		} catch (SQLException e)
-		{
-			System.out.println("DownloadBatch threw a sql error");
-			e.printStackTrace();
-			logger.log(Level.SEVERE, e.getMessage(), e);
-			exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
-			return;
-		}*/
+			this.handleError(exchange);
+		}
 	}
 	
 	/**
 	 * Call the userCommandFactory with params from the client request
 	 * @param params
 	 * @return
+	 * @throws ServerException 
 	 */
-	String handleUser(String params) {
-		return "";
+	void handleUser(String commandType) throws ServerException {
+
+		this.command = new LoginCommand("", "");
 	}
 	
 	/**
@@ -84,8 +82,9 @@ public class RequestHandler implements HttpHandler
 	 * @param params
 	 * @return
 	 */
-	String handleGames(String params) {
-		return "";
+	void handleGames(String commandType) {
+
+		this.command = new LoginCommand("", "");
 	}
 	
 	/**
@@ -93,8 +92,9 @@ public class RequestHandler implements HttpHandler
 	 * @param params
 	 * @return
 	 */
-	String handleGame(String params) {
-		return "";
+	void handleGame(String commandType) {
+
+		this.command = new LoginCommand("", "");
 	}
 
 	/**
@@ -102,7 +102,18 @@ public class RequestHandler implements HttpHandler
 	 * @param params
 	 * @return
 	 */
-	String handleMoves(String params) {
-		return "";
+	void handleMoves(String commandType) {
+
+		this.command = new LoginCommand("", "");
+	}
+	
+	void handleError(HttpExchange exchange) throws IOException {
+		String errorMessage = "Invalid request";
+		logger.log(Level.SEVERE, "Bad request " + errorMessage);
+		exchange.getResponseHeaders().add("Content-Type", "application/text");
+		exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+		exchange.getResponseBody().write(errorMessage.getBytes());
+		exchange.getResponseBody().close();
+		exchange.close();
 	}
 }

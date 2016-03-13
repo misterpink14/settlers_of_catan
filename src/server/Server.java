@@ -17,18 +17,23 @@ import server.database.DatabaseRepresentation;
 import server.httpHandlers.RequestHandler;
 
 /**
- * The HTTP Server. Passes all requests to their appropriate handlers
+ * The HTTP Server. Passes all requests to the handler
  * @author ssnyder
  *
  */
 public class Server {
 
-	private static final int SERVER_PORT_NUMBER = 8081;
+	private static final int DEFAULT_PORT_NUMBER = 8081;
 	private static final int MAX_WAITING_CONNECTIONS = 10;
-	static int port = SERVER_PORT_NUMBER;
 	
+	private int port;
+	private boolean isTest;
+	private HttpHandler handler;
 	private static Logger logger;
+	private HttpServer server;
 	
+	
+	// Initialize the log
 	static {
 		try {
 			initLog();
@@ -38,10 +43,33 @@ public class Server {
 		}
 	}
 	
+	
+	
+	private Server() {
+		this.port = DEFAULT_PORT_NUMBER;
+		this.isTest = false;
+		this.handler = new RequestHandler();
+		return;
+	}
+	
+	private Server(int port, boolean isTest) {
+		this.port = port;
+		this.isTest = isTest;
+		this.handler = new RequestHandler();
+		return;
+	}
+	
+	
+	
+	/**
+	 * Initializes the log
+	 * 
+	 * @throws IOException
+	 */
 	private static void initLog() throws IOException {
 		Level logLevel = Level.FINE;
 		
-		logger = Logger.getLogger("contactmanager"); 
+		logger = Logger.getLogger("catan"); 
 		logger.setLevel(logLevel);
 		logger.setUseParentHandlers(false);
 		
@@ -55,14 +83,12 @@ public class Server {
 		fileHandler.setFormatter(new SimpleFormatter());
 		logger.addHandler(fileHandler);
 	}
-
 	
-	private HttpServer server;
 	
-	private Server() {
-		return;
-	}
-	
+	/**
+	 * Set's up the server before starting it. // TODO add testing capabilities
+	 * 
+	 */
 	private void run() {
 		
 		logger.info("Initializing Model");
@@ -88,19 +114,31 @@ public class Server {
 		}
 
 		server.setExecutor(null); // use the default executor
+		server.createContext("/", handler);
 		
-		server.createContext("/", rq);
-		
-		logger.info("Starting HTTP Server");
-
+		logger.info("Starting HTTP Server on port: " + port);
 		server.start();
 	}
-
-	private HttpHandler rq = new RequestHandler();
 	
-	public static void main(String[] args) {
-		port = Integer.parseInt(args[0]);
-		new Server().run();
+	
+	
+	public static void main(String[] args) throws Exception {
+		if (args.length > 2) {
+			System.out.println("Must run server with port number and optionial flag (1) for testing. ie. 8081 1");
+			throw new Exception();
+		}
+		
+		if (args.length != 0) { 
+			int port = Integer.parseInt(args[0]);
+			boolean isTest = false;
+			if (args.length == 2) {
+				isTest = true;
+			}
+			new Server(port, isTest);
+		}
+		else {
+			new Server().run();
+		}
 	}
 
 }

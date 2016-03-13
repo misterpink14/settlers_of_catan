@@ -20,7 +20,7 @@ public class LoginCommand implements ICommand {
 
 	@Override
 	public String execute() {
-		return "";
+		return "good";
 	}
 
 }
