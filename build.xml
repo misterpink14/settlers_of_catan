@@ -151,7 +151,7 @@
 		</jar>
  		<jar jarfile="${java.dist}/catan-server.jar" basedir="${java.build}">
 			<manifest>
-				<attribute name="Main-Class" value="server.main.Server"/>
+				<attribute name="Main-Class" value="server.Server"/>
 				<attribute name="Class-Path" 
 					value="lib/gson-2.5.jar" />
 			</manifest>

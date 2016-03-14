@@ -14,6 +14,7 @@ import com.sun.net.httpserver.HttpServer;
 
 import server.database.DatabaseException;
 import server.database.DatabaseRepresentation;
+import server.httpHandlers.Handlers;
 import server.httpHandlers.RequestHandler;
 
 /**
@@ -111,7 +112,14 @@ public class Server {
 		}
 
 		server.setExecutor(null); // use the default executor
-		server.createContext("/", handler);
+		server.createContext("/user", handler);
+		server.createContext("/game", handler);
+		server.createContext("/games", handler);
+		server.createContext("/moves", handler);
+		
+		server.createContext("/docs/api/data", new Handlers.JSONAppender("")); 
+		server.createContext("/docs/api/view", new Handlers.BasicFile(""));
+
 		
 		logger.info("Starting HTTP Server on port: " + port);
 		server.start();
@@ -120,8 +128,11 @@ public class Server {
 	
 	
 	public static void main(String[] args) throws Exception {
-		if (args.length > 2) {
-			System.out.println("Must run server with port number and optionial flag (1) for testing. ie. 8081 1");
+		for (int i = 0; i < args.length; i++) {
+			System.out.println(args[i]);
+		}
+		if (args.length > 4) {
+			System.out.println("Must run server with format: port-number persistence delta clean");
 			throw new Exception();
 		}
 		
