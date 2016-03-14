@@ -1,13 +1,18 @@
 package shared.serializerJSON;
 
+import java.util.HashMap;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import client.data.GameInfo;
 import shared.communication.proxy.OfferTrade;
+import shared.definitions.DevCardType;
 import shared.models.Game;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
+import shared.models.cardClasses.DevCards;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
@@ -30,7 +35,7 @@ private static Serializer instance = null;
 		return instance;
 	}
 	
-	public void deserialize() { 
+	public void serialize() { 
 		
 	}
 	
@@ -49,6 +54,19 @@ private static Serializer instance = null;
 	 * @return The serialized CardDeck (in the form of a JsonObject)
 	 */
 	public JsonObject serializeDeck(CardDeck deck) {
+		JsonObject jsonDeck = new JsonObject();
+		DevCards cards = deck.getDevCards();
+		// Year of Plenty
+		jsonDeck.addProperty("yearOfPlenty", cards.getYearOfPlentyCards());
+		// Monopoly
+		jsonDeck.addProperty("monopoly", cards.getMonopolyCards());
+		// Soldier
+		jsonDeck.addProperty("soldier", cards.getSoldierCards());
+		// RoadBuilding
+		jsonDeck.addProperty("roadBuilding", cards.getRoadBuilderCards());
+		// Monument
+		jsonDeck.addProperty("monument", cards.getMonumentCards());
+		
 		return new JsonObject();
 	}
 	
