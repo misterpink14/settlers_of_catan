@@ -1,11 +1,15 @@
 package server.httpHandlers;
 
 import java.io.IOException;
+import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.rmi.ServerException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.IOUtils;
+
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -44,6 +48,7 @@ public class RequestHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
+		/* TODO reimplement this
 		String[] path = exchange.getRequestURI().toString().split("/");
 		if (path.length != 3) {
 			this.handleError(exchange);
@@ -51,6 +56,16 @@ public class RequestHandler implements HttpHandler
 		}
 		String factoryType = path[1];
 		String commandType = path[2];
+		
+
+		String theString = exchange.getRequestBody(); 
+		Headers headers = exchange.getRequestHeaders();
+		System.out.println(theString);
+		System.out.println(headers.get("Cookie"));
+		
+		System.out.println(theString);
+		
+		
 		
 		try {
 			switch(factoryType) {
@@ -76,6 +91,7 @@ public class RequestHandler implements HttpHandler
 			e.printStackTrace();
 			this.handleError(exchange);
 		}
+		*/ 
 	}
 	
 	/**
