@@ -14,10 +14,9 @@ public class ModelCommand implements ICommand {
 	String Username, Password;
 	int GameID;
 
-	public ModelCommand(String username, String password, int gameID) {
+	public ModelCommand(String username, String password, String json) {
 		this.Username = username;
 		this.Password = password;
-		this.GameID = gameID;
 	}
 
 	@Override

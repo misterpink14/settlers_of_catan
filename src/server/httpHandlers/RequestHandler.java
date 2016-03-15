@@ -1,20 +1,19 @@
 package server.httpHandlers;
 
 import java.io.IOException;
-import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.rmi.ServerException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
 
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import server.command.CommandFactory;
 import server.command.ICommand;
-import server.command.user.LoginCommand;
 import server.facade.FakeServerFacade;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
@@ -27,11 +26,11 @@ import server.facade.ServerFacade;
 public class RequestHandler implements HttpHandler
 {
 
-	Logger logger = Logger.getLogger("settlers"); 
-	ICommand command;
+	Logger logger = Logger.getLogger("settlers");
 	IServerFacade facade;
 	
-	
+
+// Constructor
 	public RequestHandler(boolean isTest) {
 		if (isTest) {
 			facade = new FakeServerFacade();
@@ -41,6 +40,9 @@ public class RequestHandler implements HttpHandler
 		}
 	}
 	
+	
+	
+// Implemented Method
 	/**
 	 * Handles the request from the client. Will call the appropriate factory
 	 * based on the first part of the url.
@@ -48,96 +50,77 @@ public class RequestHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
-		/* TODO reimplement this
-		String[] path = exchange.getRequestURI().toString().split("/");
-		if (path.length != 3) {
-			this.handleError(exchange);
-			return;
-		}
-		String factoryType = path[1];
-		String commandType = path[2];
-		
-
-		String theString = exchange.getRequestBody(); 
-		Headers headers = exchange.getRequestHeaders();
-		System.out.println(theString);
-		System.out.println(headers.get("Cookie"));
-		
-		System.out.println(theString);
-		
-		
-		
 		try {
-			switch(factoryType) {
-				case "user":
-					this.handleUser(commandType);
-					break;
-				case "games":
-					this.handleGames(commandType);
-					break;
-				case "game":
-					this.handleGame(commandType);
-					break;
-				case "moves":
-					this.handleMoves(commandType);
-					break;
-				default:
-					this.handleError(exchange);
-					return;
-			}
 			
+			ICommand command = CommandFactory.getInstance().buildCommand(
+				this.getCommandType(exchange),
+				this.getJson(exchange),
+				this.getCookie(exchange),
+				this.facade
+			);
+			
+			// TODO - make this the response with the appropriate cookie
 			System.out.println(command.execute());
 		} catch (ServerException e) {
 			e.printStackTrace();
 			this.handleError(exchange);
 		}
-		*/ 
 	}
 	
+	
+	
+// Private METHODS
 	/**
-	 * Call the userCommandFactory with params from the client request
-	 * @param params
+	 * Get's the cookie from a given HttpExchange object
+	 * 
+	 * @param exchange
 	 * @return
-	 * @throws ServerException 
 	 */
-	void handleUser(String commandType) throws ServerException {
-
-		this.command = new LoginCommand("", "");
+	List<String> getCookie(HttpExchange exchange) {
+		return exchange.getRequestHeaders().get("Cookie");
 	}
 	
-	/**
-	 * Call the gamesCommandFactory with params from the client request
-	 * @param params
-	 * @return
-	 */
-	void handleGames(String commandType) {
-
-		this.command = new LoginCommand("", "");
-	}
 	
 	/**
-	 * Call the gameCommandFactory with params from the client request
-	 * @param params
+	 * Get's the json body from a given HttpExchange object
+	 * 
+	 * @param exchange
 	 * @return
+	 * @throws IOException
 	 */
-	void handleGame(String commandType) {
-
-		this.command = new LoginCommand("", "");
-	}
-
-	/**
-	 * Call the moveCommandFactory with params from the client request
-	 * @param params
-	 * @return
-	 */
-	void handleMoves(String commandType) {
-
-		this.command = new LoginCommand("", "");
+	String getJson(HttpExchange exchange) throws IOException {
+		return IOUtils.toString(exchange.getRequestBody());
 	}
 	
+	
+	/**
+	 * Get's the command type from the second folder of a uri. Uses the given 
+	 * 	HttpExchange object to get the command
+	 * 
+	 * @param exchange
+	 * @return
+	 * @throws ServerException
+	 */
+	String getCommandType(HttpExchange exchange) throws ServerException {
+
+		String[] path = exchange.getRequestURI().toString().split("/");
+		if (path.length != 3) {
+			throw new ServerException("Invalid URL path length");
+		}
+		return path[2];
+	}
+	
+	
+	/**
+	 * Handles errors thrown from unexpected pre conditions
+	 * 
+	 * @param exchange
+	 * @throws IOException
+	 */
 	void handleError(HttpExchange exchange) throws IOException {
 		String errorMessage = "Invalid request";
 		logger.log(Level.SEVERE, "Bad request " + errorMessage);
+		
 		exchange.getResponseHeaders().add("Content-Type", "application/text");
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 		exchange.getResponseBody().write(errorMessage.getBytes());

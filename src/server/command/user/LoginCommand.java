@@ -1,6 +1,8 @@
 package server.command.user;
 
+import server.command.AUserCommand;
 import server.command.ICommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for user login.
@@ -8,19 +10,18 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class LoginCommand implements ICommand {
+public class LoginCommand extends AUserCommand implements ICommand {
 	
-	
-	String Username, Password;
+	IServerFacade facade;
 
-	public LoginCommand(String username, String password) {
-		this.Username = username;
-		this.Password = password;
+	public LoginCommand(String json, IServerFacade facade) {
+		super(json);
+		this.facade = facade;
 	}
 
 	@Override
 	public String execute() {
-		return "good";
+		System.out.println("inexecute");
+		return "USER: " + this.username + " PASS: " + this.password;
 	}
-
 }
