@@ -51,6 +51,27 @@ public class Map
 	}
 	
 	
+// GETTERS
+	public HexMap getHexMap() {
+		return Hexes;
+	}
+	
+	public VertexMap getVertexMap() {
+		return Vertexes;
+	}
+	
+	public EdgeMap getEdgeMap() {
+		return Edges;
+	}
+	
+	public RobberLocation getRobberLocation() {
+		return Robber;
+	}
+	
+	public PlayerMap getPlayerMap() {
+		return PlayerPieces;
+	}
+	
 	
 // SETTERS
 	public void setHexMap(HexMap hexes) {
@@ -70,10 +91,6 @@ public class Map
 	
 	public void setRobberLocation(RobberLocation robber) {
 		this.Robber = robber;
-	}
-	
-	public RobberLocation getRobberLocation() {
-		return this.Robber;
 	}
 	
 	
