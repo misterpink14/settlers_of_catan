@@ -1,10 +1,11 @@
 package server.command;
 
 import java.rmi.ServerException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import server.command.games.CreateCommand;
+import server.command.games.JoinCommand;
+import server.command.games.ListCommand;
 import server.command.user.LoginCommand;
 import server.command.user.RegisterCommand;
 import server.facade.IServerFacade;
@@ -29,79 +30,127 @@ public class CommandFactory {
 		return factory;
 	}
 	
-	// The constructor will be taking in (String name, String password, String jsonRequestBody
-	public ICommand buildCommand (String type, String json, List<String> cookie, IServerFacade facade) throws ServerException {
-		
-		ICommand command = new LoginCommand(json, facade);
-		
-//		Map<String, String> cookieData = this.parseCookie(cookie);
 
-		switch (type) {
-		// user
-			case "login":
-				command = new LoginCommand(json, facade);
+	
+	public ICommand buildCommand (String[] type, String jsonBody, Map<String, String> cookies, 
+									IServerFacade facade, String httpMethod) throws ServerException {
+		
+		ICommand command = new LoginCommand(jsonBody, facade);
+		this.validateHTTPMethod(httpMethod, type);
+
+		switch (type[0]) {
+			case "user":
+				command = this.buildUserCommand(type[1], jsonBody, facade);
 				break;
-			case "register":
-				command = new RegisterCommand(json, facade);
+			case "games":
+				command = this.buildGamesCommand(type[1], cookies.get("catan.user"), facade, jsonBody);
 				break;
-		// games
-			case "list":
-				break;
-			case "create":
-				break;
-			case "join":
-				break;
-		// game
-			case "model": // GET
-				break;
-			case "addAI":
-				break;
-			case "listAI":
-				break;
-		//moves
-			case "sendChat":
-				break;
-			case "rollNumber":
-				break;
-			case "robPlayer":
-				break;
-			case "finishTurn":
-				break;
-			case "buyDevCard":
-				break;
-			case "Year_of_Plenty":
-				break;
-			case "Road_Building":
-				break;
-			case "Soldier":
-				break;
-			case "Monopoly":
-				break;
-			case "Monument":
-				break;
-			case "buildRoad":
-				break;
-			case "buildSettlement":
-				break;
-			case "buildCity":
-				break;
-			case "offerTrade":
-				break;
-			case "acceptTrade":
-				break;
-			case "maritimeTrade":
-				break;
-			case "discardCards":
-				break;
+//			case "game":
+//				command = this.buildGameCommand(type[1], jsonBody, facade);
+//				break;
+//			case "moves":
+//				command = this.buildMovesCommand(type[1], jsonBody, facade);
+//				break;
 			default:
-				throw new ServerException("Invalid command");
+				throw new ServerException("Invalid uri");
 		}
 		return command;
 	}
 	
-//	
-//	private Map<String, String> parseCookie(List<String> cookie) {
-//		return new HashMap<String, String>();
-//	}
+	
+	ICommand buildUserCommand(String type, String json, IServerFacade facade) throws ServerException {
 
+		switch(type) {
+			case "login":
+				return new LoginCommand(json, facade);
+			case "register":
+				return new RegisterCommand(json, facade);
+			default:
+				throw new ServerException("Invalid uri");
+		}
+	}
+	
+	
+	ICommand buildGamesCommand(String type, String userJson, IServerFacade facade, String jsonBody) throws ServerException {
+
+		switch(type) {
+			case "list":
+				return new ListCommand(userJson, facade);
+			case "create":
+				return new CreateCommand(userJson, facade, jsonBody);
+			case "join":
+				return new JoinCommand(userJson, facade, jsonBody);
+			default:
+				throw new ServerException("Invalid uri");
+		}
+	}
+	
+	
+//	ICommand buildGameCommand() {
+//
+//		switch(type) {
+//			case "model": // GET
+//				break;
+//			case "addAI":
+//				break;
+//			case "listAI":
+//				break;
+//			default:
+//				throw new ServerException("Invalid uri");
+//		}
+//	}
+//	
+//	
+//	ICommand buildMovesCommand() {
+//
+//		switch(type) {
+//			case "sendChat":
+//				break;
+//			case "rollNumber":
+//				break;
+//			case "robPlayer":
+//				break;
+//			case "finishTurn":
+//				break;
+//			case "buyDevCard":
+//				break;
+//			case "Year_of_Plenty":
+//				break;
+//			case "Road_Building":
+//				break;
+//			case "Soldier":
+//				break;
+//			case "Monopoly":
+//				break;
+//			case "Monument":
+//				break;
+//			case "buildRoad":
+//				break;
+//			case "buildSettlement":
+//				break;
+//			case "buildCity":
+//				break;
+//			case "offerTrade":
+//				break;
+//			case "acceptTrade":
+//				break;
+//			case "maritimeTrade":
+//				break;
+//			case "discardCards":
+//				break;
+//			default:
+//				throw new ServerException("Invalid uri");
+//		}
+//	}
+	
+	
+	void validateHTTPMethod(String method, String[] type) throws ServerException {
+		boolean isPost = method.toUpperCase() == "POST";
+		if (!isPost) {
+			if (type[0] == "games" && type[1] == "list" || type[0] == "game" && type[1] == "model") {
+				return;
+			}
+			throw new ServerException("Invalid HTTP method");
+		}
+	}
 }

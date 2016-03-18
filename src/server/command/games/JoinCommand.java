@@ -1,6 +1,8 @@
 package server.command.games;
 
+import server.command.AUserCommand;
 import server.command.ICommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for joining a specific game
@@ -8,17 +10,23 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class JoinCommand implements ICommand {
-	
-	
-	String Username, Password, Color;
-	int GameID;
+public class JoinCommand extends AUserCommand implements ICommand {
 
-	public JoinCommand(String username, String password, int gameID, String color) {
-		this.Username = username;
-		this.Password = password;
-		this.GameID = gameID;
-		this.Color = color;
+	/**
+	 * {
+		  "id": "integer",
+		  "color": "string"
+		}
+	 * 
+	 * 
+	 * @param username
+	 * @param password
+	 * @param gameID
+	 * @param color
+	 */
+	public JoinCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

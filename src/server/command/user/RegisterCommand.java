@@ -13,8 +13,8 @@ import server.facade.IServerFacade;
  */
 public class RegisterCommand extends AUserCommand implements ICommand {
 
-	public RegisterCommand(String json, IServerFacade facade) {
-		super(json, facade);
+	public RegisterCommand(String userJson, IServerFacade facade) {
+		super(userJson, facade);
 	}
 	
 	

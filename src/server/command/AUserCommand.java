@@ -12,8 +12,8 @@ public class AUserCommand {
 	private IServerFacade facade;
 
 	
-	public AUserCommand(String json, IServerFacade facade) {
-		this.jsonDecode(json);
+	public AUserCommand(String userJson, IServerFacade facade) {
+		this.jsonDecode(userJson);
 	}
 	
 	
@@ -27,9 +27,15 @@ public class AUserCommand {
 	}
 	
 	
-	private void jsonDecode(String json) {
-		JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-		String username = jsonObject.get("username").getAsString();
+	private void jsonDecode(String userJson) { // TODO parse the playerid
+		JsonObject jsonObject = new JsonParser().parse(userJson).getAsJsonObject();
+		String username;
+		if (jsonObject.has("username")) {
+			username = jsonObject.get("username").getAsString();
+		}
+		else {
+			username = jsonObject.get("user").getAsString();
+		}
 		String password = jsonObject.get("password").getAsString();
 		this.credentials = new Credentials(username, password);
 	}

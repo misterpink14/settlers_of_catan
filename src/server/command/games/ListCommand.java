@@ -1,6 +1,8 @@
 package server.command.games;
 
+import server.command.AUserCommand;
 import server.command.ICommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for getting the list of games on the server
@@ -8,19 +10,18 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class ListCommand implements ICommand {
+public class ListCommand extends AUserCommand implements ICommand {
 
-	
-	String Username, Password;
-	
-	public ListCommand(String username, String password) {
-		this.Username = username;
-		this.Password = password;
+	public ListCommand(String userJson, IServerFacade facade) {
+		super(userJson, facade);
 	}
+
 	
 	@Override
 	public String execute() {
-		return null;
+		System.out.println("ListCommand execute");
+		// TODO use this.getCredentials() to verify that this is an actual user
+		return this.getFacade().getGamesList();
 	}
 
 }

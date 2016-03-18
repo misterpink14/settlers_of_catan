@@ -12,8 +12,8 @@ import server.facade.IServerFacade;
  */
 public class LoginCommand extends AUserCommand implements ICommand {
 
-	public LoginCommand(String json, IServerFacade facade) {
-		super(json, facade);
+	public LoginCommand(String userJson, IServerFacade facade) {
+		super(userJson, facade);
 	}
 
 	@Override

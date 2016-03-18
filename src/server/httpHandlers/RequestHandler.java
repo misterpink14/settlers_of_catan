@@ -1,9 +1,13 @@
 package server.httpHandlers;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.URLDecoder;
 import java.rmi.ServerException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,13 +54,16 @@ public class RequestHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
+		
+		System.out.println("handle");
 		try {
 			
 			ICommand command = CommandFactory.getInstance().buildCommand(
 				this.getCommandType(exchange),
 				this.getJson(exchange),
-				this.getCookie(exchange),
-				this.facade
+				this.parseCookie(exchange),
+				this.facade,
+				exchange.getRequestMethod()
 			);
 			
 			// TODO - make this the response with the appropriate cookie
@@ -75,9 +82,25 @@ public class RequestHandler implements HttpHandler
 	 * 
 	 * @param exchange
 	 * @return
+	 * @throws ServerException 
 	 */
-	List<String> getCookie(HttpExchange exchange) {
-		return exchange.getRequestHeaders().get("Cookie");
+	Map<String, String> parseCookie(HttpExchange exchange) throws ServerException {
+		
+		Map<String, String> cookies = new HashMap<String, String>();
+		List<String> cookieList = exchange.getRequestHeaders().get("Cookie");
+		
+		for (String cookie : cookieList) {
+
+			try {
+				String decodedCookie = URLDecoder.decode(cookie, "UTF-8"); // catan.user={"name":"Sam","password":"sam","playerID":0} // path=/ // game=0
+				String[] values =  decodedCookie.split("=");
+				cookies.put(values[0], values[1]);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+				throw new ServerException("Unable to decode cookie: " + cookie);
+			}
+		}
+		return cookies;
 	}
 	
 	
@@ -101,13 +124,14 @@ public class RequestHandler implements HttpHandler
 	 * @return
 	 * @throws ServerException
 	 */
-	String getCommandType(HttpExchange exchange) throws ServerException {
+	String[] getCommandType(HttpExchange exchange) throws ServerException {
 
 		String[] path = exchange.getRequestURI().toString().split("/");
 		if (path.length != 3) {
 			throw new ServerException("Invalid URL path length");
 		}
-		return path[2];
+		String[] commandType = {path[1], path[2]};
+		return commandType;
 	}
 	
 	
