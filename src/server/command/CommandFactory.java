@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import server.command.user.LoginCommand;
+import server.command.user.RegisterCommand;
 import server.facade.IServerFacade;
 
 /**
@@ -38,8 +39,10 @@ public class CommandFactory {
 		switch (type) {
 		// user
 			case "login":
+				command = new LoginCommand(json, facade);
 				break;
 			case "register":
+				command = new RegisterCommand(json, facade);
 				break;
 		// games
 			case "list":
@@ -91,14 +94,14 @@ public class CommandFactory {
 			case "discardCards":
 				break;
 			default:
-				throw new ServerException("");
+				throw new ServerException("Invalid command");
 		}
 		return command;
 	}
 	
-	
-	private Map<String, String> parseCookie(List<String> cookie) {
-		return new HashMap();
-	}
+//	
+//	private Map<String, String> parseCookie(List<String> cookie) {
+//		return new HashMap<String, String>();
+//	}
 
 }

@@ -3,18 +3,35 @@ package server.command;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class AUserCommand {
-	protected String username;
-	protected String password;
+import server.facade.IServerFacade;
+import shared.communication.proxy.Credentials;
 
-	public AUserCommand(String json) {
+public class AUserCommand {
+	
+	private Credentials credentials;
+	private IServerFacade facade;
+
+	
+	public AUserCommand(String json, IServerFacade facade) {
 		this.jsonDecode(json);
 	}
 	
+	
+	protected Credentials getCredentials() {
+		return this.credentials;
+	}
+	
+	
+	protected IServerFacade getFacade() {
+		return this.facade;
+	}
+	
+	
 	private void jsonDecode(String json) {
 		JsonObject jsonObject = new JsonParser().parse(json).getAsJsonObject();
-		this.username = jsonObject.get("username").getAsString();
-		this.password = jsonObject.get("password").getAsString();
+		String username = jsonObject.get("username").getAsString();
+		String password = jsonObject.get("password").getAsString();
+		this.credentials = new Credentials(username, password);
 	}
 
 }

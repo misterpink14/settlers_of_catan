@@ -11,17 +11,14 @@ import server.facade.IServerFacade;
  * @author benthompson
  */
 public class LoginCommand extends AUserCommand implements ICommand {
-	
-	IServerFacade facade;
 
 	public LoginCommand(String json, IServerFacade facade) {
-		super(json);
-		this.facade = facade;
+		super(json, facade);
 	}
 
 	@Override
 	public String execute() {
-		System.out.println("inexecute");
-		return "USER: " + this.username + " PASS: " + this.password;
+		System.out.println("execute login");
+		return this.getFacade().login(this.getCredentials());
 	}
 }

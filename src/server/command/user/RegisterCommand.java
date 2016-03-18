@@ -1,6 +1,8 @@
 package server.command.user;
 
+import server.command.AUserCommand;
 import server.command.ICommand;
+import server.facade.IServerFacade;
 
 
 /**
@@ -9,19 +11,18 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class RegisterCommand implements ICommand {
+public class RegisterCommand extends AUserCommand implements ICommand {
 
-	
-	String Username, Password;
-	
-	public RegisterCommand(String username, String password) {
-		this.Username = username;
-		this.Password = password;
+	public RegisterCommand(String json, IServerFacade facade) {
+		super(json, facade);
 	}
+	
+	
 	
 	@Override
 	public String execute() {
-		return null;
+		System.out.println("execute login");
+		return this.getFacade().register(this.getCredentials());
 	}
 
 }
