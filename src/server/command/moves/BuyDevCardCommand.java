@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for buying a dev card
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class BuyDevCardCommand implements ICommand {
+public class BuyDevCardCommand extends ACommand {
 
 	public BuyDevCardCommand(int playerIndex) {
 		// TODO Auto-generated constructor stub

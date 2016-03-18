@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for accepting a trade
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class AcceptTradeCommand implements ICommand {
+public class AcceptTradeCommand extends ACommand {
 
 	public AcceptTradeCommand(int playerIndex, boolean willAccept) {
 		// TODO Auto-generated constructor stub

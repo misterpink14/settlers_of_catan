@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for playing a soldier card
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class SoldierCommand implements ICommand {
+public class SoldierCommand extends ACommand {
 
 	public SoldierCommand(int playerIndex, int victimIndex, int x, int y) {
 		// TODO Auto-generated constructor stub

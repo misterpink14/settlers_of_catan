@@ -1,7 +1,6 @@
 package server.command.user;
 
-import server.command.AUserCommand;
-import server.command.ICommand;
+import server.command.ACommand;
 import server.facade.IServerFacade;
 
 /**
@@ -10,7 +9,7 @@ import server.facade.IServerFacade;
  * 
  * @author benthompson
  */
-public class LoginCommand extends AUserCommand implements ICommand {
+public class LoginCommand extends ACommand {
 
 	public LoginCommand(String userJson, IServerFacade facade) {
 		super(userJson, facade);

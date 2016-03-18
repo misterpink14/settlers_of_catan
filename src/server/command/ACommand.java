@@ -6,13 +6,17 @@ import com.google.gson.JsonParser;
 import server.facade.IServerFacade;
 import shared.communication.proxy.Credentials;
 
-public class AUserCommand {
+public abstract class ACommand {
 	
 	private Credentials credentials;
 	private IServerFacade facade;
 
 	
-	public AUserCommand(String userJson, IServerFacade facade) {
+	public ACommand() {
+		
+	}
+	
+	public ACommand(String userJson, IServerFacade facade) {
 		this.jsonDecode(userJson);
 	}
 	
@@ -40,4 +44,13 @@ public class AUserCommand {
 		this.credentials = new Credentials(username, password);
 	}
 
+
+	
+	/**
+	 * Initiate the command. Calls the server facade and then returns the json 
+	 * 	string to return to the user
+	 * 
+	 * @return
+	 */
+	public abstract String execute();
 }

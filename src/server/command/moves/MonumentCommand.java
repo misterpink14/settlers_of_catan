@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for playing a monument card
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class MonumentCommand implements ICommand {
+public class MonumentCommand extends ACommand {
 
 	public MonumentCommand(int playerIndex) {
 		// TODO Auto-generated constructor stub

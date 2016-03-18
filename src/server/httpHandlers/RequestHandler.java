@@ -16,8 +16,8 @@ import org.apache.commons.io.IOUtils;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import server.command.ACommand;
 import server.command.CommandFactory;
-import server.command.ICommand;
 import server.facade.FakeServerFacade;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
@@ -58,7 +58,7 @@ public class RequestHandler implements HttpHandler
 		System.out.println("handle");
 		try {
 			
-			ICommand command = CommandFactory.getInstance().buildCommand(
+			ACommand command = CommandFactory.getInstance().buildCommand(
 				this.getCommandType(exchange),
 				this.getJson(exchange),
 				this.parseCookie(exchange),

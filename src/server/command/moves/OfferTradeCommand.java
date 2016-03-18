@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for offering a trade
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class OfferTradeCommand implements ICommand {
+public class OfferTradeCommand extends ACommand {
 
 	public OfferTradeCommand(int playerIndex, int brick, int ore, int sheep, int wheat, int wood, int receiver) {
 		// TODO Auto-generated constructor stub

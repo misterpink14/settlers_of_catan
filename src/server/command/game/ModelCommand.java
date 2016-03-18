@@ -1,6 +1,6 @@
 package server.command.game;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for getting a game's model
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class ModelCommand implements ICommand {
+public class ModelCommand extends ACommand {
 	
 	
 	String Username, Password;

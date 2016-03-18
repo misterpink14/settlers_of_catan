@@ -1,7 +1,6 @@
 package server.command.user;
 
-import server.command.AUserCommand;
-import server.command.ICommand;
+import server.command.ACommand;
 import server.facade.IServerFacade;
 
 
@@ -11,7 +10,7 @@ import server.facade.IServerFacade;
  * 
  * @author benthompson
  */
-public class RegisterCommand extends AUserCommand implements ICommand {
+public class RegisterCommand extends ACommand {
 
 	public RegisterCommand(String userJson, IServerFacade facade) {
 		super(userJson, facade);

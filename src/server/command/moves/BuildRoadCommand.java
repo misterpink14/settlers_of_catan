@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for building a road
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class BuildRoadCommand implements ICommand {
+public class BuildRoadCommand extends ACommand {
 
 	public BuildRoadCommand(int playerIndex, int x, int y, String direction, boolean isFree) {
 		// TODO Auto-generated constructor stub

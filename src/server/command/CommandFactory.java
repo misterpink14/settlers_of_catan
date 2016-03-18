@@ -32,10 +32,10 @@ public class CommandFactory {
 	
 
 	
-	public ICommand buildCommand (String[] type, String jsonBody, Map<String, String> cookies, 
+	public ACommand buildCommand (String[] type, String jsonBody, Map<String, String> cookies, 
 									IServerFacade facade, String httpMethod) throws ServerException {
 		
-		ICommand command = new LoginCommand(jsonBody, facade);
+		ACommand command = new LoginCommand(jsonBody, facade);
 		this.validateHTTPMethod(httpMethod, type);
 
 		switch (type[0]) {
@@ -46,10 +46,10 @@ public class CommandFactory {
 				command = this.buildGamesCommand(type[1], cookies.get("catan.user"), facade, jsonBody);
 				break;
 //			case "game":
-//				command = this.buildGameCommand(type[1], jsonBody, facade);
+//				command = this.buildGameCommand(type[1], cookies.get("catan.user"), facade, jsonBody);
 //				break;
 //			case "moves":
-//				command = this.buildMovesCommand(type[1], jsonBody, facade);
+//				command = this.buildMovesCommand(type[1], cookies.get("catan.user"), facade, jsonBody);
 //				break;
 			default:
 				throw new ServerException("Invalid uri");
@@ -58,7 +58,7 @@ public class CommandFactory {
 	}
 	
 	
-	ICommand buildUserCommand(String type, String json, IServerFacade facade) throws ServerException {
+	ACommand buildUserCommand(String type, String json, IServerFacade facade) throws ServerException {
 
 		switch(type) {
 			case "login":
@@ -71,10 +71,10 @@ public class CommandFactory {
 	}
 	
 	
-	ICommand buildGamesCommand(String type, String userJson, IServerFacade facade, String jsonBody) throws ServerException {
+	ACommand buildGamesCommand(String type, String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 
 		switch(type) {
-			case "list":
+			case "list": // GET
 				return new ListCommand(userJson, facade);
 			case "create":
 				return new CreateCommand(userJson, facade, jsonBody);

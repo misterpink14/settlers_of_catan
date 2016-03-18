@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for maritime trade
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class MaritimeTradeCommand implements ICommand {
+public class MaritimeTradeCommand extends ACommand {
 
 	public MaritimeTradeCommand(int playerIndex, int ratio, String inputResource, String outputResource) {
 		// TODO Auto-generated constructor stub

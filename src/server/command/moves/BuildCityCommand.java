@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for building a city
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class BuildCityCommand implements ICommand {
+public class BuildCityCommand extends ACommand {
 
 	public BuildCityCommand(int playerIndex, int x, int y, String direction) {
 		// TODO Auto-generated constructor stub

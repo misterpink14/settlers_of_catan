@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for rolling a number
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class RollNumberCommand implements ICommand {
+public class RollNumberCommand extends ACommand {
 
 	public RollNumberCommand(int playerIndex, int number) {
 		// TODO Auto-generated constructor stub

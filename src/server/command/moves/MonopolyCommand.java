@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for playing a monopoly card
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class MonopolyCommand implements ICommand {
+public class MonopolyCommand extends ACommand {
 
 	public MonopolyCommand(int playerIndex, String resource) {
 		// TODO Auto-generated constructor stub

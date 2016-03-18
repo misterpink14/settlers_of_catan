@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for robbing a given player
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class RobPlayerCommand implements ICommand {
+public class RobPlayerCommand extends ACommand {
 
 	public RobPlayerCommand(int playerIndex, int victimIndex, int x, int y) {
 		// TODO Auto-generated constructor stub

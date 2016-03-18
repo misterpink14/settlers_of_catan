@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for discarding cards
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class DiscardCardsCommand implements ICommand {
+public class DiscardCardsCommand extends ACommand {
 
 	public DiscardCardsCommand(int playerIndex, int brick, int ore, int sheep, int wheat, int wood) {
 		// TODO Auto-generated constructor stub

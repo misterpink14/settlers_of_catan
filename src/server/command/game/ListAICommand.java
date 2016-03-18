@@ -1,6 +1,6 @@
 package server.command.game;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for getting a list of all available AI players
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class ListAICommand implements ICommand {
+public class ListAICommand extends ACommand {
 	
 	
 	String Username, Password;

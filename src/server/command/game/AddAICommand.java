@@ -1,6 +1,6 @@
 package server.command.game;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for adding an AI to a given game
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class AddAICommand implements ICommand {
+public class AddAICommand extends ACommand {
 	
 	
 	String Username, Password, AIType;

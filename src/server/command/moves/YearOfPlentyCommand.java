@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for for playing a year of plenty card
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class YearOfPlentyCommand implements ICommand {
+public class YearOfPlentyCommand extends ACommand {
 
 	public YearOfPlentyCommand(int playerIndex, String resource1, String resource2) {
 		// TODO Auto-generated constructor stub

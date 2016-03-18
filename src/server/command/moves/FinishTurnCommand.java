@@ -1,6 +1,6 @@
 package server.command.moves;
 
-import server.command.ICommand;
+import server.command.ACommand;
 
 /**
  * Command for finishing a player's turn
@@ -8,7 +8,7 @@ import server.command.ICommand;
  * 
  * @author benthompson
  */
-public class FinishTurnCommand implements ICommand {
+public class FinishTurnCommand extends ACommand {
 
 	public FinishTurnCommand(int playerIndex) {
 		// TODO Auto-generated constructor stub
