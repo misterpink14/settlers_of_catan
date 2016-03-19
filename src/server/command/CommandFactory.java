@@ -43,6 +43,11 @@ public class CommandFactory {
 	private static CommandFactory factory;
 	
 	
+	/**
+	 * Supports the singleton pattern
+	 * 
+	 * @return
+	 */
 	public static CommandFactory getInstance() {
 		if (factory == null) {
 			factory = new CommandFactory();
@@ -51,7 +56,18 @@ public class CommandFactory {
 	}
 	
 
-	
+	/**
+	 * Returns the appropriate command in relation to the given type and uri. Must be a valid 
+	 * 	URI and and HTTP method
+	 * 
+	 * @param type
+	 * @param jsonBody
+	 * @param cookies
+	 * @param facade
+	 * @param httpMethod
+	 * @return
+	 * @throws ServerException
+	 */
 	public ACommand buildCommand (String[] type, String jsonBody, Map<String, String> cookies, 
 									IServerFacade facade, String httpMethod) throws ServerException {
 		
@@ -78,6 +94,15 @@ public class CommandFactory {
 	}
 	
 	
+	/**
+	 * Returns the appropriate /user/xx command
+	 * 
+	 * @param type
+	 * @param json
+	 * @param facade
+	 * @return
+	 * @throws ServerException
+	 */
 	ACommand buildUserCommand(String type, String json, IServerFacade facade) throws ServerException {
 
 		switch(type) {
@@ -91,6 +116,16 @@ public class CommandFactory {
 	}
 	
 	
+	/**
+	 * Returns the appropriate /games/xx command
+	 * 
+	 * @param type
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 * @return
+	 * @throws ServerException
+	 */
 	ACommand buildGamesCommand(String type, String userJson, IServerFacade facade, String jsonBody) 
 																			throws ServerException {
 
@@ -107,6 +142,16 @@ public class CommandFactory {
 	}
 	
 	
+	/**
+	 * Returns the appropriate /game/xx command
+	 * 
+	 * @param type
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 * @return
+	 * @throws ServerException
+	 */
 	ACommand buildGameCommand(String type, String userJson, IServerFacade facade, String jsonBody) 
 																			throws ServerException {
 
@@ -123,6 +168,16 @@ public class CommandFactory {
 	}
 	
 	
+	/**
+	 * Returns the appropriate /moves/xx command
+	 * 
+	 * @param type
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 * @return
+	 * @throws ServerException
+	 */
 	ACommand buildMovesCommand(String type, String userJson, IServerFacade facade, String jsonBody) 
 																			throws ServerException {
 
@@ -167,17 +222,27 @@ public class CommandFactory {
 	}
 	
 	
+	/**
+	 * Validates that only GET's are /games/list, /game/model, /game/listAI. Everything else should be a POST
+	 * 
+	 * @param method
+	 * @param type
+	 * @throws ServerException
+	 */
 	void validateHTTPMethod(String method, String[] type) throws ServerException {
 		
-		boolean isPost = method.toUpperCase() == "POST";
-		if (!isPost) {
-			if (type[0] == "games" && type[1] == "list" || 
-					type[0] == "game" && type[1] == "model" || 
-					type[0] == "game" && type[1]  == "listAI") {
-				
+		if (type[0] == "games" && type[1] == "list" || 
+				type[0] == "game" && type[1] == "model" || 
+				type[0] == "game" && type[1]  == "listAI") { // These are the only allowed GETs
+			if (method.toUpperCase() == "GET") {
 				return;
 			}
-			throw new ServerException("Invalid HTTP method");
 		}
+		else {
+			if (method.toUpperCase() == "POST") { // Everything else should be a post
+				return;
+			}
+		}
+		throw new ServerException("Invalid HTTP method");
 	}
 }
