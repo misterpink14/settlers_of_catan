@@ -1,6 +1,7 @@
 package server.command.moves;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for building a settlement
@@ -10,8 +11,25 @@ import server.command.ACommand;
  */
 public class BuildSettlementCommand extends ACommand {
 
-	public BuildSettlementCommand(int playerIndex, int x, int y, String direction) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * {
+		  "type": "buildSettlement",
+		  "playerIndex": "integer",
+		  "vertexLocation": {
+		    "x": "integer",
+		    "y": "integer",
+		    "direction": "string"
+		  },
+		  "free": "Boolean"
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public BuildSettlementCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

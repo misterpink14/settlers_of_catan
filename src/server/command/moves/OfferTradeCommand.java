@@ -1,6 +1,7 @@
 package server.command.moves;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for offering a trade
@@ -10,8 +11,27 @@ import server.command.ACommand;
  */
 public class OfferTradeCommand extends ACommand {
 
-	public OfferTradeCommand(int playerIndex, int brick, int ore, int sheep, int wheat, int wood, int receiver) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * {
+		  "type": "offerTrade",
+		  "playerIndex": "integer",
+		  "offer": {
+		    "brick": "integer",
+		    "ore": "integer",
+		    "sheep": "integer",
+		    "wheat": "integer",
+		    "wood": "integer"
+		  },
+		  "receiver": "integer"
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public OfferTradeCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

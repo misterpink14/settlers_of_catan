@@ -1,6 +1,7 @@
 package server.command.moves;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for playing a monument card
@@ -10,8 +11,19 @@ import server.command.ACommand;
  */
 public class MonumentCommand extends ACommand {
 
-	public MonumentCommand(int playerIndex) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * {
+		  "type": "Monument",
+		  "playerIndex": "integer"
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public MonumentCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

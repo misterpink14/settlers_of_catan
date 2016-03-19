@@ -1,6 +1,7 @@
 package server.command.moves;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for robbing a given player
@@ -10,8 +11,24 @@ import server.command.ACommand;
  */
 public class RobPlayerCommand extends ACommand {
 
-	public RobPlayerCommand(int playerIndex, int victimIndex, int x, int y) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * {
+		  "type": "robPlayer",
+		  "playerIndex": "integer",
+		  "victimIndex": "integer",
+		  "location": {
+		    "x": "string",
+		    "y": "string"
+		  }
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public RobPlayerCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

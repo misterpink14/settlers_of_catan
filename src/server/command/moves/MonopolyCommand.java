@@ -1,6 +1,7 @@
 package server.command.moves;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for playing a monopoly card
@@ -10,8 +11,20 @@ import server.command.ACommand;
  */
 public class MonopolyCommand extends ACommand {
 
-	public MonopolyCommand(int playerIndex, String resource) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * {
+		  "type": "Monopoly",
+		  "resource": "string",
+		  "playerIndex": "integer"
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public MonopolyCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

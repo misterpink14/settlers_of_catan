@@ -1,6 +1,7 @@
 package server.command.game;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for getting a list of all available AI players
@@ -9,14 +10,11 @@ import server.command.ACommand;
  * @author benthompson
  */
 public class ListAICommand extends ACommand {
-	
-	
-	String Username, Password;
 
-	public ListAICommand(String username, String password) {
-		this.Username = username;
-		this.Password = password;
+	public ListAICommand(String userJson, IServerFacade facade) {
+		super(userJson, facade);
 	}
+	
 
 	@Override
 	public String execute() {

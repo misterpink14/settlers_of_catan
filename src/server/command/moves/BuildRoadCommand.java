@@ -1,6 +1,7 @@
 package server.command.moves;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for building a road
@@ -10,8 +11,25 @@ import server.command.ACommand;
  */
 public class BuildRoadCommand extends ACommand {
 
-	public BuildRoadCommand(int playerIndex, int x, int y, String direction, boolean isFree) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * {
+		  "type": "buildRoad",
+		  "playerIndex": "integer",
+		  "roadLocation": {
+		    "x": "integer",
+		    "y": "integer",
+		    "direction": "string"
+		  },
+		  "free": "Boolean"
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public BuildRoadCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

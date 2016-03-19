@@ -1,6 +1,7 @@
 package server.command.moves;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for accepting a trade
@@ -10,8 +11,20 @@ import server.command.ACommand;
  */
 public class AcceptTradeCommand extends ACommand {
 
-	public AcceptTradeCommand(int playerIndex, boolean willAccept) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * {
+		  "type": "acceptTrade",
+		  "playerIndex": "integer",
+		  "willAccept": "boolean"
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public AcceptTradeCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

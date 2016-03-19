@@ -1,6 +1,7 @@
 package server.command.game;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for adding an AI to a given game
@@ -9,16 +10,19 @@ import server.command.ACommand;
  * @author benthompson
  */
 public class AddAICommand extends ACommand {
-	
-	
-	String Username, Password, AIType;
-	int GameID;
 
-	public AddAICommand(String username, String password, int gameID, String aiType) {
-		this.Username = username;
-		this.Password = password;
-		this.GameID = gameID;
-		this.AIType = aiType;
+	/**
+	 * {
+		  "AIType": "string"
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public AddAICommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

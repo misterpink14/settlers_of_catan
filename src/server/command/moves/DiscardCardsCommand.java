@@ -1,6 +1,7 @@
 package server.command.moves;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for discarding cards
@@ -10,8 +11,26 @@ import server.command.ACommand;
  */
 public class DiscardCardsCommand extends ACommand {
 
-	public DiscardCardsCommand(int playerIndex, int brick, int ore, int sheep, int wheat, int wood) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * {
+		  "type": "discardCards",
+		  "playerIndex": "integer",
+		  "discardedCards": {
+		    "brick": "integer",
+		    "ore": "integer",
+		    "sheep": "integer",
+		    "wheat": "integer",
+		    "wood": "integer"
+		  }
+		}
+	 * 
+	 * @param userJson
+	 * @param facade
+	 * @param jsonBody
+	 */
+	public DiscardCardsCommand(String userJson, IServerFacade facade, String jsonBody) {
+		super(userJson, facade);
+		// TODO parse the jsonBody
 	}
 
 	@Override

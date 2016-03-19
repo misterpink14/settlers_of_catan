@@ -1,6 +1,7 @@
 package server.command.game;
 
 import server.command.ACommand;
+import server.facade.IServerFacade;
 
 /**
  * Command for getting a game's model
@@ -9,15 +10,11 @@ import server.command.ACommand;
  * @author benthompson
  */
 public class ModelCommand extends ACommand {
-	
-	
-	String Username, Password;
-	int GameID;
 
-	public ModelCommand(String username, String password, String json) {
-		this.Username = username;
-		this.Password = password;
+	public ModelCommand(String userJson, IServerFacade facade) {
+		super(userJson, facade);
 	}
+	
 
 	@Override
 	public String execute() {
