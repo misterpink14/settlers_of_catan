@@ -72,6 +72,9 @@ public class RequestHandler implements HttpHandler
 			e.printStackTrace();
 			this.handleError(exchange);
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -88,6 +91,10 @@ public class RequestHandler implements HttpHandler
 		
 		Map<String, String> cookies = new HashMap<String, String>();
 		List<String> cookieList = exchange.getRequestHeaders().get("Cookie");
+		
+		if (cookieList == null) {
+			return cookies;
+		}
 		
 		for (String cookie : cookieList) {
 
