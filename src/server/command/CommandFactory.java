@@ -49,7 +49,7 @@ public class CommandFactory {
 	 * @return
 	 */
 	public static CommandFactory getInstance() {
-		if (factory == null) {
+		if (factory.equals(null)) {
 			factory = new CommandFactory();
 		}
 		return factory;
@@ -231,15 +231,15 @@ public class CommandFactory {
 	 */
 	void validateHTTPMethod(String method, String[] type) throws ServerException {
 		
-		if (type[0] == "games" && type[1] == "list" || 
-				type[0] == "game" && type[1] == "model" || 
-				type[0] == "game" && type[1]  == "listAI") { // These are the only allowed GETs
-			if (method.toUpperCase() == "GET") {
+		if (type[0].equals("games") && type[1].equals("list") || 
+				type[0].equals("game") && type[1].equals("model") || 
+				type[0].equals("game") && type[1].equals("listAI")) { // These are the only allowed GETs
+			if (method.toUpperCase().equals("GET")) {
 				return;
 			}
 		}
 		else {
-			if (method.toUpperCase() == "POST") { // Everything else should be a post
+			if (method.toUpperCase().equals("POST")) { // Everything else should be a post
 				return;
 			}
 		}
