@@ -49,7 +49,7 @@ public class CommandFactory {
 	 * @return
 	 */
 	public static CommandFactory getInstance() {
-		if (factory.equals(null)) {
+		if (factory == null) {
 			factory = new CommandFactory();
 		}
 		return factory;
@@ -230,7 +230,7 @@ public class CommandFactory {
 	 * @throws ServerException
 	 */
 	void validateHTTPMethod(String method, String[] type) throws ServerException {
-
+		
 		if (type[0].equals("games") && type[1].equals("list") || 
 				type[0].equals("game") && type[1].equals("model") || 
 				type[0].equals("game") && type[1].equals("listAI")) { // These are the only allowed GETs
