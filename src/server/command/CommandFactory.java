@@ -243,6 +243,7 @@ public class CommandFactory {
 				return;
 			}
 		}
+		
 		throw new ServerException("Invalid HTTP method");
 	}
 }
