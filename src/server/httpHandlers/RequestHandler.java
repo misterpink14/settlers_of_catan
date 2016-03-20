@@ -92,7 +92,7 @@ public class RequestHandler implements HttpHandler
 		for (String cookie : cookieList) {
 
 			try {
-				String decodedCookie = URLDecoder.decode(cookie, "UTF-8"); // catan.user={"name":"Sam","password":"sam","playerID":0} // path=/ // game=0
+				String decodedCookie = URLDecoder.decode(cookie, "UTF-8"); 
 				String[] values =  decodedCookie.split("=");
 				cookies.put(values[0], values[1]);
 			} catch (UnsupportedEncodingException e) {
