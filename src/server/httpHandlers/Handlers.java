@@ -30,7 +30,8 @@ public class Handlers {
 			mimetypes.add(FileUtils.getMimeType(filepath)); 
 			exchange.getResponseHeaders().put("Content­type", mimetypes);
 			exchange.sendResponseHeaders(200,response.length);
-			OutputStream os = exchange.getResponseBody(); os.write(response);
+			OutputStream os = exchange.getResponseBody(); 
+			os.write(response);
 			os.close();
 		} catch (IOException ioe) {
 			LOGGER.log(Level.SEVERE, "Failed to retrieve " + filepath); 
