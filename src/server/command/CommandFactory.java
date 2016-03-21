@@ -72,7 +72,6 @@ public class CommandFactory {
 									IServerFacade facade, String httpMethod) throws ServerException {
 		
 		ACommand command = new LoginCommand(jsonBody, facade);
-		this.validateHTTPMethod(httpMethod, type);
 
 		switch (type[0]) {
 			case "user":
