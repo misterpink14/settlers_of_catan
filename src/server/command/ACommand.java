@@ -1,5 +1,7 @@
 package server.command;
 
+import java.rmi.ServerException;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -59,5 +61,8 @@ public abstract class ACommand {
 	 * @return
 	 */
 	public abstract String getResponse();
-	public abstract String getCookie();
+	
+	public String getCookie() throws ServerException {
+		throw new ServerException("Invalid call");
+	}
 }
