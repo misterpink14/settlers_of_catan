@@ -159,18 +159,26 @@ public class TurnManager {
 	}
 	
 	
-	public void buildRoad(int currPlayer) throws InsufficientCardNumberException {
+	public void buildRoad(int currPlayer, EdgeLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
 		players.getPlayerByIndex(currPlayer).buyRoad();
+		Piece newRoad = new Piece(PieceType.ROAD, currPlayer);
+		map.addRoadToEdgeMap(loc, newRoad);
 	}
 
 	
-	public void buildSettlement(int currPlayer) throws InsufficientCardNumberException {
+	public void buildSettlement(int currPlayer, VertexLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
 		players.getPlayerByIndex(currPlayer).buySettlement();
+		map.addSettlementToPlayerMap(loc, currPlayer);
+		Piece newSettlement = new Piece(PieceType.SETTLEMENT, currPlayer);
+		map.addSettlementToVertexMap(loc, newSettlement);
 	}
 	
 	
-	public void buildCity(int currPlayer) throws InsufficientCardNumberException {
+	public void buildCity(int currPlayer, VertexLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
 		players.getPlayerByIndex(currPlayer).buyCity();
+		Piece newCity = new Piece(PieceType.CITY, currPlayer);
+		map.addCityToPlayerMap(loc, currPlayer);
+		map.addCityToVertexMap(loc, newCity);
 	}
 	
 	

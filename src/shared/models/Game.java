@@ -318,10 +318,11 @@ public class Game extends Observable
 	 * Trades a player's resources for a new road on the map. It must connect with another of the player's
 	 * roads, settlements, or cities.
 	 * @throws InsufficientCardNumberException 
+	 * @throws InvalidTypeException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildRoad(int currPlayer) throws InsufficientCardNumberException {
-		turnManager.buildRoad(currPlayer);
+	public void buildRoad(int currPlayer, EdgeLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
+		turnManager.buildRoad(currPlayer, loc);
 	}
 	
 	
@@ -329,20 +330,22 @@ public class Game extends Observable
 	 * Trades a player's resources for a new settlement on the map. The player must have a road leading to the spot wanted.
 	 * The selected place to build must also be at least two building spots away from any other settlement.
 	 * @throws InsufficientCardNumberException 
+	 * @throws InvalidTypeException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildSettlement(int currPlayer) throws InsufficientCardNumberException {
-		turnManager.buildSettlement(currPlayer);
+	public void buildSettlement(int currPlayer, VertexLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
+		turnManager.buildSettlement(currPlayer, loc);
 	}
 	
 	
 	/**
 	 * Trades a player's resources for a new city on the map. The player must build it in place of an existing settlement.
 	 * @throws InsufficientCardNumberException 
+	 * @throws InvalidTypeException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildCity(int currPlayer) throws InsufficientCardNumberException {
-		turnManager.buildCity(currPlayer);
+	public void buildCity(int currPlayer, VertexLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
+		turnManager.buildCity(currPlayer, loc);
 	}
 	
 	
