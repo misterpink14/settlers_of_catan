@@ -182,8 +182,11 @@ public class TurnManager {
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove soldier card from players hand.");}
 		
 		this.map.placeRobber(hexLoc);
-		ResourceType robbedResource = this.players.getPlayerByIndex(victimIndex).removeRandomResource();
-		this.players.getPlayerByIndex(currPlayer).addResourceToHand(robbedResource, 1);
+		ResourceType robbedResource;
+		try {
+			robbedResource = this.players.getPlayerByIndex(victimIndex).removeRandomResource();
+			this.players.getPlayerByIndex(currPlayer).addResourceToHand(robbedResource, 1);
+		} catch (InsufficientCardNumberException e) {}
 	}
 	
 	public void playYearOfPlentyCard(int currPlayer, ResourceType type1, ResourceType type2) {
@@ -195,7 +198,7 @@ public class TurnManager {
 		players.getPlayerByIndex(currPlayer).addResourceToHand(type2, 1);
 	}
 	
-	public void playRoadBuildingCard(int currPlayer, ) {
+	public void playRoadBuildingCard(int currPlayer) {
 		try {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.ROAD_BUILD);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove roadbuilding card from players hand.");}
