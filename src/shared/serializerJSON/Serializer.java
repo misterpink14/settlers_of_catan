@@ -1,7 +1,6 @@
 package shared.serializerJSON;
 
-import java.util.HashMap;
-
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -9,6 +8,7 @@ import com.google.gson.JsonPrimitive;
 import client.data.GameInfo;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
 import shared.models.Game;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
@@ -57,17 +57,17 @@ private static Serializer instance = null;
 		JsonObject jsonDeck = new JsonObject();
 		DevCards cards = deck.getDevCards();
 		// Year of Plenty
-		jsonDeck.addProperty("yearOfPlenty", cards.getYearOfPlentyCards());
+		jsonDeck.add("yearOfPlenty", new JsonPrimitive(cards.getYearOfPlentyCards()));
 		// Monopoly
-		jsonDeck.addProperty("monopoly", cards.getMonopolyCards());
+		jsonDeck.add("monopoly", new JsonPrimitive(cards.getMonopolyCards()));
 		// Soldier
-		jsonDeck.addProperty("soldier", cards.getSoldierCards());
+		jsonDeck.add("soldier", new JsonPrimitive(cards.getSoldierCards()));
 		// RoadBuilding
-		jsonDeck.addProperty("roadBuilding", cards.getRoadBuilderCards());
+		jsonDeck.add("roadBuilding", new JsonPrimitive(cards.getRoadBuilderCards()));
 		// Monument
-		jsonDeck.addProperty("monument", cards.getMonumentCards());
+		jsonDeck.add("monument", new JsonPrimitive(cards.getMonumentCards()));
 		
-		return new JsonObject();
+		return jsonDeck;
 	}
 	
 	/**
@@ -76,7 +76,14 @@ private static Serializer instance = null;
 	 * @return The serialized Map (in the form of a JsonObject)
 	 */
 	public JsonObject serializeMap(Map map) {
-		return new JsonObject();
+		JsonObject jsonMap = new JsonObject();
+		
+		// hexes
+		// JsonArray jsonHexes = new JsonArray();
+		// JsonObject hex1 = new JsonObject();
+		
+		
+		return jsonMap;
 	}
 	
 	/**
@@ -85,7 +92,58 @@ private static Serializer instance = null;
 	 * @return The serialized GamePlayers (in the form of a JsonObject)
 	 */
 	public JsonArray serializePlayers(GamePlayers players) {
-		return new JsonArray();
+		JsonArray jsonPlayers = new JsonArray();
+		for (int i = 0; i < players.getNumberOfPlayers(); i++) {
+			JsonObject jsonPlayer = new JsonObject();
+			
+			// Resources
+			JsonObject jsonResources = new JsonObject();
+			jsonResources.add("brick", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfResource(ResourceType.BRICK)));
+			jsonResources.add("ore", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfResource(ResourceType.ORE)));
+			jsonResources.add("sheep", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfResource(ResourceType.SHEEP)));
+			jsonResources.add("wheat", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfResource(ResourceType.WHEAT)));
+			jsonResources.add("wood", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfResource(ResourceType.WOOD)));
+			jsonPlayer.add("resources", new Gson().toJsonTree(jsonResources));
+			
+			// Old Dev Cards
+			JsonObject jsonOldDevCards = new JsonObject();
+			jsonOldDevCards.add("yearOfPlenty", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfDevCard(DevCardType.YEAR_OF_PLENTY)));
+			jsonOldDevCards.add("monopoly", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfDevCard(DevCardType.MONOPOLY)));
+			jsonOldDevCards.add("soldier", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfDevCard(DevCardType.SOLDIER)));
+			jsonOldDevCards.add("roadBuilding", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfDevCard(DevCardType.ROAD_BUILD)));
+			jsonOldDevCards.add("monument", new JsonPrimitive(players.getPlayerByIndex(i).getNumOfDevCard(DevCardType.MONUMENT)));
+			jsonPlayer.add("oldDevCards", new Gson().toJsonTree(jsonOldDevCards));
+			
+			// New Dev Cards
+			JsonObject jsonNewDevCards = new JsonObject();
+			jsonNewDevCards.add("yearOfPlenty", new JsonPrimitive(players.getPlayerByIndex(i).getNewDevCards().getYearOfPlentyCards()));
+			jsonNewDevCards.add("monopoly", new JsonPrimitive(players.getPlayerByIndex(i).getNewDevCards().getMonopolyCards()));
+			jsonNewDevCards.add("soldier", new JsonPrimitive(players.getPlayerByIndex(i).getNewDevCards().getSoldierCards()));
+			jsonNewDevCards.add("roadBuilding", new JsonPrimitive(players.getPlayerByIndex(i).getNewDevCards().getRoadBuilderCards()));
+			jsonNewDevCards.add("monument", new JsonPrimitive(players.getPlayerByIndex(i).getNewDevCards().getMonumentCards()));
+			jsonPlayer.add("newDevCards", new Gson().toJsonTree(jsonNewDevCards));
+			
+			// Rest of the player's properties
+			jsonPlayer.add("roads", new JsonPrimitive(players.getPlayerByIndex(i).getRoads()));
+			jsonPlayer.add("cities", new JsonPrimitive(players.getPlayerByIndex(i).getCities()));
+			jsonPlayer.add("settlements", new JsonPrimitive(players.getPlayerByIndex(i).getSettlements()));
+			jsonPlayer.add("soldiers", new JsonPrimitive(players.getPlayerByIndex(i).getArmy()));
+			jsonPlayer.add("victoryPoints", new JsonPrimitive(players.getPlayerByIndex(i).getVictoryPoints()));
+			jsonPlayer.add("monuments", new JsonPrimitive(players.getPlayerByIndex(i).getMonuments()));
+			// Not sure how to do this part
+			// jsonPlayer.add("playedDevCard", new JsonPrimitive(players.getPlayerByIndex(i)));
+			// Or this part
+			//jsonPlayer.add("discarded", new JsonPrimitive(players.getPlayerByIndex(i)));
+			jsonPlayer.add("playerID", new JsonPrimitive(players.getPlayerByIndex(i).getID()));
+			jsonPlayer.add("playerIndex", new JsonPrimitive(players.getPlayerByIndex(i).getIndex()));
+			jsonPlayer.add("name", new JsonPrimitive(players.getPlayerByIndex(i).getName()));
+			jsonPlayer.add("color", new JsonPrimitive(players.getPlayerByIndex(i).getColor().toString()));
+			jsonPlayers.add(jsonPlayer);
+			
+		}
+		
+		
+		return jsonPlayers;
 	}
 	
 	/**
