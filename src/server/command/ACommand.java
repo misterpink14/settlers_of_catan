@@ -12,8 +12,10 @@ public abstract class ACommand {
 	
 	private Credentials credentials;
 	private IServerFacade facade;
+	private String response;
 
-	
+
+// CONSTRUCTORS
 	public ACommand() {
 		
 	}
@@ -22,7 +24,8 @@ public abstract class ACommand {
 		this.jsonDecode(userJson);
 	}
 	
-	
+
+// Protected GETTERS
 	protected Credentials getCredentials() {
 		return this.credentials;
 	}
@@ -33,6 +36,13 @@ public abstract class ACommand {
 	}
 	
 	
+
+// Private METHODS
+	/**
+	 * Decodes the user credentials from the catan.user json within the cookie
+	 * 
+	 * @param userJson
+	 */
 	private void jsonDecode(String userJson) { // TODO parse the playerid
 		JsonObject jsonObject = new JsonParser().parse(userJson).getAsJsonObject();
 		String username;
@@ -48,6 +58,7 @@ public abstract class ACommand {
 
 
 	
+// Public METHODS
 	/**
 	 * Initiate the command. Calls the server facade. Throws an exception if the pre-conditions
 	 * 	have not been met.
@@ -56,12 +67,24 @@ public abstract class ACommand {
 	 */
 	public abstract void execute();
 	
+	
 	/**
+	 * Returns the response body for the server to use
 	 * 
 	 * @return
 	 */
-	public abstract String getResponse();
+	public String getResponse() {
+		return this.response;
+	}
 	
+	
+	/**
+	 * If appropriate, returns the cookie for the server to set on the client.
+	 * 	If not, throws an exception
+	 * 
+	 * @return
+	 * @throws ServerException
+	 */
 	public String getCookie() throws ServerException {
 		throw new ServerException("Invalid call");
 	}
