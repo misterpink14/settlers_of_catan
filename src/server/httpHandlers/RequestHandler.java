@@ -1,10 +1,12 @@
 package server.httpHandlers;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URLDecoder;
 import java.rmi.ServerException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,13 +69,33 @@ public class RequestHandler implements HttpHandler
 			);
 			
 			// TODO - make this the response with the appropriate cookie
-			System.out.println(command.execute());
+			String response = command.execute();
+			
+			ArrayList<String> mimetypes = new ArrayList<String>();
+			addMimeTypes(mimetypes, this.getCommandType(exchange)[1]);
+			exchange.getResponseHeaders().put("Content-Type", mimetypes);
+			exchange.sendResponseHeaders(200, response.length());
+			OutputStream os = exchange.getResponseBody(); 
+			os.write(response.getBytes());
+			os.close();
 		} catch (ServerException e) {
 			e.printStackTrace();
 			this.handleError(exchange);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void addMimeTypes(ArrayList<String> mimetypes, String commandType) {
+		switch (commandType.toLowerCase()) {
+			case "login":
+			case "register":
+				mimetypes.add("text/html");
+				break;
+			default:
+				mimetypes.add("json/application");
+				break;		
 		}
 	}
 	
