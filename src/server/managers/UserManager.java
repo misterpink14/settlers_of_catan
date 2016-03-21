@@ -50,11 +50,33 @@ public class UserManager {
 	}
 	
 	
+	/**
+	 * Performs all the logic for logging in
+	 * 
+	 * @param credentials
+	 * @return
+	 * @throws InvalidCredentialsException
+	 */
 	public int login(Credentials credentials) throws InvalidCredentialsException {
 		
 		if (!this.users.containsKey(credentials.username)) {
 			throw new InvalidCredentialsException("Failed to login - bad username or password.");
 		}
 		return this.getUser(credentials.username).login(credentials);
+	}
+	
+	
+	/**
+	 * Performs all the logic for registering
+	 * 
+	 * @param credentials
+	 * @throws InvalidCredentialsException
+	 */
+	public void register(Credentials credentials) throws InvalidCredentialsException {
+		
+		if (this.users.containsKey(credentials.username)) {
+			throw new InvalidCredentialsException("Failed to register - someone already has that username.");
+		}
+		this.addUser(credentials);
 	}
 }
