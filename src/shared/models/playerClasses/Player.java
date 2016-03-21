@@ -2,6 +2,7 @@ package shared.models.playerClasses;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
@@ -149,6 +150,24 @@ public class Player {
 		this.index = index;
 	}
 	
+	public void addVictoryPoint() {
+		this.victoryPoints++;
+	}
+	
+	public void removeRoad() {
+		this.roads--;
+	}
+	
+	public void addMonument() {
+		this.monuments++;
+	}
+	
+	public void addToArmy() {
+		this.army++;
+	}
+	
+	
+	
 	/** Check if it is this player's turn
 	 * @return Returns true if it's the player's turn,
 	 * otherwise, returns false;
@@ -190,6 +209,36 @@ public class Player {
 	 */
 	public void removeResourceFromHand(ResourceType type, int num) throws InsufficientCardNumberException {
 		resourceCards.removeCard(type, num);
+	}
+	
+	public ResourceType removeRandomResource() throws InsufficientCardNumberException {
+		if(this.resourceCards.getTotal() == 0) {
+			return null;
+		}
+		Random rand = new Random(System.currentTimeMillis());
+		Integer randNum = rand.nextInt(this.resourceCards.getTotal()) + 1;
+		randNum -= this.resourceCards.getBrickCards();
+		if (randNum <= 0) {
+			this.resourceCards.removeCard(ResourceType.BRICK, 1);
+			return ResourceType.BRICK;
+		}
+		randNum -= this.resourceCards.getWheatCards();
+		if (randNum <= 0) {
+			this.resourceCards.removeCard(ResourceType.WHEAT, 1);
+			return ResourceType.WHEAT;
+		}
+		randNum -= this.resourceCards.getWoodCards();
+		if (randNum <= 0) {
+			this.resourceCards.removeCard(ResourceType.WOOD, 1);
+			return ResourceType.WOOD;
+		}
+		randNum -= this.resourceCards.getOreCards();
+		if (randNum <= 0) {
+			this.resourceCards.removeCard(ResourceType.ORE, 1);
+			return ResourceType.ORE;
+		}
+		this.resourceCards.removeCard(ResourceType.SHEEP, 1);
+		return ResourceType.SHEEP;
 	}
 	
 	/**
@@ -273,24 +322,6 @@ public class Player {
 	}
 	
 	/**
-	 * Subtract a specified development card from this player
-	 * @throws InsufficientCardNumberException 
-	 */
-	public void playDevCard(DevCardType type) throws InsufficientCardNumberException {
-		devCards.removeCard(type);
-		if(type == DevCardType.MONUMENT) {
-			monuments++;
-			victoryPoints++;
-		}
-		if(type == DevCardType.SOLDIER) {
-			army++;
-		}
-		if(type == DevCardType.ROAD_BUILD) {
-			roads -= 2;
-		}
-	}
-	
-	/**
 	 * Returns the number of a type of development Card in the player's hand. Mostly for testing purposes
 	 * @param type The type of card to get
 	 * @return the number of the type of card in the player's hand
@@ -315,6 +346,10 @@ public class Player {
 			break;	
 		}
 		return number;
+	}
+	
+	public void removeDevCard(DevCardType type) throws InsufficientCardNumberException {
+		this.devCards.removeCard(type);
 	}
 	
 	

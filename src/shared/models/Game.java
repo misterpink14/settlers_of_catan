@@ -359,8 +359,8 @@ public class Game extends Observable
 	 * @throws InsufficientCardNumberException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void playDevCard(DevCardType type, int currPlayer) throws InsufficientCardNumberException {
-		turnManager.playDevCard(type, currPlayer);
+	public void playDevCard(DevCardType type, int currPlayer, ResourceType type1, ResourceType type2) throws InsufficientCardNumberException {
+		turnManager.playDevCard(type, currPlayer, type1, type2);
 	}
 	
 	

@@ -176,10 +176,58 @@ public class TurnManager {
 		players.getPlayerByIndex(currPlayer).buyDevCard(card);
 	}
 	
+	public void playSoldierCard(int currPlayer, HexLocation hexLoc, int victimIndex) {
+		try {
+			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.SOLDIER);
+		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove soldier card from players hand.");}
+		
+		this.map.placeRobber(hexLoc);
+		ResourceType robbedResource = this.players.getPlayerByIndex(victimIndex).removeRandomResource();
+		this.players.getPlayerByIndex(currPlayer).addResourceToHand(robbedResource, 1);
+	}
 	
-	public void playDevCard(DevCardType card, int currPlayer) throws InsufficientCardNumberException {
-		hasPlayedDevCard = true;
-		players.getPlayerByIndex(currPlayer).playDevCard(card);
+	public void playYearOfPlentyCard(int currPlayer, ResourceType type1, ResourceType type2) {
+		try {
+			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.YEAR_OF_PLENTY);
+		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove year of plenty card from players hand.");}
+		
+		players.getPlayerByIndex(currPlayer).addResourceToHand(type1, 1);
+		players.getPlayerByIndex(currPlayer).addResourceToHand(type2, 1);
+	}
+	
+	public void playRoadBuildingCard(int currPlayer, ) {
+		try {
+			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.ROAD_BUILD);
+		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove roadbuilding card from players hand.");}
+		
+		//placeRoad
+	}
+	
+	public void playMonumentCard(int currPlayer) {
+		try {
+			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.MONUMENT);
+		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove monument card from players hand.");}
+		
+		this.players.getPlayerByIndex(currPlayer).addVictoryPoint();
+		this.players.getPlayerByIndex(currPlayer).addMonument();
+	}
+	
+	public void playMonopolyCard(int currPlayer, ResourceType type) {
+		try {
+			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.MONOPOLY);
+		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove monopoly card from players hand.");}
+		
+		for (Player player : players.getPlayers()) {
+			if (player.getIndex() != currPlayer) {
+				int num = player.getNumOfResource(type);
+				try {
+					player.removeResourceFromHand(type, num);
+				} catch (InsufficientCardNumberException e) {
+					System.out.println("Somehow the monopoly card tried to take too many resources from a player.");
+				}
+				players.getPlayerByIndex(currPlayer).addResourceToHand(type, num);
+			}
+		}
 	}
 	
 //***********************************************************************************************************************************
