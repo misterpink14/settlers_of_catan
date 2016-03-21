@@ -12,7 +12,7 @@ public abstract class ACommand {
 	
 	private Credentials credentials;
 	private IServerFacade facade;
-	private String response;
+	protected String response;
 
 
 // CONSTRUCTORS
@@ -64,8 +64,9 @@ public abstract class ACommand {
 	 * 	have not been met.
 	 * 
 	 * @return
+	 * @throws server.ServerException 
 	 */
-	public abstract void execute();
+	public abstract void execute() throws server.ServerException;
 	
 	
 	/**
