@@ -14,6 +14,7 @@ import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
 import shared.models.cardClasses.DevCards;
 import shared.models.chatClasses.GameChat;
+import shared.models.chatClasses.Message;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
 import shared.models.playerClasses.GamePlayers;
@@ -142,7 +143,6 @@ private static Serializer instance = null;
 			
 		}
 		
-		
 		return jsonPlayers;
 	}
 	
@@ -152,7 +152,16 @@ private static Serializer instance = null;
 	 * @return The serialized GameLog (in the form of a JsonObject)
 	 */
 	public JsonObject serializeLog(GameLog log) {
-		return new JsonObject();
+		JsonObject jsonLog = new JsonObject();
+		JsonArray jsonLines = new JsonArray();
+		for (Message message : log.getMessages()) {
+			JsonObject jsonLine = new JsonObject();
+			jsonLine.add("source", new JsonPrimitive(message.getSource()));
+			jsonLine.add("message", new JsonPrimitive(message.getMessage()));
+			jsonLines.add(jsonLine);
+		}
+		jsonLog.add("lines", new Gson().toJsonTree(jsonLines));
+		return jsonLog;
 	}
 	
 	/**
@@ -161,7 +170,16 @@ private static Serializer instance = null;
 	 * @return The serialized GameChat (in the form of a JsonObject)
 	 */
 	public JsonObject serializeChat(GameChat chat) {
-		return new JsonObject();
+		JsonObject jsonChat = new JsonObject();
+		JsonArray jsonLines = new JsonArray();
+		for (Message message : chat.getMessages()) {
+			JsonObject jsonLine = new JsonObject();
+			jsonLine.add("source", new JsonPrimitive(message.getSource()));
+			jsonLine.add("message", new JsonPrimitive(message.getMessage()));
+			jsonLines.add(jsonLine);
+		}
+		jsonChat.add("lines", new Gson().toJsonTree(jsonLines));
+		return jsonChat;
 	}
 	
 	/**
