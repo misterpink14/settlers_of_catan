@@ -188,7 +188,13 @@ private static Serializer instance = null;
 	 * @return The serialized Bank (in the form of a JsonObject)
 	 */
 	public JsonObject serializeBank(Bank bank) {
-		return new JsonObject();
+		JsonObject jsonBank = new JsonObject();
+		jsonBank.add("brick", new JsonPrimitive(bank.getResources().getCards(ResourceType.BRICK)));
+		jsonBank.add("ore", new JsonPrimitive(bank.getResources().getCards(ResourceType.ORE)));
+		jsonBank.add("sheep", new JsonPrimitive(bank.getResources().getCards(ResourceType.SHEEP)));
+		jsonBank.add("wheat", new JsonPrimitive(bank.getResources().getCards(ResourceType.WHEAT)));
+		jsonBank.add("wood", new JsonPrimitive(bank.getResources().getCards(ResourceType.WOOD)));
+		return jsonBank;
 	}
 	
 	/**
