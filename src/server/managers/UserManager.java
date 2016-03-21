@@ -1,9 +1,11 @@
 package server.managers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import shared.models.UserManager.User;
+import shared.communication.proxy.Credentials;
+
+
 
 /**
  * UserManager class
@@ -12,37 +14,47 @@ import shared.models.UserManager.User;
  */
 public class UserManager {
 	
-	private List<User> usersList;
+	private Map<String, User> users;
 	
-	public UserManager() 
+	public UserManager()
 	{
-		usersList = new ArrayList<User>();
+		users = new HashMap<String, User>();
 	}
 	
 	/**
 	 * Adds a user to the list of users
 	 * @param user
+	 * @throws InvalidCredentialsException 
 	 */
-	public void addUser(User user)
+	public void addUser(Credentials userCredentials) throws InvalidCredentialsException
 	{
-		usersList.add(user);
+		if (users.containsKey(userCredentials.username)){
+			throw new InvalidCredentialsException("username already exists");
+		}
+		users.put(userCredentials.username, new User(userCredentials));
 	}
 	
-	/**
-	 * Sets the list of users to be the passed in list
-	 * @param usersList
-	 */
-	public void setUsers(List<User> usersList)
-	{
-		this.usersList = usersList;
+	
+	public User getUser(String username) {
+		return this.users.get(username);
 	}
+	
 
 	/**
 	 * Returns the list of users
 	 * @return List<User>
 	 */
-	public List<User> getUsers()
+	public Map<String, User> getUsers()
 	{
-		return usersList;
+		return users;
+	}
+	
+	
+	public int login(Credentials credentials) throws InvalidCredentialsException {
+		
+		if (!this.users.containsKey(credentials.username)) {
+			throw new InvalidCredentialsException("Failed to login - bad username or password.");
+		}
+		return this.getUser(credentials.username).login(credentials);
 	}
 }

@@ -222,7 +222,7 @@ public class CommandFactory {
 	}
 	
 	
-	/**
+	/**      // TODO: this belongs in the handler
 	 * Validates that only GET's are /games/list, /game/model, /game/listAI. Everything else should be a POST
 	 * 
 	 * @param method
