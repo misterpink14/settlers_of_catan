@@ -73,6 +73,7 @@ public class RequestHandler implements HttpHandler
 			
 			ArrayList<String> mimetypes = new ArrayList<String>();
 			addMimeTypes(mimetypes, this.getCommandType(exchange)[1]);
+			
 			exchange.getResponseHeaders().put("Content-Type", mimetypes);
 			exchange.sendResponseHeaders(200, response.length());
 			OutputStream os = exchange.getResponseBody(); 
@@ -94,7 +95,7 @@ public class RequestHandler implements HttpHandler
 				mimetypes.add("text/html");
 				break;
 			default:
-				mimetypes.add("json/application");
+				mimetypes.add("application/json");
 				break;		
 		}
 	}
