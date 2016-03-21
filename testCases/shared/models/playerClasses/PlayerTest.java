@@ -243,16 +243,16 @@ public class PlayerTest {
 		assertTrue(player.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) == 1);
 		
 		//play one of each type
-		try {
-			player.playDevCard(DevCardType.SOLDIER);
-			player.playDevCard(DevCardType.MONUMENT);
-			player.playDevCard(DevCardType.MONOPOLY);
-			player.playDevCard(DevCardType.ROAD_BUILD);
-			player.playDevCard(DevCardType.YEAR_OF_PLENTY);
-		} catch (InsufficientCardNumberException e) {
-			fail();
-			e.printStackTrace();
-		}
+//		try {
+//			player.playDevCard(DevCardType.SOLDIER);
+//			player.playDevCard(DevCardType.MONUMENT);
+//			player.playDevCard(DevCardType.MONOPOLY);
+//			player.playDevCard(DevCardType.ROAD_BUILD);
+//			player.playDevCard(DevCardType.YEAR_OF_PLENTY);
+//		} catch (InsufficientCardNumberException e) {
+//			fail();
+//			e.printStackTrace();
+//		}
 		
 		assertTrue(player.getNumOfDevCard(DevCardType.SOLDIER) == 0);
 		assertTrue(player.getNumOfDevCard(DevCardType.MONUMENT) == 0);
