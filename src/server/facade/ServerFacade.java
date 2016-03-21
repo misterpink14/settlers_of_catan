@@ -1,5 +1,6 @@
 package server.facade;
 
+import server.managers.UserManager;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -22,6 +23,11 @@ import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 
 public class ServerFacade implements IServerFacade {
+	
+	UserManager userManager;
+	public ServerFacade() {
+		userManager = new UserManager();
+	}
 	
 	
 	@Override

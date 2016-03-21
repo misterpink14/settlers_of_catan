@@ -86,10 +86,10 @@ public class RequestHandler implements HttpHandler
 	
 	private void sendResponse(ACommand command, HttpExchange exchange) throws IOException {
 		String commandType = this.getCommandType(exchange)[1];
-		String response = "";//command.getResponse();
+		String response = command.getResponse();
 		
-		if (commandType.equals("login") || commandType.equals("register")) {
-			//call command.getCookie()
+		if (commandType.equals("login") || commandType.equals("register") || commandType.equals("join")) {
+			exchange.getResponseHeaders().set("set-cookie", command.getCookie());
 		}
 		
 		ArrayList<String> mimetypes = new ArrayList<String>();
