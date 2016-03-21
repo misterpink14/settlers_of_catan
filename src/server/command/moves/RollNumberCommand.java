@@ -28,7 +28,19 @@ public class RollNumberCommand extends ACommand {
 	}
 
 	@Override
-	public String execute() {
+	public void execute() {
+		// TODO Auto-generated method stub
+		return;
+	}
+
+	@Override
+	public String getResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCookie() {
 		// TODO Auto-generated method stub
 		return null;
 	}

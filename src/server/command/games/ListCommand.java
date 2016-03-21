@@ -17,10 +17,24 @@ public class ListCommand extends ACommand {
 
 	
 	@Override
-	public String execute() {
+	public void execute() {
 		System.out.println("ListCommand execute");
 		// TODO use this.getCredentials() to verify that this is an actual user
-		return this.getFacade().getGamesList();
+		this.getFacade().getGamesList();
+	}
+
+
+	@Override
+	public String getResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String getCookie() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -60,6 +60,8 @@ public class RequestHandler implements HttpHandler
 		System.out.println("handle");
 		try {
 			
+			this.validateHTTPMethod(exchange.getRequestMethod(), this.getCommandType(exchange));
+			
 			ACommand command = CommandFactory.getInstance().buildCommand(
 				this.getCommandType(exchange),
 				this.getJson(exchange),
@@ -192,5 +194,31 @@ public class RequestHandler implements HttpHandler
 		exchange.getResponseBody().write(errorMessage.getBytes());
 		exchange.getResponseBody().close();
 		exchange.close();
+	}
+	
+	
+	/**
+	 * Validates that only GET's are /games/list, /game/model, /game/listAI. Everything else should be a POST
+	 * 
+	 * @param method
+	 * @param type
+	 * @throws ServerException
+	 */
+	void validateHTTPMethod(String method, String[] type) throws ServerException {
+		
+		if (type[0].equals("games") && type[1].equals("list") || 
+				type[0].equals("game") && type[1].equals("model") || 
+				type[0].equals("game") && type[1].equals("listAI")) { // These are the only allowed GETs
+			if (method.toUpperCase().equals("GET")) {
+				return;
+			}
+		}
+		else {
+			if (method.toUpperCase().equals("POST")) { // Everything else should be a post
+				return;
+			}
+		}
+		
+		throw new ServerException("Invalid HTTP method");
 	}
 }

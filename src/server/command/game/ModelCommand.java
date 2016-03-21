@@ -17,7 +17,20 @@ public class ModelCommand extends ACommand {
 	
 
 	@Override
-	public String execute() {
+	public void execute() {
+	}
+
+
+	@Override
+	public String getResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String getCookie() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

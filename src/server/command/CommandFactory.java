@@ -220,30 +220,4 @@ public class CommandFactory {
 				throw new ServerException("Invalid uri");
 		}
 	}
-	
-	
-	/**      // TODO: this belongs in the handler
-	 * Validates that only GET's are /games/list, /game/model, /game/listAI. Everything else should be a POST
-	 * 
-	 * @param method
-	 * @param type
-	 * @throws ServerException
-	 */
-	void validateHTTPMethod(String method, String[] type) throws ServerException {
-		
-		if (type[0].equals("games") && type[1].equals("list") || 
-				type[0].equals("game") && type[1].equals("model") || 
-				type[0].equals("game") && type[1].equals("listAI")) { // These are the only allowed GETs
-			if (method.toUpperCase().equals("GET")) {
-				return;
-			}
-		}
-		else {
-			if (method.toUpperCase().equals("POST")) { // Everything else should be a post
-				return;
-			}
-		}
-		
-		throw new ServerException("Invalid HTTP method");
-	}
 }

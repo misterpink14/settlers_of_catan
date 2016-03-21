@@ -47,10 +47,17 @@ public abstract class ACommand {
 
 	
 	/**
-	 * Initiate the command. Calls the server facade and then returns the json 
-	 * 	string to return to the user
+	 * Initiate the command. Calls the server facade. Throws an exception if the pre-conditions
+	 * 	have not been met.
 	 * 
 	 * @return
 	 */
-	public abstract String execute();
+	public abstract void execute();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public abstract String getResponse();
+	public abstract String getCookie();
 }

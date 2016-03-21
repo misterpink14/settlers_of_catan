@@ -26,7 +26,19 @@ public class AddAICommand extends ACommand {
 	}
 
 	@Override
-	public String execute() {
+	public void execute() {
+		return;
+	}
+
+	@Override
+	public String getResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCookie() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

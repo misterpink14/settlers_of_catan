@@ -19,9 +19,25 @@ public class RegisterCommand extends ACommand {
 	
 	
 	@Override
-	public String execute() {
+	public void execute() {
 		System.out.println("execute login");
-		return this.getFacade().register(this.getCredentials());
+		this.getFacade().register(this.getCredentials());
+	}
+
+
+
+	@Override
+	public String getResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public String getCookie() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

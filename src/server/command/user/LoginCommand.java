@@ -16,8 +16,20 @@ public class LoginCommand extends ACommand {
 	}
 
 	@Override
-	public String execute() {
+	public void execute() {
 		System.out.println("execute login");
-		return this.getFacade().login(this.getCredentials());
+		this.getFacade().login(this.getCredentials());
+	}
+
+	@Override
+	public String getResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCookie() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
