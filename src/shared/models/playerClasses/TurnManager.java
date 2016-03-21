@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import shared.definitions.DevCardType;
+import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -14,7 +15,9 @@ import shared.models.cardClasses.CardDeck;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
+import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
+import shared.models.mapClasses.Piece;
 
 public class TurnManager {
 	/**This allows two random numbers between 1 and 6 to be generated at any time.*/
@@ -198,12 +201,14 @@ public class TurnManager {
 		players.getPlayerByIndex(currPlayer).addResourceToHand(type2, 1);
 	}
 	
-	public void playRoadBuildingCard(int currPlayer) {
+	public void playRoadBuildingCard(int currPlayer, EdgeLocation loc) throws InvalidTypeException {
 		try {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.ROAD_BUILD);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove roadbuilding card from players hand.");}
 		
-		//placeRoad
+		Piece newRoad = new Piece(PieceType.ROAD, currPlayer);
+		map.addRoadToEdgeMap(loc, newRoad);
+		map.addRoadToPlayerMap(loc, currPlayer);
 	}
 	
 	public void playMonumentCard(int currPlayer) {

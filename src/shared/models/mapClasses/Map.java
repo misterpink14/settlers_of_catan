@@ -173,6 +173,26 @@ public class Map
 		return playerIndexes;
 	}
 	
+	/**
+	 * Use to add a road to the player map
+	 * 
+	 * @param loc
+	 * @param playerIndex
+	 */
+	public void addRoadToPlayerMap(EdgeLocation loc, int playerIndex) {
+		this.PlayerPieces.addRoad(loc, playerIndex);
+	}
+	
+	/**
+	 * Use to add a road to the Edge map
+	 * 
+	 * @param loc
+	 * @param playerIndex
+	 * @throws InvalidTypeException 
+	 */
+	public void addRoadToEdgeMap(EdgeLocation loc, Piece newRoad) throws InvalidTypeException {
+		this.Edges.setEdge(loc, newRoad);
+	}
 	
 	/**
 	 * Use to add a settlement to the player map
@@ -182,6 +202,38 @@ public class Map
 	 */
 	public void addSettlementToPlayerMap(VertexLocation loc, int playerIndex) {
 		this.PlayerPieces.addSettlement(loc, playerIndex);
+	}
+	
+	/**
+	 * Use to add a settlement to the vertex map
+	 * 
+	 * @param loc
+	 * @param playerIndex
+	 * @throws InvalidTypeException 
+	 */
+	public void addSettlementToVertexMap(VertexLocation loc, Piece newSettlement) throws InvalidTypeException {
+		this.Vertexes.setVertex(loc, newSettlement);
+	}
+	
+	/**
+	 * Use to add a city to the player map
+	 * 
+	 * @param loc
+	 * @param playerIndex
+	 */
+	public void addCityToPlayerMap(VertexLocation loc, int playerIndex) {
+		this.PlayerPieces.addCity(loc, playerIndex);
+	}
+	
+	/**
+	 * Use to add a city to the vertex map
+	 * 
+	 * @param loc
+	 * @param playerIndex
+	 * @throws InvalidTypeException 
+	 */
+	public void addCityToVertexMap(VertexLocation loc, Piece newCity) throws InvalidTypeException {
+		this.Vertexes.setVertex(loc, newCity);
 	}
 
 	
