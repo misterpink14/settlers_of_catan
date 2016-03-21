@@ -21,9 +21,11 @@ import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Hex;
+import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
 import shared.models.playerClasses.GamePlayers;
+import shared.models.playerClasses.Player;
 import shared.models.playerClasses.TurnManager;
 
 /**
@@ -354,7 +356,26 @@ public class Game extends Observable
 	}
 	
 	
+	//play dev card methods
+	public void playSoldierCard(int currPlayer, HexLocation hexLoc, int victimIndex) {
+		turnManager.playSoldierCard(currPlayer, hexLoc, victimIndex);
+	}
 	
+	public void playYearOfPlentyCard(int currPlayer, ResourceType type1, ResourceType type2) {
+		turnManager.playYearOfPlentyCard(currPlayer, type1, type2);
+	}
+	
+	public void playRoadBuildingCard(int currPlayer, EdgeLocation loc) throws InvalidTypeException {
+		turnManager.playRoadBuildingCard(currPlayer, loc);
+	}
+	
+	public void playMonumentCard(int currPlayer) {
+		turnManager.playMonumentCard(currPlayer);
+	}
+	
+	public void playMonopolyCard(int currPlayer, ResourceType type) {
+		turnManager.playMonopolyCard(currPlayer, type);
+	}
 	
 	
 	/**
