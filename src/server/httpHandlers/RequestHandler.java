@@ -69,16 +69,10 @@ public class RequestHandler implements HttpHandler
 			);
 			
 			// TODO - make this the response with the appropriate cookie
-			String response = command.execute();
+			command.execute();
 			
-			ArrayList<String> mimetypes = new ArrayList<String>();
-			addMimeTypes(mimetypes, this.getCommandType(exchange)[1]);
+			sendResponse(command, exchange);
 			
-			exchange.getResponseHeaders().put("Content-Type", mimetypes);
-			exchange.sendResponseHeaders(200, response.length());
-			OutputStream os = exchange.getResponseBody(); 
-			os.write(response.getBytes());
-			os.close();
 		} catch (ServerException e) {
 			e.printStackTrace();
 			this.handleError(exchange);
@@ -86,6 +80,24 @@ public class RequestHandler implements HttpHandler
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void sendResponse(ACommand command, HttpExchange exchange) throws IOException {
+		String commandType = this.getCommandType(exchange)[1];
+		String response = "";//command.getResponse();
+		
+		if (commandType.equals("login") || commandType.equals("register")) {
+			//call command.getCookie()
+		}
+		
+		ArrayList<String> mimetypes = new ArrayList<String>();
+		addMimeTypes(mimetypes, commandType);
+		
+		exchange.getResponseHeaders().put("Content-Type", mimetypes);
+		exchange.sendResponseHeaders(200, response.length());
+		OutputStream os = exchange.getResponseBody(); 
+		os.write(response.getBytes());
+		os.close();
 	}
 	
 	private void addMimeTypes(ArrayList<String> mimetypes, String commandType) {
