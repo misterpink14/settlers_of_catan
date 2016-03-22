@@ -106,6 +106,7 @@ public class RequestHandler implements HttpHandler
 		switch (commandType.toLowerCase()) {
 			case "login":
 			case "register":
+			case "join":
 				mimetypes.add("text/html");
 				break;
 			default:
