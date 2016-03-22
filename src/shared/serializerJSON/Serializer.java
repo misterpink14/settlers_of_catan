@@ -56,6 +56,16 @@ private static Serializer instance = null;
 	 * @return The serialized model (in the form of a JsonObject)
 	 */
 	public JsonObject serialize(Game game) {
+		JsonObject jsonGame = new JsonObject();
+		jsonGame.add("deck", new Gson().toJsonTree(serializeDeck(game.getDeck())));
+		jsonGame.add("map", new Gson().toJsonTree(serializeMap(game.getMap())));
+		jsonGame.add("players", new Gson().toJsonTree(serializePlayers(game.getPlayers())));
+		jsonGame.add("log", new Gson().toJsonTree(serializeLog(game.getGameLog())));
+		jsonGame.add("chat", new Gson().toJsonTree(serializeDeck(game.getDeck())));
+		jsonGame.add("bank", new Gson().toJsonTree(serializeDeck(game.getDeck())));
+		jsonGame.add("turnTracker", new Gson().toJsonTree(serializeDeck(game.getDeck())));
+		jsonGame.add("winner", new JsonPrimitive(game.getWinner()));
+		jsonGame.add("version", new JsonPrimitive(game.getVersionID()));
 		return new JsonObject();
 	}
 	
