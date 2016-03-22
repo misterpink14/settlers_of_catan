@@ -36,8 +36,8 @@ public class SendChatCommand extends ACommand {
 
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		sendChat = new SendChat(
-				json.get("playerIndex").getAsInt(),
-				json.get("content").getAsString()
+			json.get("playerIndex").getAsInt(),
+			json.get("content").getAsString()
 		);
 	}
 
