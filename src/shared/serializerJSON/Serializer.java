@@ -93,7 +93,7 @@ private static Serializer instance = null;
 		JsonArray jsonRoads = new JsonArray();
 		JsonArray jsonCities = new JsonArray();
 		JsonArray jsonSettlements = new JsonArray();
-		JsonObject jsonRadius = new JsonObject();
+		//JsonObject jsonRadius = new JsonObject();
 		JsonArray jsonPorts = new JsonArray();
 		JsonObject jsonRobber = new JsonObject();
 		
@@ -495,6 +495,14 @@ private static Serializer instance = null;
 	
 		jsonRobber.add("x", new JsonPrimitive(map.getRobberLocation().getHexLoc().getX()));
 		jsonRobber.add("y", new JsonPrimitive(map.getRobberLocation().getHexLoc().getY()));
+		
+		jsonMap.add("hexes", new Gson().toJsonTree(jsonHexes));
+		jsonMap.add("roads", new Gson().toJsonTree(jsonRoads));
+		jsonMap.add("cities", new Gson().toJsonTree(jsonCities));
+		jsonMap.add("settlements", new Gson().toJsonTree(jsonSettlements));
+		jsonMap.add("radius", new JsonPrimitive(3));
+		jsonMap.add("ports", new Gson().toJsonTree(jsonPorts));
+		jsonMap.add("robber", new Gson().toJsonTree(jsonRobber));
 		
 		return jsonMap;
 	}
