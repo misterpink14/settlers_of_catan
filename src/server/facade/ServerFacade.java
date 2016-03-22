@@ -86,8 +86,27 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String createGame(CreateGameRequestParams params) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Game g = new Game(); //Change this to the newly created game
+		
+		JsonObject gameJson = new JsonObject();
+		
+		gameJson.addProperty("title", g.getTitle());
+		gameJson.addProperty("id", g.getId());
+		
+		JsonArray playerListJson = new JsonArray();
+		GamePlayers players = g.getPlayers();
+		
+		for (Player p: players.getPlayers()) {
+			JsonObject playerJson = new JsonObject();
+			playerJson.addProperty("color", p.getColor().name());
+			playerJson.addProperty("name", p.getName());
+			playerJson.addProperty("id", p.getID());
+			playerListJson.add(playerJson);
+		}
+		gameJson.add("players", playerListJson);
+		
+		return gameJson.toString();
 	}
 
 	@Override
