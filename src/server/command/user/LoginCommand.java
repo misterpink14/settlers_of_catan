@@ -27,14 +27,7 @@ public class LoginCommand extends ACommand {
 	}
 
 	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return this.response;
-	}
-
-	@Override
 	public String getCookie() {
-		// TODO Auto-generated method stub
 		String cookie = "catan.user=";
 		
 		JsonObject cookieJson = new JsonObject();
