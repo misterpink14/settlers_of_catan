@@ -7,7 +7,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import client.clientFacade.ClientFacade;
 import client.data.GameInfo;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
@@ -105,10 +104,7 @@ private static Serializer instance = null;
 	
 				HexLocation hexLoc = new HexLocation(x, y);
 				HexType hexType;
-				if (map.getHex(hexLoc) == null) {
-					hexType = HexType.WATER;
-				}
-				else {
+				if (map.getHex(hexLoc) != null) {
 					hexType = map.getHex(hexLoc).getHexType();
 					if (hexType.equals(HexType.WATER)) {
 						WaterHex hex = (WaterHex) map.getHex(hexLoc);
@@ -161,6 +157,7 @@ private static Serializer instance = null;
 						jsonPortLocation.add("x", new JsonPrimitive(x));
 						jsonPortLocation.add("y", new JsonPrimitive(y));
 						jsonPort.add("location", jsonPortLocation);
+						jsonPorts.add(jsonPort);
 					}
 				}
 				
@@ -269,10 +266,34 @@ private static Serializer instance = null;
 				
 				if (map.getHex(hexLoc) != null) {
 					if (map.getHex(hexLoc).getToken() != -1) {
-						//getView().addNumber(hexLoc, map.getHex(hexLoc).getToken());
 						JsonObject jsonHex = new JsonObject();
-						map.getHex(hexLoc).getHexType();
-						//jsonHex.add("resource", new JsonPrimitive());
+						switch(map.getHex(hexLoc).getHexType()) {
+						case BRICK:
+							jsonHex.add("resource", new JsonPrimitive("brick"));
+							break;
+						case DESERT:
+							break;
+						case ORE:
+							jsonHex.add("resource", new JsonPrimitive("ore"));
+							break;
+						case SHEEP:
+							jsonHex.add("resource", new JsonPrimitive("sheep"));
+							break;
+						case WATER:
+							break;
+						case WHEAT:
+							jsonHex.add("resource", new JsonPrimitive("wheat"));
+							break;
+						case WOOD:
+							jsonHex.add("resource", new JsonPrimitive("wood"));
+							break;
+						}
+						JsonObject jsonHexLocation = new JsonObject();
+						jsonHexLocation.add("x", new JsonPrimitive(hexLoc.getX()));
+						jsonHexLocation.add("y", new JsonPrimitive(hexLoc.getY()));
+						jsonHex.add("location", jsonHexLocation);
+						jsonHex.add("number", new JsonPrimitive(map.getHex(hexLoc).getToken()));
+						jsonHexes.add(jsonHex);
 					}
 				}
 			}
@@ -282,26 +303,54 @@ private static Serializer instance = null;
 				for (int y = minY; y <= 3; ++y) {
 					HexLocation hexLoc = new HexLocation(-x, y);
 					HexType hexType;
-					if (map.getHex(hexLoc) == null) {
-						hexType = HexType.WATER;
-					}
-					else {
+					if (map.getHex(hexLoc) != null) {
 						hexType = map.getHex(hexLoc).getHexType();
 						if (hexType.equals(HexType.WATER)) {
 							WaterHex hex = (WaterHex) map.getHex(hexLoc);
 							PortType portType = hex.getPortType();
+							
+							JsonObject jsonPort = new JsonObject();
+							
+							switch(portType) {
+							case BRICK:
+								jsonPort.add("ratio", new JsonPrimitive(2));
+								jsonPort.add("resource", new JsonPrimitive("brick"));
+								break;
+							case ORE:
+								jsonPort.add("ratio", new JsonPrimitive(2));
+								jsonPort.add("resource", new JsonPrimitive("ore"));
+								break;
+							case SHEEP:
+								jsonPort.add("ratio", new JsonPrimitive(2));
+								jsonPort.add("resource", new JsonPrimitive("sheep"));
+								break;
+							case THREE:
+								jsonPort.add("ratio", new JsonPrimitive(3));
+								break;
+							case WHEAT:
+								jsonPort.add("ratio", new JsonPrimitive(2));
+								jsonPort.add("resource", new JsonPrimitive("wheat"));
+								break;
+							case WOOD:
+								jsonPort.add("ratio", new JsonPrimitive(2));
+								jsonPort.add("resource", new JsonPrimitive("wood"));
+								break;
+							}
 							if (-x < 0) {
 								if (y <= 0) {
-							//		getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.SouthEast), portType);
+									jsonPort.add("direction", new JsonPrimitive("SE"));
 								}
 								else {
-								//	getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.NorthEast), portType);
+									jsonPort.add("direction", new JsonPrimitive("NE"));
 								}
 							}
+							JsonObject jsonPortLocation = new JsonObject();
+							jsonPortLocation.add("x", new JsonPrimitive(x));
+							jsonPortLocation.add("y", new JsonPrimitive(y));
+							jsonPort.add("location", jsonPortLocation);
+							jsonPorts.add(jsonPort);
 						}
 					}
-					
-				//	getView().addHex(hexLoc, hexType);
 					
 					ArrayList<EdgeLocation> edges = new ArrayList<EdgeLocation>();
 					
@@ -321,8 +370,34 @@ private static Serializer instance = null;
 					for (EdgeLocation edgeLoc : edges) {
 						Piece edgePiece = map.getEdge(edgeLoc);
 						if (edgePiece != null) {
+							JsonObject jsonRoad = new JsonObject();
 							int owner = edgePiece.getOwner();
-					//		getView().placeRoad(edgeLoc, map.getColorById(owner));	
+							jsonRoad.add("owner", new JsonPrimitive(owner));
+							JsonObject jsonRoadLocation = new JsonObject();
+							switch(edgeLoc.getDir()) {
+							case North:
+								jsonRoadLocation.add("direction", new JsonPrimitive("N"));
+								break;
+							case NorthEast:
+								jsonRoadLocation.add("direction", new JsonPrimitive("NE"));
+								break;
+							case NorthWest:
+								jsonRoadLocation.add("direction", new JsonPrimitive("NW"));
+								break;
+							case South:
+								jsonRoadLocation.add("direction", new JsonPrimitive("S"));
+								break;
+							case SouthEast:
+								jsonRoadLocation.add("direction", new JsonPrimitive("SE"));
+								break;
+							case SouthWest:
+								jsonRoadLocation.add("direction", new JsonPrimitive("SW"));
+								break;
+							}
+							jsonRoadLocation.add("x", new JsonPrimitive(edgeLoc.getHexLoc().getX()));
+							jsonRoadLocation.add("y", new JsonPrimitive(edgeLoc.getHexLoc().getY()));
+							jsonRoad.add("location", jsonRoadLocation);
+							jsonRoads.add(jsonRoad);
 						}
 					}
 					
@@ -345,12 +420,38 @@ private static Serializer instance = null;
 						Piece vertexPiece = map.getVertex(vertex);
 						if (vertexPiece != null) {
 							int owner = vertexPiece.getOwner();
+							JsonObject jsonCity = new JsonObject();
+							jsonCity.add("owner", new JsonPrimitive(owner));
+							JsonObject jsonCityLocation = new JsonObject();
+							switch(vertex.getDir()) {
+							case East:
+								jsonCityLocation.add("direction", new JsonPrimitive("N"));
+								break;
+							case NorthEast:
+								jsonCityLocation.add("direction", new JsonPrimitive("NE"));
+								break;
+							case NorthWest:
+								jsonCityLocation.add("direction", new JsonPrimitive("NW"));
+								break;
+							case West:
+								jsonCityLocation.add("direction", new JsonPrimitive("S"));
+								break;
+							case SouthEast:
+								jsonCityLocation.add("direction", new JsonPrimitive("SE"));
+								break;
+							case SouthWest:
+								jsonCityLocation.add("direction", new JsonPrimitive("SW"));
+								break;
+							}
+							jsonCityLocation.add("x", new JsonPrimitive(vertex.getHexLoc().getX()));
+							jsonCityLocation.add("y", new JsonPrimitive(vertex.getHexLoc().getY()));
+							jsonCity.add("location", jsonCityLocation);
+							
 							if (vertexPiece.getType().toString().equals("CITY")) {
-						//		getView().placeCity(vertex, 
-							//			map.getColorById(owner));
+								jsonCities.add(jsonCity);
 							}
 							else {
-							//	getView().placeSettlement(vertex, map.getColorById(owner));
+								jsonSettlements.add(jsonCity);
 							}
 							
 						}
@@ -358,15 +459,43 @@ private static Serializer instance = null;
 					
 					if (map.getHex(hexLoc) != null) {
 						if (map.getHex(hexLoc).getToken() != -1) {
-				//			getView().addNumber(hexLoc, map.getHex(hexLoc).getToken());
+							JsonObject jsonHex = new JsonObject();
+							switch(map.getHex(hexLoc).getHexType()) {
+							case BRICK:
+								jsonHex.add("resource", new JsonPrimitive("brick"));
+								break;
+							case DESERT:
+								break;
+							case ORE:
+								jsonHex.add("resource", new JsonPrimitive("ore"));
+								break;
+							case SHEEP:
+								jsonHex.add("resource", new JsonPrimitive("sheep"));
+								break;
+							case WATER:
+								break;
+							case WHEAT:
+								jsonHex.add("resource", new JsonPrimitive("wheat"));
+								break;
+							case WOOD:
+								jsonHex.add("resource", new JsonPrimitive("wood"));
+								break;
+							}
+							JsonObject jsonHexLocation = new JsonObject();
+							jsonHexLocation.add("x", new JsonPrimitive(hexLoc.getX()));
+							jsonHexLocation.add("y", new JsonPrimitive(hexLoc.getY()));
+							jsonHex.add("location", jsonHexLocation);
+							jsonHex.add("number", new JsonPrimitive(map.getHex(hexLoc).getToken()));
+							jsonHexes.add(jsonHex);
 						}
 					}
 				}
 			}
 		}
 	
-	//	getView().placeRobber(map.getRobberLocation().getHexLoc());
-	
+		jsonRobber.add("x", new JsonPrimitive(map.getRobberLocation().getHexLoc().getX()));
+		jsonRobber.add("y", new JsonPrimitive(map.getRobberLocation().getHexLoc().getY()));
+		
 		return jsonMap;
 	}
 	
