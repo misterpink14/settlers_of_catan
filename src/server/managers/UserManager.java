@@ -65,9 +65,7 @@ public class UserManager {
 			throw new ServerException("Failed to login - bad username or password.");
 		}
 		
-		int u = this.getUser(credentials.username).login(credentials);
-		this.printAll();
-		return u;
+		return this.getUser(credentials.username).login(credentials);
 	}
 	
 	
@@ -83,11 +81,5 @@ public class UserManager {
 			throw new ServerException("Failed to register - someone already has that username.");
 		}
 		this.addUser(credentials);
-		this.printAll();
-	}
-	
-	
-	private void printAll() {
-		System.out.println(Arrays.toString(users.entrySet().toArray()));
 	}
 }
