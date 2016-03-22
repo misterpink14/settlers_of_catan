@@ -442,6 +442,10 @@ public class Game extends Observable
 		turnManager.playMonopolyCard(currPlayer, type);
 	}
 	
+	public void robPlayer(int robber, int robbed) {
+		turnManager.robPlayer(robber, robbed);
+	}
+	
 	public void discard(int playerIndex, ResourceType[] cards) throws InsufficientCardNumberException {
 		turnManager.discard(playerIndex, cards);
 	}

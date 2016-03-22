@@ -246,6 +246,14 @@ public class TurnManager {
 		}
 	}
 	
+	public void robPlayer(int robber, int robbed) {
+		ResourceType robbedResource;
+		try {
+			robbedResource = this.players.getPlayerByIndex(robber).removeRandomResource();
+			this.players.getPlayerByIndex(robbed).addResourceToHand(robbedResource, 1);
+		} catch (InsufficientCardNumberException e) {}
+	}
+	
 	public void discard(int playerIndex, ResourceType[] cards) throws InsufficientCardNumberException {
 		for ( ResourceType card : cards) {
 			this.players.getPlayerByIndex(playerIndex).removeResourceFromHand(card, 1);
