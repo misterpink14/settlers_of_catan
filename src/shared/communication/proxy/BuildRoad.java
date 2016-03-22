@@ -22,6 +22,13 @@ public class BuildRoad {
 	{}
 	
 	
+	public BuildRoad(int playerIndex, Boolean free, EdgeLocation roadLocation) {
+		this.playerIndex = playerIndex;
+		this.free = free;
+		this.roadLocation = roadLocation;
+	}
+
+
 	public BuildRoad(EdgeLocation edgeLoc, boolean isFree)
 	{
 		this.roadLocation = edgeLoc;

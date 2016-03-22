@@ -1,8 +1,12 @@
 package server.command.games;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
+import shared.communication.proxy.JoinGameRequestParams;
 
 /**
  * Command for joining a specific game
@@ -12,6 +16,7 @@ import server.facade.IServerFacade;
  */
 public class JoinCommand extends ACommand {
 
+	JoinGameRequestParams params;
 	/**
 	 * {
 		  "id": "integer",
@@ -28,22 +33,21 @@ public class JoinCommand extends ACommand {
 	public JoinCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
 		// TODO parse the jsonBody
+		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		params = new JoinGameRequestParams(json.get("id").getAsInt(), json.get("color").getAsString());
 	}
 
 	@Override
 	public void execute() {
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().joinGame(params);
 	}
 
 	@Override
 	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		String cookie = "catan.game=";
+		
+		cookie += ";Path=/;";
+		return cookie;
 	}
 
 }

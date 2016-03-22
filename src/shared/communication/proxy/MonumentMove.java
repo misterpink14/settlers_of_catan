@@ -11,6 +11,10 @@ public class MonumentMove
 	public MonumentMove() 
 	{}
 
+	public MonumentMove(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
 
+	
 	
 }

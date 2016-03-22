@@ -13,6 +13,10 @@ public class ListOfCommands
 	public ListOfCommands() 
 	{}
 
+	public ListOfCommands(ArrayList<String> listOfCommands) {
+		this.listOfCommands = listOfCommands;
+	}
 
+	
 	
 }

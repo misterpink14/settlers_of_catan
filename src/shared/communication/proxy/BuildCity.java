@@ -15,6 +15,11 @@ public class BuildCity
 	
 	public BuildCity() 
 	{}
+	
+	public BuildCity(int playerIndex, VertexLocation vertexLocation) {
+		this.playerIndex = playerIndex;
+		this.vertexLocation = vertexLocation;
+	}
 
 
 	

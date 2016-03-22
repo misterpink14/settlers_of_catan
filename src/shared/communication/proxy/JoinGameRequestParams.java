@@ -14,6 +14,11 @@ public class JoinGameRequestParams
 	
 	public JoinGameRequestParams() 
 	{}
+	
+	public JoinGameRequestParams(int id, String color) {
+		this.id = id;
+		this.color = color;
+	}
 
 
 	
