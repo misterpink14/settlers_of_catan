@@ -20,16 +20,15 @@ public class RegisterCommand extends ACommand {
 	
 	@Override
 	public void execute() {
-		System.out.println("execute login");
-		this.getFacade().register(this.getCredentials());
+		System.out.println("execute register");
+		this.response = this.getFacade().register(this.getCredentials());
 	}
 
 
 
 	@Override
 	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.response;
 	}
 
 
@@ -37,7 +36,7 @@ public class RegisterCommand extends ACommand {
 	@Override
 	public String getCookie() {
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 }

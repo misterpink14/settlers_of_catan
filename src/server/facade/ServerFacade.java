@@ -39,7 +39,7 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String register(Credentials credentials) {
 		// TODO Auto-generated method stub
-		return null;
+		return "Success";
 	}
 
 	@Override

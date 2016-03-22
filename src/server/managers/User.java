@@ -1,5 +1,8 @@
 package server.managers;
 
+
+
+import server.ServerException;
 import shared.communication.proxy.Credentials;
 
 /**
@@ -37,12 +40,12 @@ public class User {
 	
 
 // Public METHODS
-	public int login(Credentials credentials) throws InvalidCredentialsException {
+	public int login(Credentials credentials) throws ServerException {
 		
 		if (this.getUsername() == credentials.username && this.getPassword() == credentials.password) {
 			return this.playerID;
 		}
-		throw new InvalidCredentialsException();
+		throw new ServerException("Failed to login - bad username or password.");
 	}
 	
 	

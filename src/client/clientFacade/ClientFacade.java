@@ -38,7 +38,6 @@ import shared.locations.HexLocation;
 import shared.locations.RobberLocation;
 import shared.locations.VertexLocation;
 import shared.models.Game;
-import shared.models.UserManager.User;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.mapClasses.Hex;
 import shared.models.mapClasses.Piece;
@@ -53,9 +52,9 @@ public class ClientFacade {
 	
 	public static ClientFacade instance;
 	
-	static User clientUser;
 	public  Game game;
 	public ProxyInterface proxy;
+	@SuppressWarnings("unused")
 	private ServerPoller poller;
 	
 	public ClientFacade() {}

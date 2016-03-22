@@ -3,6 +3,7 @@ package server.managers;
 import java.util.HashMap;
 import java.util.Map;
 
+import server.ServerException;
 import shared.communication.proxy.Credentials;
 
 
@@ -26,10 +27,10 @@ public class UserManager {
 	 * @param user
 	 * @throws InvalidCredentialsException 
 	 */
-	public void addUser(Credentials userCredentials) throws InvalidCredentialsException
+	public void addUser(Credentials userCredentials) throws ServerException
 	{
 		if (users.containsKey(userCredentials.username)){
-			throw new InvalidCredentialsException("username already exists");
+			throw new ServerException("username already exists");
 		}
 		users.put(userCredentials.username, new User(userCredentials));
 	}
@@ -57,10 +58,10 @@ public class UserManager {
 	 * @return
 	 * @throws InvalidCredentialsException
 	 */
-	public int login(Credentials credentials) throws InvalidCredentialsException {
+	public int login(Credentials credentials) throws ServerException {
 		
 		if (!this.users.containsKey(credentials.username)) {
-			throw new InvalidCredentialsException("Failed to login - bad username or password.");
+			throw new ServerException("Failed to login - bad username or password.");
 		}
 		return this.getUser(credentials.username).login(credentials);
 	}
@@ -72,10 +73,10 @@ public class UserManager {
 	 * @param credentials
 	 * @throws InvalidCredentialsException
 	 */
-	public void register(Credentials credentials) throws InvalidCredentialsException {
+	public void register(Credentials credentials) throws ServerException {
 		
 		if (this.users.containsKey(credentials.username)) {
-			throw new InvalidCredentialsException("Failed to register - someone already has that username.");
+			throw new ServerException("Failed to register - someone already has that username.");
 		}
 		this.addUser(credentials);
 	}
