@@ -727,10 +727,10 @@ private static Serializer instance = null;
 	 */
 	public JsonObject serializeGamesList(GameInfo[] gamesList) {
 		JsonObject jsonGamesList = new JsonObject();
-		for (GameInfo gameInfo : gamesList) {
+		/*for (GameInfo gameInfo : gamesList) {
 			JsonObject jsonGame = new JsonObject();
 			//jsonGame.add("name", new gameInfo.getTitle());
-		}
+		}*/
 		return jsonGamesList;
 	}
 	
