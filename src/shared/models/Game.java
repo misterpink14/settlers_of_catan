@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.clientFacade.ClientFacade;
+import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
@@ -98,6 +99,21 @@ public class Game extends Observable
 		this.chat = new GameChat();
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, -1);
 	}
+	
+	
+	public Game(CreateGameRequestParams params)
+	{
+		this.gameState = GameState.LOGIN;
+		this.map = new Map();
+		this.bank = new Bank();
+		this.cardDeck = new CardDeck();
+		this.players = new GamePlayers();
+		this.log = new GameLog();
+		this.chat = new GameChat();
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, -1);
+		this.title = params.name;
+	}
+	
 	
 	public Game(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
 			int currentTurn, boolean hasPlayedDevCard, int winner, int longestRoad) 

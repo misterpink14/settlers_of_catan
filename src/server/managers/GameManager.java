@@ -1,23 +1,33 @@
 package server.managers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import shared.communication.proxy.CreateGameRequestParams;
+import shared.definitions.GameState;
 import shared.models.Game;
+import shared.models.cardClasses.Bank;
+import shared.models.cardClasses.CardDeck;
+import shared.models.chatClasses.GameChat;
+import shared.models.logClasses.GameLog;
+import shared.models.playerClasses.GamePlayers;
+import shared.models.playerClasses.TurnManager;
 
 /**
- * GameManager Class
+ * GameManager Class 
  * @author Skyler
  *
  */
 public class GameManager {
 
-	
-	private List<Game> gamesList;
+	/* gameID => Game */
+	private Map<Integer, Game> gamesList;
 	
 	public GameManager() 
 	{
-		this.gamesList = new ArrayList<Game>();
+		this.gamesList = new HashMap<Integer, Game>();
 	}
 	
 	/**
@@ -26,7 +36,16 @@ public class GameManager {
 	 */
 	public void addGame(Game game)
 	{
-		gamesList.add(game);
+		gamesList.put(game.getId(), game);
+	}
+	
+	/**
+	 * Adds a game to the list of games
+	 * @param game
+	 */
+	public void addGame(CreateGameRequestParams params)
+	{
+		Game newGame = new Game();
 	}
 	
 	/**
