@@ -29,7 +29,6 @@ import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.WaterHex;
 import shared.models.playerClasses.GamePlayers;
-import shared.models.playerClasses.TurnManager;
 
 /** Serializer
  * 
@@ -641,10 +640,48 @@ private static Serializer instance = null;
 	 * @param manager The TurnManager to be serialized.
 	 * @return The serialized TurnManager (in the form of a JsonObject)
 	 */
-	public JsonObject serializeTurnTracker(TurnManager manager) {
+	//public JsonObject serializeTurnTracker(TurnManager manager) {
+	public JsonObject serializeTurnTracker(Game game) {
 		JsonObject jsonTurnTracker = new JsonObject();
+		switch(game.getGameState()) {
+		case DISCARD:
+			jsonTurnTracker.add("status", new JsonPrimitive("Discarding"));
+			break;
+		case ENDOFGAME:
+			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
+			break;
+		case LOGIN:
+			break;
+		case MYTURN:
+			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
+			break;
+		case NOTMYTURN:
+			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
+			break;
+		case OUTDATED:
+			break;
+		case ROBBER:
+			jsonTurnTracker.add("status", new JsonPrimitive("Robbing"));
+			break;
+		case ROLLING:
+			jsonTurnTracker.add("status", new JsonPrimitive("Rolling"));
+			break;
+		case SETUP1:
+			jsonTurnTracker.add("status", new JsonPrimitive("FirstRound"));
+			break;
+		case SETUP2:
+			jsonTurnTracker.add("status", new JsonPrimitive("SecondRound"));
+			break;
+		case TRADEACCEPT:
+			break;
+		case TRADEOFFER:
+			break;
+		}
+		jsonTurnTracker.add("currentTurn", new JsonPrimitive(game.getTurnManager().getPlayerIndex()));
+		jsonTurnTracker.add("longestRoad", new JsonPrimitive(game.getLongestRoad()));
+		jsonTurnTracker.add("largestArmy", new JsonPrimitive(-1));
 		
-		return new JsonObject();
+		return jsonTurnTracker;
 	}
 	
 	/**
