@@ -43,8 +43,9 @@ public interface IServerFacade {
 	 * 
 	 * @param Credentials object that contains the username and password
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String register(Credentials credentials);
+	public String register(Credentials credentials) throws ServerException;
 	
 	/**
 	 * This function will return a list of all the games

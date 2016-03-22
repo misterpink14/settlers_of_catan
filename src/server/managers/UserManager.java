@@ -1,5 +1,6 @@
 package server.managers;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +64,10 @@ public class UserManager {
 		if (!this.users.containsKey(credentials.username)) {
 			throw new ServerException("Failed to login - bad username or password.");
 		}
-		return this.getUser(credentials.username).login(credentials);
+		
+		int u = this.getUser(credentials.username).login(credentials);
+		this.printAll();
+		return u;
 	}
 	
 	
@@ -79,5 +83,11 @@ public class UserManager {
 			throw new ServerException("Failed to register - someone already has that username.");
 		}
 		this.addUser(credentials);
+		this.printAll();
+	}
+	
+	
+	private void printAll() {
+		System.out.println(Arrays.toString(users.entrySet().toArray()));
 	}
 }

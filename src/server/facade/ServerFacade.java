@@ -38,8 +38,8 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String register(Credentials credentials) {
-		// TODO Auto-generated method stub
+	public String register(Credentials credentials) throws ServerException {
+		userManager.register(credentials);
 		return "Success";
 	}
 

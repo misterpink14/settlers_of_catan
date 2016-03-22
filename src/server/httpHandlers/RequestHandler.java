@@ -77,7 +77,7 @@ public class RequestHandler implements HttpHandler
 			
 		} catch (ServerException e) {
 			e.printStackTrace();
-			this.handleError(exchange);
+			this.handleError(exchange, e.getMessage());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -186,8 +186,7 @@ public class RequestHandler implements HttpHandler
 	 * @param exchange
 	 * @throws IOException
 	 */
-	void handleError(HttpExchange exchange) throws IOException {
-		String errorMessage = "Invalid request";
+	void handleError(HttpExchange exchange, String errorMessage) throws IOException {
 		logger.log(Level.SEVERE, "Bad request " + errorMessage);
 		
 		exchange.getResponseHeaders().add("Content-Type", "application/text");

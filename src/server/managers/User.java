@@ -42,16 +42,17 @@ public class User {
 // Public METHODS
 	public int login(Credentials credentials) throws ServerException {
 		
-		if (this.getUsername() == credentials.username && this.getPassword() == credentials.password) {
+		if (this.getUsername().equals(credentials.username) && this.getPassword().equals(credentials.password)) {
 			return this.playerID;
 		}
+
 		throw new ServerException("Failed to login - bad username or password.");
 	}
 	
 	
 	@Override // TODO: implement this
     public String toString() {
-		return "";
+		return "" + credentials.username + ": " + credentials.password + ": " + playerID;
 	}
 
 	
@@ -63,5 +64,8 @@ public class User {
 		nextPlayerID++;
 		return id;
 	}
+	
+	
+	
 
 }

@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 
 import com.google.gson.JsonObject;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -23,7 +24,7 @@ public class RegisterCommand extends ACommand {
 	
 	
 	@Override
-	public void execute() {
+	public void execute() throws ServerException {
 		System.out.println("execute register");
 		this.response = this.getFacade().register(this.getCredentials());
 	}
