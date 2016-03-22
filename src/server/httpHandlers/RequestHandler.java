@@ -84,7 +84,7 @@ public class RequestHandler implements HttpHandler
 		}
 	}
 	
-	private void sendResponse(ACommand command, HttpExchange exchange) throws IOException {
+	private void sendResponse(ACommand command, HttpExchange exchange) throws IOException, ServerException {
 		String commandType = this.getCommandType(exchange)[1];
 		String response = command.getResponse();
 		
