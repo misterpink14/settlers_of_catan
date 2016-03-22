@@ -26,6 +26,9 @@ import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 import shared.models.Game;
+import shared.models.playerClasses.GamePlayers;
+import shared.models.playerClasses.Player;
+import com.google.gson.*;
 
 public class ServerFacade implements IServerFacade {
 	
@@ -54,13 +57,31 @@ public class ServerFacade implements IServerFacade {
 	public String getGamesList() {
 		
 		ArrayList<Game> games = (ArrayList<Game>) gameManager.getGames();
+		JsonArray gameListJson = new JsonArray();
+		
 		
 		for (Game g: games) {
-			String title = g.getTitle();
-			int gameID = g.getId();
+			JsonObject gameJson = new JsonObject();
+			
+			gameJson.addProperty("title", g.getTitle());
+			gameJson.addProperty("id", g.getId());
+			
+			JsonArray playerListJson = new JsonArray();
+			GamePlayers players = g.getPlayers();
+			
+			for (Player p: players.getPlayers()) {
+				JsonObject playerJson = new JsonObject();
+				playerJson.addProperty("color", p.getColor().name());
+				playerJson.addProperty("name", p.getName());
+				playerJson.addProperty("id", p.getID());
+				playerListJson.add(playerJson);
+			}
+			gameJson.add("players", playerListJson);
+			
+			gameListJson.add(gameJson);
 		}
 		
-		return null;
+		return gameListJson.toString();
 	}
 
 	@Override
