@@ -1,5 +1,7 @@
 package server.command.moves;
 
+
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -27,8 +29,9 @@ public class DiscardCardsCommand extends ACommand {
 	 * @param userJson
 	 * @param facade
 	 * @param jsonBody
+	 * @throws ServerException 
 	 */
-	public DiscardCardsCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public DiscardCardsCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
 		// TODO parse the jsonBody
 	}

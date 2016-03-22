@@ -41,15 +41,6 @@ public class GameManager {
 	}
 	
 	/**
-	 * Adds a game to the list of games
-	 * @param game
-	 */
-	public void addGame(CreateGameRequestParams params)
-	{
-		Game newGame = new Game();
-	}
-	
-	/**
 	 * Sets the gamesList to the passed in gamesList
 	 * @param gamesList
 	 */

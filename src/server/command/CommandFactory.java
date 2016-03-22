@@ -1,8 +1,8 @@
 package server.command;
 
-import java.rmi.ServerException;
 import java.util.Map;
 
+import server.ServerException;
 import server.command.game.AddAICommand;
 import server.command.game.ListAICommand;
 import server.command.game.ModelCommand;
@@ -71,7 +71,7 @@ public class CommandFactory {
 	public ACommand buildCommand (String[] type, String jsonBody, Map<String, String> cookies, 
 									IServerFacade facade, String httpMethod) throws ServerException {
 		
-		ACommand command = new LoginCommand(jsonBody, facade);
+		ACommand command;
 
 		switch (type[0]) {
 			case "user":

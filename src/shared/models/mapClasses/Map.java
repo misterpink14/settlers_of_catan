@@ -1,6 +1,7 @@
 package shared.models.mapClasses;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import shared.definitions.HexType;
@@ -46,24 +47,60 @@ public class Map
 
 		Random rand = new Random();
 		HexMap hexes = new HexMap();
+		
+		List<HexType> hexTypes =  new ArrayList<HexType>();
 
-		for (int x = 0; x <= 3; ++x) {
+		hexTypes.add(HexType.DESERT);
+		hexTypes.add(HexType.WOOD);
+		hexTypes.add(HexType.WHEAT);
+		hexTypes.add(HexType.WOOD);
+		hexTypes.add(HexType.WHEAT);
+		hexTypes.add(HexType.BRICK);
+		hexTypes.add(HexType.ORE);
+		hexTypes.add(HexType.BRICK);
+		hexTypes.add(HexType.SHEEP);
+		hexTypes.add(HexType.BRICK);
+		hexTypes.add(HexType.SHEEP);
+		hexTypes.add(HexType.SHEEP);
+		hexTypes.add(HexType.ORE);
+		hexTypes.add(HexType.WOOD);
+		hexTypes.add(HexType.SHEEP);
+		hexTypes.add(HexType.WHEAT);
+		hexTypes.add(HexType.ORE);
+		hexTypes.add(HexType.WHEAT);
+		hexTypes.add(HexType.WOOD);
+		
+		int index = 0;
+
+		for (int x = 0; x <= 2; ++x) {
 			
-			int maxY = 3 - x;			
-			for (int y = -3; y <= maxY; ++y) {				
-				int r = rand.nextInt(HexType.values().length);
-				HexType hexType = HexType.values()[r];
+			int maxY = 2 - x;			
+			for (int y = -2; y <= maxY; ++y) {
+				
+				if (randomNumbers) {
+					index = rand.nextInt(HexType.values().length);
+				}
+				HexType hexType = hexTypes.get(index);
+				index++;
+				System.out.println("" + x + ", " + y);
 				System.out.println(hexType);
+				System.out.println("");
 //				HexLocation hexLoc = new HexLocation(x, y);
 //				hexes.setHex(hexLoc, new Hex(hexType, ));
 			}
-		}
 			
-//			if (x != 0) {
-//				int minY = x - 3;
-//				for (int y = minY; y <= 3; ++y) {
-//					int r = rand.nextInt(HexType.values().length);
-//					HexType hexType = HexType.values()[r];
+			if (x != 0) {
+				int minY = x - 2;
+				for (int y = minY; y <= 2; ++y) {
+
+					if (randomNumbers) {
+						index = rand.nextInt(HexType.values().length);
+					}
+					HexType hexType = hexTypes.get(index);
+					index++;
+					System.out.println("" + x + ", " + y);
+					System.out.println(hexType);
+					System.out.println("");
 //					HexLocation hexLoc = new HexLocation(-x, y);
 //					getView().addHex(hexLoc, hexType);
 //					getView().placeRoad(new EdgeLocation(hexLoc, EdgeDirection.NorthWest),
@@ -74,9 +111,9 @@ public class Map
 //							CatanColor.ORANGE);
 //					getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NorthWest), CatanColor.GREEN);
 //					getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NorthEast), CatanColor.PURPLE);
-//				}
-//			}
-//		}
+				}
+			}
+		}
 //		
 //		PortType portType = PortType.BRICK;
 //		getView().addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), portType);

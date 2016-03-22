@@ -104,7 +104,11 @@ public class Game extends Observable
 	public Game(CreateGameRequestParams params)
 	{
 		this.gameState = GameState.LOGIN;
-		this.map = new Map();
+		this.map = new Map(
+			params.randomTiles,
+			params.randomNumbers,
+			params.randomPorts
+		);
 		this.bank = new Bank();
 		this.cardDeck = new CardDeck();
 		this.players = new GamePlayers();

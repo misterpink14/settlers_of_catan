@@ -1,5 +1,7 @@
 package server.command.moves;
 
+
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -21,8 +23,9 @@ public class RollNumberCommand extends ACommand {
 	 * @param userJson
 	 * @param facade
 	 * @param jsonBody
+	 * @throws ServerException 
 	 */
-	public RollNumberCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public RollNumberCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
 		// TODO parse the jsonBody
 	}

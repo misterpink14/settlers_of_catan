@@ -87,7 +87,8 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String createGame(CreateGameRequestParams params) {
 		
-		Game g = new Game(); //Change this to the newly created game
+		Game g = new Game(params); //Change this to the newly created game
+		this.gameManager.addGame(g);
 		
 		JsonObject gameJson = new JsonObject();
 		

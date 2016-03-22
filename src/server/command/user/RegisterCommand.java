@@ -8,7 +8,6 @@ import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
-
 /**
  * Command used for user registration
  * 	Server end-point: /user/register POST
@@ -17,7 +16,7 @@ import server.facade.IServerFacade;
  */
 public class RegisterCommand extends ACommand {
 
-	public RegisterCommand(String userJson, IServerFacade facade) {
+	public RegisterCommand(String userJson, IServerFacade facade) throws ServerException {
 		super(userJson, facade);
 	}
 	

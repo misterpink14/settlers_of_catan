@@ -1,5 +1,6 @@
 package server.command.games;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -22,8 +23,9 @@ public class JoinCommand extends ACommand {
 	 * @param password
 	 * @param gameID
 	 * @param color
+	 * @throws ServerException 
 	 */
-	public JoinCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public JoinCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
 		// TODO parse the jsonBody
 	}
