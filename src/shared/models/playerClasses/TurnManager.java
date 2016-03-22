@@ -126,10 +126,10 @@ public class TurnManager {
 	
 	
 // METHODS
-	public void startGame(int currPlayer) {
+	public void startGame() {
 		Random rand = new Random(System.currentTimeMillis());
 		playerIndex = rand.nextInt(4) + 1;
-		players.getPlayerByIndex(currPlayer).startTurn();
+		players.getPlayerByIndex(playerIndex).startTurn();
 	}
 	
 	
@@ -137,7 +137,7 @@ public class TurnManager {
 	/**
 	 * @return the id of the current player whose turn it is.
 	 */
-	public void nextTurn(int currPlayer) {
+	public void finishTurn(int currPlayer) {
 		playerIndex = this.players.finishTurn(currPlayer);
 		hasPlayedDevCard = false;
 	}

@@ -66,6 +66,9 @@ public class Game extends Observable
 	/**The index of the winner of the game*/
 	int winner = -1;
 	
+	/**The title of this game*/
+	String title;
+	
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
@@ -129,6 +132,10 @@ public class Game extends Observable
 		return log;
 	}
 	
+	public String getTitle() {
+		return this.title;
+	}
+	
 	
 	/**
 	 * Returns the version ID so the poller and proxy can request the correct model JSON.
@@ -153,6 +160,10 @@ public class Game extends Observable
 	
 	public void setGameLog(GameLog log) {
 		this.log = log;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 

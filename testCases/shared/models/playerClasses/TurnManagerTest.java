@@ -129,7 +129,6 @@ public class TurnManagerTest {
 			fail("could not add player.");
 		}
 		game.getTurnManager().setCurrentTurn(0);
-		assertTrue(game.getTurnManager().CanFinishTurn());
 	}
 	
 	

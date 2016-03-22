@@ -30,7 +30,7 @@ public class ClientFacadeTest {
 		Game game = new Game();
 		deserializer.deserialize(game, json, true);
 		ClientFacade.getInstance().setup(game, new FakeProxy()); 
-		ClientFacade.getInstance().game.getTurnManager().startGame(1);
+		ClientFacade.getInstance().game.getTurnManager().startGame();
 	}
 
 	@Test
