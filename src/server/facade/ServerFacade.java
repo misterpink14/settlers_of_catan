@@ -1,5 +1,6 @@
 package server.facade;
 
+import server.ServerException;
 import server.managers.UserManager;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
@@ -31,9 +32,9 @@ public class ServerFacade implements IServerFacade {
 	
 	
 	@Override
-	public String login(Credentials credentials) {
-		// TODO Auto-generated method stub
-		return null;
+	public String login(Credentials credentials) throws ServerException {
+		userManager.login(credentials);
+		return "Success";
 	}
 
 	@Override

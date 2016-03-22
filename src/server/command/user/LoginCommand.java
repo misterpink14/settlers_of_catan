@@ -29,7 +29,7 @@ public class LoginCommand extends ACommand {
 	@Override
 	public String getResponse() {
 		// TODO Auto-generated method stub
-		return "Success";
+		return this.response;
 	}
 
 	@Override
