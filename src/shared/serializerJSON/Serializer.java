@@ -1,14 +1,24 @@
 package shared.serializerJSON;
 
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
+import client.clientFacade.ClientFacade;
 import client.data.GameInfo;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
+import shared.definitions.HexType;
+import shared.definitions.PortType;
 import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import shared.models.Game;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
@@ -17,6 +27,8 @@ import shared.models.chatClasses.GameChat;
 import shared.models.chatClasses.Message;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Map;
+import shared.models.mapClasses.Piece;
+import shared.models.mapClasses.WaterHex;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.TurnManager;
 
@@ -78,12 +90,283 @@ private static Serializer instance = null;
 	 */
 	public JsonObject serializeMap(Map map) {
 		JsonObject jsonMap = new JsonObject();
+		JsonArray jsonHexes = new JsonArray();
+		JsonArray jsonRoads = new JsonArray();
+		JsonArray jsonCities = new JsonArray();
+		JsonArray jsonSettlements = new JsonArray();
+		JsonObject jsonRadius = new JsonObject();
+		JsonArray jsonPorts = new JsonArray();
+		JsonObject jsonRobber = new JsonObject();
 		
-		// hexes
-		// JsonArray jsonHexes = new JsonArray();
-		// JsonObject hex1 = new JsonObject();
-		
-		
+		for (int x = 0; x <= 3; ++x) {
+			
+			int maxY = 3 - x;			
+			for (int y = -3; y <= maxY; ++y) {
+	
+				HexLocation hexLoc = new HexLocation(x, y);
+				HexType hexType;
+				if (map.getHex(hexLoc) == null) {
+					hexType = HexType.WATER;
+				}
+				else {
+					hexType = map.getHex(hexLoc).getHexType();
+					if (hexType.equals(HexType.WATER)) {
+						WaterHex hex = (WaterHex) map.getHex(hexLoc);
+						PortType portType = hex.getPortType();
+						
+						JsonObject jsonPort = new JsonObject();
+						
+						switch(portType) {
+						case BRICK:
+							jsonPort.add("ratio", new JsonPrimitive(2));
+							jsonPort.add("resource", new JsonPrimitive("brick"));
+							break;
+						case ORE:
+							jsonPort.add("ratio", new JsonPrimitive(2));
+							jsonPort.add("resource", new JsonPrimitive("ore"));
+							break;
+						case SHEEP:
+							jsonPort.add("ratio", new JsonPrimitive(2));
+							jsonPort.add("resource", new JsonPrimitive("sheep"));
+							break;
+						case THREE:
+							jsonPort.add("ratio", new JsonPrimitive(3));
+							break;
+						case WHEAT:
+							jsonPort.add("ratio", new JsonPrimitive(2));
+							jsonPort.add("resource", new JsonPrimitive("wheat"));
+							break;
+						case WOOD:
+							jsonPort.add("ratio", new JsonPrimitive(2));
+							jsonPort.add("resource", new JsonPrimitive("wood"));
+							break;
+						}
+						if (x > 0) {
+							if (y <= 0) {
+								jsonPort.add("direction", new JsonPrimitive("SW"));
+							}
+							else {
+								jsonPort.add("direction", new JsonPrimitive("NW"));
+							}
+						}
+						else {
+							if (y <= 0) {
+								jsonPort.add("direction", new JsonPrimitive("S"));
+							}
+							else {
+								jsonPort.add("direction", new JsonPrimitive("N"));
+							}
+						}
+						JsonObject jsonPortLocation = new JsonObject();
+						jsonPortLocation.add("x", new JsonPrimitive(x));
+						jsonPortLocation.add("y", new JsonPrimitive(y));
+						jsonPort.add("location", jsonPortLocation);
+					}
+				}
+				
+				ArrayList<EdgeLocation> edges = new ArrayList<EdgeLocation>();
+				
+				EdgeLocation nwEdge = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
+				edges.add(nwEdge);
+				EdgeLocation nEdge = new EdgeLocation(hexLoc, EdgeDirection.North);
+				edges.add(nEdge);
+				EdgeLocation neEdge = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
+				edges.add(neEdge);
+				EdgeLocation swEdge = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
+				edges.add(swEdge);
+				EdgeLocation sEdge = new EdgeLocation(hexLoc, EdgeDirection.South);
+				edges.add(sEdge);
+				EdgeLocation seEdge = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+				edges.add(seEdge);
+				
+				for (EdgeLocation edgeLoc : edges) {
+					Piece edgePiece = map.getEdge(edgeLoc);
+					if (edgePiece != null) {
+						JsonObject jsonRoad = new JsonObject();
+						int owner = edgePiece.getOwner();
+						jsonRoad.add("owner", new JsonPrimitive(owner));
+						JsonObject jsonRoadLocation = new JsonObject();
+						switch(edgeLoc.getDir()) {
+						case North:
+							jsonRoadLocation.add("direction", new JsonPrimitive("N"));
+							break;
+						case NorthEast:
+							jsonRoadLocation.add("direction", new JsonPrimitive("NE"));
+							break;
+						case NorthWest:
+							jsonRoadLocation.add("direction", new JsonPrimitive("NW"));
+							break;
+						case South:
+							jsonRoadLocation.add("direction", new JsonPrimitive("S"));
+							break;
+						case SouthEast:
+							jsonRoadLocation.add("direction", new JsonPrimitive("SE"));
+							break;
+						case SouthWest:
+							jsonRoadLocation.add("direction", new JsonPrimitive("SW"));
+							break;
+						}
+						jsonRoadLocation.add("x", new JsonPrimitive(edgeLoc.getHexLoc().getX()));
+						jsonRoadLocation.add("y", new JsonPrimitive(edgeLoc.getHexLoc().getY()));
+						jsonRoad.add("location", jsonRoadLocation);
+						jsonRoads.add(jsonRoad);
+					}
+				}
+				
+				ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
+					
+				VertexLocation nwVertex = new VertexLocation(hexLoc,  VertexDirection.NorthWest);
+				vertices.add(nwVertex);
+				VertexLocation neVertex = new VertexLocation(hexLoc,  VertexDirection.NorthEast);
+				vertices.add(neVertex);
+				VertexLocation eVertex = new VertexLocation(hexLoc,  VertexDirection.East);
+				vertices.add(eVertex);
+				VertexLocation seVertex = new VertexLocation(hexLoc,  VertexDirection.SouthEast);
+				vertices.add(seVertex);
+				VertexLocation swVertex = new VertexLocation(hexLoc,  VertexDirection.SouthWest);
+				vertices.add(swVertex);
+				VertexLocation wVertex = new VertexLocation(hexLoc,  VertexDirection.West);
+				vertices.add(wVertex);
+				
+				for (VertexLocation vertex: vertices) {
+					Piece vertexPiece = map.getVertex(vertex);
+					if (vertexPiece != null) {
+						int owner = vertexPiece.getOwner();
+						JsonObject jsonCity = new JsonObject();
+						jsonCity.add("owner", new JsonPrimitive(owner));
+						JsonObject jsonCityLocation = new JsonObject();
+						switch(vertex.getDir()) {
+						case East:
+							jsonCityLocation.add("direction", new JsonPrimitive("N"));
+							break;
+						case NorthEast:
+							jsonCityLocation.add("direction", new JsonPrimitive("NE"));
+							break;
+						case NorthWest:
+							jsonCityLocation.add("direction", new JsonPrimitive("NW"));
+							break;
+						case West:
+							jsonCityLocation.add("direction", new JsonPrimitive("S"));
+							break;
+						case SouthEast:
+							jsonCityLocation.add("direction", new JsonPrimitive("SE"));
+							break;
+						case SouthWest:
+							jsonCityLocation.add("direction", new JsonPrimitive("SW"));
+							break;
+						}
+						jsonCityLocation.add("x", new JsonPrimitive(vertex.getHexLoc().getX()));
+						jsonCityLocation.add("y", new JsonPrimitive(vertex.getHexLoc().getY()));
+						jsonCity.add("location", jsonCityLocation);
+						if (vertexPiece.getType().toString().equals("CITY")) {
+							jsonCities.add(jsonCity);
+						}
+						else {
+							jsonSettlements.add(jsonCity);
+						}
+					}
+				}
+				
+				if (map.getHex(hexLoc) != null) {
+					if (map.getHex(hexLoc).getToken() != -1) {
+						//getView().addNumber(hexLoc, map.getHex(hexLoc).getToken());
+						JsonObject jsonHex = new JsonObject();
+						map.getHex(hexLoc).getHexType();
+						//jsonHex.add("resource", new JsonPrimitive());
+					}
+				}
+			}
+			
+			if (x != 0) {
+				int minY = x - 3;
+				for (int y = minY; y <= 3; ++y) {
+					HexLocation hexLoc = new HexLocation(-x, y);
+					HexType hexType;
+					if (map.getHex(hexLoc) == null) {
+						hexType = HexType.WATER;
+					}
+					else {
+						hexType = map.getHex(hexLoc).getHexType();
+						if (hexType.equals(HexType.WATER)) {
+							WaterHex hex = (WaterHex) map.getHex(hexLoc);
+							PortType portType = hex.getPortType();
+							if (-x < 0) {
+								if (y <= 0) {
+							//		getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.SouthEast), portType);
+								}
+								else {
+								//	getView().addPort(new EdgeLocation(hexLoc, EdgeDirection.NorthEast), portType);
+								}
+							}
+						}
+					}
+					
+				//	getView().addHex(hexLoc, hexType);
+					
+					ArrayList<EdgeLocation> edges = new ArrayList<EdgeLocation>();
+					
+					EdgeLocation nwEdge = new EdgeLocation(hexLoc, EdgeDirection.NorthWest);
+					edges.add(nwEdge);
+					EdgeLocation nEdge = new EdgeLocation(hexLoc, EdgeDirection.North);
+					edges.add(nEdge);
+					EdgeLocation neEdge = new EdgeLocation(hexLoc, EdgeDirection.NorthEast);
+					edges.add(neEdge);
+					EdgeLocation swEdge = new EdgeLocation(hexLoc, EdgeDirection.SouthWest);
+					edges.add(swEdge);
+					EdgeLocation sEdge = new EdgeLocation(hexLoc, EdgeDirection.South);
+					edges.add(sEdge);
+					EdgeLocation seEdge = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
+					edges.add(seEdge);
+					
+					for (EdgeLocation edgeLoc : edges) {
+						Piece edgePiece = map.getEdge(edgeLoc);
+						if (edgePiece != null) {
+							int owner = edgePiece.getOwner();
+					//		getView().placeRoad(edgeLoc, map.getColorById(owner));	
+						}
+					}
+					
+					ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
+						
+					VertexLocation nwVertex = new VertexLocation(hexLoc,  VertexDirection.NorthWest);
+					vertices.add(nwVertex);
+					VertexLocation neVertex = new VertexLocation(hexLoc,  VertexDirection.NorthEast);
+					vertices.add(neVertex);
+					VertexLocation eVertex = new VertexLocation(hexLoc,  VertexDirection.East);
+					vertices.add(eVertex);
+					VertexLocation seVertex = new VertexLocation(hexLoc,  VertexDirection.SouthEast);
+					vertices.add(seVertex);
+					VertexLocation swVertex = new VertexLocation(hexLoc,  VertexDirection.SouthWest);
+					vertices.add(swVertex);
+					VertexLocation wVertex = new VertexLocation(hexLoc,  VertexDirection.West);
+					vertices.add(wVertex);
+					
+					for (VertexLocation vertex: vertices) {
+						Piece vertexPiece = map.getVertex(vertex);
+						if (vertexPiece != null) {
+							int owner = vertexPiece.getOwner();
+							if (vertexPiece.getType().toString().equals("CITY")) {
+						//		getView().placeCity(vertex, 
+							//			map.getColorById(owner));
+							}
+							else {
+							//	getView().placeSettlement(vertex, map.getColorById(owner));
+							}
+							
+						}
+					}
+					
+					if (map.getHex(hexLoc) != null) {
+						if (map.getHex(hexLoc).getToken() != -1) {
+				//			getView().addNumber(hexLoc, map.getHex(hexLoc).getToken());
+						}
+					}
+				}
+			}
+		}
+	
+	//	getView().placeRobber(map.getRobberLocation().getHexLoc());
+	
 		return jsonMap;
 	}
 	
@@ -203,7 +486,17 @@ private static Serializer instance = null;
 	 * @return The serialized OfferTrade (in the form of a JsonObject)
 	 */
 	public JsonObject serializeOfferTrade(OfferTrade offerTrade) {
-		return new JsonObject();
+		JsonObject jsonOfferTrade = new JsonObject();
+		jsonOfferTrade.add("sender", new JsonPrimitive(offerTrade.playerIndex));
+		jsonOfferTrade.add("receiver", new JsonPrimitive(offerTrade.receiverIndex));
+		JsonObject jsonOffer = new JsonObject();
+		jsonOffer.add("brick", new JsonPrimitive(offerTrade.brick));
+		jsonOffer.add("ore", new JsonPrimitive(offerTrade.ore));
+		jsonOffer.add("sheep", new JsonPrimitive(offerTrade.sheep));
+		jsonOffer.add("wheat", new JsonPrimitive(offerTrade.wheat));
+		jsonOffer.add("wood", new JsonPrimitive(offerTrade.wood));
+		jsonOfferTrade.add("offer", new Gson().toJsonTree(jsonOffer));
+		return jsonOfferTrade;
 	}
 	
 	/**
@@ -212,6 +505,8 @@ private static Serializer instance = null;
 	 * @return The serialized TurnManager (in the form of a JsonObject)
 	 */
 	public JsonObject serializeTurnTracker(TurnManager manager) {
+		JsonObject jsonTurnTracker = new JsonObject();
+		
 		return new JsonObject();
 	}
 	
@@ -221,7 +516,12 @@ private static Serializer instance = null;
 	 * @return The serialized GameInfo (in the form of a JsonObject)
 	 */
 	public JsonObject serializeGamesList(GameInfo[] gamesList) {
-		return new JsonObject();
+		JsonObject jsonGamesList = new JsonObject();
+		for (GameInfo gameInfo : gamesList) {
+			JsonObject jsonGame = new JsonObject();
+			//jsonGame.add("name", new gameInfo.getTitle());
+		}
+		return jsonGamesList;
 	}
 	
 }
