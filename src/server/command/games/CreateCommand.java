@@ -1,7 +1,11 @@
 package server.command.games;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import server.command.ACommand;
 import server.facade.IServerFacade;
+import shared.communication.proxy.CreateGameRequestParams;
 
 /**
  * Command for creating a new game
@@ -10,15 +14,17 @@ import server.facade.IServerFacade;
  * @author benthompson
  */
 public class CreateCommand extends ACommand {
-
+	
+	CreateGameRequestParams params;
+	
+	
 	/**
 	 * 
 	  	{
-		  "title": "string",
-		  "id": "integer",
-		  "players": [
-		    {}
-		  ]
+		  "randomTiles": "boolean",
+		  "randomNumbers": "boolean",
+		  "randomPorts": "boolean",
+		  "name": "string"
 		}
 	 * 
 	 * 
@@ -29,24 +35,20 @@ public class CreateCommand extends ACommand {
 	 * @param players
 	 */
 	public CreateCommand(String userJson, IServerFacade facade, String jsonBody) {
+		
 		super(userJson, facade);
-		// TODO parse the jsonBody
+		
+		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		params = new CreateGameRequestParams(
+			json.get("title").getAsString(),
+			json.get("randomTiles").getAsBoolean(),
+			json.get("randomNumbers").getAsBoolean(),
+			json.get("randomPorts").getAsBoolean()
+		);
 	}
 
 	@Override
 	public void execute() {
+		this.response = this.getFacade().createGame(params);
 	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

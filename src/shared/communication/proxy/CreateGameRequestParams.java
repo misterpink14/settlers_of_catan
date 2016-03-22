@@ -22,9 +22,17 @@ public class CreateGameRequestParams
 	 */
 	public Boolean randomPorts;
 	
+	
+	
 	public CreateGameRequestParams() 
 	{}
 
 
 	
+	public CreateGameRequestParams(String name, Boolean randomTiles, Boolean randomNumbers, Boolean randomPorts) { 
+		this.name = name;
+		this.randomTiles = randomTiles;
+		this.randomNumbers = randomNumbers;
+		this.randomPorts = randomPorts;
+	}
 }
