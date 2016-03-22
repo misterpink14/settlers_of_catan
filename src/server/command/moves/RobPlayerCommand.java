@@ -1,17 +1,24 @@
 package server.command.moves;
 
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
+import shared.communication.proxy.RobPlayer;
+import shared.locations.HexLocation;
 
 /**
  * Command for robbing a given player
  * 	Server end-point: /moves/robPlayer POST
  * 
- * @author benthompson
+ * @author benthompson & Bo Pace
  */
 public class RobPlayerCommand extends ACommand {
+	
+	RobPlayer robPlayer;
 
 	/**
 	 * {
@@ -31,25 +38,18 @@ public class RobPlayerCommand extends ACommand {
 	 */
 	public RobPlayerCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
-		// TODO parse the jsonBody
+		
+		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		robPlayer = new RobPlayer(
+			json.get("playerIndex").getAsInt(),
+			json.get("victimIndex").getAsInt(),
+			new HexLocation(json.get("x").getAsInt(), json.get("y").getAsInt())
+		);
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		return;
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().robPlayer(robPlayer);
 	}
 
 }
