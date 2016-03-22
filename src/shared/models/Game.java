@@ -77,6 +77,14 @@ public class Game extends Observable
 	
 	int currPlayer = -1;  // Index of player (client)
 	
+	static int nextID = 1;
+	
+	
+	public int getNextID() {
+		int id = nextID;
+		nextID ++;
+		return id;
+	}
 	
 	
 // CONSTRUCTORS
@@ -139,6 +147,9 @@ public class Game extends Observable
 		return this.title;
 	}
 	
+	public Map getMap() {
+		return this.map;
+	}
 	
 	public int getId() {
 		return id;
