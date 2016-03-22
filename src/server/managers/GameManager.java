@@ -1,6 +1,7 @@
 package server.managers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +53,7 @@ public class GameManager {
 	 * Sets the gamesList to the passed in gamesList
 	 * @param gamesList
 	 */
-	public void setGames(List<Game> gamesList)
+	public void setGames(Map<Integer, Game> gamesList)
 	{
 		this.gamesList = gamesList;
 	}
@@ -63,6 +64,6 @@ public class GameManager {
 	 */
 	public List<Game> getGames()
 	{
-		return gamesList;
+		return Arrays.asList(gamesList.values().toArray(new Game[0]));
 	}
 }
