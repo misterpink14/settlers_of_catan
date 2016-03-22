@@ -3,6 +3,7 @@ package shared.serializerJSON;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -55,18 +56,21 @@ private static Serializer instance = null;
 	 * @param game The game model to be serialized.
 	 * @return The serialized model (in the form of a JsonObject)
 	 */
-	public JsonObject serialize(Game game) {
+	public String serialize(Game game) {
 		JsonObject jsonGame = new JsonObject();
 		jsonGame.add("deck", new Gson().toJsonTree(serializeDeck(game.getDeck())));
 		jsonGame.add("map", new Gson().toJsonTree(serializeMap(game.getMap())));
 		jsonGame.add("players", new Gson().toJsonTree(serializePlayers(game.getPlayers())));
 		jsonGame.add("log", new Gson().toJsonTree(serializeLog(game.getGameLog())));
-		jsonGame.add("chat", new Gson().toJsonTree(serializeDeck(game.getDeck())));
-		jsonGame.add("bank", new Gson().toJsonTree(serializeDeck(game.getDeck())));
-		jsonGame.add("turnTracker", new Gson().toJsonTree(serializeDeck(game.getDeck())));
+		jsonGame.add("chat", new Gson().toJsonTree(serializeChat(game.getGameChat())));
+		jsonGame.add("bank", new Gson().toJsonTree(serializeBank(game.getBank())));
+		jsonGame.add("turnTracker", new Gson().toJsonTree(serializeTurnTracker(game)));
 		jsonGame.add("winner", new JsonPrimitive(game.getWinner()));
 		jsonGame.add("version", new JsonPrimitive(game.getVersionID()));
-		return new JsonObject();
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(jsonGame);
+		return json;
 	}
 	
 	/**
@@ -303,6 +307,15 @@ private static Serializer instance = null;
 						jsonHex.add("location", jsonHexLocation);
 						jsonHex.add("number", new JsonPrimitive(map.getHex(hexLoc).getToken()));
 						jsonHexes.add(jsonHex);
+					} else {
+						if (map.getHex(hexLoc).getHexType() == HexType.DESERT) {
+							JsonObject jsonHex = new JsonObject();
+							JsonObject jsonHexLocation = new JsonObject();
+							jsonHexLocation.add("x", new JsonPrimitive(hexLoc.getX()));
+							jsonHexLocation.add("y", new JsonPrimitive(hexLoc.getY()));
+							jsonHex.add("location", jsonHexLocation);
+							jsonHexes.add(jsonHex);
+						}
 					}
 				}
 			}
@@ -496,6 +509,15 @@ private static Serializer instance = null;
 							jsonHex.add("location", jsonHexLocation);
 							jsonHex.add("number", new JsonPrimitive(map.getHex(hexLoc).getToken()));
 							jsonHexes.add(jsonHex);
+						} else {
+							if (map.getHex(hexLoc).getHexType() == HexType.DESERT) {
+								JsonObject jsonHex = new JsonObject();
+								JsonObject jsonHexLocation = new JsonObject();
+								jsonHexLocation.add("x", new JsonPrimitive(hexLoc.getX()));
+								jsonHexLocation.add("y", new JsonPrimitive(hexLoc.getY()));
+								jsonHex.add("location", jsonHexLocation);
+								jsonHexes.add(jsonHex);
+							}
 						}
 					}
 				}
@@ -590,6 +612,7 @@ private static Serializer instance = null;
 			jsonLines.add(jsonLine);
 		}
 		jsonLog.add("lines", new Gson().toJsonTree(jsonLines));
+		
 		return jsonLog;
 	}
 	
@@ -608,6 +631,7 @@ private static Serializer instance = null;
 			jsonLines.add(jsonLine);
 		}
 		jsonChat.add("lines", new Gson().toJsonTree(jsonLines));
+		
 		return jsonChat;
 	}
 	
@@ -623,6 +647,7 @@ private static Serializer instance = null;
 		jsonBank.add("sheep", new JsonPrimitive(bank.getResources().getCards(ResourceType.SHEEP)));
 		jsonBank.add("wheat", new JsonPrimitive(bank.getResources().getCards(ResourceType.WHEAT)));
 		jsonBank.add("wood", new JsonPrimitive(bank.getResources().getCards(ResourceType.WOOD)));
+		
 		return jsonBank;
 	}
 	
@@ -642,6 +667,7 @@ private static Serializer instance = null;
 		jsonOffer.add("wheat", new JsonPrimitive(offerTrade.wheat));
 		jsonOffer.add("wood", new JsonPrimitive(offerTrade.wood));
 		jsonOfferTrade.add("offer", new Gson().toJsonTree(jsonOffer));
+		
 		return jsonOfferTrade;
 	}
 	
