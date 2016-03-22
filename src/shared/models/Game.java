@@ -25,7 +25,6 @@ import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
 import shared.models.playerClasses.GamePlayers;
-import shared.models.playerClasses.Player;
 import shared.models.playerClasses.TurnManager;
 
 /**
@@ -122,6 +121,36 @@ public class Game extends Observable
 		return this.gameState;
 	}
 	
+	public Hex getHex(HexLocation loc) {
+		return this.map.getHex(loc);
+	}
+	
+	
+	public Piece getEdge(EdgeLocation loc) {
+		return this.map.getEdge(loc);
+	}
+	
+	
+	public Piece getVertex(VertexLocation loc) {
+		return this.map.getVertex(loc);
+	}
+	
+	
+	public RobberLocation getRobberLocation() {
+		return this.map.getRobberLocation();
+	}
+	
+	public int getMaritimeTradeRatio(int playerIndex, ResourceType type) {
+		return turnManager.getMaritimeTradeRatio(playerIndex, type);
+	}
+	
+	public Bank getBank() {
+		return bank;
+	}
+	
+	public CardDeck getDeck() {
+		return cardDeck;
+	}
 	
 	public GamePlayers getPlayers() {
 		return players;
@@ -444,34 +473,6 @@ public class Game extends Observable
 	 */
 	public void offerATrade(int playerID, List<Integer> playersToOfferTo, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException{
 		
-	}
-	
-	
-	public Hex getHex(HexLocation loc) {
-		return this.map.getHex(loc);
-	}
-	
-	
-	public Piece getEdge(EdgeLocation loc) {
-		return this.map.getEdge(loc);
-	}
-	
-	
-	public Piece getVertex(VertexLocation loc) {
-		return this.map.getVertex(loc);
-	}
-	
-	
-	public RobberLocation getRobberLocation() {
-		return this.map.getRobberLocation();
-	}
-	
-	public int getMaritimeTradeRatio(int playerIndex, ResourceType type) {
-		return turnManager.getMaritimeTradeRatio(playerIndex, type);
-	}
-	
-	public Bank getBank() {
-		return bank;
 	}
 	
 	/**
