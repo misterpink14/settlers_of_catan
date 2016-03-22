@@ -22,6 +22,7 @@ import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Hex;
+import shared.models.mapClasses.InvalidTokenException;
 import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
@@ -104,11 +105,17 @@ public class Game extends Observable
 	public Game(CreateGameRequestParams params)
 	{
 		this.gameState = GameState.LOGIN;
-		this.map = new Map(
-			params.randomTiles,
-			params.randomNumbers,
-			params.randomPorts
-		);
+		try {
+			this.map = new Map(
+				params.randomTiles,
+				params.randomNumbers,
+				params.randomPorts
+			);
+		} catch (InvalidTokenException e) { // TODO: something more graceful than this
+			e.printStackTrace();
+		} catch (InvalidTypeException e) {
+			e.printStackTrace();
+		}
 		this.bank = new Bank();
 		this.cardDeck = new CardDeck();
 		this.players = new GamePlayers();
