@@ -22,6 +22,7 @@ public abstract class ACommand {
 	
 	public ACommand(String userJson, IServerFacade facade) {
 		this.jsonDecode(userJson);
+		this.facade = facade;
 	}
 	
 

@@ -89,6 +89,7 @@ public class RequestHandler implements HttpHandler
 		String response = command.getResponse();
 		
 		if (commandType.equals("login") || commandType.equals("register") || commandType.equals("join")) {
+			System.out.println(command.getCookie());
 			exchange.getResponseHeaders().set("set-cookie", command.getCookie());
 		}
 		

@@ -1,5 +1,6 @@
 package server.facade;
 
+import server.ServerException;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -33,8 +34,9 @@ public interface IServerFacade {
 	 * 
 	 * @param Credentials object that contains the username and password
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */ 
-	public String login(Credentials credentials);
+	public String login(Credentials credentials) throws ServerException;
 	
 	/**
 	 * This function will register a new user
