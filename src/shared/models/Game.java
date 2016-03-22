@@ -72,6 +72,9 @@ public class Game extends Observable
 	/**Each game has a version ID so the server knows which JSON to return.*/
 	int versionID;
 	
+	/** The id of this game */
+	int id;
+	
 	int currPlayer = -1;  // Index of player (client)
 	
 	
@@ -137,6 +140,14 @@ public class Game extends Observable
 	}
 	
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	/**
 	 * Returns the version ID so the poller and proxy can request the correct model JSON.
 	 */

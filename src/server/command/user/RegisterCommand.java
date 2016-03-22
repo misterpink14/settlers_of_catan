@@ -32,12 +32,20 @@ public class RegisterCommand extends ACommand {
 
 	@Override
 	public String getCookie() {
-String cookie = "catan.user=";
+		String cookie = "catan.user=";
+		int playerID;
+		
+		try {
+			 playerID = this.getFacade().getPlayerIDFromCredentials(this.getCredentials());
+		}
+		catch (Exception e) {
+			return "";
+		}
 		
 		JsonObject cookieJson = new JsonObject();
 		cookieJson.addProperty("name", this.getCredentials().username);
 		cookieJson.addProperty("password", this.getCredentials().password);
-		cookieJson.addProperty("playerID", 0);
+		cookieJson.addProperty("playerID", playerID);
 		
 		@SuppressWarnings("deprecation")
 		String encodedCookie = URLEncoder.encode(cookieJson.toString());

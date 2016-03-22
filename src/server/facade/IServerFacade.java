@@ -239,4 +239,6 @@ public interface IServerFacade {
 	 * @return JSON String of Game
 	 */
 	public String serializeGame();
+
+	int getPlayerIDFromCredentials(Credentials credentials) throws ServerException;
 }

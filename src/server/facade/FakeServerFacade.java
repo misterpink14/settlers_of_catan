@@ -3,6 +3,7 @@ package server.facade;
 import java.util.ArrayList;
 import java.util.List;
 
+import server.ServerException;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -183,4 +184,8 @@ public class FakeServerFacade implements IServerFacade {
 		return null;
 	}
 
+	@Override
+	public int getPlayerIDFromCredentials(Credentials credentials) throws ServerException {
+		return -1;
+	}
 }

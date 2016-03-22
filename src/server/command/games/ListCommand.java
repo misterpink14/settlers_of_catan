@@ -20,21 +20,7 @@ public class ListCommand extends ACommand {
 	public void execute() {
 		System.out.println("ListCommand execute");
 		// TODO use this.getCredentials() to verify that this is an actual user
-		this.getFacade().getGamesList();
-	}
-
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().getGamesList();
 	}
 
 }

@@ -1,6 +1,9 @@
 package server.facade;
 
+import java.util.ArrayList;
+
 import server.ServerException;
+import server.managers.GameManager;
 import server.managers.UserManager;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
@@ -22,12 +25,16 @@ import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
+import shared.models.Game;
 
 public class ServerFacade implements IServerFacade {
 	
 	UserManager userManager;
+	GameManager gameManager;
+	
 	public ServerFacade() {
 		userManager = new UserManager();
+		gameManager = new GameManager();
 	}
 	
 	
@@ -45,7 +52,14 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String getGamesList() {
-		// TODO Auto-generated method stub
+		
+		ArrayList<Game> games = (ArrayList<Game>) gameManager.getGames();
+		
+		for (Game g: games) {
+			String title = g.getTitle();
+			int gameID = g.getId();
+		}
+		
 		return null;
 	}
 
@@ -185,6 +199,11 @@ public class ServerFacade implements IServerFacade {
 	public String serializeGame() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public int getPlayerIDFromCredentials(Credentials credentials) throws ServerException {
+		return userManager.login(credentials);
 	}
 
 }
