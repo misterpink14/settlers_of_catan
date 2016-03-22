@@ -246,6 +246,12 @@ public class TurnManager {
 		}
 	}
 	
+	public void discard(int playerIndex, ResourceType[] cards) throws InsufficientCardNumberException {
+		for ( ResourceType card : cards) {
+			this.players.getPlayerByIndex(playerIndex).removeResourceFromHand(card, 1);
+		}
+	}
+	
 //***********************************************************************************************************************************
 //														Can Functions
 //***********************************************************************************************************************************

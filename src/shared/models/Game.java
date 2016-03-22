@@ -380,6 +380,10 @@ public class Game extends Observable
 		turnManager.playMonopolyCard(currPlayer, type);
 	}
 	
+	public void discard(int playerIndex, ResourceType[] cards) throws InsufficientCardNumberException {
+		turnManager.discard(playerIndex, cards);
+	}
+	
 	
 	/**
 	 * Allows a player to trade int resources with the bank. If the player has built on a port, benefits may apply.
