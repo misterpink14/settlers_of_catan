@@ -30,7 +30,7 @@ public class UserManager {
 	public void addUser(Credentials userCredentials) throws ServerException
 	{
 		if (users.containsKey(userCredentials.username)){
-			throw new ServerException("username already exists");
+			throw new ServerException("Failed to register - someone already has that username.");
 		}
 		users.put(userCredentials.username, new User(userCredentials));
 	}
