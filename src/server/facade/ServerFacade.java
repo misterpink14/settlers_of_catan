@@ -153,105 +153,153 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String rollNumber(RollNumber rollNumber, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
-		game.processRoll(rollNumber.roll);
-		
+		game.processRoll(rollNumber);
+		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String robPlayer(RobPlayer robPlayer, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String finishTurn(FinishTurn finishTurn, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String buyDevCard(BuyDevCard buyDevCard, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String roadBuilding(RoadBuilding roadBuilding, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String moveSoldier(SoldierMove soldierMove, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String playMonopolyCard(Monopoly monopoly, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String playMonumentCard(MonumentMove monumentMove, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String buildRoad(BuildRoad buildRoad, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String buildCity(BuildCity buildCity, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String buildSettlement(BuildSettlement buildSettlement, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String offerTrade(OfferTrade offerTrade, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String discardCards(DiscardedCards discardedCards, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String addAI(String aiType, int gameID) {
 		// TODO Auto-generated method stub
-		return null;
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
@@ -264,5 +312,4 @@ public class ServerFacade implements IServerFacade {
 	public int getPlayerIDFromCredentials(Credentials credentials) throws ServerException {
 		return userManager.login(credentials);
 	}
-
 }
