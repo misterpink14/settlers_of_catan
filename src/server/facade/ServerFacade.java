@@ -2,8 +2,12 @@ package server.facade;
 
 import java.util.ArrayList;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import server.ServerException;
 import server.managers.GameManager;
+import server.managers.User;
 import server.managers.UserManager;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
@@ -25,10 +29,10 @@ import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
+import shared.definitions.CatanColor;
 import shared.models.Game;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
-import com.google.gson.*;
 
 public class ServerFacade implements IServerFacade {
 	
@@ -111,9 +115,16 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String joinGame(JoinGameRequestParams params) {
-		// TODO Auto-generated method stub
-		return null;
+	public String joinGame(JoinGameRequestParams params, Credentials credentials) throws ServerException {
+		Game game = this.gameManager.getGameByID(params.id);
+		User user = this.userManager.getUser(credentials.username);
+		Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf(params.color), game.getPlayers().getPlayers().size());
+		try {
+			game.getPlayers().addPlayer(newPlayer);
+		} catch (Exception e) {
+			throw new ServerException("Error adding player");
+		}
+		return "Success";
 	}
 
 	@Override

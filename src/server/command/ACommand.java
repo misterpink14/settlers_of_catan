@@ -56,6 +56,7 @@ public abstract class ACommand {
 			}
 			String password = jsonObject.get("password").getAsString();
 			this.credentials = new Credentials(username, password);
+			this.credentials.playerID = jsonObject.get("playerID").getAsInt();
 		} catch (NullPointerException e) {
 			throw new ServerException("");
 		}

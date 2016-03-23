@@ -12,6 +12,8 @@ public class Credentials
 	 */
 	public String password;
 	
+	public int playerID;
+	
 	public Credentials() 
 	{}
 	

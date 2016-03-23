@@ -68,8 +68,9 @@ public interface IServerFacade {
 	 * @param JoinGameRequestParams object that contains the id of the
 	 * game the player wants to join and the color they want to be
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String joinGame(JoinGameRequestParams params);
+	public String joinGame(JoinGameRequestParams params, Credentials credentials) throws ServerException;
 	
 	/**
 	 * This function will return the Game at the specified versionNumber

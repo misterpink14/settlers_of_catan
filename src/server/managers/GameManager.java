@@ -57,4 +57,8 @@ public class GameManager {
 	{
 		return Arrays.asList(gamesList.values().toArray(new Game[0]));
 	}
+	
+	public Game getGameByID(int id) {
+		return this.gamesList.get(id);
+	}
 }

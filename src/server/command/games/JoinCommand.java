@@ -38,8 +38,8 @@ public class JoinCommand extends ACommand {
 	}
 
 	@Override
-	public void execute() {
-		this.response = this.getFacade().joinGame(params);
+	public void execute() throws ServerException {
+		this.response = this.getFacade().joinGame(params, this.getCredentials());
 	}
 
 	@Override

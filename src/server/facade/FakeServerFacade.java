@@ -53,7 +53,7 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String joinGame(JoinGameRequestParams params) {
+	public String joinGame(JoinGameRequestParams params, Credentials credentials) {
 		// TODO Auto-generated method stub
 		return null;
 	}
