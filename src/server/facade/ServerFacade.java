@@ -33,6 +33,7 @@ import shared.definitions.CatanColor;
 import shared.models.Game;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
+import shared.serializerJSON.Serializer;
 
 public class ServerFacade implements IServerFacade {
 	
@@ -128,9 +129,13 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String getModel(int versionNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getModel(int versionNumber, int gameID) {
+		Game game = this.gameManager.getGameByID(gameID);
+		if (game.getVersionID() == versionNumber) {
+			return "\"true\"";
+		} else {
+			return Serializer.getInstance().serialize(game);
+		}
 	}
 
 	@Override
@@ -243,12 +248,6 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String getListAI() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String serializeGame() {
 		// TODO Auto-generated method stub
 		return null;
 	}

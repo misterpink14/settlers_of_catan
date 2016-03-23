@@ -77,7 +77,7 @@ public interface IServerFacade {
 	 * @param The version number of the current state
 	 * @return JSON String of Game
 	 */
-	public String getModel(int versionNumber);
+	public String getModel(int versionNumber, int gameID);
 	
 	/**
 	 * This function will add the Chat to the Chat Log
@@ -234,12 +234,6 @@ public interface IServerFacade {
 	 * @return JSON String of Game
 	 */
 	public String getListAI();
-	
-	/**
-	 * Serializes the game into a JSON String
-	 * @return JSON String of Game
-	 */
-	public String serializeGame();
 
 	int getPlayerIDFromCredentials(Credentials credentials) throws ServerException;
 }

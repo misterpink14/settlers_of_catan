@@ -59,7 +59,7 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String getModel(int versionNumber) {
+	public String getModel(int versionNumber, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -174,12 +174,6 @@ public class FakeServerFacade implements IServerFacade {
 
 	@Override
 	public String getListAI() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String serializeGame() {
 		// TODO Auto-generated method stub
 		return null;
 	}
