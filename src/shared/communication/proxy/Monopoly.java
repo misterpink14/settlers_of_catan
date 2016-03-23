@@ -21,6 +21,27 @@ public class Monopoly
 		this.playerIndex = playerIndex;
 		this.resource = resource;
 	}
+	
+	public Monopoly(int playerIndex, String resource) {
+		this.playerIndex = playerIndex;
+		switch(resource) {
+		case "Brick":
+			this.resource = ResourceType.BRICK;
+			break;
+		case "Ore":
+			this.resource = ResourceType.ORE;
+			break;
+		case "Sheep":
+			this.resource = ResourceType.SHEEP;
+			break;
+		case "Wheat":
+			this.resource = ResourceType.WHEAT;
+			break;
+		case "Wood":
+			this.resource = ResourceType.WOOD;
+			break;
+		}
+	}
 
 	
 	
