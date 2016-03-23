@@ -160,12 +160,15 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-		String urlParameters = "username=" + credentials.username + "&password=" + credentials.password;
+		//String urlParameters = "username=" + credentials.username + "&password=" + credentials.password;
+		JsonObject urlParameters = new JsonObject();
+		urlParameters.addProperty("username", credentials.username);
+		urlParameters.addProperty("password", credentials.password);
 		
 		// Send post request
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
+		wr.writeBytes(urlParameters.toString());
 		wr.flush();
 		wr.close();
 
