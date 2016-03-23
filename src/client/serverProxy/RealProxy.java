@@ -97,12 +97,15 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-		String urlParameters = "username=" + credentials.username + "&password=" + credentials.password;
+		//String urlParameters = "username=" + credentials.username + "&password=" + credentials.password;
+		JsonObject urlParameters = new JsonObject();
+		urlParameters.addProperty("username", credentials.username);
+		urlParameters.addProperty("password", credentials.password);
 		
 		// Send post request
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
+		wr.writeBytes(urlParameters.toString());
 		wr.flush();
 		wr.close();
 
@@ -259,12 +262,17 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-		String urlParameters = "name=" + params.name + "&randomTiles=" + params.randomTiles + "&randomNumbers=" + params.randomNumbers + "&randomPorts=" + params.randomPorts;
+		//String urlParameters = "name=" + params.name + "&randomTiles=" + params.randomTiles + "&randomNumbers=" + params.randomNumbers + "&randomPorts=" + params.randomPorts;
+		JsonObject urlParameters = new JsonObject();
+		urlParameters.addProperty("name", params.name);
+		urlParameters.addProperty("randomTiles", params.randomTiles);
+		urlParameters.addProperty("randomNumbers", params.randomNumbers);
+		urlParameters.addProperty("randomPorts", params.randomPorts);
 		
 		// Send post request
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
+		wr.writeBytes(urlParameters.toString());
 		wr.flush();
 		wr.close();
 
@@ -312,12 +320,15 @@ public class RealProxy implements ProxyInterface {
 		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		con.setRequestProperty("Cookie", usercookie);
 
-		String urlParameters = "id=" + params.id + "&color=" + params.color;
+		//String urlParameters = "id=" + params.id + "&color=" + params.color;
+		JsonObject urlParameters = new JsonObject();
+		urlParameters.addProperty("id", params.id);
+		urlParameters.addProperty("color", params.color);
 		
 		// Send post request
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
+		wr.writeBytes(urlParameters.toString());
 		wr.flush();
 		wr.close();
 
