@@ -51,7 +51,7 @@ public class RobPlayerCommand extends ACommand {
 
 	@Override
 	public void execute() {
-		this.response = this.getFacade().robPlayer(robPlayer);
+		this.response = this.getFacade().robPlayer(robPlayer, this.getGameID());
 	}
 
 }

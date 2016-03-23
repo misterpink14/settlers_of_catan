@@ -47,7 +47,7 @@ public class YearOfPlentyCommand extends ACommand {
 
 	@Override
 	public void execute() {
-		this.response = this.getFacade().yearOfPlenty(yearOfPlenty);
+		this.response = this.getFacade().yearOfPlenty(yearOfPlenty, this.getGameID());
 	}
 
 }

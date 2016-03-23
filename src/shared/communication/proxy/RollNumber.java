@@ -22,6 +22,11 @@ public class RollNumber
 		this.roll = roll1 + roll2;
 		this.playerIndex = playerIndex;
 	}
+	
+	public RollNumber(int playerIndex, int number) {
+		this.playerIndex = playerIndex;
+		this.roll = number;
+	}
 
 	public int getRoll() {
 		return roll;

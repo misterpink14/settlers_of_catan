@@ -42,7 +42,7 @@ public class BuyDevCardCommand extends ACommand {
 
 	@Override
 	public void execute() {
-		this.response = this.getFacade().buyDevCard(buyDevCard);
+		this.response = this.getFacade().buyDevCard(buyDevCard, this.getGameID());
 	}
 
 }

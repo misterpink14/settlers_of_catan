@@ -42,7 +42,7 @@ public class FinishTurnCommand extends ACommand {
 
 	@Override
 	public void execute() {
-		this.response = this.getFacade().finishTurn(finishTurn);
+		this.response = this.getFacade().finishTurn(finishTurn, this.getGameID());
 	}
 
 }
