@@ -242,4 +242,6 @@ public interface IServerFacade {
 	public String getListAI();
 
 	int getPlayerIDFromCredentials(Credentials credentials) throws ServerException;
+
+	String getModel(int gameID);
 }
