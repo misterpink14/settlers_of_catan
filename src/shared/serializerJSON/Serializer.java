@@ -589,7 +589,7 @@ private static Serializer instance = null;
 			jsonPlayer.add("playerID", new JsonPrimitive(players.getPlayerByIndex(i).getID()));
 			jsonPlayer.add("playerIndex", new JsonPrimitive(players.getPlayerByIndex(i).getIndex()));
 			jsonPlayer.add("name", new JsonPrimitive(players.getPlayerByIndex(i).getName()));
-			jsonPlayer.add("color", new JsonPrimitive(players.getPlayerByIndex(i).getColor().toString()));
+			jsonPlayer.add("color", new JsonPrimitive(players.getPlayerByIndex(i).getColor().toString().toLowerCase()));
 			jsonPlayers.add(jsonPlayer);
 			
 		}
