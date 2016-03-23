@@ -40,7 +40,7 @@ public class CreateCommand extends ACommand {
 	 */
 	public CreateCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		
-		super(cookies.get("catan.user"), facade);
+		super(facade);
 		
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		params = new CreateGameRequestParams(
