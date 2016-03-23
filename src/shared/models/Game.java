@@ -9,6 +9,7 @@ import java.util.Observer;
 import client.clientFacade.ClientFacade;
 import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.OfferTrade;
+import shared.communication.proxy.RollNumber;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
@@ -585,5 +586,13 @@ public class Game extends Observable
 
 	public Boolean settlementTouchesPlayerRoad(VertexLocation loc, int ownerID) {
 		return this.map.settlementTouchesPlayerRoad(loc, ownerID);
+	}
+
+	/*
+	 * This method will take in a roll and will assign resources
+	 */
+	public void processRoll(RollNumber rollNumber) {
+		// TODO Auto-generated method stub
+		
 	}
 }
