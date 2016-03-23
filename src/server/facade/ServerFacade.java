@@ -31,6 +31,8 @@ import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.CatanColor;
 import shared.models.Game;
+import shared.models.chatClasses.GameChat;
+import shared.models.chatClasses.Message;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
 import shared.serializerJSON.Serializer;
@@ -118,7 +120,6 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String joinGame(JoinGameRequestParams params, Credentials credentials) throws ServerException {
 		Game game = this.gameManager.getGameByID(params.id);
-		User user = this.userManager.getUser(credentials.username);
 		Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf(params.color), game.getPlayers().getPlayers().size());
 		try {
 			game.getPlayers().addPlayer(newPlayer);
@@ -139,9 +140,14 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String sendChat(SendChat sendChat) {
-		// TODO Auto-generated method stub
-		return null;
+	public String sendChat(SendChat sendChat, int gameID) {
+		Game game = this.gameManager.getGameByID(gameID);
+		GameChat chat = game.getGameChat();
+		Player player = game.getPlayers().getPlayerByIndex(sendChat.playerIndex);
+		chat.addMessage(new Message(player.getName(), sendChat.content));
+		game.setGameChat(chat);
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override

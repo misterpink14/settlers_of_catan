@@ -85,7 +85,7 @@ public interface IServerFacade {
 	 * of the message sender and the message content
 	 * @return JSON String of Game
 	 */
-	public String sendChat(SendChat sendChat);
+	public String sendChat(SendChat sendChat, int gameID);
 	
 	/**
 	 * This function will roll the dice

@@ -65,7 +65,7 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String sendChat(SendChat sendChat) {
+	public String sendChat(SendChat sendChat, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
