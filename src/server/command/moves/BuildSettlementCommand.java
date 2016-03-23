@@ -51,7 +51,7 @@ public class BuildSettlementCommand extends ACommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws ServerException {
 		this.response = this.getFacade().buildSettlement(buildSettlement, this.getGameID());
 	}
 
