@@ -11,7 +11,7 @@ import server.facade.IServerFacade;
  * Command for discarding cards
  * 	Server end-point: /moves/discardCards POST
  * 
- * @author benthompson
+ * @author benthompson & Bo Pace
  */
 public class DiscardCardsCommand extends ACommand {
 
