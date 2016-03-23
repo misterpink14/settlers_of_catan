@@ -1,5 +1,7 @@
 package shared.communication.proxy;
+import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 
 public class RoadBuilding
 {
@@ -26,6 +28,56 @@ public class RoadBuilding
 		this.playerIndex = playerIndex;
 		this.firstSpot = firstSpot;
 		this.secondSpot = secondSpot;
+	}
+	
+	public RoadBuilding(int playerIndex, int firstSpotX, int firstSpotY, String firstSpotDirection, int secondSpotX, int secondSpotY, String secondSpotDirection) {
+		this.playerIndex = playerIndex;
+		HexLocation firstHexLoc = new HexLocation(firstSpotX, firstSpotY);
+		HexLocation secondHexLoc = new HexLocation(secondSpotX, secondSpotY);
+		EdgeLocation firstEdgeLoc = new EdgeLocation(firstHexLoc, EdgeDirection.NorthWest);
+		EdgeLocation secondEdgeLoc = new EdgeLocation(secondHexLoc, EdgeDirection.NorthWest);
+		switch(firstSpotDirection) {
+		case "NW":
+			firstEdgeLoc = new EdgeLocation(firstHexLoc, EdgeDirection.NorthWest);
+			break;
+		case "N":
+			firstEdgeLoc = new EdgeLocation(firstHexLoc, EdgeDirection.North);
+			break;
+		case "NE":
+			firstEdgeLoc = new EdgeLocation(firstHexLoc, EdgeDirection.NorthEast);
+			break;
+		case "SE":
+			firstEdgeLoc = new EdgeLocation(firstHexLoc, EdgeDirection.SouthEast);
+			break;
+		case "S":
+			firstEdgeLoc = new EdgeLocation(firstHexLoc, EdgeDirection.South);
+			break;
+		case "SW":
+			firstEdgeLoc = new EdgeLocation(firstHexLoc, EdgeDirection.SouthWest);
+			break;
+		}
+		switch(secondSpotDirection) {
+		case "NW":
+			secondEdgeLoc = new EdgeLocation(secondHexLoc, EdgeDirection.NorthWest);
+			break;
+		case "N":
+			secondEdgeLoc = new EdgeLocation(secondHexLoc, EdgeDirection.North);
+			break;
+		case "NE":
+			secondEdgeLoc = new EdgeLocation(secondHexLoc, EdgeDirection.NorthEast);
+			break;
+		case "SE":
+			secondEdgeLoc = new EdgeLocation(secondHexLoc, EdgeDirection.SouthEast);
+			break;
+		case "S":
+			secondEdgeLoc = new EdgeLocation(secondHexLoc, EdgeDirection.South);
+			break;
+		case "SW":
+			secondEdgeLoc = new EdgeLocation(secondHexLoc, EdgeDirection.SouthWest);
+			break;
+		}
+		this.firstSpot = firstEdgeLoc;
+		this.secondSpot = secondEdgeLoc;
 	}
 
 	

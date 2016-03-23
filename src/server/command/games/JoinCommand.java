@@ -48,6 +48,8 @@ public class JoinCommand extends ACommand {
 	public String getCookie() {
 		String cookie = "catan.game=";
 		
+		cookie += this.params.id;
+		
 		cookie += ";Path=/;";
 		return cookie;
 	}

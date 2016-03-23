@@ -31,8 +31,11 @@ import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.CatanColor;
 import shared.models.Game;
+import shared.models.chatClasses.GameChat;
+import shared.models.chatClasses.Message;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
+import shared.serializerJSON.Serializer;
 
 public class ServerFacade implements IServerFacade {
 	
@@ -117,7 +120,6 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String joinGame(JoinGameRequestParams params, Credentials credentials) throws ServerException {
 		Game game = this.gameManager.getGameByID(params.id);
-		User user = this.userManager.getUser(credentials.username);
 		Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf(params.color), game.getPlayers().getPlayers().size());
 		try {
 			game.getPlayers().addPlayer(newPlayer);
@@ -128,127 +130,132 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String getModel(int versionNumber) {
+	public String getModel(int versionNumber, int gameID) {
+		Game game = this.gameManager.getGameByID(gameID);
+		if (game.getVersionID() == versionNumber) {
+			return "\"true\"";
+		} else {
+			return Serializer.getInstance().serialize(game);
+		}
+	}
+
+	@Override
+	public String sendChat(SendChat sendChat, int gameID) {
+		Game game = this.gameManager.getGameByID(gameID);
+		GameChat chat = game.getGameChat();
+		Player player = game.getPlayers().getPlayerByIndex(sendChat.playerIndex);
+		chat.addMessage(new Message(player.getName(), sendChat.content));
+		game.setGameChat(chat);
+		this.gameManager.addGame(game);
+		return Serializer.getInstance().serialize(game);
+	}
+
+	@Override
+	public String rollNumber(RollNumber rollNumber, int gameID) {
+		Game game = this.gameManager.getGameByID(gameID);
+		game.processRoll(rollNumber.roll);
+		
+		return Serializer.getInstance().serialize(game);
+	}
+
+	@Override
+	public String robPlayer(RobPlayer robPlayer, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String sendChat(SendChat sendChat) {
+	public String finishTurn(FinishTurn finishTurn, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String rollNumber(RollNumber rollNumber) {
+	public String buyDevCard(BuyDevCard buyDevCard, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String robPlayer(RobPlayer robPlayer) {
+	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String finishTurn(FinishTurn finishTurn) {
+	public String roadBuilding(RoadBuilding roadBuilding, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String buyDevCard(BuyDevCard buyDevCard) {
+	public String moveSoldier(SoldierMove soldierMove, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String yearOfPlenty(YearOfPlenty yearOfPlenty) {
+	public String playMonopolyCard(Monopoly monopoly, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String roadBuilding(RoadBuilding roadBuilding) {
+	public String playMonumentCard(MonumentMove monumentMove, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveSoldier(SoldierMove soldierMove) {
+	public String buildRoad(BuildRoad buildRoad, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String playMonopolyCard(Monopoly monopoly) {
+	public String buildCity(BuildCity buildCity, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String playMonumentCard(MonumentMove monumentMove) {
+	public String buildSettlement(BuildSettlement buildSettlement, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String buildRoad(BuildRoad buildRoad) {
+	public String offerTrade(OfferTrade offerTrade, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String buildCity(BuildCity buildCity) {
+	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String buildSettlement(BuildSettlement buildSettlement) {
+	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String offerTrade(OfferTrade offerTrade) {
+	public String discardCards(DiscardedCards discardedCards, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String acceptTrade(AcceptTrade acceptTrade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String maritimeTrade(MaritimeTrade maritimeTrade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String discardCards(DiscardedCards discardedCards) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String addAI(String aiType) {
+	public String addAI(String aiType, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getListAI() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String serializeGame() {
 		// TODO Auto-generated method stub
 		return null;
 	}

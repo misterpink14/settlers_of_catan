@@ -38,13 +38,13 @@ public class RollNumberCommand extends ACommand {
 		
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		rollNumber = new RollNumber(
-			json.get("playerIndex").getAsInt()	
+			json.get("playerIndex").getAsInt(), json.get("number").getAsInt()	
 		);
 	}
 
 	@Override
 	public void execute() {
-		this.response = this.getFacade().rollNumber(rollNumber);
+		this.response = this.getFacade().rollNumber(rollNumber, this.getGameID());
 	}
 
 }
