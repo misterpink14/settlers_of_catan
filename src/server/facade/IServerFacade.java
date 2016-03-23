@@ -76,32 +76,36 @@ public interface IServerFacade {
 	 * This function will return the Game at the specified versionNumber
 	 * @param The version number of the current state
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String getModel(int versionNumber, int gameID);
+	public String getModel(int versionNumber, int gameID) throws ServerException;
 	
 	/**
 	 * This function will add the Chat to the Chat Log
 	 * @param SendChat object that contains the player index
 	 * of the message sender and the message content
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String sendChat(SendChat sendChat, int gameID);
+	public String sendChat(SendChat sendChat, int gameID) throws ServerException;
 	
 	/**
 	 * This function will roll the dice
 	 * @param RollNumber object that contains the player index
 	 * and what number they rolled
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String rollNumber(RollNumber rollNumber, int gameID);
+	public String rollNumber(RollNumber rollNumber, int gameID) throws ServerException;
 	
 	/**
 	 * This function will allow the player to rob
 	 * @param RobPlayer object that contains the index of the
 	 * player robbing, and the new location of the robber
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String robPlayer(RobPlayer robPlayer, int gameID);
+	public String robPlayer(RobPlayer robPlayer, int gameID) throws ServerException;
 	
 	/**
 	 * This function will finish the turn
