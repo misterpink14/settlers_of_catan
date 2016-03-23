@@ -1,5 +1,7 @@
 package server.command.games;
 
+import java.net.URLEncoder;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -45,6 +47,8 @@ public class JoinCommand extends ACommand {
 	@Override
 	public String getCookie() {
 		String cookie = "catan.game=";
+		
+		cookie += this.params.id;
 		
 		cookie += ";Path=/;";
 		return cookie;
