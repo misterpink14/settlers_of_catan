@@ -22,6 +22,13 @@ public class YearOfPlenty
 	public YearOfPlenty() 
 	{}
 
+	public YearOfPlenty(int playerIndex, ResourceType resourceOne, ResourceType resourceTwo) {
+		this.playerIndex = playerIndex;
+		this.resourceOne = resourceOne;
+		this.resourceTwo = resourceTwo;
+	}
+	
+	
 
 	
 }

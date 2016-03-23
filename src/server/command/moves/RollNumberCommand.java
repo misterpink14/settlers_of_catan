@@ -1,15 +1,23 @@
 package server.command.moves;
 
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
+import shared.communication.proxy.RollNumber;
 
 /**
  * Command for rolling a number
  * 	Server end-point: /moves/rollNumber POST
  * 
- * @author benthompson
+ * @author benthompson & Bo Pace
  */
 public class RollNumberCommand extends ACommand {
+	
+	RollNumber rollNumber;
 
 	/**
 	 * {
@@ -21,28 +29,20 @@ public class RollNumberCommand extends ACommand {
 	 * @param userJson
 	 * @param facade
 	 * @param jsonBody
+	 * @throws ServerException 
 	 */
-	public RollNumberCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public RollNumberCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
-		// TODO parse the jsonBody
+		
+		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		rollNumber = new RollNumber(
+			json.get("playerIndex").getAsInt()	
+		);
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		return;
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().rollNumber(rollNumber);
 	}
 
 }

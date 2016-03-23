@@ -1,5 +1,6 @@
 package server.command.moves;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -26,8 +27,9 @@ public class BuildSettlementCommand extends ACommand {
 	 * @param userJson
 	 * @param facade
 	 * @param jsonBody
+	 * @throws ServerException 
 	 */
-	public BuildSettlementCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public BuildSettlementCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
 		// TODO parse the jsonBody
 	}

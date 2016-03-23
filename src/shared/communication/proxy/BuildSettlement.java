@@ -20,6 +20,12 @@ public class BuildSettlement
 	public BuildSettlement() 
 	{}
 
+	public BuildSettlement(int playerIndex, Boolean free, VertexLocation vertexLocation) {
+		this.playerIndex = playerIndex;
+		this.free = free;
+		this.vertexLocation = vertexLocation;
+	}
 
+	
 	
 }

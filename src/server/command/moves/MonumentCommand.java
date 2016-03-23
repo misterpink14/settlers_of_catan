@@ -1,5 +1,6 @@
 package server.command.moves;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -20,8 +21,9 @@ public class MonumentCommand extends ACommand {
 	 * @param userJson
 	 * @param facade
 	 * @param jsonBody
+	 * @throws ServerException 
 	 */
-	public MonumentCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public MonumentCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
 		// TODO parse the jsonBody
 	}

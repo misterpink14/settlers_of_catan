@@ -22,6 +22,12 @@ public class RoadBuilding
 	public RoadBuilding() 
 	{}
 
+	public RoadBuilding(int playerIndex, EdgeLocation firstSpot, EdgeLocation secondSpot) {
+		this.playerIndex = playerIndex;
+		this.firstSpot = firstSpot;
+		this.secondSpot = secondSpot;
+	}
 
+	
 	
 }

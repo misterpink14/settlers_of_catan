@@ -1,6 +1,8 @@
 package shared.models.mapClasses;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import shared.definitions.HexType;
 import shared.definitions.PortType;
@@ -36,6 +38,179 @@ public class Map
 	
 // CONSTRUCTORS
 	public Map() {}
+	
+	
+	/**
+	 * Constructor generates a new map. Requires a String to be validated/parsed
+	 * @throws InvalidTypeException 
+	 * @throws InvalidTokenException 
+	 */
+	public Map(Boolean randomTiles, Boolean randomNumbers, Boolean randomPorts) throws InvalidTokenException, InvalidTypeException {
+
+		Random rand = new Random();
+		HexMap hexes = new HexMap();
+		
+		List<HexType> hexTypes =  new ArrayList<HexType>();
+
+		hexTypes.add(HexType.DESERT);
+		hexTypes.add(HexType.WOOD);
+		hexTypes.add(HexType.WHEAT);
+		hexTypes.add(HexType.WOOD);
+		hexTypes.add(HexType.WHEAT);
+		hexTypes.add(HexType.BRICK);
+		hexTypes.add(HexType.ORE);
+		hexTypes.add(HexType.BRICK);
+		hexTypes.add(HexType.SHEEP);
+		hexTypes.add(HexType.BRICK);
+		hexTypes.add(HexType.SHEEP);
+		hexTypes.add(HexType.SHEEP);
+		hexTypes.add(HexType.ORE);
+		hexTypes.add(HexType.WOOD);
+		hexTypes.add(HexType.SHEEP);
+		hexTypes.add(HexType.WHEAT);
+		hexTypes.add(HexType.ORE);
+		hexTypes.add(HexType.WHEAT);
+		hexTypes.add(HexType.WOOD);
+		
+		
+		List<Integer> tokens = new ArrayList<Integer>();
+
+		tokens.add(3);
+		tokens.add(11);
+		tokens.add(4);
+		tokens.add(8);
+		tokens.add(4);
+		tokens.add(9);
+		tokens.add(5);
+		tokens.add(10);
+		tokens.add(8);
+		tokens.add(10);
+		tokens.add(9);
+		tokens.add(3);
+		tokens.add(11);
+		tokens.add(12);
+		tokens.add(6);
+		tokens.add(5);
+		tokens.add(2);
+		tokens.add(6);
+		
+		
+		int hexIndex = 0;
+		int tokenIndex = 0;
+
+		for (int x = 0; x <= 2; ++x) {
+			
+			int maxY = 2 - x;			
+			for (int y = -2; y <= maxY; ++y) {
+				
+				if (randomTiles) {
+					hexIndex = rand.nextInt(hexTypes.size());
+				}
+				if (randomNumbers) {
+					tokenIndex = rand.nextInt(tokens.size());
+				}
+				HexType hexType = hexTypes.get(hexIndex);
+				hexIndex++;
+				tokenIndex++;
+				HexLocation hexLoc = new HexLocation(x, y);
+				if (hexType.equals(HexType.DESERT)) {
+					this.Robber = new RobberLocation(hexLoc);
+					hexes.setHex(hexLoc, new Hex(hexType, -1));
+				}
+				else {
+					hexes.setHex(hexLoc, new Hex(
+							hexType, 
+							tokens.get(tokenIndex)
+						)
+					);
+				}
+			}
+			
+			if (x != 0) {
+				int minY = x - 2;
+				for (int y = minY; y <= 2; ++y) {
+
+					if (randomTiles) {
+						hexIndex = rand.nextInt(hexTypes.size());
+					}
+					if (randomNumbers) {
+						tokenIndex = rand.nextInt(tokens.size());
+					}
+					HexType hexType = hexTypes.get(hexIndex);
+					hexIndex++;
+					tokenIndex++;
+					HexLocation hexLoc = new HexLocation(-x, y);
+					if (hexType.equals(HexType.DESERT)) {
+						this.Robber = new RobberLocation(hexLoc);
+						hexes.setHex(hexLoc, new Hex(hexType, -1));
+					}
+					else {
+						hexes.setHex(hexLoc, new Hex(hexType, tokens.get(tokenIndex)));
+					}
+				}
+			}
+		}
+		
+		List<PortType> portTypes = new ArrayList<PortType>();
+
+		portTypes.add(PortType.THREE);
+		portTypes.add(PortType.BRICK);
+		portTypes.add(PortType.WOOD);
+		portTypes.add(PortType.THREE);
+		portTypes.add(PortType.WHEAT);
+		portTypes.add(PortType.ORE);
+		portTypes.add(PortType.THREE);
+		portTypes.add(PortType.SHEEP);
+		portTypes.add(PortType.THREE);
+		
+		int portIndex = 0;
+/*
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		hexes.setHex(new HexLocation(0, 3), new WaterHex(portTypes.get(portIndex)));
+		portIndex++;
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		getView().addPort(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.South), portTypes.get(portIndex));
+		portIndex++;
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		getView().addPort(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast), portTypes.get(portIndex));
+		portIndex++;
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		getView().addPort(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), portTypes.get(portIndex));
+		portIndex++;
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		getView().addPort(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.SouthWest), portTypes.get(portIndex));
+		portIndex++;
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		getView().addPort(new EdgeLocation(new HexLocation(1, -3), EdgeDirection.NorthWest), portTypes.get(portIndex));
+		portIndex++;
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		getView().addPort(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.NorthWest), portTypes.get(portIndex));
+		portIndex++;
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		getView().addPort(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest), portTypes.get(portIndex));
+		portIndex++;
+		if (randomNumbers) {
+			portIndex = rand.nextInt(hexTypes.size());
+		}
+		getView().addPort(new EdgeLocation(new HexLocation(1, 1), EdgeDirection.NorthWest), portTypes.get(portIndex));
+*/
+	}
 	
 	
 	/**

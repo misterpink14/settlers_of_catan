@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.clientFacade.ClientFacade;
+import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
@@ -21,6 +22,7 @@ import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Hex;
+import shared.models.mapClasses.InvalidTokenException;
 import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
@@ -98,6 +100,31 @@ public class Game extends Observable
 		this.chat = new GameChat();
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, -1);
 	}
+	
+	
+	public Game(CreateGameRequestParams params)
+	{
+		this.gameState = GameState.LOGIN;
+		try {
+			this.map = new Map(
+				params.randomTiles,
+				params.randomNumbers,
+				params.randomPorts
+			);
+		} catch (InvalidTokenException e) { // TODO: something more graceful than this
+			e.printStackTrace();
+		} catch (InvalidTypeException e) {
+			e.printStackTrace();
+		}
+		this.bank = new Bank();
+		this.cardDeck = new CardDeck();
+		this.players = new GamePlayers();
+		this.log = new GameLog();
+		this.chat = new GameChat();
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, -1);
+		this.title = params.name;
+	}
+	
 	
 	public Game(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
 			int currentTurn, boolean hasPlayedDevCard, int winner, int longestRoad) 

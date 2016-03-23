@@ -11,6 +11,10 @@ public class FinishTurn
 	
 	public FinishTurn() 
 	{}
+	
+	public FinishTurn(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
 
 
 	

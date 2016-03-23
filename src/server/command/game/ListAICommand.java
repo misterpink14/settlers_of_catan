@@ -1,5 +1,6 @@
 package server.command.game;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -11,7 +12,7 @@ import server.facade.IServerFacade;
  */
 public class ListAICommand extends ACommand {
 
-	public ListAICommand(String userJson, IServerFacade facade) {
+	public ListAICommand(String userJson, IServerFacade facade) throws ServerException {
 		super(userJson, facade);
 	}
 	

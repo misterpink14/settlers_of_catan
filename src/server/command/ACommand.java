@@ -1,10 +1,9 @@
 package server.command;
 
-import java.rmi.ServerException;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import server.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.proxy.Credentials;
 
@@ -20,7 +19,7 @@ public abstract class ACommand {
 		
 	}
 	
-	public ACommand(String userJson, IServerFacade facade) {
+	public ACommand(String userJson, IServerFacade facade) throws ServerException {
 		this.jsonDecode(userJson);
 		this.facade = facade;
 	}
@@ -43,18 +42,23 @@ public abstract class ACommand {
 	 * Decodes the user credentials from the catan.user json within the cookie
 	 * 
 	 * @param userJson
+	 * @throws ServerException 
 	 */
-	private void jsonDecode(String userJson) { // TODO parse the playerid
-		JsonObject jsonObject = new JsonParser().parse(userJson).getAsJsonObject();
-		String username;
-		if (jsonObject.has("username")) {
-			username = jsonObject.get("username").getAsString();
+	private void jsonDecode(String userJson) throws ServerException { // TODO parse the playerid
+		try {
+			JsonObject jsonObject = new JsonParser().parse(userJson).getAsJsonObject();
+			String username;
+			if (jsonObject.has("username")) {
+				username = jsonObject.get("username").getAsString();
+			}
+			else {
+				username = jsonObject.get("name").getAsString();
+			}
+			String password = jsonObject.get("password").getAsString();
+			this.credentials = new Credentials(username, password);
+		} catch (NullPointerException e) {
+			throw new ServerException("");
 		}
-		else {
-			username = jsonObject.get("user").getAsString();
-		}
-		String password = jsonObject.get("password").getAsString();
-		this.credentials = new Credentials(username, password);
 	}
 
 

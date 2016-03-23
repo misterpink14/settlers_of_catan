@@ -17,6 +17,11 @@ public class Monopoly
 	public Monopoly() 
 	{}
 
+	public Monopoly(int playerIndex, ResourceType resource) {
+		this.playerIndex = playerIndex;
+		this.resource = resource;
+	}
 
+	
 	
 }

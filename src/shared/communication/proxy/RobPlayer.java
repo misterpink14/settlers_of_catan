@@ -20,9 +20,13 @@ public class RobPlayer
 	 */
 	public HexLocation newLocation;
 	
-	public RobPlayer() 
+	public RobPlayer()
 	{}
-
-
+	
+	public RobPlayer(int playerIndex, int victimIndex, HexLocation newLocation) {
+		this.playerIndex = playerIndex;
+		this.victimIndex = victimIndex;
+		this.newLocation = newLocation;
+	}
 	
 }

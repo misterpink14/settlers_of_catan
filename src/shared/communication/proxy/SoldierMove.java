@@ -22,6 +22,12 @@ public class SoldierMove
 	public SoldierMove() 
 	{}
 
+	public SoldierMove(int playerIndex, int victimIndex, HexLocation newLocation) {
+		this.playerIndex = playerIndex;
+		this.victimIndex = victimIndex;
+		this.newLocation = newLocation;
+	}
 
+	
 	
 }

@@ -1,15 +1,22 @@
 package server.command.moves;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
+import shared.communication.proxy.BuyDevCard;
 
 /**
  * Command for buying a dev card
  * 	Server end-point: /moves/buyDevCard POST
  * 
- * @author benthompson
+ * @author benthompson & Bo Pace
  */
 public class BuyDevCardCommand extends ACommand {
+	
+	BuyDevCard buyDevCard;
 
 	/**
 	 * {
@@ -20,27 +27,20 @@ public class BuyDevCardCommand extends ACommand {
 	 * @param userJson
 	 * @param facade
 	 * @param jsonBody
+	 * @throws ServerException 
 	 */
-	public BuyDevCardCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public BuyDevCardCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
-		// TODO parse the jsonBody
+		
+		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		buyDevCard = new BuyDevCard(
+			json.get("playerIndex").getAsInt()
+		);
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().buyDevCard(buyDevCard);
 	}
 
 }

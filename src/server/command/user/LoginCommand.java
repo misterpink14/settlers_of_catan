@@ -16,7 +16,7 @@ import server.facade.IServerFacade;
  */
 public class LoginCommand extends ACommand {
 
-	public LoginCommand(String userJson, IServerFacade facade) {
+	public LoginCommand(String userJson, IServerFacade facade) throws ServerException {
 		super(userJson, facade);
 	}
 

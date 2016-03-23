@@ -3,6 +3,7 @@ package server.command.games;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 import shared.communication.proxy.CreateGameRequestParams;
@@ -33,14 +34,15 @@ public class CreateCommand extends ACommand {
 	 * @param title
 	 * @param id
 	 * @param players
+	 * @throws ServerException 
 	 */
-	public CreateCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public CreateCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		
 		super(userJson, facade);
 		
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		params = new CreateGameRequestParams(
-			json.get("title").getAsString(),
+			json.get("name").getAsString(),
 			json.get("randomTiles").getAsBoolean(),
 			json.get("randomNumbers").getAsBoolean(),
 			json.get("randomPorts").getAsBoolean()

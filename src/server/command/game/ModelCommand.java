@@ -1,5 +1,7 @@
 package server.command.game;
 
+
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -11,7 +13,7 @@ import server.facade.IServerFacade;
  */
 public class ModelCommand extends ACommand {
 
-	public ModelCommand(String userJson, IServerFacade facade) {
+	public ModelCommand(String userJson, IServerFacade facade) throws ServerException {
 		super(userJson, facade);
 	}
 	

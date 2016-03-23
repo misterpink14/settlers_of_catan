@@ -1,5 +1,6 @@
 package server.command.moves;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -21,8 +22,9 @@ public class MonopolyCommand extends ACommand {
 	 * @param userJson
 	 * @param facade
 	 * @param jsonBody
+	 * @throws ServerException 
 	 */
-	public MonopolyCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public MonopolyCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
 		// TODO parse the jsonBody
 	}

@@ -1,5 +1,7 @@
 package server.command.moves;
 
+
+import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 
@@ -23,8 +25,9 @@ public class MaritimeTradeCommand extends ACommand {
 	 * @param userJson
 	 * @param facade
 	 * @param jsonBody
+	 * @throws ServerException 
 	 */
-	public MaritimeTradeCommand(String userJson, IServerFacade facade, String jsonBody) {
+	public MaritimeTradeCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
 		// TODO parse the jsonBody
 	}
