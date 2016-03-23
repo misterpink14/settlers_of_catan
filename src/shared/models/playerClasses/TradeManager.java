@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.InsufficientCardNumberException;
+import shared.models.cardClasses.ResourceCards;
 import shared.models.tradeClasses.*;
 
 public class TradeManager {
@@ -53,20 +54,30 @@ public class TradeManager {
 	 * Exchange two player's resources
 	 * @throws InsufficientCardNumberException 
 	 */
-	public void ExecuteTrade(int traderIndex, int tradeeIndex, HashMap<ResourceType, Integer> out, HashMap<ResourceType, Integer> in) throws InsufficientCardNumberException {
+	public void ExecuteTrade(int traderIndex, int tradeeIndex, ResourceCards out, ResourceCards in) throws InsufficientCardNumberException {
 		//move the trader's resources to the tradee
-		for(ResourceType type : out.keySet()) {
-			int num = out.get(type);
-			players.getPlayerByIndex(traderIndex).removeResourceFromHand(type, num);
-			players.getPlayerByIndex(tradeeIndex).addResourceToHand(type, num);
-		}
+		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.BRICK, out.getBrickCards());
+		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.BRICK, out.getBrickCards());
+		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.ORE, out.getOreCards());
+		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.ORE, out.getOreCards());
+		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.SHEEP, out.getSheepCards());
+		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.SHEEP, out.getSheepCards());
+		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.WHEAT, out.getWheatCards());
+		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.WHEAT, out.getWheatCards());
+		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.WOOD, out.getWoodCards());
+		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.WOOD, out.getWoodCards());
 		
 		//move the tradee's resources to the trader
-		for(ResourceType type : in.keySet()) {
-			int num = in.get(type);
-			players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(type, num);
-			players.getPlayerByIndex(traderIndex).addResourceToHand(type, num);
-		}
+		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.BRICK, in.getBrickCards());
+		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.BRICK, in.getBrickCards());
+		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.ORE, in.getOreCards());
+		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.ORE, in.getOreCards());
+		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.SHEEP, in.getSheepCards());
+		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.SHEEP, in.getSheepCards());
+		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.WHEAT, in.getWheatCards());
+		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.WHEAT, in.getWheatCards());
+		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.WOOD, in.getWoodCards());
+		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.WOOD, in.getWoodCards());
 	}
 	
 	/**
@@ -89,6 +100,11 @@ public class TradeManager {
 		players.getPlayerByIndex(traderIndex).addResourceToHand(returnType, 1);
 	}
 	
+	/**
+	 * Trade this player's resources using a harbor
+	 * he/she has built on.
+	 * @throws InsufficientCardNumberException 
+	 */
 	public void tradeThreeWithPort(int traderIndex, ResourceType portType, ResourceType returnType) throws InsufficientCardNumberException {
 		players.getPlayerByIndex(traderIndex).removeResourceFromHand(portType, 3);
 		players.getPlayerByIndex(traderIndex).addResourceToHand(returnType, 1);	
