@@ -140,8 +140,12 @@ public class Map
 					if (randomTiles) {
 						hexIndex = rand.nextInt(hexTypes.size());
 					}
-					if (randomNumbers) {
-						tokenIndex = rand.nextInt(tokens.size());
+					try {
+						if (randomNumbers) {
+							tokenIndex = rand.nextInt(tokens.size());
+						}
+					} catch (Exception e) {
+						
 					}
 					HexType hexType = hexTypes.get(hexIndex);
 					hexIndex++;
