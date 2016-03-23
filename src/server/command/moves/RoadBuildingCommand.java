@@ -1,17 +1,23 @@
 package server.command.moves;
 
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
+import shared.communication.proxy.RoadBuilding;
 
 /**
  * Command for playing a road building card
  * 	Server end-point: /moves/Road_Building POST
  * 
- * @author benthompson
+ * @author benthompson & Bo Pace
  */
 public class RoadBuildingCommand extends ACommand {
+	
+	RoadBuilding roadBuilding;
 
 	/**
 	 * {
@@ -36,25 +42,22 @@ public class RoadBuildingCommand extends ACommand {
 	 */
 	public RoadBuildingCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
-		// TODO parse the jsonBody
+		
+		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		roadBuilding = new RoadBuilding(
+			json.get("playerIndex").getAsInt(),
+			json.getAsJsonObject("spot1").get("x").getAsInt(),
+			json.getAsJsonObject("spot1").get("y").getAsInt(),
+			json.getAsJsonObject("spot1").get("direction").getAsString(),
+			json.getAsJsonObject("spot2").get("x").getAsInt(),
+			json.getAsJsonObject("spot2").get("y").getAsInt(),
+			json.getAsJsonObject("spot2").get("direction").getAsString()
+		);
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		return;
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().roadBuilding(roadBuilding);
 	}
 
 }
