@@ -110,8 +110,10 @@ public class Map
 					tokenIndex = rand.nextInt(tokens.size());
 				}
 				HexType hexType = hexTypes.get(hexIndex);
+				if (randomTiles) {
+					hexTypes.remove(hexIndex);
+				}
 				hexIndex++;
-				tokenIndex++;
 				HexLocation hexLoc = new HexLocation(x, y);
 				if (hexType.equals(HexType.DESERT)) {
 					this.Robber = new RobberLocation(hexLoc);
@@ -123,6 +125,11 @@ public class Map
 							tokens.get(tokenIndex)
 						)
 					);
+
+					if (randomNumbers) {
+						tokens.remove(tokenIndex);
+					}
+					tokenIndex++;
 				}
 			}
 			
@@ -138,7 +145,6 @@ public class Map
 					}
 					HexType hexType = hexTypes.get(hexIndex);
 					hexIndex++;
-					tokenIndex++;
 					HexLocation hexLoc = new HexLocation(-x, y);
 					if (hexType.equals(HexType.DESERT)) {
 						this.Robber = new RobberLocation(hexLoc);
@@ -146,6 +152,11 @@ public class Map
 					}
 					else {
 						hexes.setHex(hexLoc, new Hex(hexType, tokens.get(tokenIndex)));
+
+						if (randomNumbers) {
+							tokens.remove(tokenIndex);
+						}
+						tokenIndex++;
 					}
 				}
 			}
@@ -224,7 +235,7 @@ public class Map
 			portIndex = rand.nextInt(hexTypes.size());
 		}
 
-		hexes.setHex(new HexLocation(2, 11), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthWest));
+		hexes.setHex(new HexLocation(2, 1), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthWest));
 	}
 	
 	

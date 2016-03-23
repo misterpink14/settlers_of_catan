@@ -122,7 +122,7 @@ public class ServerFacade implements IServerFacade {
 			throw new ServerException("This game already has 4 players");
 		}
 		if (game.getPlayers().getPlayerByID(credentials.playerID) == null) {
-			Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf(params.color), game.getPlayers().getPlayers().size());
+			Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf(params.color.toUpperCase()), game.getPlayers().getPlayers().size());
 			try {
 				game.getPlayers().addPlayer(newPlayer);
 			} catch (Exception e) {
