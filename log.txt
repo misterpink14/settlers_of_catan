@@ -1,0 +1,6 @@
+Mar 23, 2016 5:48:34 PM server.Server run
+INFO: Initializing Model
+Mar 23, 2016 5:48:34 PM server.Server run
+INFO: Initializing HTTP Server
+Mar 23, 2016 5:48:34 PM server.Server run
+INFO: Starting HTTP Server on port: 8081
