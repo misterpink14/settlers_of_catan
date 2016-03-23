@@ -209,7 +209,7 @@ public class TurnManager {
 		players.getPlayerByIndex(currPlayer).addResourceToHand(type2, 1);
 	}
 	
-	public void playRoadBuildingCard(int currPlayer, EdgeLocation loc) throws InvalidTypeException {
+	public void playRoadBuildingCard(int currPlayer, EdgeLocation loc, EdgeLocation loc2) throws InvalidTypeException {
 		try {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.ROAD_BUILD);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove roadbuilding card from players hand.");}
@@ -217,6 +217,10 @@ public class TurnManager {
 		Piece newRoad = new Piece(PieceType.ROAD, currPlayer);
 		map.addRoadToEdgeMap(loc, newRoad);
 		map.addRoadToPlayerMap(loc, currPlayer);
+		
+		Piece newRoad2 = new Piece(PieceType.ROAD, currPlayer);
+		map.addRoadToEdgeMap(loc2, newRoad2);
+		map.addRoadToPlayerMap(loc2, currPlayer);
 	}
 	
 	public void playMonumentCard(int currPlayer) {

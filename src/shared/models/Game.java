@@ -458,8 +458,8 @@ public class Game extends Observable
 		turnManager.playYearOfPlentyCard(currPlayer, type1, type2);
 	}
 	
-	public void playRoadBuildingCard(int currPlayer, EdgeLocation loc) throws InvalidTypeException {
-		turnManager.playRoadBuildingCard(currPlayer, loc);
+	public void playRoadBuildingCard(int currPlayer, EdgeLocation loc, EdgeLocation loc2) throws InvalidTypeException {
+		turnManager.playRoadBuildingCard(currPlayer, loc, loc2);
 	}
 	
 	public void playMonumentCard(int currPlayer) {
