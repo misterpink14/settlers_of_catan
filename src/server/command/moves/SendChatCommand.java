@@ -43,7 +43,7 @@ public class SendChatCommand extends ACommand {
 
 	@Override
 	public void execute() {
-		this.response = this.getFacade().sendChat(sendChat);
+		this.response = this.getFacade().sendChat(sendChat, this.getGameID());
 	}
 
 }
