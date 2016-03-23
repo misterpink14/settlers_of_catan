@@ -179,7 +179,7 @@ public class ServerFacade implements IServerFacade {
 	public String finishTurn(FinishTurn finishTurn, int gameID) {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		game.getTurnManager().finishTurn(finishTurn.playerIndex);
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
