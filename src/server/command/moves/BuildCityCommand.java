@@ -50,19 +50,7 @@ public class BuildCityCommand extends ACommand {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().buildCity(buildCity, this.getGameID());
 	}
 
 }
