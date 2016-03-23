@@ -31,8 +31,10 @@ import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.CatanColor;
 import shared.models.Game;
+import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.chatClasses.Message;
+import shared.models.mapClasses.InvalidTypeException;
 import shared.models.playerClasses.GamePlayers;
 import shared.models.playerClasses.Player;
 import shared.serializerJSON.Serializer;
@@ -164,16 +166,14 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String robPlayer(RobPlayer robPlayer, int gameID) {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		game.robPlayer(robPlayer.playerIndex, robPlayer.victimIndex);
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String finishTurn(FinishTurn finishTurn, int gameID) {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
 		game.getTurnManager().finishTurn(finishTurn.playerIndex);
 		this.gameManager.addGame(game);
@@ -181,28 +181,33 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String buyDevCard(BuyDevCard buyDevCard, int gameID) {
-		// TODO Auto-generated method stub
+	public String buyDevCard(BuyDevCard buyDevCard, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		try {
+			game.buyDevelopmentCard(buyDevCard.playerIndex);
+		} catch (InsufficientCardNumberException e) {
+			throw new ServerException("Error buying dev card");
+		}
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		game.playYearOfPlentyCard(yearOfPlenty.playerIndex, yearOfPlenty.resourceOne, yearOfPlenty.resourceTwo);
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
-	public String roadBuilding(RoadBuilding roadBuilding, int gameID) {
-		// TODO Auto-generated method stub
+	public String roadBuilding(RoadBuilding roadBuilding, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		try {
+			game.playRoadBuildingCard(roadBuilding.playerIndex, roadBuilding.firstSpot, roadBuilding.secondSpot);
+		} catch (InvalidTypeException e) {
+			throw new ServerException("Error playing road building card");
+		}
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}

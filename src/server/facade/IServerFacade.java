@@ -116,8 +116,9 @@ public interface IServerFacade {
 	 * @param BuyDevCard object that contains the player index
 	 * buying the card
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String buyDevCard(BuyDevCard buyDevCard, int gameID);
+	public String buyDevCard(BuyDevCard buyDevCard, int gameID) throws ServerException;
 	
 	/**
 	 * This function will play a Year of Plenty card
@@ -132,8 +133,9 @@ public interface IServerFacade {
 	 * @param RoadBuilding object that contains the player index
 	 * and the two locations they want to build roads
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String roadBuilding(RoadBuilding roadBuilding, int gameID);
+	public String roadBuilding(RoadBuilding roadBuilding, int gameID) throws ServerException;
 	
 	/**
 	 * This function will play a Soldier card
