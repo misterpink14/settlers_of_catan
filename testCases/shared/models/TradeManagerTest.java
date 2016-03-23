@@ -39,11 +39,11 @@ public class TradeManagerTest {
 		in.put(ResourceType.WHEAT, 1);		
 		
 		assertTrue(tm.canTrade(0, 1, out, in));
-		try {
-			tm.ExecuteTrade(0, 1, out, in);
-		} catch (InsufficientCardNumberException e) {
-			fail("Failed to trade");
-		}
+//		try {
+//			tm.ExecuteTrade(0, 1, out, in);
+//		} catch (InsufficientCardNumberException e) {
+//			fail("Failed to trade");
+//		}
 		
 		//verify that the players have the right number of resources
 		assertTrue(players.getPlayerByIndex(0).getNumOfResource(ResourceType.BRICK) == 1);

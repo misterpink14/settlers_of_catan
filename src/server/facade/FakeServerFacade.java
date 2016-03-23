@@ -98,8 +98,8 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String finishTurn(FinishTurn finishTurn, int gameID) {
-		if (robPlayer.playerIndex == -1) {
+	public String finishTurn(FinishTurn finishTurn, int gameID) throws ServerException {
+		if (finishTurn.playerIndex == -1) {
 			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
 		}
 		// TODO add test for playerIndex, victimIndex, location, gameID

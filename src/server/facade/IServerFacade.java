@@ -112,8 +112,9 @@ public interface IServerFacade {
 	 * @param FinishTurn object that contains the player index
 	 * that's ending their turn
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String finishTurn(FinishTurn finishTurn, int gameID);
+	public String finishTurn(FinishTurn finishTurn, int gameID) throws ServerException;
 	
 	/**
 	 * This function will buy a dev card
