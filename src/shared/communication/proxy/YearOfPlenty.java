@@ -28,6 +28,44 @@ public class YearOfPlenty
 		this.resourceTwo = resourceTwo;
 	}
 	
+	public YearOfPlenty(int playerIndex, String resourceOne, String resourceTwo) {
+		this.playerIndex = playerIndex;
+		switch(resourceOne) {
+		case "Brick":
+			this.resourceOne = ResourceType.BRICK;
+			break;
+		case "Ore":
+			this.resourceOne = ResourceType.ORE;
+			break;
+		case "Sheep":
+			this.resourceOne = ResourceType.SHEEP;
+			break;
+		case "Wheat":
+			this.resourceOne = ResourceType.WHEAT;
+			break;
+		case "Wood":
+			this.resourceOne = ResourceType.WOOD;
+			break;
+		}
+		switch(resourceTwo) {
+		case "Brick":
+			this.resourceTwo = ResourceType.BRICK;
+			break;
+		case "Ore":
+			this.resourceTwo = ResourceType.ORE;
+			break;
+		case "Sheep":
+			this.resourceTwo = ResourceType.SHEEP;
+			break;
+		case "Wheat":
+			this.resourceTwo = ResourceType.WHEAT;
+			break;
+		case "Wood":
+			this.resourceTwo = ResourceType.WOOD;
+			break;
+		}
+	}
+	
 	
 
 	

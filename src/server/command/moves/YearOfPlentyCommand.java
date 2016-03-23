@@ -1,17 +1,23 @@
 package server.command.moves;
 
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
+import shared.communication.proxy.YearOfPlenty;
 
 /**
  * Command for for playing a year of plenty card
  * 	Server end-point: /moves/Year_Of_Plenty POST
  * 
- * @author benthompson
+ * @author benthompson & Bo Pace
  */
 public class YearOfPlentyCommand extends ACommand {
+	
+	YearOfPlenty yearOfPlenty;
 
 	/**
 	 * {
@@ -28,24 +34,18 @@ public class YearOfPlentyCommand extends ACommand {
 	 */
 	public YearOfPlentyCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
 		super(userJson, facade);
-		// TODO parse the jsonBody
+		
+		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		yearOfPlenty = new YearOfPlenty(
+			json.get("playerIndex").getAsInt(),
+			json.get("resource1").getAsString(),
+			json.get("resource2").getAsString()
+		);
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().yearOfPlenty(yearOfPlenty);
 	}
 
 }
