@@ -1,23 +1,19 @@
 package server.command.moves;
 
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import java.util.Map;
 
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
-import shared.communication.proxy.RoadBuilding;
 
 /**
  * Command for playing a road building card
  * 	Server end-point: /moves/Road_Building POST
  * 
- * @author benthompson & Bo Pace
+ * @author benthompson
  */
 public class RoadBuildingCommand extends ACommand {
-	
-	RoadBuilding roadBuilding;
 
 	/**
 	 * {
@@ -35,29 +31,32 @@ public class RoadBuildingCommand extends ACommand {
 		  }
 		}
 	 * 
-	 * @param userJson
+	 * @param cookies
 	 * @param facade
 	 * @param jsonBody
 	 * @throws ServerException 
 	 */
-	public RoadBuildingCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
-		super(userJson, facade);
-		
-		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
-		roadBuilding = new RoadBuilding(
-			json.get("playerIndex").getAsInt(),
-			json.getAsJsonObject("spot1").get("x").getAsInt(),
-			json.getAsJsonObject("spot1").get("y").getAsInt(),
-			json.getAsJsonObject("spot1").get("direction").getAsString(),
-			json.getAsJsonObject("spot2").get("x").getAsInt(),
-			json.getAsJsonObject("spot2").get("y").getAsInt(),
-			json.getAsJsonObject("spot2").get("direction").getAsString()
-		);
+	public RoadBuildingCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
+		super(cookies.get("catan.game"), facade, Integer.parseInt(cookies.get("catan.game")));
+		// TODO parse the jsonBody
 	}
 
 	@Override
 	public void execute() {
-		this.response = this.getFacade().roadBuilding(roadBuilding);
+		// TODO Auto-generated method stub
+		return;
+	}
+
+	@Override
+	public String getResponse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getCookie() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

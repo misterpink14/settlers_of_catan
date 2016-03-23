@@ -1,5 +1,7 @@
 package server.command.moves;
 
+import java.util.Map;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
@@ -19,13 +21,13 @@ public class MonopolyCommand extends ACommand {
 		  "playerIndex": "integer"
 		}
 	 * 
-	 * @param userJson
+	 * @param cookies
 	 * @param facade
 	 * @param jsonBody
 	 * @throws ServerException 
 	 */
-	public MonopolyCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
-		super(userJson, facade);
+	public MonopolyCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
+		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
 		// TODO parse the jsonBody
 	}
 

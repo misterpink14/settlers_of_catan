@@ -1,6 +1,8 @@
 package server.command.moves;
 
 
+import java.util.Map;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -31,13 +33,13 @@ public class RobPlayerCommand extends ACommand {
 		  }
 		}
 	 * 
-	 * @param userJson
+	 * @param cookies
 	 * @param facade
 	 * @param jsonBody
 	 * @throws ServerException 
 	 */
-	public RobPlayerCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
-		super(userJson, facade);
+	public RobPlayerCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
+		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
 		
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		robPlayer = new RobPlayer(

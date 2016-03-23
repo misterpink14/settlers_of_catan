@@ -1,5 +1,7 @@
 package server.command.games;
 
+import java.util.Map;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -36,9 +38,9 @@ public class CreateCommand extends ACommand {
 	 * @param players
 	 * @throws ServerException 
 	 */
-	public CreateCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
+	public CreateCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		
-		super(userJson, facade);
+		super(cookies.get("catan.user"), facade);
 		
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		params = new CreateGameRequestParams(

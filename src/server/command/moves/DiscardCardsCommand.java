@@ -1,6 +1,8 @@
 package server.command.moves;
 
 
+import java.util.Map;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
@@ -26,14 +28,14 @@ public class DiscardCardsCommand extends ACommand {
 		  }
 		}
 	 * 
-	 * @param userJson
+	 * @param cookies
 	 * @param facade
 	 * @param jsonBody
 	 * @throws ServerException 
 	 */
-	public DiscardCardsCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
-		super(userJson, facade);
-		// TODO parse the jsonBody
+	public DiscardCardsCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
+		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
+		// TODO parse the jsonBody 
 	}
 
 	@Override
