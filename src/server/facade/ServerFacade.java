@@ -103,14 +103,10 @@ public class ServerFacade implements IServerFacade {
 		gameJson.addProperty("id", g.getId());
 		
 		JsonArray playerListJson = new JsonArray();
-		GamePlayers players = g.getPlayers();
-		
-		for (Player p: players.getPlayers()) {
-			JsonObject playerJson = new JsonObject();
-			playerJson.addProperty("color", p.getColor().name());
-			playerJson.addProperty("name", p.getName());
-			playerJson.addProperty("id", p.getID());
-			playerListJson.add(playerJson);
+		int numberOfEmptyPlayers = 4;
+		for (int i = 0; i < numberOfEmptyPlayers; i++) {
+			playerListJson.add(new JsonObject());
+			
 		}
 		gameJson.add("players", playerListJson);
 		
