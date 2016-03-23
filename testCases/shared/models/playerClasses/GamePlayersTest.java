@@ -67,5 +67,23 @@ public class GamePlayersTest {
 		players.finishTurn(1);
 		assertFalse(players.getPlayerByIndex(1).isTurn());
 	}
+	
+	@Test
+	public void testCheckForLargestArmy() {
+		try {
+			players.addPlayer(1, "bob", CatanColor.BLUE);
+			players.addPlayer(2, "bob", CatanColor.GREEN);
+			players.addPlayer(3, "bob", CatanColor.WHITE);
+			players.addPlayer(4, "bob", CatanColor.RED);
+		} catch (Exception e) {
+			fail("Failed adding a legal number of players");
+		}
+		assertTrue(players.checkForLargestArmy() == -1);
+		players.getPlayerByIndex(3).addToArmy();
+		players.getPlayerByIndex(3).addToArmy();
+		assertTrue(players.checkForLargestArmy() == -1);
+		players.getPlayerByIndex(3).addToArmy();
+		assertTrue(players.checkForLargestArmy() == 3);
+	}
 
 }

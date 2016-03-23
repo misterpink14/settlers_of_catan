@@ -87,7 +87,7 @@ public class GamePlayers {
 	public int checkForLargestArmy() {
 		int playerIndex = 0;
 		for (Player p : players) {
-			if(p.getArmy() > largestArmy && largestArmy > 2) {
+			if(p.getArmy() > largestArmy && p.getArmy() > 2) {
 				largestArmy = p.getArmy();
 				return playerIndex;
 			}
