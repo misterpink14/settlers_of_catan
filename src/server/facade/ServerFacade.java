@@ -1,13 +1,13 @@
 package server.facade;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import server.ServerException;
 import server.managers.GameManager;
-import server.managers.User;
 import server.managers.UserManager;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
@@ -66,7 +66,7 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String getGamesList() {
 		
-		ArrayList<Game> games = (ArrayList<Game>) gameManager.getGames();
+		List<Game> games = gameManager.getGames();
 		JsonArray gameListJson = new JsonArray();
 		
 		
