@@ -30,6 +30,7 @@ import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.CatanColor;
+import shared.definitions.ResourceType;
 import shared.models.Game;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
@@ -214,54 +215,60 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String moveSoldier(SoldierMove soldierMove, int gameID) {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		game.playSoldierCard(soldierMove.playerIndex, soldierMove.newLocation, soldierMove.victimIndex);
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String playMonopolyCard(Monopoly monopoly, int gameID) {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		game.playMonopolyCard(monopoly.playerIndex, monopoly.resource);
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
 	public String playMonumentCard(MonumentMove monumentMove, int gameID) {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		game.playMonumentCard(monumentMove.playerIndex);
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
-	public String buildRoad(BuildRoad buildRoad, int gameID) {
-		// TODO Auto-generated method stub
+	public String buildRoad(BuildRoad buildRoad, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		try {
+			game.buildRoad(buildRoad.playerIndex, buildRoad.roadLocation);
+		} catch (InsufficientCardNumberException | InvalidTypeException e) {
+			throw new ServerException("Error building road");
+		}
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
-	public String buildCity(BuildCity buildCity, int gameID) {
-		// TODO Auto-generated method stub
+	public String buildCity(BuildCity buildCity, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		try {
+			game.buildCity(buildCity.playerIndex, buildCity.vertexLocation);
+		} catch (InsufficientCardNumberException | InvalidTypeException e) {
+			throw new ServerException("Error building city");
+		}
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override
-	public String buildSettlement(BuildSettlement buildSettlement, int gameID) {
-		// TODO Auto-generated method stub
+	public String buildSettlement(BuildSettlement buildSettlement, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		try {
+			game.buildSettlement(buildSettlement.playerIndex, buildSettlement.vertexLocation);
+		} catch (InsufficientCardNumberException | InvalidTypeException e) {
+			throw new ServerException("Error building settlement");
+		}
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
@@ -294,13 +301,31 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String discardCards(DiscardedCards discardedCards, int gameID) {
-		// TODO Auto-generated method stub
+	public String discardCards(DiscardedCards discardedCards, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		ArrayList<ResourceType> res = new ArrayList<ResourceType>();
+		res = addResources(res, ResourceType.BRICK, discardedCards.brick);
+		res = addResources(res, ResourceType.WOOD, discardedCards.wood);
+		res = addResources(res, ResourceType.WHEAT, discardedCards.wheat);
+		res = addResources(res, ResourceType.ORE, discardedCards.sheep);
+		res = addResources(res, ResourceType.SHEEP, discardedCards.ore);
+		ResourceType[] resources = (ResourceType[]) res.toArray();
+		try {
+			game.discard(discardedCards.playerIndex, resources);
+		} catch (InsufficientCardNumberException e) {
+			throw new ServerException("Error discarding cards");
+		}
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
+
+	private ArrayList<ResourceType> addResources(ArrayList<ResourceType> res, ResourceType resource, int num) {
+		for (int i = 0; i < num; ++i) {
+			res.add(resource);
+		}
+		return res;
+	}
+
 
 	@Override
 	public String addAI(String aiType, int gameID) {

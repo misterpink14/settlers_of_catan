@@ -41,28 +41,16 @@ public class BuildCityCommand extends ACommand {
 		
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		buildCity = new BuildCity(
-				json.get("playerIndex").getAsInt(),
-				json.get("vertexLocation").getAsJsonObject().get("x").getAsInt(),
-				json.get("vertexLocation").getAsJsonObject().get("y").getAsInt(),
-				json.get("vertexLocation").getAsJsonObject().get("direction").getAsString()
-			);
+			json.get("playerIndex").getAsInt(),
+			json.get("vertexLocation").getAsJsonObject().get("x").getAsInt(),
+			json.get("vertexLocation").getAsJsonObject().get("y").getAsInt(),
+			json.get("vertexLocation").getAsJsonObject().get("direction").getAsString()
+		);
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().buildCity(buildCity, this.getGameID());
 	}
 
 }

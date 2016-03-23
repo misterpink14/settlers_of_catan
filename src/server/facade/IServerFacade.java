@@ -168,24 +168,27 @@ public interface IServerFacade {
 	 * building the road, the location where they want to
 	 * build, and whether or not it's free or not
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String buildRoad(BuildRoad buildRoad, int gameID);
+	public String buildRoad(BuildRoad buildRoad, int gameID) throws ServerException;
 	
 	/**
 	 * This function will build a city
 	 * @param BuildCity object that contains the player index
 	 * building the city and the location of the city
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String buildCity(BuildCity buildCity, int gameID);
+	public String buildCity(BuildCity buildCity, int gameID) throws ServerException;
 	
 	/**
 	 * This function will build a settlement
 	 * @param BuildSettlement object that contains the player index
 	 * building the settlement, the location, and whether it's free
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String buildSettlement(BuildSettlement buildSettlement, int gameID);
+	public String buildSettlement(BuildSettlement buildSettlement, int gameID) throws ServerException;
 	
 	/**
 	 * This function will offer a trade
@@ -218,8 +221,9 @@ public interface IServerFacade {
 	 * @param DiscardedCards object that contains the player index
 	 * discarding cards and the list of resources they're discarding
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String discardCards(DiscardedCards discardedCards, int gameID);
+	public String discardCards(DiscardedCards discardedCards, int gameID) throws ServerException;
 	
 	
 	/**
