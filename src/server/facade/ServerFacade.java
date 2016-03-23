@@ -344,8 +344,9 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String getListAI() {
-		// TODO Auto-generated method stub
-		return null;
+		JsonArray jsonArr = new JsonArray();
+		jsonArr.add("LARGEST_ARMY");
+		return jsonArr.toString();
 	}
 	
 	@Override

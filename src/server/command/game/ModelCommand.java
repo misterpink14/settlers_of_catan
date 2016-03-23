@@ -22,12 +22,7 @@ public class ModelCommand extends ACommand {
 
 	@Override
 	public void execute() {
-	}
-
-
-	@Override
-	public String getResponse() {
-		return this.getFacade().getModel(this.gameID);
+		this.response = this.getFacade().getModel(this.gameID);
 	}
 
 }

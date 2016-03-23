@@ -21,21 +21,7 @@ public class ListAICommand extends ACommand {
 
 	@Override
 	public void execute() {
-		return;
-	}
-
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().getListAI();
 	}
 
 }
