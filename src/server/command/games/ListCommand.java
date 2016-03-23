@@ -16,7 +16,7 @@ import server.facade.IServerFacade;
 public class ListCommand extends ACommand {
 
 	public ListCommand(Map<String, String> cookies, IServerFacade facade) throws ServerException {
-		super(cookies.get("catan.user"), facade);
+		super(facade);
 	}
 	
 	

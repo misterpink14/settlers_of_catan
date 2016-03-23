@@ -16,8 +16,8 @@ public abstract class ACommand {
 
 
 // CONSTRUCTORS
-	public ACommand() {
-		
+	public ACommand(IServerFacade facade) {
+		this.facade = facade;
 	}
 	
 	public ACommand(String userJson, IServerFacade facade) throws ServerException {
