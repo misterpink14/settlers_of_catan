@@ -34,6 +34,7 @@ public class UserManager {
 			throw new ServerException("Failed to register - someone already has that username.");
 		}
 		users.put(userCredentials.username, new User(userCredentials));
+		userCredentials.playerID = users.get(userCredentials.username).getPlayerID();
 	}
 	
 	

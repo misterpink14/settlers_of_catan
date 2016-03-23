@@ -20,8 +20,8 @@ public abstract class ACommand {
 	}
 	
 	public ACommand(String userJson, IServerFacade facade) throws ServerException {
-		this.jsonDecode(userJson);
 		this.facade = facade;
+		this.jsonDecode(userJson);
 	}
 	
 
@@ -56,7 +56,9 @@ public abstract class ACommand {
 			}
 			String password = jsonObject.get("password").getAsString();
 			this.credentials = new Credentials(username, password);
-			this.credentials.playerID = jsonObject.get("playerID").getAsInt();
+			if (jsonObject.has("playerID")) {
+				this.credentials.playerID = jsonObject.get("playerID").getAsInt();
+			}
 		} catch (NullPointerException e) {
 			throw new ServerException("");
 		}

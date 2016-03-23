@@ -24,7 +24,6 @@ public class RegisterCommand extends ACommand {
 	
 	@Override
 	public void execute() throws ServerException {
-		System.out.println("execute register");
 		this.response = this.getFacade().register(this.getCredentials());
 	}
 

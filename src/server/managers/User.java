@@ -38,6 +38,11 @@ public class User {
 	}
 	
 	
+	public int getPlayerID() {
+		return this.credentials.playerID;
+	}
+	
+	
 
 // Public METHODS
 	public int login(Credentials credentials) throws ServerException {

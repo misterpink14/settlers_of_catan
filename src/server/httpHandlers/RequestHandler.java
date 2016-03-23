@@ -57,7 +57,6 @@ public class RequestHandler implements HttpHandler
 	public void handle(HttpExchange exchange) throws IOException
 	{
 		
-		System.out.println("handle");
 		try {
 			
 			this.validateHTTPMethod(exchange.getRequestMethod(), this.getCommandType(exchange));
