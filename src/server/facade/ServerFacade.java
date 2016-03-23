@@ -120,11 +120,19 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String joinGame(JoinGameRequestParams params, Credentials credentials) throws ServerException {
 		Game game = this.gameManager.getGameByID(params.id);
-		Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf(params.color), game.getPlayers().getPlayers().size());
-		try {
-			game.getPlayers().addPlayer(newPlayer);
-		} catch (Exception e) {
-			throw new ServerException("Error adding player");
+		if (game.getPlayers().getPlayers().size() == 4 && game.getPlayers().getPlayerByID(credentials.playerID) == null) {
+			throw new ServerException("This game already has 4 players");
+		}
+		if (game.getPlayers().getPlayerByID(credentials.playerID) == null) {
+			Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf(params.color), game.getPlayers().getPlayers().size());
+			try {
+				game.getPlayers().addPlayer(newPlayer);
+			} catch (Exception e) {
+				throw new ServerException("Error adding player");
+			}
+		}
+		else {
+			game.getPlayers().getPlayerByID(credentials.playerID).setColor(CatanColor.valueOf(params.color));
 		}
 		return "Success";
 	}

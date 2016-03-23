@@ -432,4 +432,8 @@ public class Player {
 		return false;
 	}
 
+	public void setColor(CatanColor color) {
+		this.color = color;
+	}
+
 }
