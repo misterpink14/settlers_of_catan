@@ -164,52 +164,67 @@ public class Map
 		portTypes.add(PortType.THREE);
 		
 		int portIndex = 0;
-/*
+
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		hexes.setHex(new HexLocation(0, 3), new WaterHex(portTypes.get(portIndex)));
+		hexes.setHex(new HexLocation(0, 3), new WaterHex(portTypes.get(portIndex), EdgeDirection.North));
 		portIndex++;
+		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		getView().addPort(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.South), portTypes.get(portIndex));
+		
+		hexes.setHex(new HexLocation(-2, 3), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthEast));
 		portIndex++;
+		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		getView().addPort(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast), portTypes.get(portIndex));
+		
+		hexes.setHex(new HexLocation(-3, 2), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthEast));
 		portIndex++;
+		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		getView().addPort(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), portTypes.get(portIndex));
+		
+		hexes.setHex(new HexLocation(-3, 0), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthEast));
 		portIndex++;
+		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		getView().addPort(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.SouthWest), portTypes.get(portIndex));
+		
+		hexes.setHex(new HexLocation(-1, -2), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthEast));
 		portIndex++;
+		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		getView().addPort(new EdgeLocation(new HexLocation(1, -3), EdgeDirection.NorthWest), portTypes.get(portIndex));
+		
+		hexes.setHex(new HexLocation(1, -3), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthWest));
 		portIndex++;
+		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		getView().addPort(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.NorthWest), portTypes.get(portIndex));
+		
+		hexes.setHex(new HexLocation(3, -3), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthWest));
 		portIndex++;
+		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		getView().addPort(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest), portTypes.get(portIndex));
+
+		hexes.setHex(new HexLocation(3, -1), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthWest));
 		portIndex++;
+		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(hexTypes.size());
 		}
-		getView().addPort(new EdgeLocation(new HexLocation(1, 1), EdgeDirection.NorthWest), portTypes.get(portIndex));
-*/
+
+		hexes.setHex(new HexLocation(2, 11), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthWest));
 	}
 	
 	
