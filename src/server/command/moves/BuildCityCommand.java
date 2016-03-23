@@ -49,7 +49,7 @@ public class BuildCityCommand extends ACommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws ServerException {
 		this.response = this.getFacade().buildCity(buildCity, this.getGameID());
 	}
 

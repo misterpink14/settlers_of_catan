@@ -51,7 +51,7 @@ public class BuildRoadCommand extends ACommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws ServerException {
 		this.response = this.getFacade().buildRoad(buildRoad, this.getGameID());
 	}
 
