@@ -71,103 +71,103 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String rollNumber(RollNumber rollNumber) {
+	public String rollNumber(RollNumber rollNumber, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String robPlayer(RobPlayer robPlayer) {
+	public String robPlayer(RobPlayer robPlayer, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String finishTurn(FinishTurn finishTurn) {
+	public String finishTurn(FinishTurn finishTurn, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String buyDevCard(BuyDevCard buyDevCard) {
+	public String buyDevCard(BuyDevCard buyDevCard, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String yearOfPlenty(YearOfPlenty yearOfPlenty) {
+	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String roadBuilding(RoadBuilding roadBuilding) {
+	public String roadBuilding(RoadBuilding roadBuilding, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveSoldier(SoldierMove soldierMove) {
+	public String moveSoldier(SoldierMove soldierMove, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String playMonopolyCard(Monopoly monopoly) {
+	public String playMonopolyCard(Monopoly monopoly, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String playMonumentCard(MonumentMove monumentMove) {
+	public String playMonumentCard(MonumentMove monumentMove, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String buildRoad(BuildRoad buildRoad) {
+	public String buildRoad(BuildRoad buildRoad, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String buildCity(BuildCity buildCity) {
+	public String buildCity(BuildCity buildCity, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String buildSettlement(BuildSettlement buildSettlement) {
+	public String buildSettlement(BuildSettlement buildSettlement, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String offerTrade(OfferTrade offerTrade) {
+	public String offerTrade(OfferTrade offerTrade, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String acceptTrade(AcceptTrade acceptTrade) {
+	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String maritimeTrade(MaritimeTrade maritimeTrade) {
+	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String discardCards(DiscardedCards discardedCards) {
+	public String discardCards(DiscardedCards discardedCards, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String addAI(String aiType) {
+	public String addAI(String aiType, int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

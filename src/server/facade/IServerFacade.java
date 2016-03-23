@@ -93,7 +93,7 @@ public interface IServerFacade {
 	 * and what number they rolled
 	 * @return JSON String of Game
 	 */
-	public String rollNumber(RollNumber rollNumber);
+	public String rollNumber(RollNumber rollNumber, int gameID);
 	
 	/**
 	 * This function will allow the player to rob
@@ -101,7 +101,7 @@ public interface IServerFacade {
 	 * player robbing, and the new location of the robber
 	 * @return JSON String of Game
 	 */
-	public String robPlayer(RobPlayer robPlayer);
+	public String robPlayer(RobPlayer robPlayer, int gameID);
 	
 	/**
 	 * This function will finish the turn
@@ -109,7 +109,7 @@ public interface IServerFacade {
 	 * that's ending their turn
 	 * @return JSON String of Game
 	 */
-	public String finishTurn(FinishTurn finishTurn);
+	public String finishTurn(FinishTurn finishTurn, int gameID);
 	
 	/**
 	 * This function will buy a dev card
@@ -117,7 +117,7 @@ public interface IServerFacade {
 	 * buying the card
 	 * @return JSON String of Game
 	 */
-	public String buyDevCard(BuyDevCard buyDevCard);
+	public String buyDevCard(BuyDevCard buyDevCard, int gameID);
 	
 	/**
 	 * This function will play a Year of Plenty card
@@ -125,7 +125,7 @@ public interface IServerFacade {
 	 * playing the card and the two resources they gain
 	 * @return JSON String of Game
 	 */
-	public String yearOfPlenty(YearOfPlenty yearOfPlenty);
+	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID);
 	
 	/**
 	 * This function will play a road building card
@@ -133,7 +133,7 @@ public interface IServerFacade {
 	 * and the two locations they want to build roads
 	 * @return JSON String of Game
 	 */
-	public String roadBuilding(RoadBuilding roadBuilding);
+	public String roadBuilding(RoadBuilding roadBuilding, int gameID);
 	
 	/**
 	 * This function will play a Soldier card
@@ -142,7 +142,7 @@ public interface IServerFacade {
 	 * robbing, and the new location of the robber
 	 * @return JSON String of Game
 	 */
-	public String moveSoldier(SoldierMove soldierMove);
+	public String moveSoldier(SoldierMove soldierMove, int gameID);
 	
 	/**
 	 * This function will play a Monopoly card
@@ -150,7 +150,7 @@ public interface IServerFacade {
 	 * and the resource they will monopolize
 	 * @return JSON String of Game
 	 */
-	public String playMonopolyCard(Monopoly monopoly);
+	public String playMonopolyCard(Monopoly monopoly, int gameID);
 	
 	/**
 	 * This function will play a Monument Card
@@ -158,7 +158,7 @@ public interface IServerFacade {
 	 * playing the monument card
 	 * @return JSON String of Game
 	 */
-	public String playMonumentCard(MonumentMove monumentMove);
+	public String playMonumentCard(MonumentMove monumentMove, int gameID);
 	
 	/**
 	 * This function will build a road
@@ -167,7 +167,7 @@ public interface IServerFacade {
 	 * build, and whether or not it's free or not
 	 * @return JSON String of Game
 	 */
-	public String buildRoad(BuildRoad buildRoad);
+	public String buildRoad(BuildRoad buildRoad, int gameID);
 	
 	/**
 	 * This function will build a city
@@ -175,7 +175,7 @@ public interface IServerFacade {
 	 * building the city and the location of the city
 	 * @return JSON String of Game
 	 */
-	public String buildCity(BuildCity buildCity);
+	public String buildCity(BuildCity buildCity, int gameID);
 	
 	/**
 	 * This function will build a settlement
@@ -183,7 +183,7 @@ public interface IServerFacade {
 	 * building the settlement, the location, and whether it's free
 	 * @return JSON String of Game
 	 */
-	public String buildSettlement(BuildSettlement buildSettlement);
+	public String buildSettlement(BuildSettlement buildSettlement, int gameID);
 	
 	/**
 	 * This function will offer a trade
@@ -192,7 +192,7 @@ public interface IServerFacade {
 	 * and the list resources offered and desired
 	 * @return JSON String of Game
 	 */
-	public String offerTrade(OfferTrade offerTrade);
+	public String offerTrade(OfferTrade offerTrade, int gameID);
 	
 	/**
 	 * This function will accept or reject a trade
@@ -200,7 +200,7 @@ public interface IServerFacade {
 	 * responding to the trade and whether they accept or reject it
 	 * @return JSON String of Game
 	 */
-	public String acceptTrade(AcceptTrade acceptTrade);
+	public String acceptTrade(AcceptTrade acceptTrade, int gameID);
 	
 	/**
 	 * This function will do a Maritime Trade
@@ -209,7 +209,7 @@ public interface IServerFacade {
 	 * desired resource and the offered resource
 	 * @return JSON String of Game
 	 */
-	public String maritimeTrade(MaritimeTrade maritimeTrade);
+	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID);
 	
 	/**
 	 * This function will discard the specified cards
@@ -217,7 +217,7 @@ public interface IServerFacade {
 	 * discarding cards and the list of resources they're discarding
 	 * @return JSON String of Game
 	 */
-	public String discardCards(DiscardedCards discardedCards);
+	public String discardCards(DiscardedCards discardedCards, int gameID);
 	
 	
 	/**
@@ -226,7 +226,7 @@ public interface IServerFacade {
 	 * @param aiType
 	 * @return JSON String of Game
 	 */
-	public String addAI(String aiType);
+	public String addAI(String aiType, int gameID);
 	
 	/**
 	 * Gets the list of available AI's from the server
