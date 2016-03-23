@@ -2,17 +2,24 @@ package server.command.moves;
 
 import java.util.Map;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
+import shared.communication.proxy.SoldierMove;
+import shared.locations.HexLocation;
 
 /**
  * Command for playing a soldier card
  * 	Server end-point: /moves/Soldier POST
  * 
- * @author benthompson
+ * @author benthompson & Bo Pace
  */
 public class SoldierCommand extends ACommand {
+	
+	SoldierMove soldierMove;
 
 	/**
 	 * {
@@ -32,25 +39,18 @@ public class SoldierCommand extends ACommand {
 	 */
 	public SoldierCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
-		// TODO parse the jsonBody
+		
+		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		soldierMove = new SoldierMove(
+			json.get("playerIndex").getAsInt(),
+			json.get("victimIndex").getAsInt(),
+			new HexLocation(json.getAsJsonObject("location").get("x").getAsInt(), json.getAsJsonObject("location").get("y").getAsInt())
+		);
 	}
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		return;
-	}
-
-	@Override
-	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		this.response = this.getFacade().moveSoldier(soldierMove, this.getGameID());
 	}
 
 }
