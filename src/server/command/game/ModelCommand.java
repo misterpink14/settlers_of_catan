@@ -27,15 +27,7 @@ public class ModelCommand extends ACommand {
 
 	@Override
 	public String getResponse() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public String getCookie() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getFacade().getModel(this.gameID);
 	}
 
 }

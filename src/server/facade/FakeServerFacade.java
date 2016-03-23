@@ -200,4 +200,11 @@ public class FakeServerFacade implements IServerFacade {
 	public int getPlayerIDFromCredentials(Credentials credentials) throws ServerException {
 		return -1;
 	}
+
+	@Override
+	public String getModel(int gameID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

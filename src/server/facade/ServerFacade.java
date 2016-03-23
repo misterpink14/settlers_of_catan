@@ -131,7 +131,7 @@ public class ServerFacade implements IServerFacade {
 			}
 		}
 		else {
-			game.getPlayers().getPlayerByID(credentials.playerID).setColor(CatanColor.valueOf(params.color));
+			game.getPlayers().getPlayerByID(credentials.playerID).setColor(CatanColor.valueOf(params.color.toUpperCase()));
 		}
 		return "Success";
 	}
@@ -144,6 +144,12 @@ public class ServerFacade implements IServerFacade {
 		} else {
 			return Serializer.getInstance().serialize(game);
 		}
+	}
+	
+	@Override
+	public String getModel(int gameID) {
+		Game game = this.gameManager.getGameByID(gameID);
+		return Serializer.getInstance().serialize(game);
 	}
 
 	@Override

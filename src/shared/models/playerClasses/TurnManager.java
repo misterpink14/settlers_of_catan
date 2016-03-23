@@ -188,6 +188,11 @@ public class TurnManager {
 	}
 	
 	public void playSoldierCard(int currPlayer, HexLocation hexLoc, int victimIndex) {
+		if(hasPlayedDevCard == true) {
+			return;
+		}
+		hasPlayedDevCard = true;
+		
 		try {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.SOLDIER);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove soldier card from players hand.");}
@@ -201,6 +206,11 @@ public class TurnManager {
 	}
 	
 	public void playYearOfPlentyCard(int currPlayer, ResourceType type1, ResourceType type2) {
+		if(hasPlayedDevCard == true) {
+			return;
+		}
+		hasPlayedDevCard = true;
+		
 		try {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.YEAR_OF_PLENTY);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove year of plenty card from players hand.");}
@@ -210,6 +220,11 @@ public class TurnManager {
 	}
 	
 	public void playRoadBuildingCard(int currPlayer, EdgeLocation loc, EdgeLocation loc2) throws InvalidTypeException {
+		if(hasPlayedDevCard == true) {
+			return;
+		}
+		hasPlayedDevCard = true;
+		
 		try {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.ROAD_BUILD);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove roadbuilding card from players hand.");}
@@ -224,6 +239,11 @@ public class TurnManager {
 	}
 	
 	public void playMonumentCard(int currPlayer) {
+		if(hasPlayedDevCard == true) {
+			return;
+		}
+		hasPlayedDevCard = true;
+		
 		try {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.MONUMENT);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove monument card from players hand.");}
@@ -233,6 +253,11 @@ public class TurnManager {
 	}
 	
 	public void playMonopolyCard(int currPlayer, ResourceType type) {
+		if(hasPlayedDevCard == true) {
+			return;
+		}
+		hasPlayedDevCard = true;
+		
 		try {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.MONOPOLY);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove monopoly card from players hand.");}
