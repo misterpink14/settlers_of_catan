@@ -134,14 +134,16 @@ public class RequestHandler implements HttpHandler
 		}
 		
 		for (String cookie : cookieList) {
-
-			try {
-				String decodedCookie = URLDecoder.decode(cookie, "UTF-8"); 
-				String[] values =  decodedCookie.split("=");
-				cookies.put(values[0], values[1]);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-				throw new ServerException("Unable to decode cookie: " + cookie);
+			for (String subCookie: cookie.split(";"))
+			{
+				try {
+					String decodedCookie = URLDecoder.decode(subCookie, "UTF-8"); 
+					String[] values =  decodedCookie.split("=");
+					cookies.put(values[0].trim(), values[1].trim());
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+					throw new ServerException("Unable to decode cookie: " + cookie);
+				}
 			}
 		}
 		return cookies;

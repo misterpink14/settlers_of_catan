@@ -1,6 +1,8 @@
 package server.command.game;
 
 
+import java.util.Map;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
@@ -13,8 +15,8 @@ import server.facade.IServerFacade;
  */
 public class ModelCommand extends ACommand {
 
-	public ModelCommand(String userJson, IServerFacade facade) throws ServerException {
-		super(userJson, facade);
+	public ModelCommand(Map<String, String> cookies, IServerFacade facade) throws ServerException {
+		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
 	}
 	
 

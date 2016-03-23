@@ -72,19 +72,19 @@ public class CommandFactory {
 									IServerFacade facade, String httpMethod) throws ServerException {
 		
 		ACommand command;
-
+		
 		switch (type[0]) {
 			case "user":
 				command = this.buildUserCommand(type[1], jsonBody, facade);
 				break;
 			case "games":
-				command = this.buildGamesCommand(type[1], cookies.get("catan.user"), facade, jsonBody);
+				command = this.buildGamesCommand(type[1], cookies, facade, jsonBody);
 				break;
 			case "game":
-				command = this.buildGameCommand(type[1], cookies.get("catan.user"), facade, jsonBody);
+				command = this.buildGameCommand(type[1], cookies, facade, jsonBody);
 				break;
 			case "moves":
-				command = this.buildMovesCommand(type[1], cookies.get("catan.user"), facade, jsonBody);
+				command = this.buildMovesCommand(type[1], cookies, facade, jsonBody);
 				break;
 			default:
 				throw new ServerException("Invalid uri");
@@ -125,16 +125,16 @@ public class CommandFactory {
 	 * @return
 	 * @throws ServerException
 	 */
-	ACommand buildGamesCommand(String type, String userJson, IServerFacade facade, String jsonBody) 
+	ACommand buildGamesCommand(String type, Map<String, String> cookies, IServerFacade facade, String jsonBody) 
 																			throws ServerException {
 
 		switch(type) {
 			case "list": // GET
-				return new ListCommand(userJson, facade);
+				return new ListCommand(cookies, facade);
 			case "create":
-				return new CreateCommand(userJson, facade, jsonBody);
+				return new CreateCommand(cookies, facade, jsonBody);
 			case "join":
-				return new JoinCommand(userJson, facade, jsonBody);
+				return new JoinCommand(cookies, facade, jsonBody);
 			default:
 				throw new ServerException("Invalid uri");
 		}
@@ -151,16 +151,16 @@ public class CommandFactory {
 	 * @return
 	 * @throws ServerException
 	 */
-	ACommand buildGameCommand(String type, String userJson, IServerFacade facade, String jsonBody) 
+	ACommand buildGameCommand(String type, Map<String, String> cookies, IServerFacade facade, String jsonBody) 
 																			throws ServerException {
 
 		switch(type) {
 			case "model": // GET
-				return new ModelCommand(userJson, facade);
+				return new ModelCommand(cookies, facade);
 			case "addAI":
-				return new AddAICommand(userJson, facade, jsonBody);
+				return new AddAICommand(cookies, facade, jsonBody);
 			case "listAI": // GET
-				return new ListAICommand(userJson, facade);
+				return new ListAICommand(cookies, facade);
 			default:
 				throw new ServerException("Invalid uri");
 		}
@@ -177,44 +177,44 @@ public class CommandFactory {
 	 * @return
 	 * @throws ServerException
 	 */
-	ACommand buildMovesCommand(String type, String userJson, IServerFacade facade, String jsonBody) 
+	ACommand buildMovesCommand(String type, Map<String, String> cookies, IServerFacade facade, String jsonBody) 
 																			throws ServerException {
 
 		switch(type) {
 			case "sendChat":
-				return new SendChatCommand(userJson, facade, jsonBody);
+				return new SendChatCommand(cookies, facade, jsonBody);
 			case "rollNumber":
-				return new RollNumberCommand(userJson, facade, jsonBody);
+				return new RollNumberCommand(cookies, facade, jsonBody);
 			case "robPlayer":
-				return new RobPlayerCommand(userJson, facade, jsonBody);
+				return new RobPlayerCommand(cookies, facade, jsonBody);
 			case "finishTurn":
-				return new FinishTurnCommand(userJson, facade, jsonBody);
+				return new FinishTurnCommand(cookies, facade, jsonBody);
 			case "buyDevCard":
-				return new BuyDevCardCommand(userJson, facade, jsonBody);
+				return new BuyDevCardCommand(cookies, facade, jsonBody);
 			case "Year_of_Plenty":
-				return new YearOfPlentyCommand(userJson, facade, jsonBody);
+				return new YearOfPlentyCommand(cookies, facade, jsonBody);
 			case "Road_Building":
-				return new RoadBuildingCommand(userJson, facade, jsonBody);
+				return new RoadBuildingCommand(cookies, facade, jsonBody);
 			case "Soldier":
-				return new SoldierCommand(userJson, facade, jsonBody);
+				return new SoldierCommand(cookies, facade, jsonBody);
 			case "Monopoly":
-				return new MonopolyCommand(userJson, facade, jsonBody);
+				return new MonopolyCommand(cookies, facade, jsonBody);
 			case "Monument":
-				return new MonumentCommand(userJson, facade, jsonBody);
+				return new MonumentCommand(cookies, facade, jsonBody);
 			case "buildRoad":
-				return new BuildRoadCommand(userJson, facade, jsonBody);
+				return new BuildRoadCommand(cookies, facade, jsonBody);
 			case "buildSettlement":
-				return new BuildSettlementCommand(userJson, facade, jsonBody);
+				return new BuildSettlementCommand(cookies, facade, jsonBody);
 			case "buildCity":
-				return new BuildCityCommand(userJson, facade, jsonBody);
+				return new BuildCityCommand(cookies, facade, jsonBody);
 			case "offerTrade":
-				return new OfferTradeCommand(userJson, facade, jsonBody);
+				return new OfferTradeCommand(cookies, facade, jsonBody);
 			case "acceptTrade":
-				return new AcceptTradeCommand(userJson, facade, jsonBody);
+				return new AcceptTradeCommand(cookies, facade, jsonBody);
 			case "maritimeTrade":
-				return new MaritimeTradeCommand(userJson, facade, jsonBody);
+				return new MaritimeTradeCommand(cookies, facade, jsonBody);
 			case "discardCards":
-				return new DiscardCardsCommand(userJson, facade, jsonBody);
+				return new DiscardCardsCommand(cookies, facade, jsonBody);
 			default:
 				throw new ServerException("Invalid uri");
 		}

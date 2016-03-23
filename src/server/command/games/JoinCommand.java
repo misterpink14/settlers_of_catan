@@ -1,5 +1,7 @@
 package server.command.games;
 
+import java.util.Map;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -30,8 +32,8 @@ public class JoinCommand extends ACommand {
 	 * @param color
 	 * @throws ServerException 
 	 */
-	public JoinCommand(String userJson, IServerFacade facade, String jsonBody) throws ServerException {
-		super(userJson, facade);
+	public JoinCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
+		super(cookies.get("catan.user"), facade); 
 		// TODO parse the jsonBody
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		params = new JoinGameRequestParams(json.get("id").getAsInt(), json.get("color").getAsString());

@@ -1,6 +1,8 @@
 package server.command.games;
 
 
+import java.util.Map;
+
 import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
@@ -13,10 +15,10 @@ import server.facade.IServerFacade;
  */
 public class ListCommand extends ACommand {
 
-	public ListCommand(String userJson, IServerFacade facade) throws ServerException {
-		super(userJson, facade);
+	public ListCommand(Map<String, String> cookies, IServerFacade facade) throws ServerException {
+		super(cookies.get("catan.user"), facade);
 	}
-
+	
 	
 	@Override
 	public void execute() {

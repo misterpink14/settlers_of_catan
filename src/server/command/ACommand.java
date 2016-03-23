@@ -12,6 +12,7 @@ public abstract class ACommand {
 	private Credentials credentials;
 	private IServerFacade facade;
 	protected String response;
+	protected int gameID;
 
 
 // CONSTRUCTORS
@@ -20,6 +21,12 @@ public abstract class ACommand {
 	}
 	
 	public ACommand(String userJson, IServerFacade facade) throws ServerException {
+		this.facade = facade;
+		this.jsonDecode(userJson);
+	}
+	
+	public ACommand(String userJson, IServerFacade facade, int gameID) throws ServerException {
+		this.gameID = gameID;
 		this.facade = facade;
 		this.jsonDecode(userJson);
 	}
@@ -35,6 +42,9 @@ public abstract class ACommand {
 		return this.facade;
 	}
 	
+	protected int getGameID() {
+		return this.gameID;
+	}
 	
 
 // Private METHODS
