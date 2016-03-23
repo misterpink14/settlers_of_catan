@@ -1,7 +1,5 @@
 package shared.communication.proxy;
-import java.util.ArrayList;
 
-import shared.definitions.ResourceType;
 import shared.models.cardClasses.ResourceCards;
 
 public class OfferTrade
