@@ -144,6 +144,7 @@ public class Game extends Observable
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, longestRoad);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+		this.currPlayer = 0;
 	}
 	
 	
