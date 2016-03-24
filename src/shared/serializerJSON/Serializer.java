@@ -367,7 +367,7 @@ private static Serializer instance = null;
 								}
 							}
 							JsonObject jsonPortLocation = new JsonObject();
-							jsonPortLocation.add("x", new JsonPrimitive(x));
+							jsonPortLocation.add("x", new JsonPrimitive(-x));
 							jsonPortLocation.add("y", new JsonPrimitive(y));
 							jsonPort.add("location", jsonPortLocation);
 							jsonPorts.add(jsonPort);

@@ -197,7 +197,7 @@ public class TurnManagerTest {
 		HexLocation hexLoc = new HexLocation(0,0);
 		game.getTurnManager().playSoldierCard(0, hexLoc, 1);
 		RobberLocation loc2 = game.getMap().getRobberLocation();
-		//assertTrue(loc2.getHexLoc().getX() == 0 && loc.getHexLoc().getY() == 0);
+		assertTrue(loc2.getHexLoc().getX() == 0 && loc2.getHexLoc().getY() == 0);
 		Player p1 = game.getPlayers().getPlayerByIndex(0);
 		Player p2 = game.getPlayers().getPlayerByIndex(1);
 		//add the resources used by player 1 for dev cards

@@ -317,7 +317,8 @@ public class Map
 
 // Public METHODS
 	public ArrayList<Piece> placeRobber(HexLocation hexLoc) {
-		
+		RobberLocation newLoc = new RobberLocation(hexLoc);
+		this.setRobberLocation(newLoc);
 		ArrayList<Piece> playerIndexes = new ArrayList<Piece> ();
 		VertexLocation vertexLoc = new VertexLocation(hexLoc, VertexDirection.East).getNormalizedLocation();
 		Piece piece;
