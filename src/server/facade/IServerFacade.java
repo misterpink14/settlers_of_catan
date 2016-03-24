@@ -236,8 +236,9 @@ public interface IServerFacade {
 	 * 
 	 * @param aiType
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String addAI(String aiType, int gameID);
+	public String addAI(String aiType, int gameID) throws ServerException;
 	
 	/**
 	 * Gets the list of available AI's from the server
