@@ -138,6 +138,7 @@ public class ServerFacade implements IServerFacade {
 		if (game.getPlayers().getNumberOfPlayers() == 4) { 
 			game.setGameState(GameState.SETUP1);
 		}
+		game.incrementVersionID();
 		return "Success";
 	}
 
@@ -164,7 +165,7 @@ public class ServerFacade implements IServerFacade {
 		Player player = game.getPlayers().getPlayerByIndex(sendChat.playerIndex);
 		chat.addMessage(new Message(player.getName(), sendChat.content));
 		game.setGameChat(chat);
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -172,7 +173,7 @@ public class ServerFacade implements IServerFacade {
 	public String rollNumber(RollNumber rollNumber, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.processRoll(rollNumber);
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -180,7 +181,7 @@ public class ServerFacade implements IServerFacade {
 	public String robPlayer(RobPlayer robPlayer, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.robPlayer(robPlayer.playerIndex, robPlayer.victimIndex);
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -188,7 +189,7 @@ public class ServerFacade implements IServerFacade {
 	public String finishTurn(FinishTurn finishTurn, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.getTurnManager().finishTurn(finishTurn.playerIndex);
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -200,7 +201,7 @@ public class ServerFacade implements IServerFacade {
 		} catch (InsufficientCardNumberException e) {
 			throw new ServerException("Error buying dev card");
 		}
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -208,7 +209,7 @@ public class ServerFacade implements IServerFacade {
 	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.playYearOfPlentyCard(yearOfPlenty.playerIndex, yearOfPlenty.resourceOne, yearOfPlenty.resourceTwo);
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -220,7 +221,7 @@ public class ServerFacade implements IServerFacade {
 		} catch (InvalidTypeException e) {
 			throw new ServerException("Error playing road building card");
 		}
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -228,7 +229,7 @@ public class ServerFacade implements IServerFacade {
 	public String moveSoldier(SoldierMove soldierMove, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.playSoldierCard(soldierMove.playerIndex, soldierMove.newLocation, soldierMove.victimIndex);
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -236,7 +237,7 @@ public class ServerFacade implements IServerFacade {
 	public String playMonopolyCard(Monopoly monopoly, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.playMonopolyCard(monopoly.playerIndex, monopoly.resource);
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -244,7 +245,7 @@ public class ServerFacade implements IServerFacade {
 	public String playMonumentCard(MonumentMove monumentMove, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.playMonumentCard(monumentMove.playerIndex);
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -256,7 +257,7 @@ public class ServerFacade implements IServerFacade {
 		} catch (InsufficientCardNumberException | InvalidTypeException e) {
 			throw new ServerException("Error building road");
 		}
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -268,7 +269,7 @@ public class ServerFacade implements IServerFacade {
 		} catch (InsufficientCardNumberException | InvalidTypeException e) {
 			throw new ServerException("Error building city");
 		}
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -280,7 +281,7 @@ public class ServerFacade implements IServerFacade {
 		} catch (InsufficientCardNumberException | InvalidTypeException e) {
 			throw new ServerException("Error building settlement");
 		}
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -289,7 +290,7 @@ public class ServerFacade implements IServerFacade {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
 		
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -298,7 +299,7 @@ public class ServerFacade implements IServerFacade {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
 		
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -311,7 +312,7 @@ public class ServerFacade implements IServerFacade {
 		} catch (InsufficientCardNumberException e) {
 			throw new ServerException("Error doing maritime trade");
 		}
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
 
@@ -362,7 +363,7 @@ public class ServerFacade implements IServerFacade {
 			throw new ServerException("Error adding player");
 		}
 		
-		//this.gameManager.addGame(game);
+		game.incrementVersionID();
 		return "Success";
 	}
 
