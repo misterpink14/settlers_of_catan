@@ -64,6 +64,9 @@ private static Serializer instance = null;
 		jsonGame.add("log", new Gson().toJsonTree(serializeLog(game.getGameLog())));
 		jsonGame.add("chat", new Gson().toJsonTree(serializeChat(game.getGameChat())));
 		jsonGame.add("bank", new Gson().toJsonTree(serializeBank(game.getBank())));
+		if (game.getTurnManager().getTradeManager().isTradeOffered()) {
+			jsonGame.add("tradeOffer", new Gson().toJsonTree(serializeOfferTrade(game.getTurnManager().getTradeManager().getTrade())));
+		}
 		jsonGame.add("turnTracker", new Gson().toJsonTree(serializeTurnTracker(game)));
 		jsonGame.add("winner", new JsonPrimitive(game.getWinner()));
 		jsonGame.add("version", new JsonPrimitive(game.getVersionID()));
