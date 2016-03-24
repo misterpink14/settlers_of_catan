@@ -28,6 +28,7 @@ public class Server {
 	private static final int MAX_WAITING_CONNECTIONS = 10;
 	
 	private int port;
+	private String host;
 	private HttpHandler handler;
 	private static Logger logger;
 	private HttpServer server;
@@ -51,7 +52,8 @@ public class Server {
 		return;
 	}
 	
-	private Server(int port, boolean isTest) {
+	private Server(String host, int port, boolean isTest) {
+		this.host = host;
 		this.port = port;
 		this.handler = new RequestHandler(isTest);
 		return;
@@ -89,17 +91,6 @@ public class Server {
 	 */
 	private void run() {
 		
-		logger.info("Initializing Model");
-		
-		try
-		{
-			DatabaseRepresentation.initialize();
-		} catch (DatabaseException e1)
-		{
-			System.out.println("Failed to initialize the Database");
-			e1.printStackTrace();
-		}		
-		
 		logger.info("Initializing HTTP Server");
 		
 		try {
@@ -132,17 +123,18 @@ public class Server {
 			System.out.println(args[i]);
 		}
 		if (args.length > 4) {
-			System.out.println("Must run server with format: port-number persistence delta clean");
+			System.out.println("Must run server with format: host port-number test");
 			throw new Exception();
 		}
 		
 		if (args.length != 0) { 
-			int port = Integer.parseInt(args[0]);
+			String host = args[0];
+			int port = Integer.parseInt(args[1]);
 			boolean isTest = false;
 			if (args.length == 2) {
-				isTest = true;
+				isTest = false;
 			}
-			new Server(port, isTest);
+			new Server(host, port, isTest).run();
 		}
 		else {
 			new Server().run();
