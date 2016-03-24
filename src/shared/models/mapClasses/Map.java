@@ -889,7 +889,7 @@ public class Map
 					minRatio = 2;
 				}
 			} else if (isOnPort(loc, PortType.THREE)) {
-				minRatio = 3;
+				minRatio = Math.min(minRatio, 3);
 			}
 		}
 		return minRatio;
