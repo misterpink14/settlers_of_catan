@@ -145,7 +145,7 @@ public class Map
 							tokenIndex = rand.nextInt(tokens.size());
 						}
 					} catch (Exception e) {
-						
+						tokenIndex = 0;
 					}
 					HexType hexType = hexTypes.get(hexIndex);
 					hexIndex++;
