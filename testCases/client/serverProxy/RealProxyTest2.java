@@ -54,6 +54,8 @@ public class RealProxyTest2 {
 			params.color = "puce";
 			this.realProxy.joinGame(params);
 			
+			//sets up four users
+			
 		}
 		catch (Exception e) {
 			fail("Exception");
