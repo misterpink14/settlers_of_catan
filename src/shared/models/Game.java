@@ -622,7 +622,7 @@ public class Game extends Observable
 				for (int y = -2; y <= maxY; ++y) {
 					HexLocation loc = new HexLocation(x, y);
 					Hex h = hMap.getHex(loc); 
-					if (h.getToken() == roll && map.getRobberLocation().getHexLoc() != loc) {
+					if (h.getToken() == roll && !map.getRobberLocation().getHexLoc().equals(loc)) {
 						hexes.add(loc);
 					}
 				}
@@ -634,7 +634,7 @@ public class Game extends Observable
 			for (int i = 0; i < hexes.size(); i++) {
 				for (VertexDirection dir : VertexDirection.values()) {
 					PieceType p = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getType();
-					if (p == PieceType.SETTLEMENT) {
+					if (p.equals(PieceType.SETTLEMENT)) {
 						int pIndex = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getOwner();
 						try {
 							ResourceType r = ResourceType.valueOf(hMap.getHex(hexes.get(i)).getHexType().toString());
@@ -645,7 +645,7 @@ public class Game extends Observable
 						} catch (Exception e) {
 							
 						}
-					} else if (p == PieceType.CITY) {
+					} else if (p.equals(PieceType.CITY)) {
 						int pIndex = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getOwner();
 						try {
 							ResourceType r = ResourceType.valueOf(hMap.getHex(hexes.get(i)).getHexType().toString());
