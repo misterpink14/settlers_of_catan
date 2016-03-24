@@ -11,6 +11,7 @@ public class TradeManager {
 	
 	ArrayList<Trade> trades;
 	GamePlayers players;
+	boolean tradeOffered = false;
 
 	/**This class handles the specifics of trades made between players*/
 	public TradeManager(GamePlayers players) {
@@ -21,6 +22,15 @@ public class TradeManager {
 	public void importTradeManager(String json) {
 		
 	}
+	
+	public void offerTrade() {
+		tradeOffered = true;
+	}
+	
+	public boolean isTradeOffered() {
+		return tradeOffered;
+	}
+	
 	
 	/**
 	 * Verifies that the players are able to trade the proposed trade
@@ -55,6 +65,7 @@ public class TradeManager {
 	 * @throws InsufficientCardNumberException 
 	 */
 	public void ExecuteTrade(int traderIndex, int tradeeIndex, ResourceCards out, ResourceCards in) throws InsufficientCardNumberException {
+		tradeOffered = false;
 		//move the trader's resources to the tradee
 		Player trader = players.getPlayerByIndex(traderIndex);
 		Player tradee = players.getPlayerByIndex(tradeeIndex);
