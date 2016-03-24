@@ -129,6 +129,7 @@ public class Game extends Observable
 		this.chat = new GameChat();
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, -1);
 		this.title = params.name;
+		this.turnManager.setCurrentTurn(0);
 	}
 	
 	
@@ -144,7 +145,6 @@ public class Game extends Observable
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, longestRoad);
 		this.turnManager.setCurrentTurn(currentTurn);
 		this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
-		this.currPlayer = 0;
 	}
 	
 	
