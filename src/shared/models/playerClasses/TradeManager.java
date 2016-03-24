@@ -2,6 +2,7 @@ package shared.models.playerClasses;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import shared.communication.proxy.OfferTrade;
 import shared.definitions.ResourceType;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.cardClasses.ResourceCards;
@@ -11,6 +12,7 @@ public class TradeManager {
 	
 	ArrayList<Trade> trades;
 	GamePlayers players;
+	OfferTrade trade;
 	boolean tradeOffered = false;
 
 	/**This class handles the specifics of trades made between players*/
@@ -23,12 +25,18 @@ public class TradeManager {
 		
 	}
 	
-	public void offerTrade() {
+	public void offerTrade(OfferTrade trade) {
 		tradeOffered = true;
+		this.trade = trade;
 	}
 	
 	public boolean isTradeOffered() {
 		return tradeOffered;
+	}
+	
+	public void rejectTrade() {
+		tradeOffered = false;
+		trade = null;
 	}
 	
 	
