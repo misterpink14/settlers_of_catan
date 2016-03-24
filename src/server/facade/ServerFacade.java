@@ -188,7 +188,20 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String finishTurn(FinishTurn finishTurn, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
-		game.getTurnManager().finishTurn(finishTurn.playerIndex);
+		if (game.getGameState() == GameState.SETUP2 && game.getTurnManager().getPlayerIndex() == 0) {
+			game.setGameState(GameState.ROLLING);
+			game.getTurnManager().finishRound2Turn(finishTurn.playerIndex);
+		}
+		else if (game.getGameState() == GameState.SETUP1 && game.getTurnManager().getPlayerIndex() == 3) {
+			game.setGameState(GameState.SETUP2);
+			game.getTurnManager().repeatFinishTurn(finishTurn.playerIndex);
+		}
+		else if (game.getGameState() == GameState.SETUP2) {
+			game.getTurnManager().reverseFinishTurn(finishTurn.playerIndex);
+		}
+		else {
+			game.getTurnManager().finishTurn(finishTurn.playerIndex);
+		}
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}

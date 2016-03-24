@@ -83,6 +83,37 @@ public class GamePlayers {
 		players.get(playerIndex).startTurn();
 		return playerIndex;
 	}
+	public int reverseFinishTurn(int playerIndex) {
+		//finish the current players turn
+		players.get(playerIndex).finishTurn();
+		
+		playerIndex--;
+		
+		
+		if(playerIndex < 0) {
+			playerIndex = 3;
+		}
+		
+		//start the next player's turn.
+		players.get(playerIndex).startTurn();
+		return playerIndex;
+	}
+	public int repeatFinishTurn(int playerIndex) {
+		//finish the current players turn
+		players.get(playerIndex).finishTurn();
+		
+		//start the next player's turn.
+		players.get(playerIndex).startTurn();
+		return playerIndex;
+	}
+	public int finishRound2Turn(int playerIndex) {
+		//finish the current players turn
+		players.get(playerIndex).finishTurn();
+		
+		//start the next player's turn.
+		players.get(playerIndex).startTurn();
+		return playerIndex;
+	}
 	
 	public int checkForLargestArmy() {
 		int playerIndex = 0;

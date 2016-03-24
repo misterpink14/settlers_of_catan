@@ -7,7 +7,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.clientFacade.ClientFacade;
-import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
@@ -613,6 +612,7 @@ public class Game extends Observable
 			}
 			this.gameState = GameState.ROBBER;
 		} else {
+			this.setGameState(GameState.MYTURN);
 			// Find all hexes with the token matching the number rolled
 			List<HexLocation> hexes = new ArrayList<HexLocation>();
 			HexMap hMap = map.getHexMap();
@@ -633,30 +633,33 @@ public class Game extends Observable
 			VertexMap vMap = map.getVertexMap();
 			for (int i = 0; i < hexes.size(); i++) {
 				for (VertexDirection dir : VertexDirection.values()) {
-					PieceType p = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getType();
-					if (p.equals(PieceType.SETTLEMENT)) {
-						int pIndex = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getOwner();
-						try {
-							ResourceType r = ResourceType.valueOf(hMap.getHex(hexes.get(i)).getHexType().toString());
-							if(bank.canRemove(r, 1)) {
-								players.getPlayerByIndex(pIndex).addResourceToHand(r, 1);
-								bank.takeResourceCards(r, 1);
+					try {
+						PieceType p = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getType();
+						if (p.equals(PieceType.SETTLEMENT)) {
+							int pIndex = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getOwner();
+							try {
+								ResourceType r = ResourceType.valueOf(hMap.getHex(hexes.get(i)).getHexType().toString());
+								if(bank.canRemove(r, 1)) {
+									players.getPlayerByIndex(pIndex).addResourceToHand(r, 1);
+									bank.takeResourceCards(r, 1);
+								}
+							} catch (Exception e) {
+								
 							}
-						} catch (Exception e) {
-							
-						}
-					} else if (p.equals(PieceType.CITY)) {
-						int pIndex = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getOwner();
-						try {
-							ResourceType r = ResourceType.valueOf(hMap.getHex(hexes.get(i)).getHexType().toString());
-							if(bank.canRemove(r, 2)) {
-								players.getPlayerByIndex(pIndex).addResourceToHand(r, 2);
-								bank.takeResourceCards(r, 2);
+						} else if (p.equals(PieceType.CITY)) {
+							int pIndex = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getOwner();
+							try {
+								ResourceType r = ResourceType.valueOf(hMap.getHex(hexes.get(i)).getHexType().toString());
+								if(bank.canRemove(r, 2)) {
+									players.getPlayerByIndex(pIndex).addResourceToHand(r, 2);
+									bank.takeResourceCards(r, 2);
+								}
+							} catch (Exception e) {
+								
 							}
-						} catch (Exception e) {
-							
 						}
-					}
+					} catch (IndexOutOfBoundsException e) {
+					} 
 				}
 			}
 		}

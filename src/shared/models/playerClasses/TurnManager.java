@@ -131,7 +131,7 @@ public class TurnManager {
 		playerIndex = rand.nextInt(4);
 		players.getPlayerByIndex(playerIndex).startTurn();
 	}
-	
+
 	
 	
 	/**
@@ -139,6 +139,32 @@ public class TurnManager {
 	 */
 	public void finishTurn(int currPlayer) {
 		playerIndex = this.players.finishTurn(currPlayer);
+		hasPlayedDevCard = false;
+	}
+	
+	
+	/**
+	 * @return the id of the current player whose turn it is.
+	 */
+	public void reverseFinishTurn(int currPlayer) {
+		playerIndex = this.players.reverseFinishTurn(currPlayer);
+		hasPlayedDevCard = false;
+	}
+	
+	
+	/**
+	 * @return the id of the current player whose turn it is.
+	 */
+	public void repeatFinishTurn(int currPlayer) {
+		playerIndex = this.players.repeatFinishTurn(currPlayer);
+		hasPlayedDevCard = false;
+	}
+
+	/**
+	 * @return the id of the current player whose turn it is.
+	 */
+	public void finishRound2Turn(int currPlayer) {
+		playerIndex = this.players.finishRound2Turn(currPlayer);
 		hasPlayedDevCard = false;
 	}
 	
