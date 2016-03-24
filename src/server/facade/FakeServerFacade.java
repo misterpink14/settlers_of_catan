@@ -188,44 +188,56 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String offerTrade(OfferTrade offerTrade, int gameID) {
-		// TODO Auto-generated method stub
+	public String offerTrade(OfferTrade offerTrade, int gameID) throws ServerException {
+		if (offerTrade.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for offer, receiver, gameID
 		return null;
 	}
 
 	@Override
-	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
-		// TODO Auto-generated method stub
+	public String acceptTrade(AcceptTrade acceptTrade, int gameID) throws ServerException {
+		if (acceptTrade.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for gameID
 		return null;
 	}
 
 	@Override
-	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) {
-		// TODO Auto-generated method stub
+	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) throws ServerException {
+		if (maritimeTrade.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for ratio, inputResource, outputResource, gameID
 		return null;
 	}
 
 	@Override
-	public String discardCards(DiscardedCards discardedCards, int gameID) {
-		// TODO Auto-generated method stub
+	public String discardCards(DiscardedCards discardedCards, int gameID) throws ServerException {
+		if (discardedCards.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for discardedCards, gameID
 		return null;
 	}
 
 	@Override
-	public String addAI(String aiType, int gameID) {
-		// TODO Auto-generated method stub
+	public String addAI(String aiType, int gameID) throws ServerException {
+
+		// TODO add test for aiType, gameID
 		return null;
 	}
 
 	@Override
 	public String getListAI() {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	@Override
 	public int getPlayerIDFromCredentials(Credentials credentials) throws ServerException {
-		return -1;
+		return 1;
 	}
 
 	@Override

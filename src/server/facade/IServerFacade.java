@@ -205,16 +205,18 @@ public interface IServerFacade {
 	 * sending the offer, the player index receiving the offer,
 	 * and the list resources offered and desired
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String offerTrade(OfferTrade offerTrade, int gameID);
+	public String offerTrade(OfferTrade offerTrade, int gameID) throws ServerException;
 	
 	/**
 	 * This function will accept or reject a trade
 	 * @param AcceptTrade object that contains the player index
 	 * responding to the trade and whether they accept or reject it
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String acceptTrade(AcceptTrade acceptTrade, int gameID);
+	public String acceptTrade(AcceptTrade acceptTrade, int gameID) throws ServerException;
 	
 	/**
 	 * This function will do a Maritime Trade
