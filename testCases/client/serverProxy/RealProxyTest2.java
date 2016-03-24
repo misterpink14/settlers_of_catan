@@ -61,14 +61,6 @@ public class RealProxyTest2 {
 			fail("Exception");
 		}
 		
-		
-		
-		
-		try {
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 	@Test
