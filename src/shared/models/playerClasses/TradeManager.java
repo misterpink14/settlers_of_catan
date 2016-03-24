@@ -56,28 +56,30 @@ public class TradeManager {
 	 */
 	public void ExecuteTrade(int traderIndex, int tradeeIndex, ResourceCards out, ResourceCards in) throws InsufficientCardNumberException {
 		//move the trader's resources to the tradee
-		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.BRICK, out.getBrickCards());
-		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.BRICK, out.getBrickCards());
-		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.ORE, out.getOreCards());
-		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.ORE, out.getOreCards());
-		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.SHEEP, out.getSheepCards());
-		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.SHEEP, out.getSheepCards());
-		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.WHEAT, out.getWheatCards());
-		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.WHEAT, out.getWheatCards());
-		players.getPlayerByIndex(traderIndex).removeResourceFromHand(ResourceType.WOOD, out.getWoodCards());
-		players.getPlayerByIndex(tradeeIndex).addResourceToHand(ResourceType.WOOD, out.getWoodCards());
+		Player trader = players.getPlayerByIndex(traderIndex);
+		Player tradee = players.getPlayerByIndex(tradeeIndex);
+		trader.removeResourceFromHand(ResourceType.BRICK, out.getBrickCards());
+		tradee.addResourceToHand(ResourceType.BRICK, out.getBrickCards());
+		trader.removeResourceFromHand(ResourceType.ORE, out.getOreCards());
+		tradee.addResourceToHand(ResourceType.ORE, out.getOreCards());
+		trader.removeResourceFromHand(ResourceType.SHEEP, out.getSheepCards());
+		tradee.addResourceToHand(ResourceType.SHEEP, out.getSheepCards());
+		trader.removeResourceFromHand(ResourceType.WHEAT, out.getWheatCards());
+		tradee.addResourceToHand(ResourceType.WHEAT, out.getWheatCards());
+		trader.removeResourceFromHand(ResourceType.WOOD, out.getWoodCards());
+		tradee.addResourceToHand(ResourceType.WOOD, out.getWoodCards());
 		
 		//move the tradee's resources to the trader
-		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.BRICK, in.getBrickCards());
-		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.BRICK, in.getBrickCards());
-		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.ORE, in.getOreCards());
-		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.ORE, in.getOreCards());
-		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.SHEEP, in.getSheepCards());
-		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.SHEEP, in.getSheepCards());
-		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.WHEAT, in.getWheatCards());
-		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.WHEAT, in.getWheatCards());
-		players.getPlayerByIndex(tradeeIndex).removeResourceFromHand(ResourceType.WOOD, in.getWoodCards());
-		players.getPlayerByIndex(traderIndex).addResourceToHand(ResourceType.WOOD, in.getWoodCards());
+		tradee.removeResourceFromHand(ResourceType.BRICK, in.getBrickCards());
+		trader.addResourceToHand(ResourceType.BRICK, in.getBrickCards());
+		tradee.removeResourceFromHand(ResourceType.ORE, in.getOreCards());
+		trader.addResourceToHand(ResourceType.ORE, in.getOreCards());
+		tradee.removeResourceFromHand(ResourceType.SHEEP, in.getSheepCards());
+		trader.addResourceToHand(ResourceType.SHEEP, in.getSheepCards());
+		tradee.removeResourceFromHand(ResourceType.WHEAT, in.getWheatCards());
+		trader.addResourceToHand(ResourceType.WHEAT, in.getWheatCards());
+		tradee.removeResourceFromHand(ResourceType.WOOD, in.getWoodCards());
+		trader.addResourceToHand(ResourceType.WOOD, in.getWoodCards());
 	}
 	
 	/**

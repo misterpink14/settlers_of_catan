@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+import shared.communication.proxy.CreateGameRequestParams;
 import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
@@ -23,7 +24,8 @@ public class TurnManagerTest {
 	
 	@Before
 	public void setUp() {
-		game = new Game();
+		CreateGameRequestParams params = new CreateGameRequestParams("newGame", true, true, true);
+		game = new Game(params);
 	}
 	
 	@Test
