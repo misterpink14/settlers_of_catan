@@ -41,38 +41,38 @@ public class MaritimeTradeCommand extends ACommand {
 		
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		ResourceType inputResource = ResourceType.BRICK;
-		switch(json.get("inputResource").getAsString()) {
-		case "Brick":
+		switch(json.get("inputResource").getAsString().toLowerCase()) {
+		case "brick":
 			inputResource = ResourceType.BRICK;
 			break;
-		case "Ore":
+		case "ore":
 			inputResource = ResourceType.ORE;
 			break;
-		case "Sheep":
+		case "sheep":
 			inputResource = ResourceType.SHEEP;
 			break;
-		case "Wheat":
+		case "wheat":
 			inputResource = ResourceType.WHEAT;
 			break;
-		case "Wood":
+		case "wood":
 			inputResource = ResourceType.WOOD;
 			break;
 		}
 		ResourceType outputResource = ResourceType.BRICK;
-		switch(json.get("outputResource").getAsString()) {
-		case "Brick":
+		switch(json.get("outputResource").getAsString().toLowerCase()) {
+		case "brick":
 			outputResource = ResourceType.BRICK;
 			break;
-		case "Ore":
+		case "ore":
 			outputResource = ResourceType.ORE;
 			break;
-		case "Sheep":
+		case "sheep":
 			outputResource = ResourceType.SHEEP;
 			break;
-		case "Wheat":
+		case "wheat":
 			outputResource = ResourceType.WHEAT;
 			break;
-		case "Wood":
+		case "wood":
 			outputResource = ResourceType.WOOD;
 			break;
 		}
