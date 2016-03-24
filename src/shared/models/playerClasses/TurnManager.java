@@ -128,7 +128,7 @@ public class TurnManager {
 // METHODS
 	public void startGame() {
 		Random rand = new Random(System.currentTimeMillis());
-		playerIndex = rand.nextInt(4) + 1;
+		playerIndex = rand.nextInt(4);
 		players.getPlayerByIndex(playerIndex).startTurn();
 	}
 	
