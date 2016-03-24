@@ -229,6 +229,10 @@ public class Game extends Observable
 		return versionID;
 	}
 	
+	public void incrementVersionID() {
+		versionID++;
+	}
+	
 	
 	public int getLongestRoad() {
 		return this.turnManager.getLongestRoad();
