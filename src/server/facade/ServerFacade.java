@@ -32,6 +32,7 @@ import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.CatanColor;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
+import shared.locations.RobberLocation;
 import shared.models.Game;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
@@ -232,9 +233,10 @@ public class ServerFacade implements IServerFacade {
 	@Override
 	public String robPlayer(RobPlayer robPlayer, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
+		game.getMap().setRobberLocation(new RobberLocation(robPlayer.newLocation));
 		game.robPlayer(robPlayer.playerIndex, robPlayer.victimIndex);
 		game.incrementVersionID();
-		game.setGameState(GameState.ROBBER);
+		game.setGameState(GameState.MYTURN);
 		return Serializer.getInstance().serialize(game);
 	}
 
