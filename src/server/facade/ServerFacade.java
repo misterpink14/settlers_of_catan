@@ -200,6 +200,7 @@ public class ServerFacade implements IServerFacade {
 			game.getTurnManager().reverseFinishTurn(finishTurn.playerIndex);
 		}
 		else {
+			game.setGameState(GameState.ROLLING);
 			game.getTurnManager().finishTurn(finishTurn.playerIndex);
 		}
 		game.incrementVersionID();
