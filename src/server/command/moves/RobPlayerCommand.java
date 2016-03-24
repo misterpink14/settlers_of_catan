@@ -45,7 +45,7 @@ public class RobPlayerCommand extends ACommand {
 		robPlayer = new RobPlayer(
 			json.get("playerIndex").getAsInt(),
 			json.get("victimIndex").getAsInt(),
-			new HexLocation(json.get("x").getAsInt(), json.get("y").getAsInt())
+			new HexLocation(json.get("location").getAsJsonObject().get("x").getAsInt(), json.get("location").getAsJsonObject().get("y").getAsInt())
 		);
 	}
 
