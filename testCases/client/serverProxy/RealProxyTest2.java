@@ -1,7 +1,6 @@
 package client.serverProxy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,6 +64,19 @@ public class RealProxyTest2 {
 
 	@Test
 	public void testLoginUser() {
-		assertEquals(1,1);
+		try {
+			String response = realProxy.loginUser(new Credentials("personOne", "personOne"));
+			if (!response.equals("Success")){
+				assertTrue(false);
+			}
+			
+			response = realProxy.loginUser(new Credentials("personOnes", "personOnes"));
+			if (response.equals("Success")){
+				assertTrue(false);
+			}
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+		assertTrue(true);
 	}
 }
