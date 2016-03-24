@@ -334,7 +334,7 @@ public class ClientFacade {
 	public String buyDevCard() throws Exception {
 		if (canBuyDevCard()) {
 			try {
-				return proxy.buyDevCard(new BuyDevCard());
+				return proxy.buyDevCard(new BuyDevCard(this.getUserData().getPlayerIndex()));
 			} catch (Exception e) {
 				throw new Exception("Error buying dev card");
 			}

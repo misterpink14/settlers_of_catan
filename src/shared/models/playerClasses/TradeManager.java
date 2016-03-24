@@ -94,27 +94,27 @@ public class TradeManager {
 		Player trader = players.getPlayerByIndex(trade.playerIndex);
 		Player tradee = players.getPlayerByIndex(trade.receiverIndex);
 		
-		tradee.addResourceToHand(ResourceType.BRICK, 0 - trade.brick);
+		tradee.addResourceToHand(ResourceType.BRICK, trade.brick);
 		
-		tradee.addResourceToHand(ResourceType.ORE, 0 - trade.ore);
+		tradee.addResourceToHand(ResourceType.ORE, trade.ore);
 		
-		tradee.addResourceToHand(ResourceType.SHEEP, 0 - trade.sheep);
+		tradee.addResourceToHand(ResourceType.SHEEP, trade.sheep);
 		
-		tradee.addResourceToHand(ResourceType.WHEAT, 0 - trade.wheat);
+		tradee.addResourceToHand(ResourceType.WHEAT, trade.wheat);
 		
-		tradee.addResourceToHand(ResourceType.WOOD, 0 - trade.wood);
+		tradee.addResourceToHand(ResourceType.WOOD, trade.wood);
 		
 		//move the tradee's resources to the trader
 		
-		trader.addResourceToHand(ResourceType.BRICK, trade.brick);
+		trader.addResourceToHand(ResourceType.BRICK, 0 - trade.brick);
 		
-		trader.addResourceToHand(ResourceType.ORE, trade.ore);
+		trader.addResourceToHand(ResourceType.ORE, 0 - trade.ore);
 		
-		trader.addResourceToHand(ResourceType.SHEEP, trade.sheep);
+		trader.addResourceToHand(ResourceType.SHEEP, 0 - trade.sheep);
 		
-		trader.addResourceToHand(ResourceType.WHEAT, trade.wheat);
+		trader.addResourceToHand(ResourceType.WHEAT, 0 - trade.wheat);
 		
-		trader.addResourceToHand(ResourceType.WOOD, trade.wood);
+		trader.addResourceToHand(ResourceType.WOOD, 0 - trade.wood);
 		
 		trade = null;
 	}
