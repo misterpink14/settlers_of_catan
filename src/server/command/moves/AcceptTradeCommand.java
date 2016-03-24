@@ -43,7 +43,7 @@ public class AcceptTradeCommand extends ACommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws ServerException {
 		this.response = this.getFacade().acceptTrade(acceptTrade, this.getGameID());
 	}
 

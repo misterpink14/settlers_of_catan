@@ -55,7 +55,7 @@ public class OfferTradeCommand extends ACommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws ServerException {
 		this.response = this.getFacade().offerTrade(offerTrade, this.getGameID());
 	}
 
