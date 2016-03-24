@@ -222,8 +222,9 @@ public interface IServerFacade {
 	 * of the player trading, the ratio they're trading at, the
 	 * desired resource and the offered resource
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID);
+	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) throws ServerException;
 	
 	/**
 	 * This function will discard the specified cards
@@ -240,8 +241,9 @@ public interface IServerFacade {
 	 * 
 	 * @param aiType
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String addAI(String aiType, int gameID);
+	public String addAI(String aiType, int gameID) throws ServerException;
 	
 	/**
 	 * Gets the list of available AI's from the server

@@ -687,6 +687,7 @@ private static Serializer instance = null;
 			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
 			break;
 		case LOGIN:
+			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
 			break;
 		case MYTURN:
 			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
@@ -695,6 +696,7 @@ private static Serializer instance = null;
 			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
 			break;
 		case OUTDATED:
+			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
 			break;
 		case ROBBER:
 			jsonTurnTracker.add("status", new JsonPrimitive("Robbing"));
@@ -709,8 +711,10 @@ private static Serializer instance = null;
 			jsonTurnTracker.add("status", new JsonPrimitive("SecondRound"));
 			break;
 		case TRADEACCEPT:
+			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
 			break;
 		case TRADEOFFER:
+			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
 			break;
 		}
 		jsonTurnTracker.add("currentTurn", new JsonPrimitive(game.getTurnManager().getPlayerIndex()));

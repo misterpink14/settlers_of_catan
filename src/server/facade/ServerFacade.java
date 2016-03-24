@@ -298,10 +298,14 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) {
+	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) throws ServerException {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		try {
+			game.tradeResourcesWithBank(maritimeTrade.playerIndex, maritimeTrade.ratio, maritimeTrade.givingUp, maritimeTrade.getting);
+		} catch (InsufficientCardNumberException e) {
+			throw new ServerException("Error doing maritime trade");
+		}
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}
@@ -334,12 +338,27 @@ public class ServerFacade implements IServerFacade {
 
 
 	@Override
-	public String addAI(String aiType, int gameID) {
+	public String addAI(String aiType, int gameID) throws ServerException {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
 		
+		if (game.getPlayers().getPlayers().size() == 4) {
+			throw new ServerException("This game already has 4 players");
+		}
+		
+		Credentials credentials = new Credentials("AI", "aiplayer");
+		this.userManager.addUser(credentials);
+		credentials.playerID = this.userManager.getUser(credentials.username).getPlayerID();
+		
+		Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf("BLUE"), game.getPlayers().getPlayers().size());
+		try {
+			game.getPlayers().addPlayer(newPlayer);
+		} catch (Exception e) {
+			throw new ServerException("Error adding player");
+		}
+		
 		this.gameManager.addGame(game);
-		return Serializer.getInstance().serialize(game);
+		return "Success";
 	}
 
 	@Override

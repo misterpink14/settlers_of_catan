@@ -60,6 +60,7 @@ public class RequestHandler implements HttpHandler
 		try {
 			
 			this.validateHTTPMethod(exchange.getRequestMethod(), this.getCommandType(exchange));
+			System.out.println(this.getCommandType(exchange)[1]);
 			
 			ACommand command = CommandFactory.getInstance().buildCommand(
 				this.getCommandType(exchange),
@@ -106,6 +107,8 @@ public class RequestHandler implements HttpHandler
 			case "login":
 			case "register":
 			case "join":
+			case "listAI":
+			case "addAI":
 				mimetypes.add("text/html");
 				break;
 			default:
