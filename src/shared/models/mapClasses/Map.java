@@ -148,6 +148,9 @@ public class Map
 						tokenIndex = 0;
 					}
 					HexType hexType = hexTypes.get(hexIndex);
+					if (randomTiles) {
+						hexTypes.remove(hexIndex);
+					}
 					hexIndex++;
 					HexLocation hexLoc = new HexLocation(-x, y);
 					if (hexType.equals(HexType.DESERT)) {
