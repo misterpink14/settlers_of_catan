@@ -135,7 +135,7 @@ public class ServerFacade implements IServerFacade {
 			game.getPlayers().getPlayerByID(credentials.playerID).setColor(CatanColor.valueOf(params.color.toUpperCase()));
 		}
 		
-		if (game.getPlayers().getNumberOfPlayers() == 4) { 
+		if (game.getPlayers().getNumberOfPlayers() == 4 && game.getGameState() == GameState.LOGIN) { 
 			game.setGameState(GameState.SETUP1);
 		}
 		game.incrementVersionID();
