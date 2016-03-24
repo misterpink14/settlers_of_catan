@@ -314,7 +314,9 @@ public class TurnManager {
 		ResourceType robbedResource;
 		try {
 			robbedResource = this.players.getPlayerByIndex(robber).removeRandomResource();
-			this.players.getPlayerByIndex(robbed).addResourceToHand(robbedResource, 1);
+			if (robbedResource != null) {
+				this.players.getPlayerByIndex(robbed).addResourceToHand(robbedResource, 1);
+			}
 		} catch (InsufficientCardNumberException e) {}
 	}
 	
