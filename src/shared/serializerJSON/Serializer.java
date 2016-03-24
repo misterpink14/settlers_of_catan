@@ -192,14 +192,14 @@ private static Serializer instance = null;
 				EdgeLocation seEdge = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
 				edges.add(seEdge);
 				
-				for (EdgeLocation edgeLoc : edges) {
+				/*for (EdgeLocation edgeLoc : edges) {
 					Piece edgePiece = map.getEdge(edgeLoc);
 					if (edgePiece != null) {
 						JsonObject jsonRoad = new JsonObject();
 						int owner = edgePiece.getOwner();
 						jsonRoad.add("owner", new JsonPrimitive(owner));
 						JsonObject jsonRoadLocation = new JsonObject();
-						switch(edgeLoc.getDir()) {
+						switch(edgeLoc.getNormalizedLocation().getDir()) {
 						case North:
 							jsonRoadLocation.add("direction", new JsonPrimitive("N"));
 							break;
@@ -224,7 +224,7 @@ private static Serializer instance = null;
 						jsonRoad.add("location", jsonRoadLocation);
 						jsonRoads.add(jsonRoad);
 					}
-				}
+				}*/
 				
 				ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 					
@@ -241,14 +241,14 @@ private static Serializer instance = null;
 				VertexLocation wVertex = new VertexLocation(hexLoc,  VertexDirection.West);
 				vertices.add(wVertex);
 				
-				for (VertexLocation vertex: vertices) {
+				/*for (VertexLocation vertex: vertices) {
 					Piece vertexPiece = map.getVertex(vertex);
 					if (vertexPiece != null) {
 						int owner = vertexPiece.getOwner();
 						JsonObject jsonCity = new JsonObject();
 						jsonCity.add("owner", new JsonPrimitive(owner));
 						JsonObject jsonCityLocation = new JsonObject();
-						switch(vertex.getDir()) {
+						switch(vertex.getNormalizedLocation().getDir()) {
 						case East:
 							jsonCityLocation.add("direction", new JsonPrimitive("N"));
 							break;
@@ -278,7 +278,7 @@ private static Serializer instance = null;
 							jsonSettlements.add(jsonCity);
 						}
 					}
-				}
+				}*/
 				
 				if (map.getHex(hexLoc) != null) {
 					if (map.getHex(hexLoc).getToken() != -1) {
@@ -392,14 +392,14 @@ private static Serializer instance = null;
 					EdgeLocation seEdge = new EdgeLocation(hexLoc, EdgeDirection.SouthEast);
 					edges.add(seEdge);
 					
-					for (EdgeLocation edgeLoc : edges) {
+					/*for (EdgeLocation edgeLoc : edges) {
 						Piece edgePiece = map.getEdge(edgeLoc);
 						if (edgePiece != null) {
 							JsonObject jsonRoad = new JsonObject();
 							int owner = edgePiece.getOwner();
 							jsonRoad.add("owner", new JsonPrimitive(owner));
 							JsonObject jsonRoadLocation = new JsonObject();
-							switch(edgeLoc.getDir()) {
+							switch(edgeLoc.getNormalizedLocation().getDir()) {
 							case North:
 								jsonRoadLocation.add("direction", new JsonPrimitive("N"));
 								break;
@@ -424,7 +424,7 @@ private static Serializer instance = null;
 							jsonRoad.add("location", jsonRoadLocation);
 							jsonRoads.add(jsonRoad);
 						}
-					}
+					}*/
 					
 					ArrayList<VertexLocation> vertices = new ArrayList<VertexLocation>();
 						
@@ -441,14 +441,14 @@ private static Serializer instance = null;
 					VertexLocation wVertex = new VertexLocation(hexLoc,  VertexDirection.West);
 					vertices.add(wVertex);
 					
-					for (VertexLocation vertex: vertices) {
+					/*for (VertexLocation vertex: vertices) {
 						Piece vertexPiece = map.getVertex(vertex);
 						if (vertexPiece != null) {
 							int owner = vertexPiece.getOwner();
 							JsonObject jsonCity = new JsonObject();
 							jsonCity.add("owner", new JsonPrimitive(owner));
 							JsonObject jsonCityLocation = new JsonObject();
-							switch(vertex.getDir()) {
+							switch(vertex.getNormalizedLocation().getDir()) {
 							case East:
 								jsonCityLocation.add("direction", new JsonPrimitive("N"));
 								break;
@@ -480,7 +480,7 @@ private static Serializer instance = null;
 							}
 							
 						}
-					}
+					}*/
 					
 					if (map.getHex(hexLoc) != null) {
 						if (map.getHex(hexLoc).getToken() != -1) {
@@ -526,6 +526,42 @@ private static Serializer instance = null;
 				}
 			}
 		}
+		
+		for (int i = 0; i < 4; i++) {
+			for (EdgeLocation edgeLoc : map.getPlayerMap().getEdgePieceList(i)) {
+				JsonObject jsonRoad = new JsonObject();
+				jsonRoad.add("owner", new JsonPrimitive(i));
+				JsonObject jsonRoadLocation = new JsonObject();
+				jsonRoadLocation.add("direction", new JsonPrimitive(edgeLoc.getDir().getString()));
+				jsonRoadLocation.add("x", new JsonPrimitive(edgeLoc.getHexLoc().getX()));
+				jsonRoadLocation.add("y", new JsonPrimitive(edgeLoc.getHexLoc().getY()));
+				jsonRoad.add("location", jsonRoadLocation);
+				jsonRoads.add(jsonRoad);
+			}
+			for (VertexLocation cityLoc : map.getPlayerMap().getCityList(i)) {
+				JsonObject jsonCity = new JsonObject();
+				jsonCity.add("owner", new JsonPrimitive(i));
+				JsonObject jsonCityLocation = new JsonObject();
+				jsonCityLocation.add("direction", new JsonPrimitive(cityLoc.getDir().getString()));
+				jsonCityLocation.add("x", new JsonPrimitive(cityLoc.getHexLoc().getX()));
+				jsonCityLocation.add("y", new JsonPrimitive(cityLoc.getHexLoc().getY()));
+				jsonCity.add("location", jsonCityLocation);
+				jsonCities.add(jsonCity);
+			}
+			for (VertexLocation settlementLoc : map.getPlayerMap().getSettlementList(i)) {
+				JsonObject jsonSettlement = new JsonObject();
+				jsonSettlement.add("owner", new JsonPrimitive(i));
+				JsonObject jsonSettlementLocation = new JsonObject();
+				jsonSettlementLocation.add("direction", new JsonPrimitive(settlementLoc.getDir().getString()));
+				jsonSettlementLocation.add("x", new JsonPrimitive(settlementLoc.getHexLoc().getX()));
+				jsonSettlementLocation.add("y", new JsonPrimitive(settlementLoc.getHexLoc().getY()));
+				jsonSettlement.add("location", jsonSettlementLocation);
+				jsonSettlements.add(jsonSettlement);
+			}
+			
+			map.getPlayerMap().getVertexPieceList(i);
+		}
+		
 	
 		jsonRobber.add("x", new JsonPrimitive(map.getRobberLocation().getHexLoc().getX()));
 		jsonRobber.add("y", new JsonPrimitive(map.getRobberLocation().getHexLoc().getY()));

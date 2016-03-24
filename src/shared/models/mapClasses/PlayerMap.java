@@ -46,5 +46,19 @@ public class PlayerMap
 		return vertexes;
 	}
 	
+	public ArrayList<VertexLocation> getSettlementList(int ownerIndex) {
+		return this.PlayerPieces.get(ownerIndex).getSettlements();
+		
+	}
+	
+	public ArrayList<VertexLocation> getCityList(int ownerIndex) {
+		return this.PlayerPieces.get(ownerIndex).getCities();
+	}
+	
+	public ArrayList<EdgeLocation> getEdgePieceList(int ownerIndex) {
+		ArrayList<EdgeLocation> edges = this.PlayerPieces.get(ownerIndex).getLocation();
+		return edges;
+	}
+	
 	
 }
