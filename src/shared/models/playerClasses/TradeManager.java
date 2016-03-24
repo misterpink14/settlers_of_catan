@@ -30,6 +30,10 @@ public class TradeManager {
 		this.trade = trade;
 	}
 	
+	public OfferTrade getTrade() {
+		return trade;
+	}
+	
 	public boolean isTradeOffered() {
 		return tradeOffered;
 	}
@@ -99,6 +103,8 @@ public class TradeManager {
 		trader.addResourceToHand(ResourceType.WHEAT, in.getWheatCards());
 		tradee.removeResourceFromHand(ResourceType.WOOD, in.getWoodCards());
 		trader.addResourceToHand(ResourceType.WOOD, in.getWoodCards());
+		
+		trade = null;
 	}
 	
 	/**
