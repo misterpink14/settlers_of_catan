@@ -52,18 +52,24 @@ public class ServerFacade implements IServerFacade {
 	}
 	
 	
+	
+// USER
 	@Override
 	public String login(Credentials credentials) throws ServerException {
 		userManager.login(credentials);
 		return "Success";
 	}
+	
 
 	@Override
 	public String register(Credentials credentials) throws ServerException {
 		userManager.register(credentials);
 		return "Success";
 	}
+	
+	
 
+//GAMES
 	@Override
 	public String getGamesList() {
 		
@@ -94,6 +100,7 @@ public class ServerFacade implements IServerFacade {
 		
 		return gameListJson.toString();
 	}
+	
 
 	@Override
 	public String createGame(CreateGameRequestParams params) {
@@ -116,9 +123,11 @@ public class ServerFacade implements IServerFacade {
 		
 		return gameJson.toString();
 	}
+	
 
 	@Override
 	public String joinGame(JoinGameRequestParams params, Credentials credentials) throws ServerException {
+		
 		Game game = this.gameManager.getGameByID(params.id);
 		if (game.getPlayers().getPlayers().size() == 4 && game.getPlayers().getPlayerByID(credentials.playerID) == null) {
 			throw new ServerException("This game already has 4 players");
@@ -141,9 +150,13 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return "Success";
 	}
+	
 
+	
+// GAME
 	@Override
 	public String getModel(int versionNumber, int gameID) {
+		
 		Game game = this.gameManager.getGameByID(gameID);
 		if (game.getVersionID() == versionNumber) {
 			return "\"true\"";
@@ -152,12 +165,49 @@ public class ServerFacade implements IServerFacade {
 		}
 	}
 	
+	
 	@Override
 	public String getModel(int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		return Serializer.getInstance().serialize(game);
 	}
 
+
+	@Override
+	public String addAI(String aiType, int gameID) throws ServerException {
+
+		Game game = this.gameManager.getGameByID(gameID);
+		
+		if (game.getPlayers().getPlayers().size() == 4) {
+			throw new ServerException("This game already has 4 players");
+		}
+		
+		Credentials credentials = new Credentials("AI", "aiplayer");
+		this.userManager.addUser(credentials);
+		credentials.playerID = this.userManager.getUser(credentials.username).getPlayerID();
+		
+		Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf("BLUE"), game.getPlayers().getPlayers().size());
+		try {
+			game.getPlayers().addPlayer(newPlayer);
+		} catch (Exception e) {
+			throw new ServerException("Error adding player");
+		}
+		
+		game.incrementVersionID();
+		return "Success";
+	}
+	
+
+	@Override
+	public String getListAI() {
+		JsonArray jsonArr = new JsonArray();
+		jsonArr.add("LARGEST_ARMY");
+		return jsonArr.toString();
+	}
+	
+	
+
+// MOVES
 	@Override
 	public String sendChat(SendChat sendChat, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
@@ -169,6 +219,7 @@ public class ServerFacade implements IServerFacade {
 		return Serializer.getInstance().serialize(game);
 	}
 
+	
 	@Override
 	public String rollNumber(RollNumber rollNumber, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
@@ -176,6 +227,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String robPlayer(RobPlayer robPlayer, int gameID) {
@@ -186,6 +238,7 @@ public class ServerFacade implements IServerFacade {
 		return Serializer.getInstance().serialize(game);
 	}
 
+	
 	@Override
 	public String finishTurn(FinishTurn finishTurn, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
@@ -209,6 +262,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String buyDevCard(BuyDevCard buyDevCard, int gameID) throws ServerException {
@@ -221,6 +275,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) {
@@ -230,6 +285,7 @@ public class ServerFacade implements IServerFacade {
 		return Serializer.getInstance().serialize(game);
 	}
 
+	
 	@Override
 	public String roadBuilding(RoadBuilding roadBuilding, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
@@ -241,6 +297,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String moveSoldier(SoldierMove soldierMove, int gameID) {
@@ -257,6 +314,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String playMonumentCard(MonumentMove monumentMove, int gameID) {
@@ -265,6 +323,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String buildRoad(BuildRoad buildRoad, int gameID) throws ServerException {
@@ -277,6 +336,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String buildCity(BuildCity buildCity, int gameID) throws ServerException {
@@ -289,6 +349,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String buildSettlement(BuildSettlement buildSettlement, int gameID) throws ServerException {
@@ -301,6 +362,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String offerTrade(OfferTrade offerTrade, int gameID) {
@@ -310,6 +372,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
@@ -319,6 +382,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) throws ServerException {
@@ -332,6 +396,7 @@ public class ServerFacade implements IServerFacade {
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
+	
 
 	@Override
 	public String discardCards(DiscardedCards discardedCards, int gameID) throws ServerException {
@@ -352,44 +417,16 @@ public class ServerFacade implements IServerFacade {
 		return Serializer.getInstance().serialize(game);
 	}
 
+	
+	
+// HELPERS
 	private ArrayList<ResourceType> addResources(ArrayList<ResourceType> res, ResourceType resource, int num) {
 		for (int i = 0; i < num; ++i) {
 			res.add(resource);
 		}
 		return res;
 	}
-
-
-	@Override
-	public String addAI(String aiType, int gameID) throws ServerException {
-		// TODO Auto-generated method stub
-		Game game = this.gameManager.getGameByID(gameID);
-		
-		if (game.getPlayers().getPlayers().size() == 4) {
-			throw new ServerException("This game already has 4 players");
-		}
-		
-		Credentials credentials = new Credentials("AI", "aiplayer");
-		this.userManager.addUser(credentials);
-		credentials.playerID = this.userManager.getUser(credentials.username).getPlayerID();
-		
-		Player newPlayer = new Player(credentials.playerID, credentials.username, CatanColor.valueOf("BLUE"), game.getPlayers().getPlayers().size());
-		try {
-			game.getPlayers().addPlayer(newPlayer);
-		} catch (Exception e) {
-			throw new ServerException("Error adding player");
-		}
-		
-		game.incrementVersionID();
-		return "Success";
-	}
-
-	@Override
-	public String getListAI() {
-		JsonArray jsonArr = new JsonArray();
-		jsonArr.add("LARGEST_ARMY");
-		return jsonArr.toString();
-	}
+	
 	
 	@Override
 	public int getPlayerIDFromCredentials(Credentials credentials) throws ServerException {
