@@ -214,14 +214,14 @@ public class Map
 			portIndex = rand.nextInt(portTypes.size());
 		}
 		
-		hexes.setHex(new HexLocation(-1, -2), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthEast));
+		hexes.setHex(new HexLocation(-1, -2), new WaterHex(portTypes.get(portIndex), EdgeDirection.South));
 		portIndex++;
 		
 		if (randomNumbers) {
 			portIndex = rand.nextInt(portTypes.size());
 		}
 		
-		hexes.setHex(new HexLocation(1, -3), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthWest));
+		hexes.setHex(new HexLocation(1, -3), new WaterHex(portTypes.get(portIndex), EdgeDirection.South));
 		portIndex++;
 		
 		if (randomNumbers) {
