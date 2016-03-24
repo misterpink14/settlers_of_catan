@@ -170,14 +170,20 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String buildCity(BuildCity buildCity, int gameID) {
-		// TODO Auto-generated method stub
+	public String buildCity(BuildCity buildCity, int gameID) throws ServerException {
+		if (buildCity.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for vertexLocation, gameID
 		return null;
 	}
 
 	@Override
-	public String buildSettlement(BuildSettlement buildSettlement, int gameID) {
-		// TODO Auto-generated method stub
+	public String buildSettlement(BuildSettlement buildSettlement, int gameID) throws ServerException {
+		if (buildSettlement.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for vertexLocation, gameID
 		return null;
 	}
 
