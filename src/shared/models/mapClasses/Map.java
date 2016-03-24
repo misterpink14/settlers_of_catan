@@ -243,6 +243,8 @@ public class Map
 		}
 
 		hexes.setHex(new HexLocation(2, 1), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthWest));
+		
+		this.Hexes = hexes;
 	}
 	
 	
