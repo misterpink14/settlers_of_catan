@@ -604,12 +604,13 @@ public class Game extends Observable
 	public void processRoll(RollNumber rollNumber) {
 		int roll = rollNumber.roll;
 		if (roll == 7) {
-			for (Player p : players.getPlayers()){
+			// Disabling discard state since our client doesn't support it
+			/*for (Player p : players.getPlayers()){
 				if (p.getTotalResources() > 7) {
 					this.gameState = GameState.DISCARD;
 					return;
 				}
-			}
+			}*/
 			this.gameState = GameState.ROBBER;
 		} else {
 			// Find all hexes with the token matching the number rolled
