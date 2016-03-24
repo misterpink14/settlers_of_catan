@@ -60,7 +60,7 @@ public class RequestHandler implements HttpHandler
 		try {
 			
 			this.validateHTTPMethod(exchange.getRequestMethod(), this.getCommandType(exchange));
-			System.out.println(this.getCommandType(exchange)[1]);
+			//System.out.println(this.getCommandType(exchange)[1]);
 			
 			ACommand command = CommandFactory.getInstance().buildCommand(
 				this.getCommandType(exchange),
