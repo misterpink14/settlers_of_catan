@@ -167,6 +167,7 @@ public class TurnManager {
 		}
 		Piece newRoad = new Piece(PieceType.ROAD, currPlayer);
 		map.addRoadToEdgeMap(loc, newRoad);
+		map.addRoadToPlayerMap(loc, currPlayer);
 	}
 
 	
