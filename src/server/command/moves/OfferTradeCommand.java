@@ -47,8 +47,8 @@ public class OfferTradeCommand extends ACommand {
 			json.get("playerIndex").getAsInt(),
 			json.get("receiver").getAsInt(),
 			json.get("offer").getAsJsonObject().get("brick").getAsInt(),
-			json.get("offer").getAsJsonObject().get("ore").getAsInt(),
 			json.get("offer").getAsJsonObject().get("sheep").getAsInt(),
+			json.get("offer").getAsJsonObject().get("ore").getAsInt(),
 			json.get("offer").getAsJsonObject().get("wheat").getAsInt(),
 			json.get("offer").getAsJsonObject().get("wood").getAsInt()
 		);

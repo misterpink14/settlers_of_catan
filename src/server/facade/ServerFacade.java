@@ -351,7 +351,7 @@ public class ServerFacade implements IServerFacade {
 	public String offerTrade(OfferTrade offerTrade, int gameID) {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		game.getTurnManager().getTradeManager().offerTrade(offerTrade);
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
@@ -361,7 +361,7 @@ public class ServerFacade implements IServerFacade {
 	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		game.getTurnManager().getTradeManager().acceptTrade(acceptTrade);;
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
