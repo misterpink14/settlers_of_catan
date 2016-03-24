@@ -12,10 +12,12 @@ import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
+import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.RobberLocation;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import shared.models.cardClasses.Bank;
 import shared.models.cardClasses.CardDeck;
@@ -23,11 +25,14 @@ import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.chatClasses.GameChat;
 import shared.models.logClasses.GameLog;
 import shared.models.mapClasses.Hex;
+import shared.models.mapClasses.HexMap;
 import shared.models.mapClasses.InvalidTokenException;
 import shared.models.mapClasses.InvalidTypeException;
 import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
+import shared.models.mapClasses.VertexMap;
 import shared.models.playerClasses.GamePlayers;
+import shared.models.playerClasses.Player;
 import shared.models.playerClasses.TurnManager;
 
 /**
@@ -588,11 +593,67 @@ public class Game extends Observable
 		return this.map.settlementTouchesPlayerRoad(loc, ownerID);
 	}
 
-	/*
+	/**
 	 * This method will take in a roll and will assign resources
+	 * @param rollNumber
 	 */
 	public void processRoll(RollNumber rollNumber) {
-		// TODO Auto-generated method stub
-		
+		int roll = rollNumber.roll;
+		if (roll == 7) {
+			for (Player p : players.getPlayers()){
+				if (p.getTotalResources() > 7) {
+					this.gameState = GameState.DISCARD;
+					return;
+				}
+			}
+			this.gameState = GameState.ROBBER;
+		} else {
+			// Find all hexes with the token matching the number rolled
+			List<HexLocation> hexes = new ArrayList<HexLocation>();
+			HexMap hMap = map.getHexMap();
+			for (int x = 0; x <= 2; ++x) {
+				
+				int maxY = 2 - x;			
+				for (int y = -2; y <= maxY; ++y) {
+					HexLocation loc = new HexLocation(x, y);
+					Hex h = hMap.getHex(loc); 
+					if (h.getToken() == roll && map.getRobberLocation().getHexLoc() != loc) {
+						hexes.add(loc);
+					}
+				}
+			}
+			// For each hex, find if there are any cities or settlements on it
+			// TODO: If there are not enough of a certain resource to give to every players who should get one,
+			// then no one gets that resource
+			VertexMap vMap = map.getVertexMap();
+			for (int i = 0; i < hexes.size(); i++) {
+				for (VertexDirection dir : VertexDirection.values()) {
+					PieceType p = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getType();
+					if (p == PieceType.SETTLEMENT) {
+						int pIndex = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getOwner();
+						try {
+							ResourceType r = ResourceType.valueOf(hMap.getHex(hexes.get(i)).getHexType().toString());
+							if(bank.canRemove(r, 1)) {
+								players.getPlayerByIndex(pIndex).addResourceToHand(r, 1);
+								bank.takeResourceCards(r, 1);
+							}
+						} catch (Exception e) {
+							
+						}
+					} else if (p == PieceType.CITY) {
+						int pIndex = vMap.getPiece(new VertexLocation(hexes.get(i), dir)).getOwner();
+						try {
+							ResourceType r = ResourceType.valueOf(hMap.getHex(hexes.get(i)).getHexType().toString());
+							if(bank.canRemove(r, 2)) {
+								players.getPlayerByIndex(pIndex).addResourceToHand(r, 2);
+								bank.takeResourceCards(r, 2);
+							}
+						} catch (Exception e) {
+							
+						}
+					}
+				}
+			}
+		}
 	}
 }
