@@ -86,7 +86,7 @@ public class MaritimeTradeCommand extends ACommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws ServerException {
 		this.response = this.getFacade().maritimeTrade(maritimeTrade, this.getGameID());
 	}
 

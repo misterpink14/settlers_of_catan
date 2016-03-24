@@ -298,10 +298,14 @@ public class ServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) {
+	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) throws ServerException {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		
+		try {
+			game.tradeResourcesWithBank(maritimeTrade.playerIndex, maritimeTrade.ratio, maritimeTrade.givingUp, maritimeTrade.getting);
+		} catch (InsufficientCardNumberException e) {
+			throw new ServerException("Error doing maritime trade");
+		}
 		this.gameManager.addGame(game);
 		return Serializer.getInstance().serialize(game);
 	}

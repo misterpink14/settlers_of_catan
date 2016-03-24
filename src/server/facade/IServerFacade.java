@@ -218,8 +218,9 @@ public interface IServerFacade {
 	 * of the player trading, the ratio they're trading at, the
 	 * desired resource and the offered resource
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID);
+	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) throws ServerException;
 	
 	/**
 	 * This function will discard the specified cards
