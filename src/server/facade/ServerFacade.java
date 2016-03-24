@@ -182,6 +182,7 @@ public class ServerFacade implements IServerFacade {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.robPlayer(robPlayer.playerIndex, robPlayer.victimIndex);
 		game.incrementVersionID();
+		game.setGameState(GameState.ROBBER);
 		return Serializer.getInstance().serialize(game);
 	}
 
