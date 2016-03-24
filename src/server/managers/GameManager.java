@@ -37,6 +37,7 @@ public class GameManager {
 	 */
 	public void addGame(Game game)
 	{
+		game.setId(game.getNextID());
 		gamesList.put(game.getId(), game);
 	}
 	
