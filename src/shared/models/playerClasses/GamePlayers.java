@@ -75,7 +75,7 @@ public class GamePlayers {
 		players.get(playerIndex).finishTurn();
 		
 		playerIndex++;
-		if(playerIndex > 4) {
+		if(playerIndex > 3) {
 			playerIndex = 0;
 		}
 		
