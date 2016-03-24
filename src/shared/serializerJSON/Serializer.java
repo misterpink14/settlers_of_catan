@@ -687,7 +687,7 @@ private static Serializer instance = null;
 			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
 			break;
 		case LOGIN:
-			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
+			jsonTurnTracker.add("status", new JsonPrimitive(""));
 			break;
 		case MYTURN:
 			jsonTurnTracker.add("status", new JsonPrimitive("Playing"));
