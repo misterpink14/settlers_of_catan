@@ -44,7 +44,7 @@ public class RealProxyTest {
 
 	RealProxy realProxy = null;
 	
-	@Before
+	@Before // before
 	public void setUp() throws Exception {
 		this.realProxy = new RealProxy("http://localhost:8081");
 		
