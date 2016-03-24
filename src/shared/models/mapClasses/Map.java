@@ -897,22 +897,5 @@ public class Map
 	public Boolean settlementTouchesPlayerRoad(VertexLocation loc, int ownerID) {
 		return this.Edges.settlementTouchesPlayerRoad(loc, ownerID);
 	}
-	
-	
-	
-	
-	/*
-	 * SERVER METHODS
-	 */
-	
-	
-	/**
-	 * Creates a new map for a new game using parameters specified by the user.
-	 * @param randomHexes tells whether to randomize the hexes in the new map.
-	 * @param randomPorts tells whether to randomize the ports in the new map.
-	 * @param randomNumbers tells whether to randomize the numbers on the hexes in the new map.
-	 */
-	public void createNewMap(boolean randomHexes, boolean randomPorts, boolean randomNumbers) {
-		
-	}
+
 }
