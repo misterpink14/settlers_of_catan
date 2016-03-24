@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client.clientFacade.ClientFacade;
+import shared.communication.proxy.BuildRoad;
 import shared.communication.proxy.CreateGameRequestParams;
 import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
@@ -416,8 +417,8 @@ public class Game extends Observable
 	 * @throws InvalidTypeException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildRoad(int currPlayer, EdgeLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
-		turnManager.buildRoad(currPlayer, loc);
+	public void buildRoad(int playerIndex, EdgeLocation loc, boolean free) throws InsufficientCardNumberException, InvalidTypeException {
+		turnManager.buildRoad(playerIndex, loc, free);
 	}
 	
 	
@@ -428,8 +429,8 @@ public class Game extends Observable
 	 * @throws InvalidTypeException 
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
-	public void buildSettlement(int currPlayer, VertexLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
-		turnManager.buildSettlement(currPlayer, loc);
+	public void buildSettlement(int currPlayer, VertexLocation loc, boolean free) throws InsufficientCardNumberException, InvalidTypeException {
+		turnManager.buildSettlement(currPlayer, loc, free);
 	}
 	
 	

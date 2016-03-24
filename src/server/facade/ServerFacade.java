@@ -30,6 +30,7 @@ import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
 import shared.definitions.CatanColor;
+import shared.definitions.GameState;
 import shared.definitions.ResourceType;
 import shared.models.Game;
 import shared.models.cardClasses.InsufficientCardNumberException;
@@ -132,6 +133,10 @@ public class ServerFacade implements IServerFacade {
 		}
 		else {
 			game.getPlayers().getPlayerByID(credentials.playerID).setColor(CatanColor.valueOf(params.color.toUpperCase()));
+		}
+		
+		if (game.getPlayers().getNumberOfPlayers() == 4) { 
+			game.setGameState(GameState.SETUP1);
 		}
 		return "Success";
 	}
@@ -247,7 +252,7 @@ public class ServerFacade implements IServerFacade {
 	public String buildRoad(BuildRoad buildRoad, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
 		try {
-			game.buildRoad(buildRoad.playerIndex, buildRoad.roadLocation);
+			game.buildRoad(buildRoad.playerIndex, buildRoad.roadLocation, buildRoad.free);
 		} catch (InsufficientCardNumberException | InvalidTypeException e) {
 			throw new ServerException("Error building road");
 		}
@@ -271,7 +276,7 @@ public class ServerFacade implements IServerFacade {
 	public String buildSettlement(BuildSettlement buildSettlement, int gameID) throws ServerException {
 		Game game = this.gameManager.getGameByID(gameID);
 		try {
-			game.buildSettlement(buildSettlement.playerIndex, buildSettlement.vertexLocation);
+			game.buildSettlement(buildSettlement.playerIndex, buildSettlement.vertexLocation, buildSettlement.free);
 		} catch (InsufficientCardNumberException | InvalidTypeException e) {
 			throw new ServerException("Error building settlement");
 		}
