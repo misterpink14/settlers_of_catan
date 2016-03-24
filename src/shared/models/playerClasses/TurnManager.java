@@ -47,7 +47,7 @@ public class TurnManager {
 	TradeManager tradeManager;
 	
 	/**The index of the player whose turn it is.*/
-	int playerIndex = -1;
+	int playerIndex = 0;
 	
 	int clientIndex = -1;
 	
