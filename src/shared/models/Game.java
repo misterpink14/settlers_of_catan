@@ -612,7 +612,6 @@ public class Game extends Observable
 			}
 			this.gameState = GameState.ROBBER;
 		} else {
-			this.setGameState(GameState.MYTURN);
 			// Find all hexes with the token matching the number rolled
 			List<HexLocation> hexes = new ArrayList<HexLocation>();
 			HexMap hMap = map.getHexMap();
@@ -624,6 +623,16 @@ public class Game extends Observable
 					Hex h = hMap.getHex(loc); 
 					if (h.getToken() == roll && !map.getRobberLocation().getHexLoc().equals(loc)) {
 						hexes.add(loc);
+					}
+				}
+				if (x != 0) {
+					int minY = x - 2;
+					for (int y = minY; y <= 2; ++y) {
+						HexLocation loc = new HexLocation(-x, y);
+						Hex h = hMap.getHex(loc); 
+						if (h.getToken() == roll && !map.getRobberLocation().getHexLoc().equals(loc)) {
+							hexes.add(loc);
+						}
 					}
 				}
 			}
@@ -662,6 +671,7 @@ public class Game extends Observable
 					} 
 				}
 			}
+			this.setGameState(GameState.MYTURN);
 		}
 	}
 }
