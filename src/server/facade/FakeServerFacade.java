@@ -102,49 +102,70 @@ public class FakeServerFacade implements IServerFacade {
 		if (finishTurn.playerIndex == -1) {
 			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
 		}
-		// TODO add test for playerIndex, victimIndex, location, gameID
+		// TODO add test for gameID
 		return null;
 	}
 
 	@Override
-	public String buyDevCard(BuyDevCard buyDevCard, int gameID) {
-		// TODO Auto-generated method stub
+	public String buyDevCard(BuyDevCard buyDevCard, int gameID) throws ServerException {
+		if (buyDevCard.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for gameID
 		return null;
 	}
 
 	@Override
-	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) {
-		// TODO Auto-generated method stub
+	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) throws ServerException {
+		if (yearOfPlenty.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for gameID
 		return null;
 	}
 
 	@Override
-	public String roadBuilding(RoadBuilding roadBuilding, int gameID) {
-		// TODO Auto-generated method stub
+	public String roadBuilding(RoadBuilding roadBuilding, int gameID) throws ServerException {
+		if (roadBuilding.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for spot1, spot2, and gameID
 		return null;
 	}
 
 	@Override
-	public String moveSoldier(SoldierMove soldierMove, int gameID) {
-		// TODO Auto-generated method stub
+	public String moveSoldier(SoldierMove soldierMove, int gameID) throws ServerException {
+		if (soldierMove.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for victimID, location, gameID
 		return null;
 	}
 
 	@Override
-	public String playMonopolyCard(Monopoly monopoly, int gameID) {
-		// TODO Auto-generated method stub
+	public String playMonopolyCard(Monopoly monopoly, int gameID) throws ServerException {
+		if (monopoly.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for resource, gameID
 		return null;
 	}
 
 	@Override
-	public String playMonumentCard(MonumentMove monumentMove, int gameID) {
-		// TODO Auto-generated method stub
+	public String playMonumentCard(MonumentMove monumentMove, int gameID) throws ServerException {
+		if (monumentMove.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for gameID
 		return null;
 	}
 
 	@Override
-	public String buildRoad(BuildRoad buildRoad, int gameID) {
-		// TODO Auto-generated method stub
+	public String buildRoad(BuildRoad buildRoad, int gameID) throws ServerException {
+		if (buildRoad.playerIndex == -1) {
+			throw new ServerException("Invalid command.  ['playerIndex' field has an invalid value.]");
+		}
+		// TODO add test for roadLocation, gameID
 		return null;
 	}
 

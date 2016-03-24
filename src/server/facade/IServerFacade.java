@@ -130,8 +130,9 @@ public interface IServerFacade {
 	 * @param YearOfPlenty object that contains the player index
 	 * playing the card and the two resources they gain
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID);
+	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) throws ServerException;
 	
 	/**
 	 * This function will play a road building card
@@ -148,24 +149,27 @@ public interface IServerFacade {
 	 * doing the robbing, the player index of the one they're
 	 * robbing, and the new location of the robber
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String moveSoldier(SoldierMove soldierMove, int gameID);
+	public String moveSoldier(SoldierMove soldierMove, int gameID) throws ServerException;
 	
 	/**
 	 * This function will play a Monopoly card
 	 * @param Monopoly object that contains the player index
 	 * and the resource they will monopolize
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String playMonopolyCard(Monopoly monopoly, int gameID);
+	public String playMonopolyCard(Monopoly monopoly, int gameID) throws ServerException;
 	
 	/**
 	 * This function will play a Monument Card
 	 * @param MonumentMove object that contains the player index
 	 * playing the monument card
 	 * @return JSON String of Game
+	 * @throws ServerException 
 	 */
-	public String playMonumentCard(MonumentMove monumentMove, int gameID);
+	public String playMonumentCard(MonumentMove monumentMove, int gameID) throws ServerException;
 	
 	/**
 	 * This function will build a road

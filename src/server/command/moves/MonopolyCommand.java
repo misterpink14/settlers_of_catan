@@ -43,7 +43,7 @@ public class MonopolyCommand extends ACommand {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws ServerException {
 		this.response = this.getFacade().playMonopolyCard(monopoly, this.getGameID());
 	}
 

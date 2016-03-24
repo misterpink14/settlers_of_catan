@@ -184,62 +184,62 @@ public class Map
 		int portIndex = 0;
 
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 		hexes.setHex(new HexLocation(0, 3), new WaterHex(portTypes.get(portIndex), EdgeDirection.North));
 		portIndex++;
 		
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 		
 		hexes.setHex(new HexLocation(-2, 3), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthEast));
 		portIndex++;
 		
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 		
 		hexes.setHex(new HexLocation(-3, 2), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthEast));
 		portIndex++;
 		
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 		
 		hexes.setHex(new HexLocation(-3, 0), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthEast));
 		portIndex++;
 		
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 		
 		hexes.setHex(new HexLocation(-1, -2), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthEast));
 		portIndex++;
 		
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 		
 		hexes.setHex(new HexLocation(1, -3), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthWest));
 		portIndex++;
 		
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 		
 		hexes.setHex(new HexLocation(3, -3), new WaterHex(portTypes.get(portIndex), EdgeDirection.SouthWest));
 		portIndex++;
 		
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 
 		hexes.setHex(new HexLocation(3, -1), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthWest));
 		portIndex++;
 		
 		if (randomNumbers) {
-			portIndex = rand.nextInt(hexTypes.size());
+			portIndex = rand.nextInt(portTypes.size());
 		}
 
 		hexes.setHex(new HexLocation(2, 1), new WaterHex(portTypes.get(portIndex), EdgeDirection.NorthWest));
