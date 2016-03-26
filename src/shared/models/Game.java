@@ -439,14 +439,22 @@ public class Game extends Observable
 		turnManager.buildSettlement(currPlayer, loc, free);
 		if (this.gameState == GameState.SETUP2) {
 			HexLocation hexLoc = loc.getHexLoc();
-			this.addResourceTypeFromHexType(this.map.getHexType(hexLoc), currPlayer);
-			this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.North)), currPlayer);
+			try {
+				this.addResourceTypeFromHexType(this.map.getHexType(hexLoc), currPlayer);
+			catch (IndexOutOfBoundsException e) { }
+			try { 
+				this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.North)), currPlayer);
+			} catch (IndexOutOfBoundsException e ) { }
 			switch (loc.getDir()) {
 				case NorthEast:
-					this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.NorthEast)), currPlayer);
+					try {
+						this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.NorthEast)), currPlayer);
+					} catch (IndexOutOfBoundsException e) { }
 					break;
 				case NorthWest:
-					this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.NorthWest)), currPlayer);
+					try {
+						this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.NorthWest)), currPlayer);
+					} catch (IndexOutOfBoundsException e) { }
 					break;
 				default:
 					throw new InvalidTypeException("This should never happen");
