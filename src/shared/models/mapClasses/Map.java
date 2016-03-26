@@ -282,6 +282,10 @@ public class Map
 		return PlayerPieces;
 	}
 	
+	public HexType getHexType(HexLocation hexLoc) {
+		return this.Hexes.getHex(hexLoc).getHexType();
+	}
+	
 	
 // SETTERS
 	public void setHexMap(HexMap hexes) {

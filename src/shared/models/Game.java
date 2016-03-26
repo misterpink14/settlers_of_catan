@@ -12,8 +12,10 @@ import shared.communication.proxy.OfferTrade;
 import shared.communication.proxy.RollNumber;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
+import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.RobberLocation;
@@ -433,7 +435,46 @@ public class Game extends Observable
 	 * @exception invalidPlayerID if the player id does not match an existing player.
 	 */
 	public void buildSettlement(int currPlayer, VertexLocation loc, boolean free) throws InsufficientCardNumberException, InvalidTypeException {
+		loc = loc.getNormalizedLocation();
 		turnManager.buildSettlement(currPlayer, loc, free);
+		if (this.gameState == GameState.SETUP2) {
+			HexLocation hexLoc = loc.getHexLoc();
+			this.addResourceTypeFromHexType(this.map.getHexType(hexLoc), currPlayer);
+			this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.North)), currPlayer);
+			switch (loc.getDir()) {
+				case NorthEast:
+					this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.NorthEast)), currPlayer);
+					break;
+				case NorthWest:
+					this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.NorthWest)), currPlayer);
+					break;
+				default:
+					throw new InvalidTypeException("This should never happen");
+			}
+		}
+	}
+	
+	
+	private void addResourceTypeFromHexType(HexType hexType, int currPlayer) {
+		switch (hexType) {
+		case BRICK:
+			this.players.getPlayerByIndex(currPlayer).addResourceToHand(ResourceType.BRICK, 1);
+			break;
+		case ORE:
+			this.players.getPlayerByIndex(currPlayer).addResourceToHand(ResourceType.ORE, 1);
+			break;
+		case SHEEP:
+			this.players.getPlayerByIndex(currPlayer).addResourceToHand(ResourceType.SHEEP, 1);
+			break;
+		case WHEAT:
+			this.players.getPlayerByIndex(currPlayer).addResourceToHand(ResourceType.WHEAT, 1);
+			break;
+		case WOOD:
+			this.players.getPlayerByIndex(currPlayer).addResourceToHand(ResourceType.WOOD, 1);
+			break;
+		default:
+			break;
+		}
 	}
 	
 	
