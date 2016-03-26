@@ -438,6 +438,7 @@ public class Player {
 
 	public void removeSettlement() {
 		this.settlements--;
+		this.victoryPoints++;
 	}
 
 }
