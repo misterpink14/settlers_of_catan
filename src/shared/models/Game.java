@@ -34,7 +34,6 @@ import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.VertexMap;
 import shared.models.playerClasses.GamePlayers;
-import shared.models.playerClasses.Player;
 import shared.models.playerClasses.TurnManager;
 
 /**
@@ -441,7 +440,7 @@ public class Game extends Observable
 			HexLocation hexLoc = loc.getHexLoc();
 			try {
 				this.addResourceTypeFromHexType(this.map.getHexType(hexLoc), currPlayer);
-			catch (IndexOutOfBoundsException e) { }
+			} catch (IndexOutOfBoundsException e) { }
 			try { 
 				this.addResourceTypeFromHexType(this.map.getHexType(hexLoc.getNeighborLoc(EdgeDirection.North)), currPlayer);
 			} catch (IndexOutOfBoundsException e ) { }
