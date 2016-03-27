@@ -206,6 +206,8 @@ public class ServerFacade implements IServerFacade {
 	public String rollNumber(RollNumber rollNumber, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.processRoll(rollNumber);
+		Player player = game.getPlayers().getPlayerByIndex(rollNumber.playerIndex);
+		game.getGameLog().addMessage(new Message(player.getName(), player.getName() + " rolled a " + rollNumber.roll));
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
@@ -216,6 +218,13 @@ public class ServerFacade implements IServerFacade {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.getMap().setRobberLocation(new RobberLocation(robPlayer.newLocation));
 		game.robPlayer(robPlayer.playerIndex, robPlayer.victimIndex);
+		String robberName = game.getPlayers().getPlayerByIndex(robPlayer.playerIndex).getName();
+		if (robPlayer.playerIndex == -1) {
+			game.getGameLog().addMessage(new Message(robberName, robberName + " moved the robber but couldn't rob anyone"));
+		} else {
+			String youGotRobbedName = game.getPlayers().getPlayerByIndex(robPlayer.victimIndex).getName();
+			game.getGameLog().addMessage(new Message(robberName, robberName + " moved the robber and robbed " + youGotRobbedName));
+		}
 		game.incrementVersionID();
 		game.setGameState(GameState.MYTURN);
 		return Serializer.getInstance().serialize(game);
@@ -242,6 +251,8 @@ public class ServerFacade implements IServerFacade {
 				game.setGameState(GameState.ROLLING);
 			}
 		}
+		String playerName = game.getPlayers().getPlayerByIndex(finishTurn.playerIndex).getName();
+		game.getGameLog().addMessage(new Message(playerName, playerName + "'s turn just ended"));
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
@@ -252,6 +263,8 @@ public class ServerFacade implements IServerFacade {
 		Game game = this.gameManager.getGameByID(gameID);
 		try {
 			game.buyDevelopmentCard(buyDevCard.playerIndex);
+			String playerName = game.getPlayers().getPlayerByIndex(buyDevCard.playerIndex).getName();
+			game.getGameLog().addMessage(new Message(playerName, playerName + " bought a Development Card"));
 		} catch (InsufficientCardNumberException e) {
 			throw new ServerException("Error buying dev card");
 		}
@@ -264,6 +277,8 @@ public class ServerFacade implements IServerFacade {
 	public String yearOfPlenty(YearOfPlenty yearOfPlenty, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.playYearOfPlentyCard(yearOfPlenty.playerIndex, yearOfPlenty.resourceOne, yearOfPlenty.resourceTwo);
+		String playerName = game.getPlayers().getPlayerByIndex(yearOfPlenty.playerIndex).getName();
+		game.getGameLog().addMessage(new Message(playerName, playerName + " played a Year-Of-Plenty Card"));
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
@@ -274,6 +289,8 @@ public class ServerFacade implements IServerFacade {
 		Game game = this.gameManager.getGameByID(gameID);
 		try {
 			game.playRoadBuildingCard(roadBuilding.playerIndex, roadBuilding.firstSpot, roadBuilding.secondSpot);
+			String playerName = game.getPlayers().getPlayerByIndex(roadBuilding.playerIndex).getName();
+			game.getGameLog().addMessage(new Message(playerName, playerName + " played a Road Building Card"));
 		} catch (InvalidTypeException e) {
 			throw new ServerException("Error playing road building card");
 		}
@@ -286,6 +303,14 @@ public class ServerFacade implements IServerFacade {
 	public String moveSoldier(SoldierMove soldierMove, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.playSoldierCard(soldierMove.playerIndex, soldierMove.newLocation, soldierMove.victimIndex);
+		String playerName = game.getPlayers().getPlayerByIndex(soldierMove.playerIndex).getName();
+		game.getGameLog().addMessage(new Message(playerName, playerName + " played a Soldier Card"));
+		if (soldierMove.victimIndex == -1) {
+			game.getGameLog().addMessage(new Message(playerName, playerName + " moved the robber but couldn't rob anyone"));
+		} else {
+			String youGotRobbedName = game.getPlayers().getPlayerByIndex(soldierMove.victimIndex).getName();
+			game.getGameLog().addMessage(new Message(playerName, playerName + " moved the robber and robbed " + youGotRobbedName));
+		}
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
@@ -294,6 +319,8 @@ public class ServerFacade implements IServerFacade {
 	public String playMonopolyCard(Monopoly monopoly, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.playMonopolyCard(monopoly.playerIndex, monopoly.resource);
+		String playerName = game.getPlayers().getPlayerByIndex(monopoly.playerIndex).getName();
+		game.getGameLog().addMessage(new Message(playerName, playerName + " played a Monopoly Card"));
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
@@ -303,6 +330,8 @@ public class ServerFacade implements IServerFacade {
 	public String playMonumentCard(MonumentMove monumentMove, int gameID) {
 		Game game = this.gameManager.getGameByID(gameID);
 		game.playMonumentCard(monumentMove.playerIndex);
+		String playerName = game.getPlayers().getPlayerByIndex(monumentMove.playerIndex).getName();
+		game.getGameLog().addMessage(new Message(playerName, playerName + " played a Monument Card"));
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
@@ -313,6 +342,8 @@ public class ServerFacade implements IServerFacade {
 		Game game = this.gameManager.getGameByID(gameID);
 		try {
 			game.buildRoad(buildRoad.playerIndex, buildRoad.roadLocation, buildRoad.free);
+			String playerName = game.getPlayers().getPlayerByIndex(buildRoad.playerIndex).getName();
+			game.getGameLog().addMessage(new Message(playerName, playerName + " built a road"));
 		} catch (InsufficientCardNumberException | InvalidTypeException e) {
 			throw new ServerException("Error building road");
 		}
@@ -326,6 +357,8 @@ public class ServerFacade implements IServerFacade {
 		Game game = this.gameManager.getGameByID(gameID);
 		try {
 			game.buildCity(buildCity.playerIndex, buildCity.vertexLocation);
+			String playerName = game.getPlayers().getPlayerByIndex(buildCity.playerIndex).getName();
+			game.getGameLog().addMessage(new Message(playerName, playerName + " upgraded to a city"));
 		} catch (InsufficientCardNumberException | InvalidTypeException e) {
 			throw new ServerException("Error building city");
 		}
@@ -339,6 +372,8 @@ public class ServerFacade implements IServerFacade {
 		Game game = this.gameManager.getGameByID(gameID);
 		try {
 			game.buildSettlement(buildSettlement.playerIndex, buildSettlement.vertexLocation, buildSettlement.free);
+			String playerName = game.getPlayers().getPlayerByIndex(buildSettlement.playerIndex).getName();
+			game.getGameLog().addMessage(new Message(playerName, playerName + " built a settlement"));
 		} catch (InsufficientCardNumberException | InvalidTypeException e) {
 			throw new ServerException("Error building settlement");
 		}
@@ -361,7 +396,13 @@ public class ServerFacade implements IServerFacade {
 	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		game.getTurnManager().getTradeManager().acceptTrade(acceptTrade);;
+		game.getTurnManager().getTradeManager().acceptTrade(acceptTrade);
+		String playerName = game.getPlayers().getPlayerByIndex(game.getOfferTrade().playerIndex).getName();
+		if (acceptTrade.response) {
+			game.getGameLog().addMessage(new Message(playerName, "The trade was accepted"));
+		} else {
+			game.getGameLog().addMessage(new Message(playerName, "The trade was not accepted"));
+		}
 		game.incrementVersionID();
 		return Serializer.getInstance().serialize(game);
 	}
