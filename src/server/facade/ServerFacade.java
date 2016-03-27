@@ -396,8 +396,8 @@ public class ServerFacade implements IServerFacade {
 	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
 		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
-		game.getTurnManager().getTradeManager().acceptTrade(acceptTrade);
 		String playerName = game.getPlayers().getPlayerByIndex(game.getOfferTrade().playerIndex).getName();
+		game.getTurnManager().getTradeManager().acceptTrade(acceptTrade);
 		if (acceptTrade.response) {
 			game.getGameLog().addMessage(new Message(playerName, "The trade was accepted"));
 		} else {
