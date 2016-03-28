@@ -349,7 +349,19 @@ public class Player {
 	}
 	
 	public void removeDevCard(DevCardType type) throws InsufficientCardNumberException {
-		this.devCards.removeCard(type);
+		try {
+			this.devCards.removeCard(type);
+		} catch (InsufficientCardNumberException e) {
+			if (type == DevCardType.MONUMENT) {
+				for (int i = 0; i < this.newDevCards.size(); i++) {
+					if (this.newDevCards.get(i) == type) {
+						this.newDevCards.remove(i);
+						return;
+					}
+				}
+			}
+			throw e;
+		}
 	}
 	
 	
