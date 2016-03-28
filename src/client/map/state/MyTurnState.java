@@ -231,7 +231,15 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		return ClientFacade.getInstance().canBuildRoad(edgeLoc, false, false);
+		if(this.firstRoadPlaced = false) {
+			return ClientFacade.getInstance().canBuildRoad(edgeLoc, true, false);
+		}
+		else if(this.secondRoadPlaced) {
+			return ClientFacade.getInstance().canBuildRoad(edgeLoc, true, false);
+		}
+		else {
+			return ClientFacade.getInstance().canBuildRoad(edgeLoc, false, false);
+		}
 	}
 
 
@@ -247,7 +255,7 @@ public class MyTurnState extends BaseState {
 			this.firstRoadPlaced = true;
 			this.startMove(PieceType.ROAD, true, false);
 			try {
-				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+				ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -257,7 +265,7 @@ public class MyTurnState extends BaseState {
 		else if(this.secondRoadPlaced) {
 			this.secondRoadPlaced = true;
 			try {
-				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
+				ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -296,7 +304,6 @@ public class MyTurnState extends BaseState {
 	@Override
 	public void playSoldierCard() {
 		this.getView().startDrop(PieceType.ROBBER, this.color, false);
-		
 	}
 	
 	@Override
@@ -344,6 +351,7 @@ public class MyTurnState extends BaseState {
 	public void playRoadBuildingCard() {
 		this.firstRoadPlaced = false;
 		this.secondRoadPlaced = false;
+		this.startMove(PieceType.ROAD, true, false);
 		this.startMove(PieceType.ROAD, true, false);
 	}
 }
