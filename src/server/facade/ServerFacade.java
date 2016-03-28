@@ -219,7 +219,7 @@ public class ServerFacade implements IServerFacade {
 		game.getMap().setRobberLocation(new RobberLocation(robPlayer.newLocation));
 		game.robPlayer(robPlayer.playerIndex, robPlayer.victimIndex);
 		String robberName = game.getPlayers().getPlayerByIndex(robPlayer.playerIndex).getName();
-		if (robPlayer.playerIndex == -1) {
+		if (robPlayer.playerIndex == -1 || robPlayer.victimIndex == -1) {
 			game.getGameLog().addMessage(new Message(robberName, robberName + " moved the robber but couldn't rob anyone"));
 		} else {
 			String youGotRobbedName = game.getPlayers().getPlayerByIndex(robPlayer.victimIndex).getName();
