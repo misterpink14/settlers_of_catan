@@ -173,6 +173,26 @@ public class TurnManager {
 		return players.getPlayerByIndex(currPlayer).isTurn();
 	}
 	
+	public void setLongestRoad() {
+		int mostRoads = -1;
+		if (longestRoad != -1) {
+			mostRoads = 15 - players.getPlayerByIndex(longestRoad).getRoads();
+		}
+		for (int i = 0; i < 4; i++) {
+			int roadCount = 15 - players.getPlayerByIndex(i).getRoads();
+			if (roadCount >= 5 && roadCount > mostRoads) {
+				mostRoads = roadCount;
+				if (longestRoad != -1) {
+					players.getPlayerByIndex(longestRoad).subtractVictoryPoint();
+					players.getPlayerByIndex(longestRoad).subtractVictoryPoint();
+				}
+				longestRoad = i;
+				players.getPlayerByIndex(i).addVictoryPoint();
+				players.getPlayerByIndex(i).addVictoryPoint();
+			}
+		}
+	}
+	
 	
 	/**
 	 * If the specified player can roll the dice, do so
@@ -194,6 +214,7 @@ public class TurnManager {
 		Piece newRoad = new Piece(PieceType.ROAD, currPlayer);
 		map.addRoadToEdgeMap(loc, newRoad);
 		map.addRoadToPlayerMap(loc, currPlayer);
+		setLongestRoad();
 	}
 
 	
@@ -271,6 +292,7 @@ public class TurnManager {
 		Piece newRoad2 = new Piece(PieceType.ROAD, currPlayer);
 		map.addRoadToEdgeMap(loc2, newRoad2);
 		map.addRoadToPlayerMap(loc2, currPlayer);
+		setLongestRoad();
 	}
 	
 	public void playMonumentCard(int currPlayer) {

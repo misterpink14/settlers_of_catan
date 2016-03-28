@@ -154,6 +154,10 @@ public class Player {
 		this.victoryPoints++;
 	}
 	
+	public void subtractVictoryPoint() {
+		this.victoryPoints--;
+	}
+	
 	public void removeRoad() {
 		this.roads--;
 	}
