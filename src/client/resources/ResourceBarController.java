@@ -147,7 +147,8 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	private boolean canBuildCity() {
 		
 		return ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WHEAT) >= 2
-				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.ORE) >= 3;
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.ORE) >= 3
+				&& ClientFacade.getInstance().getNumOfPlayerCities() >= 1;
 	}
 
 	private boolean canBuildSettlement() {
@@ -155,13 +156,15 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		return ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WOOD) >= 1
 				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.BRICK) >= 1
 				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.SHEEP) >= 1
-				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WHEAT) >= 1;
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WHEAT) >= 1
+				&& ClientFacade.getInstance().getNumOfPlayerSettlements() >= 1;
 	}
 
 	private boolean canBuildRoad() {
 		
 		return ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.WOOD) >= 1
-				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.BRICK) >= 1;
+				&& ClientFacade.getInstance().getNumOfPlayerResource(ResourceType.BRICK) >= 1
+				&& ClientFacade.getInstance().getNumOfPlayerRoads() >= 1;
 	}
 
 }
