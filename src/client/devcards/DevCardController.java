@@ -3,6 +3,7 @@ package client.devcards;
 import shared.definitions.DevCardType;
 import shared.definitions.GameState;
 import shared.definitions.ResourceType;
+import shared.models.Game;
 import shared.models.cardClasses.InsufficientCardNumberException;
 import shared.models.playerClasses.Player;
 import shared.observers.DevCardObserver;
@@ -80,38 +81,40 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void startPlayCard() {
 		if(state == GameState.MYTURN) {
+			Game game = ClientFacade.getInstance().game;
+			boolean canPlayCard = !game.getTurnManager().hasPlayedDevCard();
 			Player p = ClientFacade.getInstance().game.getPlayers().getPlayerByID(ClientFacade.getInstance().getUserData().getId());
 
 			this.getPlayCardView().setCardAmount(DevCardType.MONOPOLY, p.getNumOfDevCard(DevCardType.MONOPOLY) + p.getNewDevCards().getMonopolyCards());
-			if (p.getNumOfDevCard(DevCardType.MONOPOLY) > 0) {
+			if (p.getNumOfDevCard(DevCardType.MONOPOLY) > 0 && canPlayCard) {
 				this.getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, true);
 			}
 			else {
 				this.getPlayCardView().setCardEnabled(DevCardType.MONOPOLY, false);
 			}
 			this.getPlayCardView().setCardAmount(DevCardType.MONUMENT, p.getNumOfDevCard(DevCardType.MONUMENT) + p.getNewDevCards().getMonumentCards());
-			if (p.getNumOfDevCard(DevCardType.MONUMENT) + p.getNewDevCards().getMonumentCards() > 0) {
+			if (p.getNumOfDevCard(DevCardType.MONUMENT) + p.getNewDevCards().getMonumentCards() > 0 && canPlayCard) {
 				this.getPlayCardView().setCardEnabled(DevCardType.MONUMENT, true);
 			}
 			else {
 				this.getPlayCardView().setCardEnabled(DevCardType.MONUMENT, false);
 			}
 			this.getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, p.getNumOfDevCard(DevCardType.ROAD_BUILD) + p.getNewDevCards().getRoadBuilderCards());
-			if (p.getNumOfDevCard(DevCardType.ROAD_BUILD) > 0) {
+			if (p.getNumOfDevCard(DevCardType.ROAD_BUILD) > 0 && canPlayCard) {
 				this.getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, true);
 			}
 			else {
 				this.getPlayCardView().setCardEnabled(DevCardType.ROAD_BUILD, false);
 			}
 			this.getPlayCardView().setCardAmount(DevCardType.SOLDIER, p.getNumOfDevCard(DevCardType.SOLDIER) + p.getNewDevCards().getSoldierCards());
-			if (p.getNumOfDevCard(DevCardType.SOLDIER) > 0) {
+			if (p.getNumOfDevCard(DevCardType.SOLDIER) > 0 && canPlayCard) {
 				this.getPlayCardView().setCardEnabled(DevCardType.SOLDIER, true);
 			}
 			else {
 				this.getPlayCardView().setCardEnabled(DevCardType.SOLDIER, false);
 			}
 			this.getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) + p.getNewDevCards().getYearOfPlentyCards());
-			if (p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) > 0) {
+			if (p.getNumOfDevCard(DevCardType.YEAR_OF_PLENTY) > 0 && canPlayCard) {
 				this.getPlayCardView().setCardEnabled(DevCardType.YEAR_OF_PLENTY, true);
 			}
 			else {
@@ -130,7 +133,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
 		try {
-			ClientFacade.getInstance().playDevCard(DevCardType.MONOPOLY, resource, null);
+			ClientFacade.getInstance().playMonopoly(resource);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
 		}
@@ -139,7 +142,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void playMonumentCard() {
 		try {
-			ClientFacade.getInstance().playDevCard(DevCardType.MONUMENT, null, null);
+			ClientFacade.getInstance().playMonument();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
 		}
@@ -158,7 +161,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
 		try {
-			ClientFacade.getInstance().playDevCard(DevCardType.YEAR_OF_PLENTY, resource1, resource2);
+			ClientFacade.getInstance().playYearOfPlenty(resource1, resource2);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog((PlayDevCardView)this.getPlayCardView(), "You cannot play this card now.");
 		}

@@ -110,6 +110,10 @@ public class TurnManager {
 		return this.longestRoad;
 	}
 	
+	public boolean hasPlayedDevCard() {
+		return this.hasPlayedDevCard;
+	}
+	
 	
 // SETTERS
 	public void setCurrentTurn(int index) {

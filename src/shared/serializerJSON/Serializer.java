@@ -759,6 +759,7 @@ private static Serializer instance = null;
 		jsonTurnTracker.add("currentTurn", new JsonPrimitive(game.getTurnManager().getPlayerIndex()));
 		jsonTurnTracker.add("longestRoad", new JsonPrimitive(game.getLongestRoad()));
 		jsonTurnTracker.add("largestArmy", new JsonPrimitive(-1));
+		jsonTurnTracker.add("hasPlayedDevCard", new JsonPrimitive(game.getTurnManager().hasPlayedDevCard()));
 		
 		return jsonTurnTracker;
 	}

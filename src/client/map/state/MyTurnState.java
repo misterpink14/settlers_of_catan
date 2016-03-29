@@ -7,8 +7,10 @@ import javax.swing.JOptionPane;
 import client.clientFacade.ClientFacade;
 import client.data.RobPlayerInfo;
 import client.map.IMapView;
+import client.map.IRobView;
 import client.map.MapView;
 import client.map.RobView;
+import shared.communication.proxy.SoldierMove;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
 import shared.definitions.PortType;
@@ -27,14 +29,16 @@ import shared.models.mapClasses.WaterHex;
  */
 public class MyTurnState extends BaseState {
 	
-	HexLocation newRobberLoc;
-	RobView robView = new RobView();
+	SoldierMove sm;
+	IRobView robView;
 	boolean firstRoadPlaced = true;
 	boolean secondRoadPlaced = true;
 
-	public MyTurnState(IMapView view) {
+	public MyTurnState(IMapView view, IRobView robView, SoldierMove sm) {
 		super(view);
 		this.color = ClientFacade.getInstance().getUserColor();
+		this.robView = robView;
+		this.sm = sm;
 	}
 
 	public void initFromModel() { 
@@ -327,21 +331,25 @@ public class MyTurnState extends BaseState {
 		return ClientFacade.getInstance().canPlaceRobber(hexLoc);
 	}
 	
+	//used for the soldier card since this takes place in the my turn phase.
 	@Override
 	public void placeRobber(HexLocation hexLoc) {
-		newRobberLoc = hexLoc;
+		sm.playerIndex = ClientFacade.getInstance().getUserData().getPlayerIndex();
+		sm.newLocation = hexLoc;
 		RobPlayerInfo[] candidateVictims;
 		try {
 			candidateVictims = ClientFacade.getInstance().getVictims(hexLoc);
 		
 			if(candidateVictims.length == 0) {
 				try {
-					ClientFacade.getInstance().robPlayer(-1, hexLoc);
+					sm.victimIndex = -1;
+					ClientFacade.getInstance().playSoldier(sm);
 				} catch (Exception e) {}
 			}
 			else if(candidateVictims.length == 1) {
 				try {
-					ClientFacade.getInstance().robPlayer(candidateVictims[0].getPlayerIndex(), hexLoc);
+					sm.victimIndex = candidateVictims[0].getPlayerIndex();
+					ClientFacade.getInstance().playSoldier(sm);
 				} catch (Exception e) {}
 			}
 			else {
@@ -349,7 +357,6 @@ public class MyTurnState extends BaseState {
 				this.robView.showModal();
 			}
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -357,7 +364,8 @@ public class MyTurnState extends BaseState {
 	@Override
 	public void robPlayer(RobPlayerInfo victim) {
 		try {
-			ClientFacade.getInstance().robPlayer(victim.getPlayerIndex(), this.newRobberLoc);
+			sm.victimIndex = victim.getPlayerIndex();
+			ClientFacade.getInstance().playSoldier(sm);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog((MapView)this.getView(), "Failed to Place the robber");
 		}

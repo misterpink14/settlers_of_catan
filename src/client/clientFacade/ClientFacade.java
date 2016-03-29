@@ -411,42 +411,57 @@ public class ClientFacade {
 		}
 	}
 	
+	/**
+	 * Play a monopoly card and claim all of one type of resource
+	 * @param type
+	 * @throws Exception
+	 */
+	public void playMonopoly(ResourceType type) throws Exception {
+		Monopoly monopoly = new Monopoly();
+		monopoly.playerIndex = getUserData().getPlayerIndex();
+		monopoly.resource = type;
+		proxy.playMonopolyCard(monopoly);
+	}
 	
 	/**
-	 * @throws Exception 
-	 * @throws InsufficientCardNumberException 
-	 * Send the command to the server proxy to play
-	 * a development card.
-	 * @throws
+	 * Play a monument card for an additional victory point.
+	 * @throws Exception
 	 */
-	public void playDevCard(DevCardType type, ResourceType type1, ResourceType type2) throws Exception {
-		switch(type) {
-		case MONOPOLY:
-			Monopoly monopoly = new Monopoly();
-			monopoly.playerIndex = getUserData().getPlayerIndex();
-			monopoly.resource = type1;
-			proxy.playMonopolyCard(monopoly);
-			break;
-		case MONUMENT:
-			MonumentMove monumentMove = new MonumentMove();
-			monumentMove.playerIndex = getUserData().getPlayerIndex();
-			proxy.playMonumentCard(monumentMove);
-			break;
-		case ROAD_BUILD:
-			break;
-		case SOLDIER:
-			break;
-		case YEAR_OF_PLENTY:
-			YearOfPlenty yearOfPlenty = new YearOfPlenty();
-			yearOfPlenty.playerIndex = getUserData().getPlayerIndex();
-			yearOfPlenty.resourceOne = type1;
-			yearOfPlenty.resourceTwo = type2;
-			proxy.yearOfPlenty(yearOfPlenty);
-			break;
-		default:
-			break;
+	public void playMonument() throws Exception {
+		MonumentMove monumentMove = new MonumentMove();
+		monumentMove.playerIndex = getUserData().getPlayerIndex();
+		proxy.playMonumentCard(monumentMove);
+	}
+	
+	public void playRoadBuild() {
 		
+	}
+	
+	/**
+	 * Play a soldier card, move the robber and possibly rob someone as well.
+	 * @param victim
+	 * @param hexLoc
+	 */
+	public void playSoldier(SoldierMove sm) {
+		try {
+			proxy.moveSoldier(sm);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Play a year of plenty card to recieve two resources from the bank.
+	 * @param type1
+	 * @param type2
+	 * @throws Exception
+	 */
+	public void playYearOfPlenty(ResourceType type1, ResourceType type2) throws Exception {
+		YearOfPlenty yearOfPlenty = new YearOfPlenty();
+		yearOfPlenty.playerIndex = getUserData().getPlayerIndex();
+		yearOfPlenty.resourceOne = type1;
+		yearOfPlenty.resourceTwo = type2;
+		proxy.yearOfPlenty(yearOfPlenty);
 	}
 	
 	

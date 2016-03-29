@@ -62,6 +62,7 @@ public class Deserializer {
 	private int desCurrentTurn = 0;
 	private String desCurrentState = "FirstRound";
 	private int desLongestRoad = -1;
+	private boolean desHasPlayedDevCard = false;
 	
 	
 	public void deserialize(Game game, JsonObject json) { 
@@ -110,9 +111,6 @@ public class Deserializer {
 		// "turnTracker"
 		JsonObject jsonTurnTracker = json.getAsJsonObject("turnTracker");
 		deserializeTurnTracker(jsonTurnTracker);
-		
-		// hasPlayedDevCard
-		boolean desHasPlayedDevCard = false;
 		
 		// winner
 		int desWinner = json.getAsJsonPrimitive("winner").getAsInt();
@@ -572,6 +570,7 @@ public class Deserializer {
 		// All we pull from turnTracker at the moment is who's turn it is
 		desCurrentTurn = jsonTurnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
 		desCurrentState = jsonTurnTracker.getAsJsonPrimitive("status").getAsString();
+		desHasPlayedDevCard = jsonTurnTracker.getAsJsonPrimitive("hasPlayedDevCard").getAsBoolean();
 		try {
 			desLongestRoad = jsonTurnTracker.getAsJsonPrimitive("longestRoad").getAsInt();
 		} catch (Exception e) {

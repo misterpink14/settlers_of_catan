@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import shared.communication.proxy.SoldierMove;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
@@ -33,7 +34,7 @@ public class Map
 	private EdgeMap Edges = new EdgeMap();
 	private RobberLocation Robber;
 	private PlayerMap PlayerPieces = new PlayerMap();
-	
+	private SoldierMove sm = new SoldierMove();
 	
 	
 // CONSTRUCTORS
