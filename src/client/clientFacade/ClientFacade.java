@@ -25,6 +25,7 @@ import shared.communication.proxy.MaritimeTrade;
 import shared.communication.proxy.Monopoly;
 import shared.communication.proxy.MonumentMove;
 import shared.communication.proxy.OfferTrade;
+import shared.communication.proxy.RoadBuilding;
 import shared.communication.proxy.RobPlayer;
 import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
@@ -433,8 +434,12 @@ public class ClientFacade {
 		proxy.playMonumentCard(monumentMove);
 	}
 	
-	public void playRoadBuild() {
-		
+	public void playRoadBuild(RoadBuilding rb) {
+		try {
+			proxy.roadBuilding(rb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

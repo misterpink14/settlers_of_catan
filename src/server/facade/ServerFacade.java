@@ -384,7 +384,6 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String offerTrade(OfferTrade offerTrade, int gameID) {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
 		game.getTurnManager().getTradeManager().offerTrade(offerTrade);
 		game.incrementVersionID();

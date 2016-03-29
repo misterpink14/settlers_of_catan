@@ -15,6 +15,7 @@ import client.map.state.Setup1State;
 import client.map.state.Setup2State;
 import client.map.state.TradeAcceptState;
 import client.map.state.TradeOfferState;
+import shared.communication.proxy.RoadBuilding;
 import shared.communication.proxy.SoldierMove;
 import shared.definitions.GameState;
 import shared.definitions.PieceType;
@@ -32,6 +33,7 @@ public class MapController extends Controller implements IMapController {
 	private IRobView robView;
 	private BaseState state;
 	private SoldierMove sm = new SoldierMove();
+	private RoadBuilding rb = new RoadBuilding();
 	
 	public MapController(IMapView view, IRobView robView) {
 		
@@ -80,7 +82,7 @@ public class MapController extends Controller implements IMapController {
 				}
 				break;
 			case MYTURN:
-				this.state = new MyTurnState(this.getView(), this.robView, sm);
+				this.state = new MyTurnState(this.getView(), this.robView, sm, rb);
 				this.initFromModel();
 				break;
 			case NOTMYTURN:

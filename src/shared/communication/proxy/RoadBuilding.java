@@ -80,6 +80,41 @@ public class RoadBuilding
 		this.secondSpot = secondEdgeLoc;
 	}
 
+	public int getPlayerIndex() {
+		return playerIndex;
+	}
+
+	public void setPlayerIndex(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
+
+	public EdgeLocation getFirstSpot() {
+		return firstSpot;
+	}
+
+	public void setFirstSpot(EdgeLocation firstSpot) {
+		this.firstSpot = firstSpot;
+	}
+
+	public EdgeLocation getSecondSpot() {
+		return secondSpot;
+	}
+
+	public void setSecondSpot(EdgeLocation secondSpot) {
+		this.secondSpot = secondSpot;
+	}
 	
+	public boolean placedFirst() {
+		return !(firstSpot == null);
+	}
+
+	public boolean placedSecond() {
+		return !(secondSpot == null);
+	}
+	
+	public void clear() {
+		firstSpot = null;
+		secondSpot = null;
+	}
 	
 }

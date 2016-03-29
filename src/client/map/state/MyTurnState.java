@@ -10,6 +10,7 @@ import client.map.IMapView;
 import client.map.IRobView;
 import client.map.MapView;
 import client.map.RobView;
+import shared.communication.proxy.RoadBuilding;
 import shared.communication.proxy.SoldierMove;
 import shared.definitions.HexType;
 import shared.definitions.PieceType;
@@ -30,15 +31,15 @@ import shared.models.mapClasses.WaterHex;
 public class MyTurnState extends BaseState {
 	
 	SoldierMove sm;
+	RoadBuilding rb;
 	IRobView robView;
-	boolean firstRoadPlaced = true;
-	boolean secondRoadPlaced = true;
 
-	public MyTurnState(IMapView view, IRobView robView, SoldierMove sm) {
+	public MyTurnState(IMapView view, IRobView robView, SoldierMove sm, RoadBuilding rb) {
 		super(view);
 		this.color = ClientFacade.getInstance().getUserColor();
 		this.robView = robView;
 		this.sm = sm;
+		this.rb = rb;
 	}
 
 	public void initFromModel() { 
@@ -235,10 +236,10 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		if(this.firstRoadPlaced = false) {
+		if(!rb.placedFirst()) {
 			return ClientFacade.getInstance().canBuildRoad(edgeLoc, true, false);
 		}
-		else if(this.secondRoadPlaced) {
+		else if(!rb.placedSecond()) {
 			return ClientFacade.getInstance().canBuildRoad(edgeLoc, true, false);
 		}
 		else {
@@ -255,21 +256,20 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc) {
-		if(this.firstRoadPlaced = false) {
-			this.firstRoadPlaced = true;
-			this.startMove(PieceType.ROAD, true, false);
+		if(!rb.placedFirst()) {
 			try {
 				ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
+				rb.firstSpot = edgeLoc;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
 			}
 			getView().placeRoad(edgeLoc, this.color);
 		}
-		else if(this.secondRoadPlaced == false) {
-			this.secondRoadPlaced = true;
+		else if(!rb.placedSecond()) {
 			try {
 				ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
+				rb.secondSpot = edgeLoc;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -373,9 +373,10 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public void playRoadBuildingCard() {
-		this.firstRoadPlaced = false;
-		this.secondRoadPlaced = false;
 		this.startMove(PieceType.ROAD, true, false);
 		this.startMove(PieceType.ROAD, true, false);
+		rb.playerIndex =ClientFacade.getInstance().getUserData().getPlayerIndex();
+		ClientFacade.getInstance().playRoadBuild(rb);
+		rb.clear();
 	}
 }
