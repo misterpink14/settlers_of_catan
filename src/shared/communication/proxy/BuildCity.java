@@ -26,7 +26,6 @@ public class BuildCity
 	public BuildCity(int playerIndex, int vertexLocX, int vertexLocY, String vertexLocDir) {
 		this.playerIndex = playerIndex;
 		HexLocation hexLoc = new HexLocation(vertexLocX, vertexLocY);
-		this.vertexLocation = new VertexLocation(hexLoc, VertexDirection.West);
 		switch(vertexLocDir) {
 		case "W":
 			this.vertexLocation = new VertexLocation(hexLoc, VertexDirection.West);

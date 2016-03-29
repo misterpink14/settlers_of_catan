@@ -232,7 +232,7 @@ public class ClientFacade {
 	 * they can't.
 	 */
 	public boolean canBuildCity(VertexLocation vertLoc) {
-		if (!game.CanBuildCity(vertLoc, this.getUserData().getId())) {
+		if (!game.CanBuildCity(vertLoc, this.getUserData().getPlayerIndex())) {
 			return false;
 		}
 		return true;
@@ -247,7 +247,8 @@ public class ClientFacade {
 	public String buildCity(VertexLocation vertLoc) throws Exception {
 		if (canBuildCity(vertLoc)) {
 			try {
-				return proxy.buildCity(new BuildCity());
+				HexLocation vert = vertLoc.getNormalizedLocation().getHexLoc();
+				return proxy.buildCity(new BuildCity(getUserData().getPlayerIndex(), vert.getX(), vert.getY(), vertLoc.getDir().getString()));
 			} catch (Exception e) {
 				throw new Exception("Error building city");
 			}

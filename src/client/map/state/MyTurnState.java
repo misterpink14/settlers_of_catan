@@ -262,7 +262,7 @@ public class MyTurnState extends BaseState {
 			}
 			getView().placeRoad(edgeLoc, this.color);
 		}
-		else if(this.secondRoadPlaced) {
+		else if(this.secondRoadPlaced == false) {
 			this.secondRoadPlaced = true;
 			try {
 				ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
@@ -293,6 +293,22 @@ public class MyTurnState extends BaseState {
 			return;
 		}
 		getView().placeSettlement(vertLoc, this.color);
+	}
+	
+	@Override
+	public void placeCity(VertexLocation vertLoc) {
+		try {
+			ClientFacade.getInstance().buildCity(vertLoc);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		getView().placeCity(vertLoc, this.color);
+	}
+	
+	@Override
+	public boolean canPlaceCity(VertexLocation vertLoc) {
+		return ClientFacade.getInstance().canBuildCity(vertLoc);
 	}
 	
 	@Override
