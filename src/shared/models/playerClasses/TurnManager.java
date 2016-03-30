@@ -275,8 +275,12 @@ public class TurnManager {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.YEAR_OF_PLENTY);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove year of plenty card from players hand.");}
 		
-		players.getPlayerByIndex(currPlayer).addResourceToHand(type1, 1);
-		players.getPlayerByIndex(currPlayer).addResourceToHand(type2, 1);
+		if (type1 != null) {
+			players.getPlayerByIndex(currPlayer).addResourceToHand(type1, 1);
+		}
+		if (type2 != null) {
+			players.getPlayerByIndex(currPlayer).addResourceToHand(type2, 1);
+		}
 	}
 	
 	public void playRoadBuildingCard(int currPlayer, EdgeLocation loc, EdgeLocation loc2) throws InvalidTypeException {
@@ -323,15 +327,17 @@ public class TurnManager {
 			this.players.getPlayerByIndex(currPlayer).removeDevCard(DevCardType.MONOPOLY);
 		} catch (InsufficientCardNumberException e) {System.out.println("Failed to remove monopoly card from players hand.");}
 		
-		for (Player player : players.getPlayers()) {
-			if (player.getIndex() != currPlayer) {
-				int num = player.getNumOfResource(type);
-				try {
-					player.removeResourceFromHand(type, num);
-				} catch (InsufficientCardNumberException e) {
-					System.out.println("Somehow the monopoly card tried to take too many resources from a player.");
+		if (type != null) {
+			for (Player player : players.getPlayers()) {
+				if (player.getIndex() != currPlayer) {
+					int num = player.getNumOfResource(type);
+					try {
+						player.removeResourceFromHand(type, num);
+					} catch (InsufficientCardNumberException e) {
+						System.out.println("Somehow the monopoly card tried to take too many resources from a player.");
+					}
+					players.getPlayerByIndex(currPlayer).addResourceToHand(type, num);
 				}
-				players.getPlayerByIndex(currPlayer).addResourceToHand(type, num);
 			}
 		}
 	}

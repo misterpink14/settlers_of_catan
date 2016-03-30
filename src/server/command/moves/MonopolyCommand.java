@@ -9,6 +9,7 @@ import server.ServerException;
 import server.command.ACommand;
 import server.facade.IServerFacade;
 import shared.communication.proxy.Monopoly;
+import shared.definitions.ResourceType;
 
 /**
  * Command for playing a monopoly card
@@ -19,6 +20,7 @@ import shared.communication.proxy.Monopoly;
 public class MonopolyCommand extends ACommand {
 	
 	Monopoly monopoly;
+	boolean isNone = false;
 
 	/**
 	 * {
@@ -33,12 +35,19 @@ public class MonopolyCommand extends ACommand {
 	 * @throws ServerException 
 	 */
 	public MonopolyCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
-		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
 		
+		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
+		
+		ResourceType type = null;
+		try {
+			type = ResourceType.valueOf(json.get("resource").getAsString().toUpperCase());
+		} catch (Exception e) {
+			type = null;
+		}
 		monopoly = new Monopoly(
 			json.get("playerIndex").getAsInt(),
-			json.get("resource").getAsString()
+			type
 		);
 	}
 
