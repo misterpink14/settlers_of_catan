@@ -110,6 +110,10 @@ public class TurnManager {
 		return this.longestRoad;
 	}
 	
+	public int getLargestArmy() {
+		return this.largestArmy;
+	}
+	
 	public boolean hasPlayedDevCard() {
 		return this.hasPlayedDevCard;
 	}
@@ -197,6 +201,26 @@ public class TurnManager {
 		}
 	}
 	
+	public void setLargestArmy() {
+		int mostSoldiers = -1;
+		if (largestArmy != -1) {
+			mostSoldiers = players.getPlayerByIndex(largestArmy).getArmy();
+		}
+		for (int i = 0; i < 4; i++) {
+			int armyCount = players.getPlayerByIndex(i).getArmy();
+			if (armyCount >= 3 && armyCount > mostSoldiers) {
+				mostSoldiers = armyCount;
+				if (largestArmy != -1) {
+					players.getPlayerByIndex(largestArmy).subtractVictoryPoint();
+					players.getPlayerByIndex(largestArmy).subtractVictoryPoint();
+				}
+				largestArmy = i;
+				players.getPlayerByIndex(i).addVictoryPoint();
+				players.getPlayerByIndex(i).addVictoryPoint();
+			}
+		}
+	}
+	
 	
 	/**
 	 * If the specified player can roll the dice, do so
@@ -265,6 +289,8 @@ public class TurnManager {
 			robbedResource = this.players.getPlayerByIndex(victimIndex).removeRandomResource();
 			this.players.getPlayerByIndex(currPlayer).addResourceToHand(robbedResource, 1);
 		} catch (InsufficientCardNumberException e) {}
+		this.players.getPlayerByIndex(currPlayer).addToArmy();
+		setLargestArmy();
 	}
 	
 	public void playYearOfPlentyCard(int currPlayer, ResourceType type1, ResourceType type2) {
