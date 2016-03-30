@@ -270,6 +270,7 @@ public class MyTurnState extends BaseState {
 			try {
 				ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
 				rb.secondSpot = edgeLoc;
+				ClientFacade.getInstance().playRoadBuild(rb);
 			} catch (Exception e) {
 				e.printStackTrace();
 				return;
@@ -373,10 +374,9 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public void playRoadBuildingCard() {
-		this.startMove(PieceType.ROAD, true, false);
-		this.startMove(PieceType.ROAD, true, false);
 		rb.playerIndex =ClientFacade.getInstance().getUserData().getPlayerIndex();
-		ClientFacade.getInstance().playRoadBuild(rb);
+		this.startMove(PieceType.ROAD, true, false);
+		this.startMove(PieceType.ROAD, true, false);
 		rb.clear();
 	}
 }

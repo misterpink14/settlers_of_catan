@@ -43,7 +43,7 @@ public class RoadBuildingCommand extends ACommand {
 	 * @throws ServerException 
 	 */
 	public RoadBuildingCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
-		super(cookies.get("catan.game"), facade, Integer.parseInt(cookies.get("catan.game")));
+		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
 		
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		roadBuilding = new RoadBuilding(

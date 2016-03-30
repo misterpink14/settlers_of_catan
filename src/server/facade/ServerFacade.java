@@ -393,7 +393,6 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String acceptTrade(AcceptTrade acceptTrade, int gameID) {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
 		game.getTurnManager().getTradeManager().acceptTrade(acceptTrade);
 		String playerName = game.getPlayers().getPlayerByIndex(acceptTrade.playerIndex).getName();
@@ -409,7 +408,6 @@ public class ServerFacade implements IServerFacade {
 
 	@Override
 	public String maritimeTrade(MaritimeTrade maritimeTrade, int gameID) throws ServerException {
-		// TODO Auto-generated method stub
 		Game game = this.gameManager.getGameByID(gameID);
 		try {
 			game.tradeResourcesWithBank(maritimeTrade.playerIndex, maritimeTrade.ratio, maritimeTrade.givingUp, maritimeTrade.getting);
