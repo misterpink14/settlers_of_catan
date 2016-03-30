@@ -57,7 +57,8 @@ public class RealProxyTest2 {
 			
 		}
 		catch (Exception e) {
-			fail("Exception");
+			//Setup is only needed for the initial setup of the server
+			//fail("Exception");
 		}
 		
 	}
@@ -66,17 +67,31 @@ public class RealProxyTest2 {
 	public void testLoginUser() {
 		try {
 			String response = realProxy.loginUser(new Credentials("personOne", "personOne"));
-			if (!response.equals("Success")){
-				assertTrue(false);
-			}
+			Boolean success = response.equals("Success");
+			assertTrue(success);
 			
 			response = realProxy.loginUser(new Credentials("personOnes", "personOnes"));
-			if (response.equals("Success")){
-				assertTrue(false);
-			}
+			Boolean failure = response.equals("Success");
+			assertFalse(failure);
+
 		} catch (Exception e) {
 			fail("shouldn't get an exception");
 		}
-		assertTrue(true);
+	}
+	
+	@Test
+	public void testRegisterUser() {
+		try {
+			String response = realProxy.registerUser(new Credentials("personFive", "personFive"));
+			Boolean success = response.equals("Success");
+			assertTrue(success);
+			
+			response = realProxy.loginUser(new Credentials("personFive", "personFive"));
+			success = response.equals("Success");
+			assertTrue(success);
+
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
 	}
 }
