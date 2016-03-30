@@ -47,7 +47,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		int currentTurn = ClientFacade.getInstance().game.getTurnManager().getPlayerIndex();
 		int longestRoad = ClientFacade.getInstance().getLongestRoad();
-		int largestArmy = -1; // Change when function gets implemented
+		int largestArmy = ClientFacade.getInstance().getLargestArmy();
 		List<Player> players = ClientFacade.getInstance().game.getPlayers().getPlayers();
 		getView().reset();
 		initializePlayers(players);

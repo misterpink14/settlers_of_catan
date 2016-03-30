@@ -731,5 +731,9 @@ public class ClientFacade {
 	public OfferTrade getOfferTrade() {
 		return game.getOfferTrade();
 	}
+
+	public int getLargestArmy() {
+		return this.game.getLargestArmy();
+	}
 	
 }

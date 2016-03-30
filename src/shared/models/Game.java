@@ -738,4 +738,9 @@ public class Game extends Observable
 			this.setGameState(GameState.MYTURN);
 		}
 	}
+
+
+	public int getLargestArmy() {
+		return this.getTurnManager().getLargestArmy();
+	}
 }
