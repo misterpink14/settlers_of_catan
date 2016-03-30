@@ -544,12 +544,18 @@ public class Game extends Observable
 		switch(numberToTrade){
 		case 4:
 			turnManager.getTradeManager().tradeFour(playerID, tradeIn, tradeOut);
+			bank.takeResourceCards(tradeOut, 1);
+			bank.AddResourceCards(tradeIn, 4);
 			break;
 		case 3:
 			turnManager.getTradeManager().tradeThreeWithPort(playerID, tradeIn, tradeOut);
+			bank.takeResourceCards(tradeOut, 1);
+			bank.AddResourceCards(tradeIn, 4);
 			break;
 		case 2:
 			turnManager.getTradeManager().tradeTwoWithPort(playerID, tradeIn, tradeOut);
+			bank.takeResourceCards(tradeOut, 1);
+			bank.AddResourceCards(tradeIn, 2);
 			break;
 		}
 	}
