@@ -237,8 +237,9 @@ public class TurnManager {
 	public void buildCity(int currPlayer, VertexLocation loc) throws InsufficientCardNumberException, InvalidTypeException {
 		players.getPlayerByIndex(currPlayer).buyCity();
 		Piece newCity = new Piece(PieceType.CITY, currPlayer);
-		map.addCityToPlayerMap(loc, currPlayer);
 		map.removeSettlementFromPlayerMap(loc, currPlayer);
+		map.removeSettlementFromVertexMap(loc);
+		map.addCityToPlayerMap(loc, currPlayer);
 		map.addCityToVertexMap(loc, newCity);
 	}
 	
