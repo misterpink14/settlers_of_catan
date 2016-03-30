@@ -256,28 +256,7 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc) {
-		if(!rb.placedFirst()) {
-			try {
-				ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
-				rb.firstSpot = edgeLoc;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return;
-			}
-			getView().placeRoad(edgeLoc, this.color);
-		}
-		else if(!rb.placedSecond()) {
-			try {
-				ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
-				rb.secondSpot = edgeLoc;
-				ClientFacade.getInstance().playRoadBuild(rb);
-			} catch (Exception e) {
-				e.printStackTrace();
-				return;
-			}
-			getView().placeRoad(edgeLoc, this.color);
-		}
-		else {
+		if(!rb.cardPlayed()) {
 			try {
 				ClientFacade.getInstance().buildRoad(edgeLoc, false, false);
 			} catch (Exception e) {
@@ -285,6 +264,29 @@ public class MyTurnState extends BaseState {
 				return;
 			}
 			getView().placeRoad(edgeLoc, this.color);
+		}
+		else {
+			if(!rb.placedFirst()) {
+				try {
+					ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
+					rb.firstSpot = edgeLoc;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
+				}
+				getView().placeRoad(edgeLoc, this.color);
+			}
+			else if(!rb.placedSecond()) {
+				try {
+					ClientFacade.getInstance().buildRoad(edgeLoc, true, false);
+					rb.secondSpot = edgeLoc;
+					ClientFacade.getInstance().playRoadBuild(rb);
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
+				}
+				getView().placeRoad(edgeLoc, this.color);
+			}
 		}
 	}
 
@@ -374,9 +376,11 @@ public class MyTurnState extends BaseState {
 	
 	@Override
 	public void playRoadBuildingCard() {
+		rb.setCardPlayed(true);
 		rb.playerIndex =ClientFacade.getInstance().getUserData().getPlayerIndex();
 		this.startMove(PieceType.ROAD, true, false);
 		this.startMove(PieceType.ROAD, true, false);
+		rb.setCardPlayed(false);
 		rb.clear();
 	}
 }

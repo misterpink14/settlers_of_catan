@@ -12,6 +12,11 @@ public class RoadBuilding
 	public int playerIndex;
 	
 	/**
+	 * Is true when a card has been played
+	 */
+	public boolean cardPlayed = false;
+	
+	/**
 	 * The first spot they want to build a road
 	 */
 	public EdgeLocation firstSpot;
@@ -110,6 +115,14 @@ public class RoadBuilding
 
 	public boolean placedSecond() {
 		return !(secondSpot == null);
+	}
+	
+	public boolean cardPlayed() {
+		return this.cardPlayed;
+	}
+	
+	public void setCardPlayed(boolean b) {
+		this.cardPlayed = b;
 	}
 	
 	public void clear() {
