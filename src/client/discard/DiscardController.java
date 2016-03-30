@@ -230,12 +230,16 @@ public class DiscardController extends Controller implements IDiscardController 
 			} else if (waiting) {
 				waitView.setMessage("Waiting for slow pokes to discard");
 				waitView.showModal();
+			} else if (firstTime) {
+				firstTime = false;
+			} else if (discarding) {
+				if (!this.getDiscardView().isModalShowing()) {
+					this.getDiscardView().showModal();
+				}
 			} else if (!discarding) {
 				waiting = true;
 				waitView.setMessage("Waiting for slow pokes to discard");
 				waitView.showModal();
-			} else if (firstTime) {
-				firstTime = false;
 			}
 		}
 		else {

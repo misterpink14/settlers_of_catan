@@ -45,11 +45,11 @@ public class DiscardCardsCommand extends ACommand {
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		discardedCards = new DiscardedCards(
 				json.get("playerIndex").getAsInt(),
-				json.get("discardedCards").getAsJsonObject().get("brick").getAsInt(),
-				json.get("discardedCards").getAsJsonObject().get("ore").getAsInt(),
 				json.get("discardedCards").getAsJsonObject().get("sheep").getAsInt(),
+				json.get("discardedCards").getAsJsonObject().get("wood").getAsInt(),
+				json.get("discardedCards").getAsJsonObject().get("ore").getAsInt(),
 				json.get("discardedCards").getAsJsonObject().get("wheat").getAsInt(),
-				json.get("discardedCards").getAsJsonObject().get("wood").getAsInt()
+				json.get("discardedCards").getAsJsonObject().get("brick").getAsInt()
 		);
 	}
 

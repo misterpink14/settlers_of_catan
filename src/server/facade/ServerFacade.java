@@ -426,11 +426,23 @@ public class ServerFacade implements IServerFacade {
 		res = addResources(res, ResourceType.BRICK, discardedCards.brick);
 		res = addResources(res, ResourceType.WOOD, discardedCards.wood);
 		res = addResources(res, ResourceType.WHEAT, discardedCards.wheat);
-		res = addResources(res, ResourceType.ORE, discardedCards.sheep);
-		res = addResources(res, ResourceType.SHEEP, discardedCards.ore);
-		ResourceType[] resources = (ResourceType[]) res.toArray();
+		res = addResources(res, ResourceType.SHEEP, discardedCards.sheep);
+		res = addResources(res, ResourceType.ORE, discardedCards.ore);
+		ResourceType[] resources = new ResourceType[res.size()];
+		resources = res.toArray(resources);
 		try {
 			game.discard(discardedCards.playerIndex, resources);
+			List<Player> gp = game.getPlayers().getPlayers();
+			boolean needDiscard = false;
+			for (Player p : gp) {
+				if( p.isDiscarding()) {
+					needDiscard = true;
+					break;
+				}
+			}
+			if (!needDiscard) {
+				game.setGameState(GameState.ROBBER);
+			}
 		} catch (InsufficientCardNumberException e) {
 			throw new ServerException("Error discarding cards");
 		}

@@ -34,6 +34,7 @@ import shared.models.mapClasses.Map;
 import shared.models.mapClasses.Piece;
 import shared.models.mapClasses.VertexMap;
 import shared.models.playerClasses.GamePlayers;
+import shared.models.playerClasses.Player;
 import shared.models.playerClasses.TurnManager;
 
 /**
@@ -662,13 +663,17 @@ public class Game extends Observable
 	public void processRoll(RollNumber rollNumber) {
 		int roll = rollNumber.roll;
 		if (roll == 7) {
-			// Disabling discard state since our client doesn't support it
-			/*for (Player p : players.getPlayers()){
+			boolean discarding = false;
+			for (Player p : players.getPlayers()){
 				if (p.getTotalResources() > 7) {
-					this.gameState = GameState.DISCARD;
-					return;
+					discarding = true;
+					p.setDiscarding(true);
 				}
-			}*/
+			}
+			if (discarding) {
+				this.gameState = GameState.DISCARD;
+				return;
+			}
 			this.gameState = GameState.ROBBER;
 		} else {
 			// Find all hexes with the token matching the number rolled

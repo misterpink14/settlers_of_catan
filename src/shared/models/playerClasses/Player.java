@@ -44,6 +44,9 @@ public class Player {
 	/**The number of roads this player may build*/
 	private int roads = MAX_ROADS;
 	
+	/**Boolean indicating whether the player is discarding or not*/
+	private boolean discarding = false;
+	
 	/**A container for this player's resource cards.*/
 	private ResourceCards resourceCards = new ResourceCards(0,0,0,0,0);
 	
@@ -457,4 +460,11 @@ public class Player {
 		this.victoryPoints++;
 	}
 
+	public boolean isDiscarding() {
+		return discarding;
+	}
+	
+	public void setDiscarding(boolean discarding) {
+		this.discarding = discarding;
+	}
 }
