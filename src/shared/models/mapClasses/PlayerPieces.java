@@ -58,6 +58,11 @@ public class PlayerPieces
 	}
 	
 	
+	public void removeSettlement(VertexLocation loc) {
+		this.Settlements.remove(loc);
+	}
+	
+	
 	public void addCity(VertexLocation loc) {
 		this.Cities.add(loc); 
 	}

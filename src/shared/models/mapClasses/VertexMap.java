@@ -55,6 +55,17 @@ public class VertexMap
 	}
 	
 	
+	/**
+	 * Set the Piece at the given VertexLocation
+	 * 
+	 * @param loc
+	 * @param p
+	 */
+	public void removeVertex(VertexLocation loc) throws InvalidTypeException {
+		this.Vertexes.remove(loc.getNormalizedLocation());
+	}
+	
+	
 
 // Public METHODS
 	/**

@@ -442,6 +442,16 @@ public class Map
 	}
 	
 	/**
+	 * Use to remove a settlement from the player map
+	 * 
+	 * @param loc
+	 * @param playerIndex
+	 */
+	public void removeSettlementFromPlayerMap(VertexLocation loc, int playerIndex) {
+		this.PlayerPieces.removeSettlement(loc, playerIndex);
+	}
+	
+	/**
 	 * Use to add a city to the vertex map
 	 * 
 	 * @param loc
@@ -450,6 +460,17 @@ public class Map
 	 */
 	public void addCityToVertexMap(VertexLocation loc, Piece newCity) throws InvalidTypeException {
 		this.Vertexes.setVertex(loc, newCity);
+	}
+	
+	/**
+	 * Use to remove a city from the vertex map
+	 * 
+	 * @param loc
+	 * @param playerIndex
+	 * @throws InvalidTypeException 
+	 */
+	public void removeSettlementFromVertexMap(VertexLocation loc) throws InvalidTypeException {
+		this.Vertexes.removeVertex(loc);
 	}
 
 	

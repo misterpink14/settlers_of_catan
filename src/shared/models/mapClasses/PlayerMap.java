@@ -27,6 +27,12 @@ public class PlayerMap
 		this.PlayerPieces.get(playerIndex).addSettlement(loc);
 	}
 	
+
+	public void removeSettlement(VertexLocation loc, int playerIndex) {
+		loc = loc.getNormalizedLocation();
+		this.PlayerPieces.get(playerIndex).removeSettlement(loc);
+	}
+	
 	
 	public void addCity(VertexLocation loc, int playerIndex) {
 		loc = loc.getNormalizedLocation();

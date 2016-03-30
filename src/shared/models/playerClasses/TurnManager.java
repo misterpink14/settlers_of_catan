@@ -238,6 +238,7 @@ public class TurnManager {
 		players.getPlayerByIndex(currPlayer).buyCity();
 		Piece newCity = new Piece(PieceType.CITY, currPlayer);
 		map.addCityToPlayerMap(loc, currPlayer);
+		map.removeSettlementFromPlayerMap(loc, currPlayer);
 		map.addCityToVertexMap(loc, newCity);
 	}
 	
