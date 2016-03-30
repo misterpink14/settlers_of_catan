@@ -59,6 +59,9 @@ public class RollController extends Controller implements IRollController {
 		}
 		getResultView().setRollValue(rollNum);
 		getResultView().showModal();
+		if (rollNum == 7) {
+			getResultView().closeModal();
+		}
 		//this.modalShown = false;
 	}
 	
