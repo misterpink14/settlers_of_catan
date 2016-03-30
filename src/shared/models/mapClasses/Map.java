@@ -551,7 +551,7 @@ public class Map
 		
 		PortType portType = this.convertResourceTypeToPortType(type);
 		for(VertexLocation loc: this.PlayerPieces.getVertexPieceList(ownerIndex)) {
-			if (isOnPort(loc, portType)) {
+			if (isOnPort(loc.getNormalizedLocation(), portType)) {
 				return true;
 			}
 		}
@@ -612,34 +612,40 @@ public class Map
 					}
 					
 	
-					// Check (x-1,y) SE and NE
+					// Check (x-1,y) S and SW
 					HexLocation hexLoc_ = new HexLocation(hexLoc.getX()-1, hexLoc.getY());
-					
-					h = this.Hexes.getHex(hexLoc_);
-					if (h.getHexType() == HexType.WATER) {
-						WaterHex wh = (WaterHex) h;
-						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast)) {
-							if (wh.getPortType() == portType) {
-								return true;
+					try {
+						h = this.Hexes.getHex(hexLoc_);
+						if (h.getHexType() == HexType.WATER) {
+							WaterHex wh = (WaterHex) h;
+							if (wh.getPortType() != null && 
+								(wh.getDir() == EdgeDirection.SouthEast || wh.getDir() == EdgeDirection.NorthEast)) {
+								if (wh.getPortType() == portType) {
+									return true;
+								}
 							}
 						}
+					} catch (IndexOutOfBoundsException e) {
+						
 					}
 					
 					
 					
-					// Check (x, y-1) S and SW
+					// Check (x, y-1) S and SE
 					hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
-					
-					h = this.Hexes.getHex(hexLoc_);
-					if (h.getHexType() == HexType.WATER) {
-						WaterHex wh = (WaterHex) h;
-						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest)) {
-							if (wh.getPortType() == portType) {
-								return true;
+					try {
+						h = this.Hexes.getHex(hexLoc_);
+						if (h.getHexType() == HexType.WATER) {
+							WaterHex wh = (WaterHex) h;
+							if (wh.getPortType() != null && 
+								(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthWest)) {
+								if (wh.getPortType() == portType) {
+									return true;
+								}
 							}
 						}
+					} catch (IndexOutOfBoundsException e) {
+						
 					}
 					break;
 				}
@@ -659,38 +665,47 @@ public class Map
 					
 					
 					
-					// Check (x-1, y) S and SE
+					// Check (x, y-1) S and SE
 					HexLocation hexLoc_ = new HexLocation(hexLoc.getX(), hexLoc.getY()-1);
 					
-					h = this.Hexes.getHex(hexLoc_);
-					if (h.getHexType() == HexType.WATER) {
-						WaterHex wh = (WaterHex) h;
-						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast)) {
-							if (wh.getPortType() == portType) {
-								return true;
+					try {
+						h = this.Hexes.getHex(hexLoc_);
+						if (h.getHexType() == HexType.WATER) {
+							WaterHex wh = (WaterHex) h;
+							if (wh.getPortType() != null && 
+								(wh.getDir() == EdgeDirection.South || wh.getDir() == EdgeDirection.SouthEast)) {
+								if (wh.getPortType() == portType) {
+									return true;
+								}
 							}
 						}
+					} catch (IndexOutOfBoundsException e) {
+						
 					}
 					
 	
 					// Check (x+1,y-1) NW and SW
 					hexLoc_ = new HexLocation(hexLoc.getX()+1, hexLoc.getY()-1);
 					
-					h = this.Hexes.getHex(hexLoc_);
-					if (h.getHexType() == HexType.WATER) {
-						WaterHex wh = (WaterHex) h;
-						if (wh.getPortType() != null && 
-							(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest)) {
-							if (wh.getPortType() == portType) {
-								return true;
+					try {
+						h = this.Hexes.getHex(hexLoc_);
+						if (h.getHexType() == HexType.WATER) {
+							WaterHex wh = (WaterHex) h;
+							if (wh.getPortType() != null && 
+								(wh.getDir() == EdgeDirection.SouthWest || wh.getDir() == EdgeDirection.NorthWest)) {
+								if (wh.getPortType() == portType) {
+									return true;
+								}
 							}
 						}
+					} catch (IndexOutOfBoundsException e) {
+						
 					}
 					break;
 				}
 			}
 		} catch (Exception e) {
+			
 		}
 		
 		return false;
