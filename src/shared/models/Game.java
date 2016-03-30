@@ -595,6 +595,10 @@ public class Game extends Observable
 	
 	
 	public boolean CanBuildRoad(EdgeLocation edgeLoc, int currPlayer, boolean isFree, boolean isSetup) {
+		if ((this.gameState == GameState.SETUP1 && this.turnManager.getPlayers().getPlayerByIndex(currPlayer).getRoads() != 15) ||
+				(this.gameState == GameState.SETUP2 && this.turnManager.getPlayers().getPlayerByIndex(currPlayer).getRoads() != 14)) {
+			return false;
+		}
 		return turnManager.CanBuildRoad(edgeLoc, currPlayer, isFree, isSetup);
 	}
 	
