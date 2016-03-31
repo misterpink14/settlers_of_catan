@@ -285,10 +285,13 @@ public class TurnManager {
 		
 		this.map.placeRobber(hexLoc);
 		ResourceType robbedResource;
-		try {
-			robbedResource = this.players.getPlayerByIndex(victimIndex).removeRandomResource();
-			this.players.getPlayerByIndex(currPlayer).addResourceToHand(robbedResource, 1);
-		} catch (InsufficientCardNumberException e) {}
+		if(victimIndex != -1)
+		{
+			try {
+				robbedResource = this.players.getPlayerByIndex(victimIndex).removeRandomResource();
+				this.players.getPlayerByIndex(currPlayer).addResourceToHand(robbedResource, 1);
+			} catch (InsufficientCardNumberException e) {}
+		}
 		this.players.getPlayerByIndex(currPlayer).addToArmy();
 		setLargestArmy();
 	}
