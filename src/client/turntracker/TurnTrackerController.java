@@ -60,9 +60,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 				isLongestRoad = true;
 			}
 			int victoryPoints = p.getVictoryPoints();
-			if (isLongestRoad) {
-				victoryPoints += 2;
-			}
 			this.getView().updatePlayer(playerIndex, victoryPoints, isMyTurn, isLargestArmy, isLongestRoad);
 		}
 	}
