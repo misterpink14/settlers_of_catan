@@ -57,9 +57,6 @@ public class FakeServerFacade implements IServerFacade {
 
 	@Override
 	public String joinGame(JoinGameRequestParams params, Credentials credentials) throws ServerException {
-		if (params.id == 0) {
-			throw new ServerException("The player could not be added to the specified game.");
-		}
 		return "Success";
 	}
 

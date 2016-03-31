@@ -131,8 +131,8 @@ public class Server {
 			String host = args[0];
 			int port = Integer.parseInt(args[1]);
 			boolean isTest = false;
-			if (args.length == 2) {
-				isTest = false;
+			if (args.length == 3) {
+				isTest = args[2].equals("true");
 			}
 			new Server(host, port, isTest).run();
 		}

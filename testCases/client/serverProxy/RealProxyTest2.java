@@ -148,7 +148,7 @@ public class RealProxyTest2 {
 	}
 	
 	@Test
-	public void testBuildSettlement() {
+	public void testBuildSettlemen() {
 		try {
 			String response = realProxy.buildSettlement(new BuildSettlement(0, true, 0, 0, "NW"));
 			Boolean success = response.length() > 0;

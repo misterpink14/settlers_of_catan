@@ -39,6 +39,7 @@ public class RequestHandler implements HttpHandler
 // Constructor
 	public RequestHandler(boolean isTest) {
 		if (isTest) {
+			System.out.println("Creating a fake facade for testing purposes");
 			facade = new FakeServerFacade();
 		}
 		else {
