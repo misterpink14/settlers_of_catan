@@ -26,7 +26,6 @@ public class AddAICommand extends ACommand {
 	 */
 	public AddAICommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
-		// TODO parse the jsonBody
 	}
 
 	@Override
@@ -36,13 +35,11 @@ public class AddAICommand extends ACommand {
 
 	@Override
 	public String getResponse() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getCookie() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -6,6 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import shared.communication.proxy.*;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 
 public class RealProxyTest2 {
 
@@ -66,6 +70,8 @@ public class RealProxyTest2 {
 		
 	}
 
+	
+// USER
 	@Test
 	public void testLoginUser() {
 		try {
@@ -94,10 +100,12 @@ public class RealProxyTest2 {
 			assertTrue(success);
 
 		} catch (Exception e) {
-			fail("shouldn't get an exception");
+			fail("shouldn't get an exception, this only works with a fresh server");
 		}
 	}
 	
+	
+// GAMES
 	@Test
 	public void testListGames() {
 		try {
@@ -123,6 +131,20 @@ public class RealProxyTest2 {
 	}
 	
 	@Test
+	public void testJoinGame() {
+		try {
+			String response = realProxy.joinGame(new JoinGameRequestParams(1, "red"));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+
+// GAME
+	@Test
 	public void testGetGameModel() {
 		try {
 			
@@ -135,6 +157,8 @@ public class RealProxyTest2 {
 		}
 	}
 	
+	
+// MOVES
 	@Test
 	public void testBuildRoad() {
 		try {
@@ -148,7 +172,7 @@ public class RealProxyTest2 {
 	}
 	
 	@Test
-	public void testBuildSettlemen() {
+	public void testBuildSettlement() {
 		try {
 			String response = realProxy.buildSettlement(new BuildSettlement(0, true, 0, 0, "NW"));
 			Boolean success = response.length() > 0;
@@ -156,6 +180,174 @@ public class RealProxyTest2 {
 			
 		} catch (Exception e) {
 			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testSendChat() {
+		try {
+			String response = realProxy.sendChat(new SendChat(0, "HELLO"));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testRollNumber() {
+		try {
+			String response = realProxy.rollNumber(new RollNumber(0, 6));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testRobPlayer() {
+		try {
+			String response = realProxy.robPlayer(new RobPlayer(0, 1, new HexLocation(1, 1)));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testFinishTurn() {
+		try {
+			String response = realProxy.finishTurn(new FinishTurn(0));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testBuyDevCard() {
+		try {
+			String response = realProxy.buyDevCard(new BuyDevCard(0));
+			Boolean success = response.length() > 0;
+			fail("should get an exception");
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testYearOfPlenty() {
+		try {
+			String response = realProxy.yearOfPlenty(new YearOfPlenty(0, ResourceType.BRICK, ResourceType.SHEEP));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testRoadBuilding() {
+		try {
+			String response = realProxy.roadBuilding(new RoadBuilding(0, new EdgeLocation(new HexLocation(1,1), EdgeDirection.North), new EdgeLocation(new HexLocation(1,2), EdgeDirection.North)));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testSoldier() {
+		try {
+			String response = realProxy.moveSoldier(new SoldierMove(0, 1, new HexLocation(1,1)));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testMonopoly() {
+		try {
+			String response = realProxy.playMonopolyCard(new Monopoly(0, ResourceType.WHEAT));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testMonument() {
+		try {
+			String response = realProxy.playMonumentCard(new MonumentMove(1));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testOfferTrade() {
+		try {
+			String response = realProxy.offerTrade(new OfferTrade(0, 1, 1, 1, 1, 1, 0));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testAcceptTrade() {
+		try {
+			String response = realProxy.acceptTrade(new AcceptTrade(0, true));
+			Boolean success = response.length() > 0;
+			assertTrue(success);
+			
+		} catch (Exception e) {
+			fail("shouldn't get an exception");
+		}
+	}
+	
+	@Test
+	public void testMaritimeTrade() {
+		try {
+			String response = realProxy.maritimeTrade(new MaritimeTrade(ResourceType.BRICK, ResourceType.ORE, 3, 0));
+			Boolean success = response.length() > 0;
+			fail("should get an exception");
+			
+		} catch (Exception e) {
+			assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testDiscardCards() {
+		try {
+			String response = realProxy.discardCards(new DiscardedCards(0, 1, 2, 1, 0, 0));
+			Boolean success = response.length() > 0;
+			fail("should get an exception");
+			
+		} catch (Exception e) {
+			assertTrue(true);
 		}
 	}
 }
