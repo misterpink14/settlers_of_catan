@@ -61,61 +61,43 @@ public class DatabaseRepresentation
 			e1.printStackTrace();
 		}
 		Connection cnt = db.getConnection();
-		String dropUser = "Drop TABLE IF EXISTS User;";
-		String dropProject = "Drop TABLE IF EXISTS Project;";
-		String dropBatch = "Drop TABLE IF EXISTS Batch;";
-		String dropField = "Drop TABLE IF EXISTS Field;";
-		String dropValue = "Drop TABLE IF EXISTS Value;";
-		String createUser = "CREATE TABLE User ("+ 
-			"UserID INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE ," +
-			"FirstName TEXT, " +
-			"LastName TEXT, " +
-			"Email TEXT, " +
-			"Username TEXT NOT NULL UNIQUE, " +
-			"Password TEXT, " +
-			"CurrentBatch Integer, " +
-			"BatchesCompleted INTEGER);";
-		String createProject = "CREATE TABLE Project (" +
-			"ProjectID INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , " +
-			"Title TEXT NOT NULL UNIQUE, " +
-			"TotalIndexed INTEGER,  " +
-			"RecordsPerBatch TEXT," +
-			"FieldY TEXT, " +
-			"RecordHeight TEXT);";
-		String createBatch = "CREATE TABLE Batch (" +
-			"BatchID INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE, " +
-			"ProjectID INTEGER NOT NULL, " +
-			"InUse BOOL,"+
-			"Completed BOOL DEFAULT (0) ," +
-			"SourceURL TEXT);";
-		String createField = "CREATE TABLE Field (" +
-			"FieldID INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE ," +
-			"ProjectID TEXT," +
-			"ColumnHeader TEXT DEFAULT (null) , " +
-			"FieldHelpFile TEXT, " +
-			"KnownDataFile TEXT," +
-			"FieldX TEXT, " +
-			"FieldWidth TEXT);";
-		String createValue = "CREATE TABLE Value (" +
-			"ValueID INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE ," +
-			"RecordNum TEXT," +
-			"Value TEXT," +
-			"FieldID TEXT," +
-			"BatchID TEXT," +
-			"ImageURL TEXT)";
+		String dropUsers = "DROP TABLE IF EXISTS Users;";
+		String dropGames = "DROP TABLE IF EXISTS Games;";
+		String dropCommands = "DROP TABLE IF EXISTS Commands;";
+		String dropUserGame = "DROP TABLE IF EXISTS UserGame;";
+		String createUsers = "CREATE TABLE Users (" +
+				"userID INTEGER PRIMARY KEY  AUTOINCREMENT ," +
+				"username TEXT NOT NULL," +
+				"password TEXT NOT NULL);";
+		String createGames = "CREATE TABLE Games (" +
+				"gameID INTEGER PRIMARY KEY  AUTOINCREMENT , " +
+				"Title TEXT, " +
+				"gameJSON TEXT NOT NULL,  " +
+				"lastCommandSaved INTEGER);";
+		String createCommands = "CREATE TABLE Commands ("+ 
+			"commandID INTEGER PRIMARY KEY  AUTOINCREMENT ," +
+			"commandJSON TEXT NOT NULL, " +
+			"commandNumber TEXT NOT NULL, " +
+			"gameID INTEGER NOT NULL, " +
+			"FOREIGN KEY gameID REFERENCES Games.gameID);";
+		String createUserGame = "CREATE TABLE UserGame (" +
+			"userGameID PRIMARY KEY AUTOINCREMENT, " +
+			"userID INTEGER NOT NULL, " +
+			"gameID INTEGER NOT NULL,"+
+			"color TEXT NOT NULL," +
+			"FOREIGN KEY userID REFERENCES Users.userID," +
+			"FOREIGN KEY gameID REFERENCES Games.gameID);";
 		try 
 		{
 			Statement smt = cnt.createStatement();
-			smt.execute(dropUser);
-			smt.execute(dropProject);
-			smt.execute(dropBatch);
-			smt.execute(dropField);
-			smt.execute(dropValue);
-			smt.execute(createUser);
-			smt.execute(createProject);
-			smt.execute(createBatch);
-			smt.execute(createField);
-			smt.execute(createValue);
+			smt.execute(dropUsers);
+			smt.execute(dropGames);
+			smt.execute(dropCommands);
+			smt.execute(dropUserGame);
+			smt.execute(createUsers);
+			smt.execute(createGames);
+			smt.execute(createCommands);
+			smt.execute(createUserGame);
 			
 			smt.close();
 			db.endTransaction(true);
