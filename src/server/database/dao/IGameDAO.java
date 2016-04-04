@@ -8,37 +8,29 @@ import shared.models.Game;
  *
  */
 
-public class IGameDAO {
+public interface IGameDAO {
 	
 	/**
 	 * Gets a game by game ID
 	 * @param gameID The ID of the game we want to access.
 	 * @return The game, from the database.
 	 */
-	public Game getGame(int gameID) {
-		return null;
-	}
+	public Game getGame(int gameID);
 	
 	/**
 	 * Saves a game to the database.
 	 */
-	public void saveGame() {
-		
-	}
+	public void saveGame();
 	
 	/**
 	 * Returns the number of changes done to the server.
 	 * @return
 	 */
-	public int getDeltaCount() {
-		return 0;
-	}
+	public int getDeltaCount();
 	
 	/**
 	 * Adds a change to the database.
 	 */
-	public void addDelta() {
-		
-	}
+	public void addDelta();
 
 }
