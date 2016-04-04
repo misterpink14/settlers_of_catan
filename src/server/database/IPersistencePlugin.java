@@ -11,7 +11,7 @@ public class IPersistencePlugin {
 	/**
 	 * Starts a transaction to the database.
 	 */
-	public void stateTransaction() {
+	public void startTransaction() {
 		
 	}
 	
