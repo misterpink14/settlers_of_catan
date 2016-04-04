@@ -1,6 +1,6 @@
 package server.database.dao;
 
-import shared.models.Game;
+import server.command.ACommand;
 
 /**
  * 
@@ -13,24 +13,34 @@ public interface IGameDAO {
 	/**
 	 * Gets a game by game ID
 	 * @param gameID The ID of the game we want to access.
-	 * @return The game, from the database.
+	 * @return The serialized game from the database in the form of a JSON string.
 	 */
-	public Game getGame(int gameID);
+	public String getGame(int gameID);
 	
 	/**
 	 * Saves a game to the database.
+	 * @param gameID The ID of the game we're saving to the database.
+	 * @param gameJson The serialized game in the form of JSON.
 	 */
-	public void saveGame();
+	public void saveGame(int gameID, String gameJson);
 	
 	/**
-	 * Returns the number of changes done to the server.
-	 * @return
+	 * Gets all games saved in the database.
+	 * @return A JSON string of all of the games in the database.
 	 */
-	public int getDeltaCount();
+	public String getAllGames();
 	
 	/**
-	 * Adds a change to the database.
+	 * Returns the number of commands performed on the game in the database.
+	 * @param gameID The ID of the game whose command count we need to access.
+	 * @return The number of commands performed on the specified game.
 	 */
-	public void addDelta();
+	public int getCommandCount(int gameID);
+	
+	/**
+	 * Saves a command to the database.
+	 * @param command The command we're saving to the database.
+	 */
+	public void saveCommand(ACommand command);
 
 }

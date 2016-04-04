@@ -9,38 +9,18 @@ package server.database;
 public class Registry {
 	
 	/**
-	 * Loads the configuration file that controls the registry
+	 * Loads the correct .jar file for the persistence plugin.
 	 */
 	public void loadConfig() {
 		
 	}
 	
 	/**
-	 * Saves a user to the database.
+	 * Gets the plugin (SQLite3 or Mongo) as specified by the user.
+	 * @return
 	 */
-	public void saveUser() {
-		
-	}
-	
-	/**
-	 * Saves a game to the database.
-	 */
-	public void saveGame() {
-		
-	}
-	
-	/**
-	 * Restores the games from the database to the server.
-	 */
-	public void restoreGames() {
-		
-	}
-	
-	/**
-	 * Restores the users from the database to the server.
-	 */
-	public void restoreUsers() {
-		
+	public IPersistencePlugin getPlugin() {
+		return null;
 	}
 
 }
