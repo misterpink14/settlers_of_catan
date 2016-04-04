@@ -22,9 +22,10 @@ public interface IUserDAO {
 	public String getAllUsers();
 	
 	/**
-	 * Saves a user to the database.
+	 * Creates a user in the database.
+	 * @param userID The ID of the user being created in the database.
 	 * @param userJson The serialized user in the form of JSON.
 	 */
-	public void saveUser(String userJson);
+	public void createUser(int userID, String userJson);
 
 }
