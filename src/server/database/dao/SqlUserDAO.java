@@ -1,7 +1,5 @@
 package server.database.dao;
 
-import server.managers.User;
-
 /**
  * 
  * @author Bo Pace
@@ -12,40 +10,26 @@ public class SqlUserDAO implements IUserDAO {
 	/**
 	 * Gets a user by user ID
 	 * @param userID The ID of the user we want to access.
-	 * @return The user, from the database.
+	 * @return The serialized user from the database, in the form of JSON.
 	 */
-	@Override
-	public User getUser(int userID) {
-		// TODO Auto-generated method stub
+	public String getUser(int userID) {
 		return null;
 	}
-
+	
 	/**
-	 * Saves a user to the database.
-	 * @param user The user to be saved.
+	 * Gets all users saved in the database.
+	 * @return A JSON string of all users saved in the database.
 	 */
-	@Override
-	public void saveUser(String user) {
-		// TODO Auto-generated method stub
-		
+	public String getAllUsers() {
+		return null;
 	}
-
+	
 	/**
-	 * Returns the number of changes done to the server.
-	 * @return
+	 * Creates a user in the database.
+	 * @param userID The ID of the user being created in the database.
+	 * @param userJson The serialized user in the form of JSON.
 	 */
-	@Override
-	public int getDeltaCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/**
-	 * Adds a change to the database.
-	 */
-	@Override
-	public void addDelta() {
-		// TODO Auto-generated method stub
+	public void createUser(int userID, String userJson) {
 		
 	}
 

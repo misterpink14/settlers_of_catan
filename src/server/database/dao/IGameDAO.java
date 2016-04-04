@@ -38,9 +38,9 @@ public interface IGameDAO {
 	public int getCommandCount(int gameID);
 	
 	/**
-	 * Saves a command to the database.
-	 * @param command The command we're saving to the database.
+	 * Creates a command in the database.
+	 * @param command The command we're creating in the database.
 	 */
-	public void saveCommand(ACommand command);
+	public void createCommand(ACommand command);
 
 }
