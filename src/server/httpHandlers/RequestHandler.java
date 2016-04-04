@@ -226,4 +226,25 @@ public class RequestHandler implements HttpHandler
 		
 		throw new ServerException("Invalid HTTP method");
 	}
+	
+	/**
+	 * adds a new game to the database, using a json object
+	**/
+	public void addGame(String json) {
+		
+	}
+	
+	/**
+	 * adds a new command to the database using a json object
+	 */
+	public void addCommand(String json) {
+		
+	}
+	
+	/**
+	 * adds a new User to the database using a json object
+	 */
+	public void addNewUser(String json) {
+		
+	}
 }
