@@ -114,6 +114,30 @@ public class Server {
 		
 		logger.info("Starting HTTP Server on port: " + port);
 		server.start();
+		initializePlugin();
+		restoreGames();
+		restoreUsers();
+	}
+	
+	/**
+	 * This function starts up the persistence plugin to allow data permanence.
+	 */
+	private void initializePlugin() {
+		// TODO
+	}
+	
+	/**
+	 * The games stored in the database are built out into the server.
+	 */
+	private void restoreGames() {
+		// TODO
+	}
+	
+	/**
+	 * The users stored in the database are built out into the server.
+	 */
+	private void restoreUsers() {
+		// TODO
 	}
 	
 	

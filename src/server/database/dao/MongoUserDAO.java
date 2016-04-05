@@ -33,5 +33,12 @@ public class MongoUserDAO implements IUserDAO {
 	public void createUser(int userID, String userJson) {
 		
 	}
+	
+	/**
+	 * Clears the users stored in the database.
+	 */
+	public void clear() {
+		
+	}
 
 }
