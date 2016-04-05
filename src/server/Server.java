@@ -114,15 +114,16 @@ public class Server {
 		
 		logger.info("Starting HTTP Server on port: " + port);
 		server.start();
-		initializePlugin();
+		initializePlugin("");
 		restoreGames();
 		restoreUsers();
 	}
 	
 	/**
 	 * This function starts up the persistence plugin to allow data permanence.
+	 * @param plugin The name of the plugin the user wishes to start up.
 	 */
-	private void initializePlugin() {
+	private void initializePlugin(String plugin) {
 		// TODO
 	}
 	

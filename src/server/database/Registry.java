@@ -9,6 +9,11 @@ package server.database;
 public class Registry {
 	
 	/**
+	 * The plugin currently being used by the server.
+	 */
+	IPersistencePlugin plugin;
+	
+	/**
 	 * Loads the correct .jar file for the persistence plugin.
 	 */
 	public void loadConfig() {
@@ -20,7 +25,7 @@ public class Registry {
 	 * @return
 	 */
 	public IPersistencePlugin getPlugin() {
-		return null;
+		return plugin;
 	}
 
 }
