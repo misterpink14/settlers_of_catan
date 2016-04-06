@@ -114,34 +114,17 @@ public class Server {
 		
 		logger.info("Starting HTTP Server on port: " + port);
 		server.start();
-		initializePlugin("");
-		restoreGames();
-		restoreUsers();
+		initializePlugin("", -1);
 	}
 	
 	/**
 	 * This function starts up the persistence plugin to allow data permanence.
 	 * @param plugin The name of the plugin the user wishes to start up.
+	 * @param delta The number of commands between game state checkpoints.
 	 */
-	private void initializePlugin(String plugin) {
+	private void initializePlugin(String plugin, int delta) {
 		// TODO
 	}
-	
-	/**
-	 * The games stored in the database are built out into the server.
-	 */
-	private void restoreGames() {
-		// TODO
-	}
-	
-	/**
-	 * The users stored in the database are built out into the server.
-	 */
-	private void restoreUsers() {
-		// TODO
-	}
-	
-	
 	
 	public static void main(String[] args) throws Exception {
 		for (int i = 0; i < args.length; i++) {
