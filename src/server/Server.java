@@ -14,6 +14,10 @@ import com.sun.net.httpserver.HttpServer;
 
 import server.database.DatabaseException;
 import server.database.DatabaseRepresentation;
+import server.database.MongoPlugin;
+import server.facade.FakeServerFacade;
+import server.facade.IServerFacade;
+import server.facade.ServerFacade;
 import server.httpHandlers.Handlers;
 import server.httpHandlers.RequestHandler;
 
@@ -48,14 +52,22 @@ public class Server {
 	
 	private Server() {
 		this.port = DEFAULT_PORT_NUMBER;
-		this.handler = new RequestHandler(false);
+		//this.handler = new RequestHandler(false);
 		return;
 	}
 	
 	private Server(String host, int port, boolean isTest) {
 		this.host = host;
 		this.port = port;
-		this.handler = new RequestHandler(isTest);
+		if (isTest) {
+			System.out.println("Creating a fake facade for testing purposes");
+			IServerFacade serverFacade = new FakeServerFacade();
+			this.handler = new RequestHandler(serverFacade, new MongoPlugin());
+		}
+		else {
+			IServerFacade serverFacade = new ServerFacade();
+			this.handler = new RequestHandler(serverFacade, new MongoPlugin());
+		}
 		return;
 	}
 	

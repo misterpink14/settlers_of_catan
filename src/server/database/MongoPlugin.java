@@ -52,6 +52,15 @@ public class MongoPlugin implements IPersistencePlugin {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * Gets an instance of the command DAO from the current persistence plugin.
+	 */
+	@Override
+	public void getCommandDAO() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	/**
 	 * Determines if the current state of the server has reached the defined delta, causing us to commit the changes.

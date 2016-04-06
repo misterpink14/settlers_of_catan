@@ -56,4 +56,10 @@ public class MongoGameDAO implements IGameDAO {
 		
 	}
 
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

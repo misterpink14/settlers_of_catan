@@ -7,6 +7,8 @@ package server.database;
  */
 
 public class Sqlite3Plugin implements IPersistencePlugin {
+	
+	String sqliteUri;
 
 	/**
 	 * Starts a transaction to the database.
@@ -49,6 +51,15 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 	 */
 	@Override
 	public void getUserDAO() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
+	 * Gets an instance of the command DAO from the current persistence plugin.
+	 */
+	@Override
+	public void getCommandDAO() {
 		// TODO Auto-generated method stub
 		
 	}
