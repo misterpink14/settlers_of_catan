@@ -225,23 +225,37 @@ public class RequestHandler implements HttpHandler
 	}
 	
 	/**
-	 * adds a new game to the database, using a json object
-	**/
-	public void addGame(String json) {
+	 * Saves a game to the database.
+	 * @param gameID The ID of the game being saved.
+	 * @param jsonGame The serialized game in the form of a JSON string.
+	 */
+	public void saveGame(int gameID, String jsonGame) {
 		
 	}
 	
 	/**
-	 * adds a new command to the database using a json object
+	 * Queries the persistence plugin to see if the change threshold has been met for a game.
+	 * @param gameID The game that we want to check.
+	 * @return If the change threshold has been met (true or false).
 	 */
-	public void addCommand(String json) {
+	public boolean hasReachedDelta(int gameID) {
+		return false;
+	}
+	
+	/**
+	 * Adds a command to a specified game.
+	 * @param gameID The ID of the game to receive the new command.
+	 * @param jsonCommand A serialized command object in the form of a JSON string.
+	 */
+	public void addCommand(int gameID, String jsonCommand) {
 		
 	}
 	
 	/**
-	 * adds a new User to the database using a json object
+	 * Add a user to the database.
+	 * @param jsonUser A serialized user in the form of a JSON string.
 	 */
-	public void addNewUser(String json) {
+	public void addUser(String jsonUser) {
 		
 	}
 }

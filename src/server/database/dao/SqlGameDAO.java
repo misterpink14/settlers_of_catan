@@ -56,4 +56,10 @@ public class SqlGameDAO implements IGameDAO {
 		
 	}
 
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
