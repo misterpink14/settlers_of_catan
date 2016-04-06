@@ -465,4 +465,28 @@ public class ServerFacade implements IServerFacade {
 	public int getPlayerIDFromCredentials(Credentials credentials) throws ServerException {
 		return userManager.login(credentials);
 	}
+
+
+
+	@Override
+	public void restoreAllUsers(String json) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void restoreAllGames(String json) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void runAllCommands(String json) {
+		// TODO Auto-generated method stub
+		
+	}
 }

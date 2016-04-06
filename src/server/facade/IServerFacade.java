@@ -257,4 +257,28 @@ public interface IServerFacade {
 	int getPlayerIDFromCredentials(Credentials credentials) throws ServerException;
 
 	String getModel(int gameID);
+	
+	
+	/**
+	 * Restores all users based on the given json
+	 * 
+	 * @param json
+	 */
+	public void restoreAllUsers(String json);
+	
+
+	/**
+	 * Restores all games based on the given json
+	 * 
+	 * @param json
+	 */
+	public void restoreAllGames(String json);
+	
+
+	/**
+	 * Restores all commands based on the given json
+	 * 
+	 * @param json
+	 */
+	public void runAllCommands(String json);
 }

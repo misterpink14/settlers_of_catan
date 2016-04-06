@@ -227,5 +227,23 @@ public class FakeServerFacade implements IServerFacade {
 	public int getPlayerIDFromCredentials(Credentials credentials) throws ServerException {
 		return 1;
 	}
+
+	@Override
+	public void restoreAllUsers(String json) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void restoreAllGames(String json) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void runAllCommands(String json) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
