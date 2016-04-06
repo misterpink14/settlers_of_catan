@@ -39,16 +39,6 @@ public class RequestHandler implements HttpHandler
 	
 
 // Constructor
-	public RequestHandler(boolean isTest) {
-		if (isTest) {
-			System.out.println("Creating a fake facade for testing purposes");
-			facade = new FakeServerFacade();
-		}
-		else {
-			facade = new ServerFacade();
-		}
-	}
-	
 	public RequestHandler(IServerFacade facade, IPersistencePlugin plugin) {
 		this.facade = facade;
 		this.plugin = plugin;
