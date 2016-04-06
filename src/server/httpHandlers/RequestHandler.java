@@ -20,6 +20,7 @@ import com.sun.net.httpserver.HttpHandler;
 import server.ServerException;
 import server.command.ACommand;
 import server.command.CommandFactory;
+import server.database.IPersistencePlugin;
 import server.facade.FakeServerFacade;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
@@ -34,6 +35,7 @@ public class RequestHandler implements HttpHandler
 
 	Logger logger = Logger.getLogger("settlers");
 	IServerFacade facade;
+	IPersistencePlugin plugin;
 	
 
 // Constructor
@@ -45,6 +47,11 @@ public class RequestHandler implements HttpHandler
 		else {
 			facade = new ServerFacade();
 		}
+	}
+	
+	public RequestHandler(IServerFacade facade, IPersistencePlugin plugin) {
+		this.facade = facade;
+		this.plugin = plugin;
 	}
 	
 	
