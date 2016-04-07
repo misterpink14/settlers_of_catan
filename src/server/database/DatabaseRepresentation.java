@@ -3,7 +3,7 @@ package server.database;
 import java.sql.*;
 import java.util.logging.*;
 
-import server.databaseAccess.*;
+//import server.databaseAccess.*;
 
 /**
  * The Database Representation class is the only class aware of the database location. It is the only class through which transactions can be 
@@ -84,11 +84,9 @@ public class DatabaseRepresentation
 			smt.execute(dropUsers);
 			smt.execute(dropGames);
 			smt.execute(dropCommands);
-			smt.execute(dropUserGame);
 			smt.execute(createUsers);
 			smt.execute(createGames);
 			smt.execute(createCommands);
-			smt.execute(createUserGame);
 			
 			smt.close();
 			db.endTransaction(true);
@@ -106,12 +104,12 @@ public class DatabaseRepresentation
 	 * All the DAO's store the specified sql commands for each type of object
 	 */
 
-	private BatchDAO batchDAO;
+	//private BatchDAO batchDAO;
 	private Connection connection;
 	
 	public DatabaseRepresentation() 
 	{
-		batchDAO = new BatchDAO(this);
+		//batchDAO = new BatchDAO(this);
 		connection = null;
 	}
 	/**
@@ -225,8 +223,8 @@ public class DatabaseRepresentation
 		}
 	}
 
-	public BatchDAO getBatchDAO()
-	{
-		return batchDAO;
-	}
+	//public BatchDAO getBatchDAO()
+	//{
+		//return batchDAO;
+	//}
 }
