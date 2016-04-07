@@ -66,26 +66,17 @@ public class DatabaseRepresentation
 		String dropCommands = "DROP TABLE IF EXISTS Commands;";
 		String dropUserGame = "DROP TABLE IF EXISTS UserGame;";
 		String createUsers = "CREATE TABLE Users (" +
-				"userID INTEGER PRIMARY KEY  AUTOINCREMENT ," +
+				"userID INTEGER PRIMARY KEY," +
 				"username TEXT NOT NULL," +
 				"password TEXT NOT NULL);";
 		String createGames = "CREATE TABLE Games (" +
-				"gameID INTEGER PRIMARY KEY  AUTOINCREMENT , " +
-				"Title TEXT, " +
-				"gameJSON TEXT NOT NULL,  " +
-				"lastCommandSaved INTEGER);";
+				"gameID INTEGER PRIMARY KEY, " +
+				"title TEXT, " +
+				"gameJSON TEXT NOT NULL);";
 		String createCommands = "CREATE TABLE Commands ("+ 
 			"commandID INTEGER PRIMARY KEY  AUTOINCREMENT ," +
 			"commandJSON TEXT NOT NULL, " +
-			"commandNumber TEXT NOT NULL, " +
 			"gameID INTEGER NOT NULL, " +
-			"FOREIGN KEY gameID REFERENCES Games.gameID);";
-		String createUserGame = "CREATE TABLE UserGame (" +
-			"userGameID PRIMARY KEY AUTOINCREMENT, " +
-			"userID INTEGER NOT NULL, " +
-			"gameID INTEGER NOT NULL,"+
-			"color TEXT NOT NULL," +
-			"FOREIGN KEY userID REFERENCES Users.userID," +
 			"FOREIGN KEY gameID REFERENCES Games.gameID);";
 		try 
 		{
