@@ -30,11 +30,13 @@ public interface ICommandDAO {
 	/**
 	 * Clears all of the commands for the specified game in the database
 	 * @param gameID The ID of the game we are clearing the commands for
+	 * @throws DatabaseException 
 	 */
-	public void clearCommands(int gameID);
+	public void clearCommands(int gameID) throws DatabaseException;
 	
 	/**
 	 * Clears all of the commands from the database
+	 * @throws DatabaseException 
 	 */
-	public void clear();
+	public void clear() throws DatabaseException;
 }

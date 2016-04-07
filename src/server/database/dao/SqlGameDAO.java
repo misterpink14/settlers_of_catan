@@ -146,12 +146,7 @@ public class SqlGameDAO implements IGameDAO {
 	public void clear() throws DatabaseException {
 		PreparedStatement stmt = null;
 		try {
-			String clearGames = "DROP TABLE IF EXISTS Games;" +
-					"CREATE TABLE Games (" +
-					"gameID INTEGER PRIMARY KEY , " +
-					"Title TEXT, " +
-					"gameJSON TEXT NOT NULL,  " +
-					"commandsToSave INTEGER);";
+			String clearGames = "DELETE FROM Games";
 			stmt = db.getConnection().prepareStatement(clearGames);
 			
 			if (stmt.executeUpdate() != 1) {

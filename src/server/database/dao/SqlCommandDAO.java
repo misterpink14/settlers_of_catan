@@ -3,11 +3,16 @@ package server.database.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import server.command.ACommand;
 import server.database.DatabaseException;
 import server.database.DatabaseRepresentation;
+import shared.serializerJSON.Deserializer;
 import shared.serializerJSON.Serializer;
 
 public class SqlCommandDAO implements ICommandDAO {
@@ -80,21 +85,66 @@ public class SqlCommandDAO implements ICommandDAO {
 	}
 
 	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-		
+	public void clear() throws DatabaseException {
+		PreparedStatement stmt = null;
+		try {
+			String clearCommands = "DELETE FROM Commands";
+			stmt = db.getConnection().prepareStatement(clearCommands);
+			
+			if (stmt.executeUpdate() != 1) {
+				throw new DatabaseException("Could not clear commands");
+			}
+		} catch (SQLException e) {
+			throw new DatabaseException("Could not clear commands", e);
+		} finally {
+			DatabaseRepresentation.safeClose(stmt);
+		}
 	}
 
 	@Override
 	public List<ACommand> getAllCommands() throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<ACommand> commands = new ArrayList<ACommand>();
+		try {
+			String query = "SELECT commandID, commandJSON, gameID FROM Commands";
+			stmt = db.getConnection().prepareStatement(query);
+			
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				int commandID = rs.getInt(1);
+				String commandJSON = rs.getString(2);
+				int gameID = rs.getInt(3);
+				ACommand command = null; // Need to figure out how I'm creating new commands...
+				JsonObject jsonObj = new JsonParser().parse(commandJSON).getAsJsonObject();
+				//TODO Uncomment the following line when a method is written to implement it.
+				//Deserializer.getInstance().deserialize(command, commandJSON);
+				commands.add(command);
+			}
+		} catch (SQLException e) {
+			throw new DatabaseException("Could not get all commands", e);
+		} finally {
+			DatabaseRepresentation.safeClose(rs);
+			DatabaseRepresentation.safeClose(stmt);
+		}
+		return commands;
 	}
 
 	@Override
-	public void clearCommands(int gameID) {
-		// TODO Auto-generated method stub
-		
+	public void clearCommands(int gameID) throws DatabaseException {
+		PreparedStatement stmt = null;
+		try {
+			String clearCommands = "DELETE FROM Commands WHERE gameID = ?";
+			stmt = db.getConnection().prepareStatement(clearCommands);
+			
+			if (stmt.executeUpdate() != 1) {
+				throw new DatabaseException("Could not delete commands from game");
+			}
+		} catch (SQLException e) {
+			throw new DatabaseException("Could not delete commands from game");
+		} finally {
+			DatabaseRepresentation.safeClose(stmt);
+		}
 	}
 
 }
