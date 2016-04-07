@@ -633,8 +633,7 @@ private static Serializer instance = null;
 	}
 
 	public String serializeCommand(ACommand command) {
-		// TODO Auto-generated method stub
-		return null;
+		return command.getJsonBody();
 	}
 	
 }

@@ -15,8 +15,9 @@ import server.facade.IServerFacade;
  */
 public class ModelCommand extends ACommand {
 
-	public ModelCommand(Map<String, String> cookies, IServerFacade facade) throws ServerException {
+	public ModelCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
+		this.jsonBody = jsonBody;
 	}
 	
 

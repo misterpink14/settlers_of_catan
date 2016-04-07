@@ -34,6 +34,7 @@ public class JoinCommand extends ACommand {
 	 */
 	public JoinCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade); 
+		this.jsonBody = jsonBody;
 		// TODO parse the jsonBody
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		params = new JoinGameRequestParams(json.get("id").getAsInt(), json.get("color").getAsString());

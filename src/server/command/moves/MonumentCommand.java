@@ -33,7 +33,7 @@ public class MonumentCommand extends ACommand {
 	 */
 	public MonumentCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		monumentMove = new MonumentMove(
 			json.get("playerIndex").getAsInt()

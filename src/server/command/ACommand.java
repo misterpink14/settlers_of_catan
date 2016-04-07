@@ -11,6 +11,7 @@ public abstract class ACommand {
 	
 	private Credentials credentials;
 	private IServerFacade facade;
+	protected String jsonBody;
 	protected String response;
 	protected int gameID;
 
@@ -46,6 +47,9 @@ public abstract class ACommand {
 		return this.gameID;
 	}
 	
+	public String getJsonBody() {
+		return this.jsonBody;
+	}
 
 // Private METHODS
 	/**

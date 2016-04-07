@@ -35,7 +35,7 @@ public class RollNumberCommand extends ACommand {
 	 */
 	public RollNumberCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		rollNumber = new RollNumber(
 			json.get("playerIndex").getAsInt(), json.get("number").getAsInt()	

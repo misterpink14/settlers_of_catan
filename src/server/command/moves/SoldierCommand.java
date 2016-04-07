@@ -39,7 +39,7 @@ public class SoldierCommand extends ACommand {
 	 */
 	public SoldierCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		soldierMove = new SoldierMove(
 			json.get("playerIndex").getAsInt(),

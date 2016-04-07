@@ -40,7 +40,7 @@ public class RobPlayerCommand extends ACommand {
 	 */
 	public RobPlayerCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		robPlayer = new RobPlayer(
 			json.get("playerIndex").getAsInt(),

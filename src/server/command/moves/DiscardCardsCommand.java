@@ -41,7 +41,7 @@ public class DiscardCardsCommand extends ACommand {
 	 */
 	public DiscardCardsCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		discardedCards = new DiscardedCards(
 				json.get("playerIndex").getAsInt(),

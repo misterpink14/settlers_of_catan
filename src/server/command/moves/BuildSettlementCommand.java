@@ -39,7 +39,7 @@ public class BuildSettlementCommand extends ACommand {
 	 */
 	public BuildSettlementCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		buildSettlement = new BuildSettlement(
 			json.get("playerIndex").getAsInt(),

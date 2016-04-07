@@ -26,6 +26,7 @@ public class AddAICommand extends ACommand {
 	 */
 	public AddAICommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game")));
+		this.jsonBody = jsonBody;
 	}
 
 	@Override

@@ -15,8 +15,9 @@ import server.facade.IServerFacade;
  */
 public class ListCommand extends ACommand {
 
-	public ListCommand(Map<String, String> cookies, IServerFacade facade) throws ServerException {
+	public ListCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(facade);
+		this.jsonBody = jsonBody;
 	}
 	
 	

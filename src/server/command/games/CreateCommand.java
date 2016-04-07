@@ -41,7 +41,7 @@ public class CreateCommand extends ACommand {
 	public CreateCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		
 		super(facade);
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		params = new CreateGameRequestParams(
 			json.get("name").getAsString(),

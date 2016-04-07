@@ -38,7 +38,7 @@ public class BuildCityCommand extends ACommand {
 	 */
 	public BuildCityCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		buildCity = new BuildCity(
 			json.get("playerIndex").getAsInt(),

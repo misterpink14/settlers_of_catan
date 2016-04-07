@@ -130,7 +130,7 @@ public class CommandFactory {
 
 		switch(type) {
 			case "list": // GET
-				return new ListCommand(cookies, facade);
+				return new ListCommand(cookies, facade, jsonBody);
 			case "create":
 				return new CreateCommand(cookies, facade, jsonBody);
 			case "join":
@@ -156,11 +156,11 @@ public class CommandFactory {
 
 		switch(type) {
 			case "model": // GET
-				return new ModelCommand(cookies, facade);
+				return new ModelCommand(cookies, facade, jsonBody);
 			case "addAI":
 				return new AddAICommand(cookies, facade, jsonBody);
 			case "listAI": // GET
-				return new ListAICommand(cookies, facade);
+				return new ListAICommand(cookies, facade, jsonBody);
 			default:
 				throw new ServerException("Invalid uri");
 		}

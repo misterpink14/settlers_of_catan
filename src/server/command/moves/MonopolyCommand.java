@@ -38,7 +38,7 @@ public class MonopolyCommand extends ACommand {
 		
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
-		
+		this.jsonBody = jsonBody;
 		ResourceType type = null;
 		try {
 			type = ResourceType.valueOf(json.get("resource").getAsString().toUpperCase());

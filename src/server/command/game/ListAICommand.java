@@ -14,8 +14,9 @@ import server.facade.IServerFacade;
  */
 public class ListAICommand extends ACommand {
 
-	public ListAICommand(Map<String, String> cookies, IServerFacade facade) throws ServerException {
+	public ListAICommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(facade);
+		this.jsonBody = jsonBody;
 	}
 	
 

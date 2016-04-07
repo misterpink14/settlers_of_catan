@@ -33,7 +33,7 @@ public class BuyDevCardCommand extends ACommand {
 	 */
 	public BuyDevCardCommand(Map<String, String> cookies, IServerFacade facade, String jsonBody) throws ServerException {
 		super(cookies.get("catan.user"), facade, Integer.parseInt(cookies.get("catan.game"))); 
-		
+		this.jsonBody = jsonBody;
 		JsonObject json = new JsonParser().parse(jsonBody).getAsJsonObject();
 		buyDevCard = new BuyDevCard(
 			json.get("playerIndex").getAsInt()
