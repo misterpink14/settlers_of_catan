@@ -6,10 +6,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 import client.data.GameInfo;
 import server.command.ACommand;
+import server.facade.ServerFacade;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
 import shared.definitions.HexType;
@@ -632,8 +634,22 @@ private static Serializer instance = null;
 		return jsonGamesList;
 	}
 
-	public String serializeCommand(ACommand command) {
-		return command.getJsonBody();
+	public String serializeCommand(ServerFacade facade, ACommand command) {
+		JsonObject jsonCommand = new JsonObject();
+		JsonObject userJson = null;
+		if (!command.getUserJson().equals(null)) {
+			userJson = new JsonParser().parse(command.getUserJson()).getAsJsonObject();
+			jsonCommand.add("userJson", userJson);
+		}
+		JsonObject jsonBody = null;
+		if (!command.getJsonBody().equals(null)) {
+			jsonBody = new JsonParser().parse(command.getJsonBody()).getAsJsonObject();
+			jsonCommand.add("jsonBody", jsonBody);
+		}
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(jsonCommand);
+		return json;
 	}
 	
 }

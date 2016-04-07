@@ -11,7 +11,8 @@ public abstract class ACommand {
 	
 	private Credentials credentials;
 	private IServerFacade facade;
-	protected String jsonBody;
+	private String userJson = null;
+	protected String jsonBody = null;
 	protected String response;
 	protected int gameID;
 
@@ -23,12 +24,14 @@ public abstract class ACommand {
 	
 	public ACommand(String userJson, IServerFacade facade) throws ServerException {
 		this.facade = facade;
+		this.userJson = userJson;
 		this.jsonDecode(userJson);
 	}
 	
 	public ACommand(String userJson, IServerFacade facade, int gameID) throws ServerException {
 		this.gameID = gameID;
 		this.facade = facade;
+		this.userJson = userJson;
 		this.jsonDecode(userJson);
 	}
 	
@@ -49,6 +52,10 @@ public abstract class ACommand {
 	
 	public String getJsonBody() {
 		return this.jsonBody;
+	}
+	
+	public String getUserJson() {
+		return this.userJson;
 	}
 
 // Private METHODS
