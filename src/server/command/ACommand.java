@@ -42,7 +42,7 @@ public abstract class ACommand {
 		return this.facade;
 	}
 	
-	protected int getGameID() {
+	public int getGameID() {
 		return this.gameID;
 	}
 	

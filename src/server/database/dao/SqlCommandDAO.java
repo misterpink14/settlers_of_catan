@@ -1,28 +1,82 @@
 package server.database.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import server.command.ACommand;
 import server.database.DatabaseException;
+import server.database.DatabaseRepresentation;
+import shared.serializerJSON.Serializer;
 
 public class SqlCommandDAO implements ICommandDAO {
 	
-	public int numCommandsToSave;
+	private int delta;
+	private DatabaseRepresentation db;
 	
-	public SqlCommandDAO(int numCommandsToSave) {
-		this.numCommandsToSave = numCommandsToSave;
+	public SqlCommandDAO(int delta) {
+		this.delta = delta;
+	}
+	
+	/**
+	 * Returns the delta value
+	 * @return delta
+	 */
+	public int getDelta() {
+		return delta;
+	}
+	
+	/**
+	 * Sets the delta value
+	 * @param delta
+	 */
+	public void setDelta(int delta) {
+		this.delta = delta;
 	}
 
 	@Override
-	public int getCommandCount(int gameID) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void createCommand(ACommand command) {
-		// TODO Auto-generated method stub
+	public int getCommandCount(int gameID) throws DatabaseException {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		
+		try {
+			String query = "SELECT COUNT(*) FROM Commands WHERE gameID = ?";
+			stmt = db.getConnection().prepareStatement(query);
+			stmt.setInt(1, gameID);
+			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				return rs.getInt(1);
+			} else {
+				throw new DatabaseException("Unable to retrieve command count");
+			}
+		} catch (SQLException e) {
+			throw new DatabaseException("Unable to retrieve command count", e);
+		} finally {
+			DatabaseRepresentation.safeClose(rs);
+			DatabaseRepresentation.safeClose(stmt);
+		}
+	}
+
+	@Override
+	public void createCommand(ACommand command) throws DatabaseException {
+		PreparedStatement stmt = null;
+		try {
+			String query = "INSERT INTO Commands (commandJSON, gameID) VALUES (?, ?)";
+			String commandJSON = Serializer.getInstance().serializeCommand(command);
+			stmt = db.getConnection().prepareStatement(query);
+			stmt.setString(1, commandJSON);
+			stmt.setInt(2, command.getGameID());
+			
+			if (stmt.executeUpdate() != 1) {
+				throw new DatabaseException("Could not create command");
+			}
+		} catch (SQLException e) {
+			throw new DatabaseException("Could not create command");
+		} finally {
+			DatabaseRepresentation.safeClose(stmt);
+		}
 	}
 
 	@Override

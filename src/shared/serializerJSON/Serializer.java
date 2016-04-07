@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 import client.data.GameInfo;
+import server.command.ACommand;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
 import shared.definitions.HexType;
@@ -629,6 +630,11 @@ private static Serializer instance = null;
 			//jsonGame.add("name", new gameInfo.getTitle());
 		}*/
 		return jsonGamesList;
+	}
+
+	public String serializeCommand(ACommand command) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

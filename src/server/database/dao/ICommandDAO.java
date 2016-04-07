@@ -11,8 +11,9 @@ public interface ICommandDAO {
 	 * Returns the number of commands performed on the game in the database.
 	 * @param gameID The ID of the game whose command count we need to access.
 	 * @return The number of commands performed on the specified game.
+	 * @throws DatabaseException 
 	 */
-	public int getCommandCount(int gameID);
+	public int getCommandCount(int gameID) throws DatabaseException;
 	
 	/**
 	 * Creates a command in the database.
