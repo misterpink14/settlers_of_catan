@@ -1,5 +1,7 @@
 package server.database.dao;
 
+import java.util.List;
+
 import server.command.ACommand;
 
 public class MongoCommandDAO implements ICommandDAO {
@@ -24,7 +26,7 @@ public class MongoCommandDAO implements ICommandDAO {
 	}
 
 	@Override
-	public String getAllCommands() {
+	public List<ACommand> getAllCommands() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -33,6 +35,12 @@ public class MongoCommandDAO implements ICommandDAO {
 	public void clear() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void clearCommands(int gameID) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

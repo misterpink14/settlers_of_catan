@@ -1,6 +1,18 @@
 package server.database.dao;
 
-import server.command.ACommand;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import server.database.DatabaseException;
+import server.database.DatabaseRepresentation;
+import shared.models.Game;
+import shared.serializerJSON.Deserializer;
 
 /**
  * 
@@ -9,57 +21,72 @@ import server.command.ACommand;
  */
 public class SqlGameDAO implements IGameDAO {
 
-	/**
-	 * Gets a game by game ID
-	 * @param gameID The ID of the game we want to access.
-	 * @return The serialized game from the database in the form of a JSON string.
-	 */
+	DatabaseRepresentation db;
+	
+	public SqlGameDAO(DatabaseRepresentation db) {
+		this.db = db;
+	}
+
 	@Override
-	public String getGame(int gameID) {
+	public Game getGame(int gameID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * Saves a game to the database.
-	 * @param gameID The ID of the game we're saving to the database.
-	 * @param gameJson The serialized game in the form of JSON.
-	 */
 	@Override
-	public void saveGame(int gameID, String gameJson) {
+	public void saveGame(Game game) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	/**
-	 * Gets all games saved in the database.
-	 * @return A JSON string of all of the games in the database.
-	 */
-	public String getAllGames() {
-		return null;
-	}
-	
-	/**
-	 * Returns the number of commands performed on the game in the database.
-	 * @param gameID The ID of the game whose command count we need to access.
-	 * @return The number of commands performed on the specified game.
-	 */
-	public int getCommandCount(int gameID) {
-		return -1;
-	}
-	
-	/**
-	 * Creates a command in the database.
-	 * @param command The command we're creating in the database.
-	 */
-	public void createCommand(ACommand command) {
-		
+	public List<Game> getAllGames() throws DatabaseException {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<Game> games = new ArrayList<Game>();
+		try {
+			String query = "SELECT gameID, title, gameJSON FROM Games";
+			stmt = db.getConnection().prepareStatement(query);
+			
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				int gameID = rs.getInt(1);
+				String title = rs.getString(2);
+				String gameJSON = rs.getString(3);
+				Game g = new Game();
+				g.setId(gameID);
+				g.setTitle(title);
+				JsonObject jsonObj = new JsonParser().parse(gameJSON).getAsJsonObject();
+				Deserializer.getInstance().deserialize(g, jsonObj);
+				games.add(g);
+			}
+		} catch (SQLException e) {
+			throw new DatabaseException("Could not get all games", e);
+		} finally {
+			DatabaseRepresentation.safeClose(rs);
+			DatabaseRepresentation.safeClose(stmt);
+		}
+		return games;
 	}
 
 	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-		
+	public void clear() throws DatabaseException {
+		PreparedStatement stmt = null;
+		try {
+			String clearGames = "DROP TABLE IF EXISTS Games;" +
+					"CREATE TABLE Games (" +
+					"gameID INTEGER PRIMARY KEY , " +
+					"Title TEXT, " +
+					"gameJSON TEXT NOT NULL,  " +
+					"commandsToSave INTEGER);";
+			stmt = db.getConnection().prepareStatement(clearGames);
+			
+			if (stmt.executeUpdate() != 1) {
+				throw new DatabaseException("Could not clear games");
+			}
+		} catch (SQLException e) {
+			throw new DatabaseException("Could not clear games", e);
+		} finally {
+			DatabaseRepresentation.safeClose(stmt);
+		}
 	}
-
 }

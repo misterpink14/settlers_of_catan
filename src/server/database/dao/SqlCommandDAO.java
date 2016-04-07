@@ -1,6 +1,9 @@
 package server.database.dao;
 
+import java.util.List;
+
 import server.command.ACommand;
+import server.database.DatabaseException;
 
 public class SqlCommandDAO implements ICommandDAO {
 	
@@ -23,13 +26,19 @@ public class SqlCommandDAO implements ICommandDAO {
 	}
 
 	@Override
-	public String getAllCommands() {
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<ACommand> getAllCommands() throws DatabaseException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void clear() {
+	public void clearCommands(int gameID) {
 		// TODO Auto-generated method stub
 		
 	}
