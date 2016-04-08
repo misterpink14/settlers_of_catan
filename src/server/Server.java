@@ -103,6 +103,16 @@ public class Server {
 	 */
 	private void run() {
 		
+		try
+		{
+			DatabaseRepresentation.initialize();
+			DatabaseRepresentation.dropAndRecreateTables();
+		} catch (DatabaseException e1)
+		{
+			System.out.println("Failed to initialize the Database");
+			e1.printStackTrace();
+		}
+		
 		logger.info("Initializing HTTP Server");
 		
 		try {
@@ -113,7 +123,7 @@ public class Server {
 			logger.log(Level.SEVERE, e.getMessage(), e);			
 			return;
 		}
-
+		
 		server.setExecutor(null); // use the default executor
 		server.createContext("/user", handler);
 		server.createContext("/game", handler);

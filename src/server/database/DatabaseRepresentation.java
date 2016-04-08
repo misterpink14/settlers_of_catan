@@ -3,6 +3,9 @@ package server.database;
 import java.sql.*;
 import java.util.logging.*;
 
+import server.database.dao.SqlGameDAO;
+import server.database.dao.SqlUserDAO;
+
 //import server.databaseAccess.*;
 
 /**
@@ -64,20 +67,20 @@ public class DatabaseRepresentation
 		String dropUsers = "DROP TABLE IF EXISTS Users;";
 		String dropGames = "DROP TABLE IF EXISTS Games;";
 		String dropCommands = "DROP TABLE IF EXISTS Commands;";
-		String dropUserGame = "DROP TABLE IF EXISTS UserGame;";
 		String createUsers = "CREATE TABLE Users (" +
 				"userID INTEGER PRIMARY KEY," +
 				"username TEXT NOT NULL," +
 				"password TEXT NOT NULL);";
 		String createGames = "CREATE TABLE Games (" +
 				"gameID INTEGER PRIMARY KEY, " +
-				"title TEXT, " +
-				"gameJSON TEXT NOT NULL);";
+				"Title TEXT, " +
+				"gameJSON TEXT NOT NULL,  " +
+				"lastCommandSaved INTEGER);";
 		String createCommands = "CREATE TABLE Commands ("+ 
-			"commandID INTEGER PRIMARY KEY  AUTOINCREMENT ," +
+			"commandID INTEGER PRIMARY KEY, " +
 			"commandJSON TEXT NOT NULL, " +
-			"gameID INTEGER NOT NULL, " +
-			"FOREIGN KEY gameID REFERENCES Games.gameID);";
+			"commandNumber TEXT NOT NULL, " +
+			"gameID INTEGER NOT NULL);";
 		try 
 		{
 			Statement smt = cnt.createStatement();
@@ -104,7 +107,8 @@ public class DatabaseRepresentation
 	 * All the DAO's store the specified sql commands for each type of object
 	 */
 
-	//private BatchDAO batchDAO;
+	SqlGameDAO gamedao;
+	SqlUserDAO userdao;
 	private Connection connection;
 	
 	public DatabaseRepresentation() 
@@ -223,8 +227,13 @@ public class DatabaseRepresentation
 		}
 	}
 
-	//public BatchDAO getBatchDAO()
-	//{
-		//return batchDAO;
-	//}
+	public SqlGameDAO getGameDAO()
+	{
+		return gamedao;
+	}
+	
+	public SqlUserDAO getUserDAO()
+	{
+		return userdao;
+	}
 }
