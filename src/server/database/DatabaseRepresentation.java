@@ -17,7 +17,7 @@ import server.database.dao.SqlUserDAO;
 public class DatabaseRepresentation 
 {
 	
-	private static final String DATABASE_FILE = "recordIndexerDatabase.sqlite";
+	private static final String DATABASE_FILE = "db.sqlite";
 	private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_FILE;
 
 	private static Logger logger;
