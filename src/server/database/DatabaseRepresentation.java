@@ -68,9 +68,9 @@ public class DatabaseRepresentation
 		String dropGames = "DROP TABLE IF EXISTS Games;";
 		String dropCommands = "DROP TABLE IF EXISTS Commands;";
 		String createUsers = "CREATE TABLE Users (" +
-				"userID INTEGER PRIMARY KEY," +
-				"username TEXT NOT NULL," +
-				"password TEXT NOT NULL);";
+				"userID INTEGER UNIQUE PRIMARY KEY," +
+				"username TEXT UNIQUE NOT NULL," +
+				"password TEXT UNIQUE NOT NULL);";
 		String createGames = "CREATE TABLE Games (" +
 				"gameID INTEGER PRIMARY KEY, " +
 				"Title TEXT, " +
@@ -107,13 +107,14 @@ public class DatabaseRepresentation
 	 * All the DAO's store the specified sql commands for each type of object
 	 */
 
-	SqlGameDAO gamedao;
-	SqlUserDAO userdao;
+	static SqlGameDAO gamedao;
+	static SqlUserDAO userdao;
 	private Connection connection;
 	
 	public DatabaseRepresentation() 
 	{
-		//batchDAO = new BatchDAO(this);
+		gamedao = new SqlGameDAO(this);
+		userdao = new SqlUserDAO(this);
 		connection = null;
 	}
 	/**

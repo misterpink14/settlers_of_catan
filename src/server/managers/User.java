@@ -39,7 +39,7 @@ public class User {
 	
 	
 	public int getPlayerID() {
-		return this.credentials.playerID;
+		return this.playerID;
 	}
 	
 	
