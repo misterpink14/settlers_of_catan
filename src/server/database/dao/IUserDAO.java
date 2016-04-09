@@ -4,6 +4,7 @@ import java.util.List;
 
 import server.database.DatabaseException;
 import server.managers.User;
+import shared.communication.proxy.Credentials;
 
 /**
  * 
@@ -19,14 +20,14 @@ public interface IUserDAO {
 	 * @return The user from the database.
 	 * @throws DatabaseException 
 	 */
-	public User getUser(int userID) throws DatabaseException;
+	public Credentials getUser(int userID) throws DatabaseException;
 	
 	/**
 	 * Gets all users saved in the database.
 	 * @return A list of all users saved in the database.
 	 * @throws DatabaseException 
 	 */
-	public List<User> getAllUsers() throws DatabaseException;
+	public List<Credentials> getAllUsers() throws DatabaseException;
 	
 	/**
 	 * Creates a user in the database.

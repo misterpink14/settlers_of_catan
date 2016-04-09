@@ -60,7 +60,7 @@ public class SqlUserDAOTest {
 		DatabaseRepresentation db = new DatabaseRepresentation();
 		try {
 			db.startTransaction();
-			List<User> allUsers = db.getUserDAO().getAllUsers();
+			List<Credentials> allUsers = db.getUserDAO().getAllUsers();
 			if(allUsers.size() != 0) {
 				db.getUserDAO().clear();
 			}
@@ -83,8 +83,8 @@ public class SqlUserDAOTest {
 			db.getUserDAO().createUser(user3);
 			db.getUserDAO().createUser(user4);
 			
-			User test1 = db.getUserDAO().getUser(2);
-			assertTrue(test1.getUsername().equals("test1"));
+			Credentials test1 = db.getUserDAO().getUser(2);
+			assertTrue(test1.username.equals("test2"));
 			
 			allUsers = db.getUserDAO().getAllUsers();
 			assertTrue(allUsers.size() == 4);

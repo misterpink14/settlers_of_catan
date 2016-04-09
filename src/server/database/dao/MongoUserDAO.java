@@ -3,6 +3,7 @@ package server.database.dao;
 import java.util.List;
 
 import server.managers.User;
+import shared.communication.proxy.Credentials;
 
 /**
  * 
@@ -12,11 +13,11 @@ import server.managers.User;
 
 public class MongoUserDAO implements IUserDAO {
 
-	public User getUser(int userID) {
+	public Credentials getUser(int userID) {
 		return null;
 	}
 	
-	public List<User> getAllUsers() {
+	public List<Credentials> getAllUsers() {
 		return null;
 	}
 	

@@ -26,7 +26,7 @@ public class SqlUserDAO implements IUserDAO {
 		this.db = db;
 	}
 	
-	public User getUser(int userID) throws DatabaseException {
+	public Credentials getUser(int userID) throws DatabaseException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
@@ -44,8 +44,7 @@ public class SqlUserDAO implements IUserDAO {
 				cred.playerID = id;
 				cred.username = username;
 				cred.password = password;
-				User u = new User(cred);
-				return u;
+				return cred;
 			} else {
 				throw new DatabaseException("Could not find game with id " + userID);
 			}
@@ -57,10 +56,10 @@ public class SqlUserDAO implements IUserDAO {
 		}
 	}
 	
-	public List<User> getAllUsers() throws DatabaseException {
+	public List<Credentials> getAllUsers() throws DatabaseException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		List<User> users = new ArrayList<User>();
+		List<Credentials> users = new ArrayList<Credentials>();
 		try {
 			String query = "SELECT userID, username, password FROM Users;";
 			stmt = db.getConnection().prepareStatement(query);
@@ -73,8 +72,7 @@ public class SqlUserDAO implements IUserDAO {
 				cred.playerID = userID;
 				cred.username = username;
 				cred.password = password;
-				User u = new User(cred);
-				users.add(u);
+				users.add(cred);
 			}
 		} catch (SQLException e) {
 			throw new DatabaseException("Could not get all users", e);
