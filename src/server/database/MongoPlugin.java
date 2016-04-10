@@ -1,12 +1,32 @@
 package server.database;
 
+import server.database.dao.ICommandDAO;
+import server.database.dao.IGameDAO;
+import server.database.dao.IUserDAO;
+import server.database.dao.MongoCommandDAO;
+import server.database.dao.MongoGameDAO;
+import server.database.dao.MongoUserDAO;
+
 /**
  * 
- * @author Bo Pace
+ * @author Bo Pace, Ben Thompson
  *
  */
 
 public class MongoPlugin implements IPersistencePlugin {
+	
+	IUserDAO UserDAO;
+	IGameDAO GameDAO;
+	ICommandDAO CommandDAO;
+	
+	
+	public MongoPlugin() {
+
+		UserDAO = new MongoUserDAO();
+		GameDAO = new MongoGameDAO();
+		CommandDAO = new MongoCommandDAO();
+	}
+	
 
 	/**
 	 * Starts a transaction to the database.
@@ -37,38 +57,29 @@ public class MongoPlugin implements IPersistencePlugin {
 
 	/**
 	 * Gets an instance of the game DAO from the current persistence plugin.
+	 * @return 
 	 */
 	@Override
-	public void getGameDAO() {
-		// TODO Auto-generated method stub
-		
+	public IGameDAO getGameDAO() {
+		return this.GameDAO;
 	}
 
 	/**
 	 * Gets an instance of the user DAO from the current persistence plugin.
+	 * @return 
 	 */
 	@Override
-	public void getUserDAO() {
-		// TODO Auto-generated method stub
-		
+	public IUserDAO getUserDAO() {
+		return this.UserDAO;
 	}
 	
 	/**
 	 * Gets an instance of the command DAO from the current persistence plugin.
+	 * @return 
 	 */
 	@Override
-	public void getCommandDAO() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Determines if the current state of the server has reached the defined delta, causing us to commit the changes.
-	 */
-	@Override
-	public boolean hasReachedDelta() {
-		// TODO Auto-generated method stub
-		return false;
+	public ICommandDAO getCommandDAO() {
+		return this.CommandDAO;
 	}
 
 }

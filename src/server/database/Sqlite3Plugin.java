@@ -1,22 +1,57 @@
 package server.database;
 
+import server.database.dao.ICommandDAO;
+import server.database.dao.IGameDAO;
+import server.database.dao.IUserDAO;
+import server.database.dao.SqlCommandDAO;
+import server.database.dao.SqlGameDAO;
+import server.database.dao.SqlUserDAO;
+
 /**
  * 
- * @author Bo Pace
+ * @author Bo Pace, Ben Thompson
  *
  */
 
 public class Sqlite3Plugin implements IPersistencePlugin {
 	
 	String sqliteUri;
+	
+	IGameDAO GameDAO;
+	IUserDAO UserDAO;
+	ICommandDAO CommandDAO;
+	
+	DatabaseRepresentation db = new DatabaseRepresentation();;
+	
+	public Sqlite3Plugin (int delta) {
+
+		GameDAO = new SqlGameDAO(this.db);
+		UserDAO = new SqlUserDAO(this.db);
+		CommandDAO = new SqlCommandDAO(delta, this.db);
+		
+		// Initialize the database representation class
+		try
+		{
+			DatabaseRepresentation.initialize();
+		} catch (DatabaseException e1)
+		{
+			System.out.println("Failed to initialize the Database");
+			e1.printStackTrace();
+		}
+	}
+	
 
 	/**
 	 * Starts a transaction to the database.
+	 * @throws DatabaseException 
 	 */
 	@Override
 	public void startTransaction() {
-		// TODO Auto-generated method stub
-		
+		try {
+			db.startTransaction();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -24,8 +59,7 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 	 */
 	@Override
 	public void endTransaction() {
-		// TODO Auto-generated method stub
-		
+		db.endTransaction(true);
 	}
 
 	/**
@@ -33,44 +67,34 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 	 */
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		DatabaseRepresentation.dropAndRecreateTables();
 	}
 
 	/**
 	 * Gets an instance of the game DAO from the current persistence plugin.
+	 * @return 
 	 */
 	@Override
-	public void getGameDAO() {
-		// TODO Auto-generated method stub
-		
+	public IGameDAO getGameDAO() {
+		return this.GameDAO;
 	}
 
 	/**
 	 * Gets an instance of the user DAO from the current persistence plugin.
+	 * @return 
 	 */
 	@Override
-	public void getUserDAO() {
-		// TODO Auto-generated method stub
-		
+	public IUserDAO getUserDAO() {
+		return this.UserDAO;
 	}
 	
 	/**
 	 * Gets an instance of the command DAO from the current persistence plugin.
+	 * @return 
 	 */
 	@Override
-	public void getCommandDAO() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Determines if the current state of the server has reached the defined delta, causing us to commit the changes.
-	 */
-	@Override
-	public boolean hasReachedDelta() {
-		// TODO Auto-generated method stub
-		return false;
+	public ICommandDAO getCommandDAO() {
+		return this.CommandDAO;
 	}
 
 }

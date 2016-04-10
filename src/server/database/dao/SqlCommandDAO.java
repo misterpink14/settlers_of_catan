@@ -20,8 +20,9 @@ public class SqlCommandDAO implements ICommandDAO {
 	private int delta;
 	private DatabaseRepresentation db;
 	
-	public SqlCommandDAO(int delta) {
+	public SqlCommandDAO(int delta, DatabaseRepresentation db) {
 		this.delta = delta;
+		this.db = db;
 	}
 	
 	/**
