@@ -2,9 +2,9 @@ package server.database.dao;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import server.database.DatabaseException;
@@ -14,18 +14,17 @@ import shared.communication.proxy.Credentials;
 
 public class SqlUserDAOTest {
 
-	@Test
-	public void testGetUser() {
-		
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		try {
+			DatabaseRepresentation.initialize();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
 	}
-
+	
 	@Test
-	public void testGetAllUsers() {
-		
-	}
-
-	@Test
-	public void testCreateUser() {
+	public void testCreateUsers() {
 		DatabaseRepresentation db = new DatabaseRepresentation();
 		try {
 			db.startTransaction();
@@ -51,12 +50,7 @@ public class SqlUserDAOTest {
 	}
 
 	@Test
-	public void testClear() {
-		try {
-			DatabaseRepresentation.initialize();
-		} catch (DatabaseException e) {
-			e.printStackTrace();
-		}
+	public void testClearAndRepopulate() {
 		DatabaseRepresentation db = new DatabaseRepresentation();
 		try {
 			db.startTransaction();
@@ -73,6 +67,7 @@ public class SqlUserDAOTest {
 			Credentials cred3 = new Credentials("test3","test3");
 			Credentials cred4 = new Credentials("test4","test4");
 			User user1 = new User(cred1);
+			int id = user1.getPlayerID();
 			User user2 = new User(cred2);
 			User user3 = new User(cred3);
 			User user4 = new User(cred4);
@@ -83,8 +78,8 @@ public class SqlUserDAOTest {
 			db.getUserDAO().createUser(user3);
 			db.getUserDAO().createUser(user4);
 			
-			Credentials test1 = db.getUserDAO().getUser(2);
-			assertTrue(test1.username.equals("test2"));
+			Credentials test1 = db.getUserDAO().getUser(id);
+			assertTrue(test1.username.equals("test1"));
 			
 			allUsers = db.getUserDAO().getAllUsers();
 			assertTrue(allUsers.size() == 4);

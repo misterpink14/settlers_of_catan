@@ -73,7 +73,7 @@ public class MongoUserDAO implements IUserDAO {
 		MongoCollection<Document> col = db.getCollection("users");
 		System.out.println(user.getUsername());
 		col.insertOne(new Document().append("username", user.getUsername())
-				.append("password", user.getPassword()).append("userID", user.getPlayerID()));
+				.append("password", user.getPassword()).append("playerID", user.getPlayerID()));
 		
 	}
 	

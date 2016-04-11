@@ -1,5 +1,7 @@
 package server.facade;
 
+import java.util.List;
+
 import server.ServerException;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
@@ -21,6 +23,7 @@ import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
+import shared.models.Game;
 
 public class FakeServerFacade implements IServerFacade {
 	
@@ -229,13 +232,13 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public void restoreAllUsers(String json) {
+	public void restoreAllUsers(List<Credentials> credentials) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void restoreAllGames(String json) {
+	public void restoreAllGames(List<Game> games) {
 		// TODO Auto-generated method stub
 		
 	}
