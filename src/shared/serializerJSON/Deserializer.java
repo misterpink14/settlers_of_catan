@@ -681,9 +681,19 @@ public class Deserializer {
 			jsonCommand.get("type").getAsJsonObject().get("path1").getAsString()
 		};
 		
-		Gson gson = new GsonBuilder().create();
-		java.lang.reflect.Type typeOfHashMap = new TypeToken<HashMap<String, String>>() { }.getType();
-		HashMap<String, String> cookies = gson.fromJson(json, typeOfHashMap);
+		//Gson gson = new GsonBuilder().create();
+		//java.lang.reflect.Type typeOfHashMap = new TypeToken<HashMap<String, String>>() { }.getType();
+		//HashMap<String, String> cookies = gson.fromJson(json, typeOfHashMap);
+		
+		HashMap<String, String> cookies = new HashMap<String, String>();
+		if (jsonCommand.has("cookies")) {
+			if(jsonCommand.get("cookies").getAsJsonObject().has("catan.user")) {
+				cookies.put("catan.user", jsonCommand.get("cookies").getAsJsonObject().get("catan.user").getAsString());
+			}
+			if(jsonCommand.get("cookies").getAsJsonObject().has("catan.game")) {
+				cookies.put("catan.game", jsonCommand.get("cookies").getAsJsonObject().get("catan.game").getAsString());
+			}
+		}
 		
 		ACommand command = CommandFactory.getInstance().buildCommand(
 			commandType,
