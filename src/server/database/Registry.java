@@ -17,7 +17,7 @@ public class Registry {
 	 * Loads the correct .jar file for the persistence plugin.
 	 * @param plugin The location of the plugin we want to load.
 	 */
-	public void loadConfig(String pluginLocation) {
+	public void loadConfig(String pluginLocation, int delta) {
 		
 	}
 	

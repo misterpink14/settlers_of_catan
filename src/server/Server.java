@@ -14,7 +14,9 @@ import com.sun.net.httpserver.HttpServer;
 
 import server.database.DatabaseException;
 import server.database.DatabaseRepresentation;
+import server.database.IPersistencePlugin;
 import server.database.MongoPlugin;
+import server.database.Registry;
 import server.facade.FakeServerFacade;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
@@ -56,17 +58,18 @@ public class Server {
 		return;
 	}
 	
-	private Server(String host, int port, boolean isTest) {
+	private Server(String host, int port, boolean isTest, String pluginClass, int delta) {
 		this.host = host;
 		this.port = port;
-		if (isTest) {
+		if (isTest) { // don't worry about the plugins here
 			System.out.println("Creating a fake facade for testing purposes");
 			IServerFacade serverFacade = new FakeServerFacade();
 			this.handler = new RequestHandler(serverFacade, new MongoPlugin());
 		}
 		else {
 			IServerFacade serverFacade = new ServerFacade();
-			this.handler = new RequestHandler(serverFacade, new MongoPlugin());
+			IPersistencePlugin plugin = this.initializePlugin(pluginClass, delta);
+			this.handler = new RequestHandler(serverFacade, plugin);
 		}
 		return;
 	}
@@ -144,31 +147,28 @@ public class Server {
 	 * @param plugin The name of the plugin the user wishes to start up.
 	 * @param delta The number of commands between game state checkpoints.
 	 */
-	private void initializePlugin(String plugin, int delta) {
-		// TODO
+	private IPersistencePlugin initializePlugin(String plugin, int delta) {
+		Registry r = new Registry();
+		r.loadConfig(plugin, delta);
+		return r.getPlugin();
 	}
 	
 	public static void main(String[] args) throws Exception {
-		for (int i = 0; i < args.length; i++) {
-			System.out.println(args[i]);
-		}
-		if (args.length > 4) {
-			System.out.println("Must run server with format: host port-number test");
+		
+		if (args.length != 5) {
+			System.out.println("Must run server with format: host port-number test plugin delta");
 			throw new Exception();
 		}
 		
-		if (args.length != 0) { 
-			String host = args[0];
-			int port = Integer.parseInt(args[1]);
-			boolean isTest = false;
-			if (args.length == 3) {
-				isTest = args[2].equals("true");
-			}
-			new Server(host, port, isTest).run();
+		String host = args[0];
+		int port = Integer.parseInt(args[1]);
+		boolean isTest = false;
+		if (args.length == 3) {
+			isTest = args[2].equals("true");
 		}
-		else {
-			new Server().run();
-		}
+		String pluginClass = args[3];
+		int delta = Integer.parseInt(args[4]);
+		new Server(host, port, isTest, pluginClass, delta).run();
 	}
 
 }
