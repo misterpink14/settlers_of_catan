@@ -173,6 +173,9 @@ public class ServerFacade implements IServerFacade {
 		return Serializer.getInstance().serialize(game);
 	}
 
+	public Game getGameByID(int gameID) {
+		return this.gameManager.getGameByID(gameID);
+	}
 
 	@Override
 	public String addAI(String aiType, int gameID) throws ServerException {
