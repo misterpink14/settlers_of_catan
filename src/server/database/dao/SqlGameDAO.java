@@ -84,21 +84,22 @@ public class SqlGameDAO implements IGameDAO {
 	}
 
 	@Override
-	public void saveGame(int gameID, String title, String gameJSON) throws DatabaseException {
+	public void saveGame(Game game) throws DatabaseException {
 		PreparedStatement stmt = null;
 		
 		try {
 			String query = "";
-			if (gameInDB(gameID)) {
+			String gameJSON = Serializer.getInstance().serialize(game);
+			if (gameInDB(game.getId())) {
 				query = "UPDATE Games SET gameJSON = ? WHERE gameID = ?";
 				stmt = db.getConnection().prepareStatement(query);
 				stmt.setString(1, gameJSON);
-				stmt.setInt(2, gameID);
+				stmt.setInt(2, game.getId());
 			} else {
 				query = "INSERT INTO Games (gameID, title, gameJSON) values (?, ?, ?)";
 				stmt = db.getConnection().prepareStatement(query);
-				stmt.setInt(1, gameID);
-				stmt.setString(2, title);
+				stmt.setInt(1, game.getId());
+				stmt.setString(2, game.getTitle());
 				stmt.setString(3, gameJSON);
 			}
 			
