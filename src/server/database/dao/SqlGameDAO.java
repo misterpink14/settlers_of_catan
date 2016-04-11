@@ -149,9 +149,7 @@ public class SqlGameDAO implements IGameDAO {
 			String clearGames = "DELETE FROM Games";
 			stmt = db.getConnection().prepareStatement(clearGames);
 			
-			if (stmt.executeUpdate() != 1) {
-				throw new DatabaseException("Could not clear games");
-			}
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DatabaseException("Could not clear games", e);
 		} finally {
