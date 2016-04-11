@@ -90,4 +90,11 @@ public class MongoPlugin implements IPersistencePlugin {
 		CommandDAO.setDelta(delta);
 	}
 
+
+	@Override
+	public void rollback() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

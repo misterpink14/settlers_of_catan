@@ -75,6 +75,15 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 			db.endTransaction(false);
 		}
 	}
+	
+	public void rollback() {
+		try {
+			db.endTransaction(false);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
 	/**
 	 * Clears the current transaction.

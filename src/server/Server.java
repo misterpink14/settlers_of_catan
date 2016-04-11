@@ -78,6 +78,7 @@ public class Server {
 				plugin.endTransaction();
 			} catch (DatabaseException e) {
 				e.printStackTrace();
+				plugin.rollback();
 			}
 			this.handler = new RequestHandler(serverFacade, plugin);
 		}

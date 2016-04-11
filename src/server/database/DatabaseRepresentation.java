@@ -151,7 +151,7 @@ public class DatabaseRepresentation
 	 * Ends the transaction with the database
 	 * @param commit if set to true, your changes you have made will be final, otherwise they are rolled back
 	 */
-	public void endTransaction(boolean commit) 
+	public void endTransaction(boolean commit)
 	{
 		if (connection != null) 
 		{		
@@ -170,6 +170,12 @@ public class DatabaseRepresentation
 			{
 				System.out.println("Could not end transaction");
 				e.printStackTrace();
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			finally 
 			{

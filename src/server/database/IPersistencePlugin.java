@@ -45,4 +45,6 @@ public interface IPersistencePlugin {
 
 	
 	public void setDelta(int delta);
+
+	public void rollback();
 }
