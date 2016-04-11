@@ -14,14 +14,19 @@ import java.util.logging.Logger;
 
 import org.apache.commons.io.IOUtils;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import server.ServerException;
 import server.command.ACommand;
 import server.command.CommandFactory;
+import server.database.DatabaseException;
 import server.database.IPersistencePlugin;
 import server.facade.IServerFacade;
+import server.managers.User;
+import shared.communication.proxy.Credentials;
 import shared.serializerJSON.Serializer;
 
 /**
@@ -64,12 +69,24 @@ public class RequestHandler implements HttpHandler
 			HashMap<String, String> cookies = (HashMap<String, String>)this.parseCookie(exchange);
 			String requestMethod = exchange.getRequestMethod();
 			
-			Serializer.getInstance().serializeCommand(
+			String commandJson = Serializer.getInstance().serializeCommand(
 				commandType,
 				json,
 				cookies,
 				requestMethod
 			);
+			
+			System.out.println(commandJson);
+			JsonParser parser = new JsonParser();
+			JsonObject commandJO = parser.parse(commandJson).getAsJsonObject();
+			if (commandJO.getAsJsonObject("cookies").has("catan.game")) {
+				System.out.println(commandJO.getAsJsonObject("cookies").get("catan.game").getAsInt());
+			}
+			if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
+				this.addUser(commandJson);
+			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
+				
+			}
 			
 			ACommand command = CommandFactory.getInstance().buildCommand(
 				commandType,
@@ -255,11 +272,16 @@ public class RequestHandler implements HttpHandler
 	
 	/**
 	 * Adds a command to a specified game.
-	 * @param gameID The ID of the game to receive the new command.
 	 * @param jsonCommand A serialized command object in the form of a JSON string.
 	 */
-	public void addCommand(int gameID, String jsonCommand) {
-		
+	public void addCommand(String jsonCommand) {
+		plugin.startTransaction();
+		try {
+			plugin.getCommandDAO().createCommand(jsonCommand);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		plugin.endTransaction();
 	}
 	
 	/**
@@ -267,6 +289,24 @@ public class RequestHandler implements HttpHandler
 	 * @param jsonUser A serialized user in the form of a JSON string.
 	 */
 	public void addUser(String jsonUser) {
+		JsonParser parser = new JsonParser();
+		JsonObject userInfo = parser.parse(jsonUser).getAsJsonObject();
+		String username = userInfo.get("body").getAsJsonObject().get("username").getAsString();
+		String password = userInfo.get("body").getAsJsonObject().get("password").getAsString();
+		Credentials cred = new Credentials(username, password);
 		
+		plugin.startTransaction();
+		
+		try {
+			int userID = facade.getPlayerIDFromCredentials(cred);
+			User user = new User(cred, userID);
+			plugin.getUserDAO().createUser(user);
+		} catch (ServerException e) {
+			e.printStackTrace();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		
+		plugin.endTransaction();
 	}
 }
