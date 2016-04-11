@@ -90,4 +90,9 @@ public class MongoCommandDAO implements ICommandDAO {
 		
 	}
 
+	@Override
+	public void setDelta(int delta) {
+		this.delta = delta;
+	}
+
 }

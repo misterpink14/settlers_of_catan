@@ -1,16 +1,16 @@
 package server.database;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import server.database.dao.IGameDAO;
 import server.database.dao.IUserDAO;
+import server.database.plugin.Sqlite3Plugin;
 import server.managers.User;
 import shared.communication.proxy.Credentials;
-import shared.models.Game;
 
 public class Sqlite3PluginTest {
 
@@ -20,15 +20,12 @@ public class Sqlite3PluginTest {
 
 	@After
 	public void tearDown() throws Exception {
-//		IPersistencePlugin plugin = new Sqlite3Plugin(5);
-//		(new Sqlite3Plugin(5)).clear();
-//		plugin.endTransaction();
 	}
 
 	@Test
 	public void testTransaction() {
 		
-		IPersistencePlugin plugin = new Sqlite3Plugin(5);
+		IPersistencePlugin plugin = new Sqlite3Plugin();
 		plugin.startTransaction();
 		IUserDAO user = plugin.getUserDAO();
 		try {
@@ -46,7 +43,7 @@ public class Sqlite3PluginTest {
 	@Test
 	public void testClear() {
 		
-		IPersistencePlugin plugin = new Sqlite3Plugin(5);
+		IPersistencePlugin plugin = new Sqlite3Plugin();
 		plugin.startTransaction();
 		IUserDAO user = plugin.getUserDAO();
 		try {

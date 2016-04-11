@@ -43,4 +43,6 @@ public interface IPersistencePlugin {
 	 */
 	public ICommandDAO getCommandDAO();
 
+	
+	public void setDelta(int delta);
 }

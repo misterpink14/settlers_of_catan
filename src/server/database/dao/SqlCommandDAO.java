@@ -42,6 +42,7 @@ public class SqlCommandDAO implements ICommandDAO {
 	 * Sets the delta value
 	 * @param delta
 	 */
+	@Override
 	public void setDelta(int delta) {
 		this.delta = delta;
 	}

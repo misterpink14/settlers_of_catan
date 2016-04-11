@@ -1,5 +1,8 @@
-package server.database;
+package server.database.plugin;
 
+import server.database.DatabaseException;
+import server.database.DatabaseRepresentation;
+import server.database.IPersistencePlugin;
 import server.database.dao.ICommandDAO;
 import server.database.dao.IGameDAO;
 import server.database.dao.IUserDAO;
@@ -23,11 +26,11 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 	
 	DatabaseRepresentation db = new DatabaseRepresentation();;
 	
-	public Sqlite3Plugin (int delta) {
+	public Sqlite3Plugin () {
 
 		GameDAO = new SqlGameDAO(this.db);
 		UserDAO = new SqlUserDAO(this.db);
-		CommandDAO = new SqlCommandDAO(delta, this.db);
+		CommandDAO = new SqlCommandDAO(0, this.db);
 		
 		// Initialize the database representation class
 		try
@@ -38,6 +41,11 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 			System.out.println("Failed to initialize the Database");
 			e1.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void setDelta(int delta) {
+		CommandDAO.setDelta(delta);
 	}
 	
 

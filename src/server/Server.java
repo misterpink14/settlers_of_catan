@@ -15,7 +15,6 @@ import com.sun.net.httpserver.HttpServer;
 import server.database.DatabaseException;
 import server.database.DatabaseRepresentation;
 import server.database.IPersistencePlugin;
-import server.database.MongoPlugin;
 import server.database.Registry;
 import server.facade.FakeServerFacade;
 import server.facade.IServerFacade;
@@ -58,13 +57,15 @@ public class Server {
 		this.handler = new RequestHandler(serverFacade, null);
 	}
 	
+	
+	
 	private Server(String host, int port, boolean isTest, String pluginClass, int delta) {
 		this.host = host;
 		this.port = port;
 		if (isTest) { // don't worry about the plugins here
 			System.out.println("Creating a fake facade for testing purposes");
 			IServerFacade serverFacade = new FakeServerFacade();
-			this.handler = new RequestHandler(serverFacade, new MongoPlugin());
+			this.handler = new RequestHandler(serverFacade, null);
 		}
 		else {
 			IServerFacade serverFacade = new ServerFacade();
@@ -138,7 +139,6 @@ public class Server {
 		
 		logger.info("Starting HTTP Server on port: " + port);
 		server.start();
-		initializePlugin("", -1);
 	}
 	
 	/**

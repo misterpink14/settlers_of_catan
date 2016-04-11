@@ -1,5 +1,6 @@
-package server.database;
+package server.database.plugin;
 
+import server.database.IPersistencePlugin;
 import server.database.dao.ICommandDAO;
 import server.database.dao.IGameDAO;
 import server.database.dao.IUserDAO;
@@ -80,6 +81,13 @@ public class MongoPlugin implements IPersistencePlugin {
 	@Override
 	public ICommandDAO getCommandDAO() {
 		return this.CommandDAO;
+	}
+	
+
+	
+	@Override
+	public void setDelta(int delta) {
+		CommandDAO.setDelta(delta);
 	}
 
 }
