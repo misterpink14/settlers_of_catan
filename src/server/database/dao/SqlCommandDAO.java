@@ -9,11 +9,12 @@ import java.util.List;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.database.DatabaseException;
 import server.database.DatabaseRepresentation;
+import server.facade.IServerFacade;
 import shared.serializerJSON.Deserializer;
-import shared.serializerJSON.Serializer;
 
 public class SqlCommandDAO implements ICommandDAO {
 	
@@ -70,14 +71,15 @@ public class SqlCommandDAO implements ICommandDAO {
 	}
 
 	@Override
-	public void createCommand(ACommand command) throws DatabaseException {
+	public void createCommand(String jsonCommand) throws DatabaseException {
 		PreparedStatement stmt = null;
 		try {
 			String query = "INSERT INTO Commands (commandJSON, gameID) VALUES (?, ?)";
-			//String commandJSON = Serializer.getInstance().serializeCommand(command);
+			JsonParser parser = new JsonParser();
+			JsonObject command = parser.parse(jsonCommand).getAsJsonObject();
 			stmt = db.getConnection().prepareStatement(query);
-			//stmt.setString(1, commandJSON);
-			stmt.setInt(2, command.getGameID());
+			stmt.setString(1, jsonCommand);
+			stmt.setInt(2, command.getAsJsonObject("cookies").get("catan.game").getAsInt());
 			
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not create command");
@@ -107,7 +109,7 @@ public class SqlCommandDAO implements ICommandDAO {
 	}
 
 	@Override
-	public List<ACommand> getAllCommands() throws DatabaseException {
+	public List<ACommand> getAllCommands(IServerFacade facade) throws DatabaseException {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<ACommand> commands = new ArrayList<ACommand>();
@@ -120,11 +122,14 @@ public class SqlCommandDAO implements ICommandDAO {
 				int commandID = rs.getInt(1);
 				String commandJSON = rs.getString(2);
 				int gameID = rs.getInt(3);
-				ACommand command = null; // Need to figure out how I'm creating new commands...
-				JsonObject jsonObj = new JsonParser().parse(commandJSON).getAsJsonObject();
 				//TODO Uncomment the following line when a method is written to implement it.
-				//Deserializer.getInstance().deserialize(command, commandJSON);
-				commands.add(command);
+				ACommand command;
+				try {
+					command = Deserializer.getInstance().deserializeCommand(commandJSON, facade);
+					commands.add(command);
+				} catch (ServerException e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (SQLException e) {
 			throw new DatabaseException("Could not get all commands", e);

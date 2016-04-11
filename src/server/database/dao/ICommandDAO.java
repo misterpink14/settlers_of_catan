@@ -4,6 +4,7 @@ import java.util.List;
 
 import server.command.ACommand;
 import server.database.DatabaseException;
+import server.facade.IServerFacade;
 
 public interface ICommandDAO {
 
@@ -17,15 +18,16 @@ public interface ICommandDAO {
 	
 	/**
 	 * Creates a command in the database.
-	 * @param command The command we're creating in the database.
+	 * @param jsonCommand The command we're creating in the database, serialized with JSON.
 	 */
-	public void createCommand(ACommand command) throws DatabaseException;
+	public void createCommand(String jsonCommand) throws DatabaseException;
 	
 	/**
 	 * Gets all of the commands from all games in the database.
+	 * @param facade The server facade, needed for deserialization of commands
 	 * @return Returns a list of the commands.
 	 */
-	public List<ACommand> getAllCommands() throws DatabaseException;
+	public List<ACommand> getAllCommands(IServerFacade facade) throws DatabaseException;
 	
 	/**
 	 * Clears all of the commands for the specified game in the database
