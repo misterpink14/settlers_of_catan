@@ -301,15 +301,19 @@ public class RequestHandler implements HttpHandler
 	 * @param jsonCommand A serialized command object in the form of a JSON string.
 	 */
 	public void addCommand(int gameID, String jsonCommand) {
-		if (!hasReachedDelta(gameID)) {
 		plugin.startTransaction();
-			try {
+		try {
+			if (!hasReachedDelta(gameID)) {
 				plugin.getCommandDAO().createCommand(gameID, jsonCommand);
-			} catch (DatabaseException e) {
-				e.printStackTrace();
+			} else {
+				saveGame(gameID);
+				plugin.getCommandDAO().clear();
+				plugin.getCommandDAO().createCommand(gameID, jsonCommand);
 			}
-			plugin.endTransaction();
+		} catch (DatabaseException e) {
+			e.printStackTrace();
 		}
+		plugin.endTransaction();
 	}
 	
 	/**
