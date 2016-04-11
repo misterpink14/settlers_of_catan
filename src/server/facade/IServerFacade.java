@@ -285,6 +285,8 @@ public interface IServerFacade {
 	 * @param json
 	 */
 	public void runAllCommands(List<ACommand> commands);
+	
+	public Game getGameByID(int gameID);
 
 	
 }

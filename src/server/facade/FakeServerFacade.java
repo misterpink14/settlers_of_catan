@@ -250,4 +250,5 @@ public class FakeServerFacade implements IServerFacade {
 		
 	}
 	
+	public Game getGameByID(int gameID) { return null; }
 }
