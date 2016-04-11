@@ -93,7 +93,7 @@ public class MongoGameDAO implements IGameDAO {
 
 	@Override
 	public void clear() {
-		db.getCollection("users").drop();
+		db.getCollection("games").drop();
 	}
 
 }
