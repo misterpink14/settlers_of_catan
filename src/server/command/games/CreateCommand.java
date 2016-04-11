@@ -54,5 +54,9 @@ public class CreateCommand extends ACommand {
 	@Override
 	public void execute() {
 		this.response = this.getFacade().createGame(params);
+		String jsonResponse = this.response;
+		JsonParser parser = new JsonParser();
+		JsonObject info = parser.parse(jsonResponse).getAsJsonObject();
+		this.gameID = info.get("id").getAsInt();
 	}
 }

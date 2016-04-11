@@ -158,7 +158,6 @@ public class ServerFacade implements IServerFacade {
 // GAME
 	@Override
 	public String getModel(int versionNumber, int gameID) {
-		
 		Game game = this.gameManager.getGameByID(gameID);
 		if (game.getVersionID() == versionNumber) {
 			return "\"true\"";
