@@ -11,5 +11,9 @@
 	<classpathentry kind="lib" path="lib/checkstyle-5.3-all.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.5-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/skydr/OneDrive/Documents/GitHub/settlers_of_catan/lib/bson-3.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/skydr/OneDrive/Documents/GitHub/settlers_of_catan/lib/mongodb-driver-3.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/skydr/OneDrive/Documents/GitHub/settlers_of_catan/lib/mongodb-driver-core-3.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/skydr/OneDrive/Documents/GitHub/settlers_of_catan/lib/mongo-java-driver-3.0.4-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

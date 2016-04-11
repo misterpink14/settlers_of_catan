@@ -1,0 +1,4 @@
+Apr 11, 2016 3:54:24 PM server.Server run
+INFO: Initializing HTTP Server
+Apr 11, 2016 3:54:25 PM server.Server run
+INFO: Starting HTTP Server on port: 8081
