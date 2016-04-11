@@ -24,7 +24,7 @@ public interface ICommandDAO {
 	 * Creates a command in the database.
 	 * @param jsonCommand The command we're creating in the database, serialized with JSON.
 	 */
-	public void createCommand(String jsonCommand) throws DatabaseException;
+	public void createCommand(int gameID, String jsonCommand) throws DatabaseException;
 	
 	/**
 	 * Gets all of the commands from all games in the database.

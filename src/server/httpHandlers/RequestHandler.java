@@ -101,6 +101,10 @@ public class RequestHandler implements HttpHandler
 				this.addUser(commandJson);
 			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("create")) {
 				this.saveGame(command.getGameID());
+			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("join")) {
+				this.addCommand(command.getGameID(), commandJson);
+			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("moves")) {
+				this.addCommand(command.getGameID(), commandJson);
 			}
 			
 			sendResponse(command, exchange);
@@ -298,16 +302,14 @@ public class RequestHandler implements HttpHandler
 	
 	/**
 	 * Adds a command to a specified game.
+	 * @param gameID The id of the game we're saving the command to.
 	 * @param jsonCommand A serialized command object in the form of a JSON string.
 	 */
-	public void addCommand(String jsonCommand) {
-		JsonParser parser = new JsonParser();
-		JsonObject command = parser.parse(jsonCommand).getAsJsonObject();
-		
-		if (!hasReachedDelta(command.getAsJsonObject("cookies").get("catan.game").getAsInt())) {
+	public void addCommand(int gameID, String jsonCommand) {
+		if (!hasReachedDelta(gameID)) {
 		plugin.startTransaction();
 			try {
-				plugin.getCommandDAO().createCommand(jsonCommand);
+				plugin.getCommandDAO().createCommand(gameID, jsonCommand);
 			} catch (DatabaseException e) {
 				e.printStackTrace();
 			}

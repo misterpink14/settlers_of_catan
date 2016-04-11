@@ -74,7 +74,7 @@ public class SqlCommandDAO implements ICommandDAO {
 	}
 
 	@Override
-	public void createCommand(String jsonCommand) throws DatabaseException {
+	public void createCommand(int gameID, String jsonCommand) throws DatabaseException {
 		PreparedStatement stmt = null;
 		try {
 			String query = "INSERT INTO Commands (commandJSON, gameID) VALUES (?, ?)";
@@ -82,7 +82,7 @@ public class SqlCommandDAO implements ICommandDAO {
 			JsonObject command = parser.parse(jsonCommand).getAsJsonObject();
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setString(1, jsonCommand);
-			stmt.setInt(2, command.getAsJsonObject("cookies").get("catan.game").getAsInt());
+			stmt.setInt(2, gameID);
 			
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not create command");
