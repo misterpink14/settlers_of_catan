@@ -25,6 +25,7 @@ import server.command.CommandFactory;
 import server.database.DatabaseException;
 import server.database.IPersistencePlugin;
 import server.facade.IServerFacade;
+import server.facade.ServerFacade;
 import server.managers.User;
 import shared.communication.proxy.Credentials;
 import shared.models.Game;
@@ -287,6 +288,7 @@ public class RequestHandler implements HttpHandler
 			count = plugin.getCommandDAO().getCommandCount(gameID);
 			plugin.getCommandDAO();
 			if(count >= plugin.getCommandDAO().getDelta()) {
+				plugin.endTransaction();
 				return true;
 			}
 		} catch (DatabaseException e) {
@@ -307,7 +309,8 @@ public class RequestHandler implements HttpHandler
 			if (!hasReachedDelta(gameID)) {
 				plugin.getCommandDAO().createCommand(gameID, jsonCommand);
 			} else {
-				saveGame(gameID);
+				//saveGame(gameID);
+				plugin.getGameDAO().saveGame(facade.getGameByID(gameID));
 				plugin.getCommandDAO().clearCommands(gameID);
 				plugin.getCommandDAO().createCommand(gameID, jsonCommand);
 			}
