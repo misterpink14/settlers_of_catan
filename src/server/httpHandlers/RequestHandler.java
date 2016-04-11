@@ -83,11 +83,6 @@ public class RequestHandler implements HttpHandler
 			if (commandJO.getAsJsonObject("cookies").has("catan.game")) {
 				System.out.println(commandJO.getAsJsonObject("cookies").get("catan.game").getAsInt());
 			}
-			if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
-				this.addUser(commandJson);
-			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
-				
-			}
 			
 			ACommand command = CommandFactory.getInstance().buildCommand(
 				commandType,
@@ -99,6 +94,12 @@ public class RequestHandler implements HttpHandler
 			
 			// TODO - make this the response with the appropriate cookie
 			command.execute();
+			
+			if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
+				this.addUser(commandJson);
+			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
+				
+			}
 			
 			sendResponse(command, exchange);
 			
