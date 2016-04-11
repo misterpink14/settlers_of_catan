@@ -100,10 +100,7 @@ public class SqlCommandDAO implements ICommandDAO {
 		try {
 			String clearCommands = "DELETE FROM Commands";
 			stmt = db.getConnection().prepareStatement(clearCommands);
-			
-			if (stmt.executeUpdate() != 1) {
-				throw new DatabaseException("Could not clear commands");
-			}
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DatabaseException("Could not clear commands", e);
 		} finally {
@@ -150,9 +147,7 @@ public class SqlCommandDAO implements ICommandDAO {
 			String clearCommands = "DELETE FROM Commands WHERE gameID = ?";
 			stmt = db.getConnection().prepareStatement(clearCommands);
 			stmt.setInt(1, gameID);
-			if (stmt.executeUpdate() != 1) {
-				throw new DatabaseException("Could not delete commands from game");
-			}
+			stmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new DatabaseException("Could not delete commands from game");
 		} finally {
