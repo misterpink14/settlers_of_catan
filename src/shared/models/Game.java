@@ -326,8 +326,10 @@ public class Game extends Observable
 		this.chat = chat;
 		this.offerTrade = offerTrade;
 		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, longestRoad);
-		//this.turnManager.setCurrentTurn(0);
-		//this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+		if (players.getNumberOfPlayers() == 4) {
+			this.turnManager.setCurrentTurn(currentTurn);
+			this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+		}
 		updateState(currentState);
 		this.setChanged();
 		this.notifyObservers();
