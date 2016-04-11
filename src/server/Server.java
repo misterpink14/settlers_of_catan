@@ -54,8 +54,8 @@ public class Server {
 	
 	private Server() {
 		this.port = DEFAULT_PORT_NUMBER;
-		//this.handler = new RequestHandler(false);
-		return;
+		IServerFacade serverFacade = new ServerFacade();
+		this.handler = new RequestHandler(serverFacade, null);
 	}
 	
 	private Server(String host, int port, boolean isTest, String pluginClass, int delta) {
@@ -71,7 +71,6 @@ public class Server {
 			IPersistencePlugin plugin = this.initializePlugin(pluginClass, delta);
 			this.handler = new RequestHandler(serverFacade, plugin);
 		}
-		return;
 	}
 	
 	
@@ -155,20 +154,20 @@ public class Server {
 	
 	public static void main(String[] args) throws Exception {
 		
-		if (args.length != 5) {
+		if (args.length == 5  || args.length ==  3) {
+		
+			String host = args[0];
+			int port = Integer.parseInt(args[1]);
+			boolean isTest = args[2].equals("true");
+			String pluginClass = args[3];
+			int delta = Integer.parseInt(args[4]);
+			new Server(host, port, isTest, pluginClass, delta).run();
+		} else if (args.length == 0) {
+			new Server().run();
+		} else {
 			System.out.println("Must run server with format: host port-number test plugin delta");
 			throw new Exception();
 		}
-		
-		String host = args[0];
-		int port = Integer.parseInt(args[1]);
-		boolean isTest = false;
-		if (args.length == 3) {
-			isTest = args[2].equals("true");
-		}
-		String pluginClass = args[3];
-		int delta = Integer.parseInt(args[4]);
-		new Server(host, port, isTest, pluginClass, delta).run();
 	}
 
 }
