@@ -3,14 +3,21 @@ package shared.serializerJSON;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.reflect.TypeToken;
 
 import client.data.GameInfo;
 import client.data.PlayerInfo;
+import server.ServerException;
+import server.command.ACommand;
+import server.command.CommandFactory;
+import server.facade.IServerFacade;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
@@ -618,5 +625,28 @@ public class Deserializer {
 			gameList[i] = game;
 		}		
 		return gameList;
+	}
+	
+	public ACommand deserializeCommand(String json, IServerFacade facade) throws ServerException {
+		JsonParser parser = new JsonParser();
+		JsonObject jsonCommand = parser.parse(json).getAsJsonObject();
+		
+		String[] commandType = {
+			jsonCommand.get("type").getAsJsonObject().get("path1").getAsString(),
+			jsonCommand.get("type").getAsJsonObject().get("path1").getAsString()
+		};
+		
+		Gson gson = new GsonBuilder().create();
+		java.lang.reflect.Type typeOfHashMap = new TypeToken<HashMap<String, String>>() { }.getType();
+		HashMap<String, String> cookies = gson.fromJson(json, typeOfHashMap);
+		
+		ACommand command = CommandFactory.getInstance().buildCommand(
+			commandType,
+			jsonCommand.get("body").getAsString(),
+			cookies,
+			facade,
+			jsonCommand.get("httpMethod").getAsString()
+		);
+		return command;
 	}
 }
