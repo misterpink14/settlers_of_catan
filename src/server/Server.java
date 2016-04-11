@@ -71,9 +71,11 @@ public class Server {
 			IServerFacade serverFacade = new ServerFacade();
 			IPersistencePlugin plugin = this.initializePlugin(pluginClass, delta);
 			try {
+				plugin.startTransaction();
 				serverFacade.restoreAllUsers(plugin.getUserDAO().getAllUsers());
 				serverFacade.restoreAllGames(plugin.getGameDAO().getAllGames());
 				serverFacade.runAllCommands(plugin.getCommandDAO().getAllCommands(serverFacade));
+				plugin.endTransaction();
 			} catch (DatabaseException e) {
 				e.printStackTrace();
 			}
