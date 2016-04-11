@@ -274,7 +274,7 @@ public class RequestHandler implements HttpHandler
 			int count;
 			count = plugin.getCommandDAO().getCommandCount(gameID);
 			plugin.getCommandDAO();
-			if(count >= ICommandDAO.delta) {
+			if(count >= plugin.getCommandDAO().getDelta()) {
 				return true;
 			}
 		} catch (DatabaseException e) {
