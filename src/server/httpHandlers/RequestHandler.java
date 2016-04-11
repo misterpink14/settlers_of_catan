@@ -59,19 +59,24 @@ public class RequestHandler implements HttpHandler
 			this.validateHTTPMethod(exchange.getRequestMethod(), this.getCommandType(exchange));
 			//System.out.println(this.getCommandType(exchange)[1]);
 			
+			String[] commandType = this.getCommandType(exchange);
+			String json = this.getJson(exchange);
+			HashMap<String, String> cookies = (HashMap<String, String>)this.parseCookie(exchange);
+			String requestMethod = exchange.getRequestMethod();
+			
 			Serializer.getInstance().serializeCommand(
-				this.getCommandType(exchange),
-				this.getJson(exchange),
-				(HashMap<String, String>)this.parseCookie(exchange),
-				exchange.getRequestMethod()
+				commandType,
+				json,
+				cookies,
+				requestMethod
 			);
 			
 			ACommand command = CommandFactory.getInstance().buildCommand(
-				this.getCommandType(exchange),
-				this.getJson(exchange),
-				this.parseCookie(exchange),
+				commandType,
+				json,
+				cookies,
 				this.facade,
-				exchange.getRequestMethod()
+				requestMethod
 			);
 			
 			// TODO - make this the response with the appropriate cookie
