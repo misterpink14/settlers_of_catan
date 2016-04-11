@@ -74,6 +74,7 @@ public class MongoCommandDAO implements ICommandDAO {
 		    	ACommand command = null;
 		    	String commandJSON = document.getString("commandJSON");
 		    	try {
+		    		System.out.println(commandJSON);
 					command = Deserializer.getInstance().deserializeCommand(commandJSON, facade);
 					commands.add(command);
 				} catch (ServerException e) {
