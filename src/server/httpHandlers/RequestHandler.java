@@ -24,7 +24,6 @@ import server.command.ACommand;
 import server.command.CommandFactory;
 import server.database.DatabaseException;
 import server.database.IPersistencePlugin;
-import server.database.dao.ICommandDAO;
 import server.facade.IServerFacade;
 import server.managers.User;
 import shared.communication.proxy.Credentials;
@@ -79,12 +78,8 @@ public class RequestHandler implements HttpHandler
 				requestMethod
 			);
 			
-			System.out.println(commandJson);
 			JsonParser parser = new JsonParser();
 			JsonObject commandJO = parser.parse(commandJson).getAsJsonObject();
-			if (commandJO.getAsJsonObject("cookies").has("catan.game")) {
-				System.out.println(commandJO.getAsJsonObject("cookies").get("catan.game").getAsInt());
-			}
 			
 			ACommand command = CommandFactory.getInstance().buildCommand(
 				commandType,
