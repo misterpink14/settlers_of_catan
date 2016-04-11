@@ -1,5 +1,7 @@
 package server.facade;
 
+import java.util.List;
+
 import server.ServerException;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
@@ -264,7 +266,7 @@ public interface IServerFacade {
 	 * 
 	 * @param json
 	 */
-	public void restoreAllUsers(String json);
+	void restoreAllUsers(List<Credentials> credentials);
 	
 
 	/**
@@ -281,4 +283,6 @@ public interface IServerFacade {
 	 * @param json
 	 */
 	public void runAllCommands(String json);
+
+	
 }

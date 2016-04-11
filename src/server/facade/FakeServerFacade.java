@@ -1,5 +1,7 @@
 package server.facade;
 
+import java.util.List;
+
 import server.ServerException;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
@@ -229,7 +231,7 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public void restoreAllUsers(String json) {
+	public void restoreAllUsers(List<Credentials> credentials) {
 		// TODO Auto-generated method stub
 		
 	}

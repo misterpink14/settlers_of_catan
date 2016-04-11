@@ -467,11 +467,17 @@ public class ServerFacade implements IServerFacade {
 	}
 
 
+	
 
 	@Override
-	public void restoreAllUsers(String json) {
-		// TODO Auto-generated method stub
-		
+	public void restoreAllUsers(List<Credentials> credentials) {
+		for (Credentials credential : credentials) {
+			try {
+				userManager.addUser(credential);
+			} catch (ServerException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 
