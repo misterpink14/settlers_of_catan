@@ -13,10 +13,10 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import server.ServerException;
 import server.command.ACommand;
-import shared.models.Game;
+import server.facade.IServerFacade;
 import shared.serializerJSON.Deserializer;
-import shared.serializerJSON.Serializer;
 
 public class MongoCommandDAO implements ICommandDAO {
 	
@@ -53,14 +53,17 @@ public class MongoCommandDAO implements ICommandDAO {
 	}
 
 	@Override
-	public void createCommand(ACommand command) {
+	public void createCommand(String jsonCommand) {
 		MongoCollection<Document> col = db.getCollection("commands");
-		int commandID = this.getCommandCount(command.getGameID()) + 1;
-		col.insertOne(new Document().append("gameID", command.getGameID()).append("commandID", commandID));
+		JsonParser parser = new JsonParser();
+		JsonObject command = parser.parse(jsonCommand).getAsJsonObject();
+		int gameID = command.getAsJsonObject("cookies").get("catan.game").getAsInt();
+		int commandID = this.getCommandCount(gameID) + 1;
+		col.insertOne(new Document().append("gameID", gameID).append("commandID", commandID).append("commandJSON", jsonCommand));
 	}
 
 	@Override
-	public List<ACommand> getAllCommands() {
+	public List<ACommand> getAllCommands(final IServerFacade facade) {
 		MongoCollection<Document> col = db.getCollection("commands");
 		FindIterable<Document> iterable = col.find();
 		
@@ -70,13 +73,21 @@ public class MongoCommandDAO implements ICommandDAO {
 		    @Override
 		    public void apply(final Document document) {
 		    	ACommand command = null;
-		    	//Deserialize stuff
+		    	String commandJSON = document.getString("commandJSON");
+		    	try {
+					command = Deserializer.getInstance().deserializeCommand(commandJSON, facade);
+					commands.add(command);
+				} catch (ServerException e) {
+					e.printStackTrace();
+				}
 		    	
 		    }
 		});
 		
 		return commands;
 	}
+	
+	
 
 	@Override
 	public void clear() {
