@@ -307,7 +307,7 @@ public class RequestHandler implements HttpHandler
 				plugin.getCommandDAO().createCommand(gameID, jsonCommand);
 			} else {
 				saveGame(gameID);
-				plugin.getCommandDAO().clear();
+				plugin.getCommandDAO().clearCommands(gameID);
 				plugin.getCommandDAO().createCommand(gameID, jsonCommand);
 			}
 		} catch (DatabaseException e) {
