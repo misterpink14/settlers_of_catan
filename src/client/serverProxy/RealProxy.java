@@ -38,7 +38,6 @@ import shared.communication.proxy.SaveGameRequestParams;
 import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
-import shared.locations.HexLocation;
 
 /** RealProxy class
  * 

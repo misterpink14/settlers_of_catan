@@ -21,9 +21,8 @@ import server.ServerException;
 import server.command.ACommand;
 import server.command.CommandFactory;
 import server.database.IPersistencePlugin;
-import server.facade.FakeServerFacade;
 import server.facade.IServerFacade;
-import server.facade.ServerFacade;
+import shared.serializerJSON.Serializer;
 
 /**
  * Handles the HTTP requests for the server. Calls the appropriate factory based on the url of the request
@@ -59,6 +58,13 @@ public class RequestHandler implements HttpHandler
 			
 			this.validateHTTPMethod(exchange.getRequestMethod(), this.getCommandType(exchange));
 			//System.out.println(this.getCommandType(exchange)[1]);
+			
+			Serializer.getInstance().serializeCommand(
+				this.getCommandType(exchange),
+				this.getJson(exchange),
+				(HashMap<String, String>)this.parseCookie(exchange),
+				exchange.getRequestMethod()
+			);
 			
 			ACommand command = CommandFactory.getInstance().buildCommand(
 				this.getCommandType(exchange),
