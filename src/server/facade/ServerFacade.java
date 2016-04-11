@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import server.ServerException;
+import server.command.ACommand;
 import server.managers.GameManager;
 import server.managers.UserManager;
 import shared.communication.proxy.AcceptTrade;
@@ -487,14 +488,18 @@ public class ServerFacade implements IServerFacade {
 		for (Game game: games) {
 			gameManager.addGame(game);
 		}
-		
 	}
 
 
 
 	@Override
-	public void runAllCommands(String json) {
-		// TODO Auto-generated method stub
-		
+	public void runAllCommands(List<ACommand> commands) {
+		for (ACommand command: commands) {
+			try {
+				command.execute();
+			} catch (ServerException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -73,6 +73,7 @@ public class Server {
 			try {
 				serverFacade.restoreAllUsers(plugin.getUserDAO().getAllUsers());
 				serverFacade.restoreAllGames(plugin.getGameDAO().getAllGames());
+				serverFacade.runAllCommands(plugin.getCommandDAO().getAllCommands(serverFacade));
 			} catch (DatabaseException e) {
 				e.printStackTrace();
 			}

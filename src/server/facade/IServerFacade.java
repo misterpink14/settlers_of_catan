@@ -3,6 +3,7 @@ package server.facade;
 import java.util.List;
 
 import server.ServerException;
+import server.command.ACommand;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -283,7 +284,7 @@ public interface IServerFacade {
 	 * 
 	 * @param json
 	 */
-	public void runAllCommands(String json);
+	public void runAllCommands(List<ACommand> commands);
 
 	
 }

@@ -3,6 +3,7 @@ package server.facade;
 import java.util.List;
 
 import server.ServerException;
+import server.command.ACommand;
 import shared.communication.proxy.AcceptTrade;
 import shared.communication.proxy.BuildCity;
 import shared.communication.proxy.BuildRoad;
@@ -244,7 +245,7 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public void runAllCommands(String json) {
+	public void runAllCommands(List<ACommand> commands) {
 		// TODO Auto-generated method stub
 		
 	}
