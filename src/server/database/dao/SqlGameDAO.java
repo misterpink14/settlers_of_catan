@@ -130,7 +130,7 @@ public class SqlGameDAO implements IGameDAO {
 				g.setId(gameID);
 				g.setTitle(title);
 				JsonObject jsonObj = new JsonParser().parse(gameJSON).getAsJsonObject();
-				Deserializer.getInstance().deserialize(g, jsonObj);
+				Deserializer.getInstance().deserializeSavedGame(g, jsonObj);
 				games.add(g);
 			}
 		} catch (SQLException e) {
