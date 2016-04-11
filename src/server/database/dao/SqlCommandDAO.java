@@ -19,6 +19,7 @@ import shared.serializerJSON.Deserializer;
 public class SqlCommandDAO implements ICommandDAO {
 	
 	private int delta;
+	
 	private DatabaseRepresentation db;
 	
 	public SqlCommandDAO(int delta, DatabaseRepresentation db) {
@@ -34,6 +35,7 @@ public class SqlCommandDAO implements ICommandDAO {
 	 * Returns the delta value
 	 * @return delta
 	 */
+	@Override
 	public int getDelta() {
 		return delta;
 	}

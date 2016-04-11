@@ -20,8 +20,9 @@ import shared.serializerJSON.Deserializer;
 
 public class MongoCommandDAO implements ICommandDAO {
 	
-	public String collectionName;
 	public int delta;
+	
+	public String collectionName;
 
 	private MongoDatabase db;
 	
@@ -104,6 +105,11 @@ public class MongoCommandDAO implements ICommandDAO {
 	@Override
 	public void setDelta(int delta) {
 		this.delta = delta;
+	}
+	
+	@Override
+	public int getDelta() {
+		return delta;
 	}
 
 }

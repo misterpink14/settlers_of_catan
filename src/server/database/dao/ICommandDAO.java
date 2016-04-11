@@ -6,10 +6,11 @@ import server.command.ACommand;
 import server.database.DatabaseException;
 import server.facade.IServerFacade;
 
-public interface ICommandDAO {
-	
+public interface ICommandDAO {	
 
 	public void setDelta(int delta);
+	
+	public int getDelta();
 
 	/**
 	 * Returns the number of commands performed on the game in the database.

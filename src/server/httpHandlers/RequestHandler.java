@@ -24,6 +24,7 @@ import server.command.ACommand;
 import server.command.CommandFactory;
 import server.database.DatabaseException;
 import server.database.IPersistencePlugin;
+import server.database.dao.ICommandDAO;
 import server.facade.IServerFacade;
 import server.managers.User;
 import shared.communication.proxy.Credentials;
@@ -82,11 +83,6 @@ public class RequestHandler implements HttpHandler
 			if (commandJO.getAsJsonObject("cookies").has("catan.game")) {
 				System.out.println(commandJO.getAsJsonObject("cookies").get("catan.game").getAsInt());
 			}
-			if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
-				this.addUser(commandJson);
-			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
-				
-			}
 			
 			ACommand command = CommandFactory.getInstance().buildCommand(
 				commandType,
@@ -98,6 +94,12 @@ public class RequestHandler implements HttpHandler
 			
 			// TODO - make this the response with the appropriate cookie
 			command.execute();
+			
+			if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
+				this.addUser(commandJson);
+			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
+				
+			}
 			
 			sendResponse(command, exchange);
 			
@@ -267,6 +269,17 @@ public class RequestHandler implements HttpHandler
 	 * @return If the change threshold has been met (true or false).
 	 */
 	public boolean hasReachedDelta(int gameID) {
+		try {
+			plugin.startTransaction();
+			int count;
+			count = plugin.getCommandDAO().getCommandCount(gameID);
+			plugin.getCommandDAO();
+			if(count >= plugin.getCommandDAO().getDelta()) {
+				return true;
+			}
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 	
