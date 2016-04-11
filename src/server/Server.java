@@ -59,7 +59,7 @@ public class Server {
 	
 	
 	
-	private Server(String host, int port, boolean isTest, String pluginClass, int delta) {
+	private Server(String host, int port, boolean isTest, String pluginClass, int delta, Boolean clear) {
 		this.host = host;
 		this.port = port;
 		if (isTest) { // don't worry about the plugins here
@@ -70,15 +70,30 @@ public class Server {
 		else {
 			IServerFacade serverFacade = new ServerFacade();
 			IPersistencePlugin plugin = this.initializePlugin(pluginClass, delta);
-			try {
-				plugin.startTransaction();
-				serverFacade.restoreAllUsers(plugin.getUserDAO().getAllUsers());
-				serverFacade.restoreAllGames(plugin.getGameDAO().getAllGames());
-				serverFacade.runAllCommands(plugin.getCommandDAO().getAllCommands(serverFacade));
-				plugin.endTransaction();
-			} catch (DatabaseException e) {
-				e.printStackTrace();
-				plugin.rollback();
+			if (! clear) {
+				try {
+					plugin.startTransaction();
+					serverFacade.restoreAllUsers(plugin.getUserDAO().getAllUsers());
+					serverFacade.restoreAllGames(plugin.getGameDAO().getAllGames());
+					serverFacade.runAllCommands(plugin.getCommandDAO().getAllCommands(serverFacade));
+					plugin.endTransaction();
+				} catch (DatabaseException e) {
+					e.printStackTrace();
+					plugin.rollback();
+				}
+			}
+			else { //clear
+				try {
+					plugin.startTransaction();
+					plugin.getUserDAO().clear();
+					plugin.getGameDAO().clear();
+					plugin.getCommandDAO().clear();
+					plugin.endTransaction();
+				} catch (DatabaseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					plugin.rollback();
+				}
 			}
 			this.handler = new RequestHandler(serverFacade, plugin);
 		}
@@ -163,14 +178,20 @@ public class Server {
 	
 	public static void main(String[] args) throws Exception {
 		
-		if (args.length == 5  || args.length ==  3) {
+		if (args.length == 5  || args.length ==  6) {
 		
 			String host = args[0];
 			int port = Integer.parseInt(args[1]);
 			boolean isTest = args[2].equals("true");
 			String pluginClass = args[3];
 			int delta = Integer.parseInt(args[4]);
-			new Server(host, port, isTest, pluginClass, delta).run();
+			Boolean clear = false;
+			if (args.length == 6) {
+				if (args[5].equals("clear")) {
+					clear = true;
+				}
+			}
+			new Server(host, port, isTest, pluginClass, delta, clear).run();
 		} else if (args.length == 0) {
 			new Server().run();
 		} else {
