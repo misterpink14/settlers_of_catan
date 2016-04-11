@@ -28,6 +28,8 @@ import server.database.dao.ICommandDAO;
 import server.facade.IServerFacade;
 import server.managers.User;
 import shared.communication.proxy.Credentials;
+import shared.models.Game;
+import shared.serializerJSON.Deserializer;
 import shared.serializerJSON.Serializer;
 
 /**
@@ -97,8 +99,8 @@ public class RequestHandler implements HttpHandler
 			
 			if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
 				this.addUser(commandJson);
-			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("register")) {
-				
+			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("create")) {
+				this.saveGame(command.getGameID());
 			}
 			
 			sendResponse(command, exchange);
@@ -259,8 +261,19 @@ public class RequestHandler implements HttpHandler
 	 * @param gameID The ID of the game being saved.
 	 * @param jsonGame The serialized game in the form of a JSON string.
 	 */
-	public void saveGame(int gameID, String jsonGame) {
-		
+	public void saveGame(int gameID) {
+		String model = facade.getModel(gameID);
+		JsonParser parser = new JsonParser();
+		JsonObject gameJson = parser.parse(model).getAsJsonObject();
+		Game game = new Game();
+		Deserializer.getInstance().deserialize(game, gameJson);
+		plugin.startTransaction();
+		try {
+			plugin.getGameDAO().saveGame(game);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
+		plugin.endTransaction();
 	}
 	
 	/**
@@ -288,13 +301,18 @@ public class RequestHandler implements HttpHandler
 	 * @param jsonCommand A serialized command object in the form of a JSON string.
 	 */
 	public void addCommand(String jsonCommand) {
+		JsonParser parser = new JsonParser();
+		JsonObject command = parser.parse(jsonCommand).getAsJsonObject();
+		
+		if (!hasReachedDelta(command.getAsJsonObject("cookies").get("catan.game").getAsInt())) {
 		plugin.startTransaction();
-		try {
-			plugin.getCommandDAO().createCommand(jsonCommand);
-		} catch (DatabaseException e) {
-			e.printStackTrace();
+			try {
+				plugin.getCommandDAO().createCommand(jsonCommand);
+			} catch (DatabaseException e) {
+				e.printStackTrace();
+			}
+			plugin.endTransaction();
 		}
-		plugin.endTransaction();
 	}
 	
 	/**
