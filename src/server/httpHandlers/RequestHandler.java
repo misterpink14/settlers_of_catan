@@ -266,10 +266,10 @@ public class RequestHandler implements HttpHandler
 		JsonParser parser = new JsonParser();
 		JsonObject gameJson = parser.parse(model).getAsJsonObject();
 		Game game = new Game();
-		Deserializer.getInstance().deserialize(game, gameJson);
+		Deserializer.getInstance().deserializeSavedGame(game, gameJson);
 		plugin.startTransaction();
 		try {
-			plugin.getGameDAO().saveGame(game);
+			plugin.getGameDAO().saveGame(facade.getGameByID(gameID));
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}

@@ -132,6 +132,51 @@ public class Deserializer {
 		}
 	}
 	
+	public void deserializeSavedGame(Game game, JsonObject json) {
+		// the "des" prefix signifies that the object has been deserialized.
+		
+		// Pull out the information about "deck" from the JSON
+		JsonObject jsonDeck = json.getAsJsonObject("deck");
+		CardDeck desDeck = deserializeDeck(jsonDeck);
+		
+		// Now get the information labeled "map"
+		JsonObject jsonMap = json.getAsJsonObject("map");
+		Map desMap = deserializeMap(jsonMap);
+		
+		// Now "players"
+		JsonArray jsonPlayers = json.getAsJsonArray("players");
+		GamePlayers desPlayers = deserializePlayers(jsonPlayers);
+		
+		// "log"
+		JsonObject jsonLog = json.getAsJsonObject("log");
+		GameLog desLog = deserializeLog(jsonLog);
+		
+		// "chat"
+		JsonObject jsonChat = json.getAsJsonObject("chat");
+		GameChat desChat = deserializeChat(jsonChat);
+		
+		// "bank"
+		JsonObject jsonBank = json.getAsJsonObject("bank");
+		Bank desBank = deserializeBank(jsonBank);
+		
+		// "tradeOffer"
+		OfferTrade desOfferTrade = null;
+		if (json.has("tradeOffer")) {
+			desOfferTrade = deserializeOfferTrade(json.getAsJsonObject("tradeOffer"));
+		}
+		
+		// "turnTracker"
+		JsonObject jsonTurnTracker = json.getAsJsonObject("turnTracker");
+		deserializeTurnTracker(jsonTurnTracker);
+		
+		// winner
+		int desWinner = json.getAsJsonPrimitive("winner").getAsInt();
+
+		
+		game.saveGame(desMap, desBank, desDeck, desPlayers, desLog, desChat, desOfferTrade, 
+					desCurrentTurn, desCurrentState, desHasPlayedDevCard, desWinner, desLongestRoad);
+	}
+	
 	/**
 	 * Deserializes the deck from the game JSON
 	 * @param jsonDeck Takes in the deck JSON that has been separated from the GameModel JSON

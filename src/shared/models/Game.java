@@ -315,6 +315,24 @@ public class Game extends Observable
 		this.notifyObservers();
 	}
 	
+	public void saveGame(Map map, Bank bank, CardDeck cardDeck, GamePlayers players, GameLog log, GameChat chat, 
+			OfferTrade offerTrade, int currentTurn, String currentState, boolean hasPlayedDevCard, int winner, int longestRoad) {
+		this.map = map;
+		this.bank = bank;
+		this.cardDeck = cardDeck;
+		this.players = players;
+		this.currPlayer = 0;
+		this.log = log;
+		this.chat = chat;
+		this.offerTrade = offerTrade;
+		this.turnManager = new TurnManager(map, bank, cardDeck, players, log, chat, longestRoad);
+		//this.turnManager.setCurrentTurn(0);
+		//this.turnManager.setHasPlayedDevCard(hasPlayedDevCard);
+		updateState(currentState);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 	
 
 	/**
