@@ -165,7 +165,7 @@ public class Server {
 		} else if (args.length == 0) {
 			new Server().run();
 		} else {
-			System.out.println("Must run server with format: host port-number test plugin delta");
+			System.out.println("Must run server with format: host(localhost) port-number(xxxx) test(true/false) plugin(Sqlite3Plugin/MongoPlugin delta(int)");
 			throw new Exception();
 		}
 	}
