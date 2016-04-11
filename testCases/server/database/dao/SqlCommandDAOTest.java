@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import server.ServerException;
 import server.command.ACommand;
 import server.command.games.ListCommand;
 import server.database.DatabaseException;
@@ -23,7 +24,7 @@ public class SqlCommandDAOTest {
 	}
 
 	@Test
-	public void testGetCommandCount() {
+	public void testGetCommandCount() throws ServerException {
 		DatabaseRepresentation db = new DatabaseRepresentation();
 		try {
 			db.startTransaction();
@@ -32,7 +33,7 @@ public class SqlCommandDAOTest {
 			
 			db.getCommandDAO().setDelta(2);
 			
-			assertTrue(db.getGameDAO().gameInDB(id));
+			//assertTrue();
 			
 			db.endTransaction(false);
 		} catch (DatabaseException e) {

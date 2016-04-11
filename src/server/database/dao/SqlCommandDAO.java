@@ -74,9 +74,9 @@ public class SqlCommandDAO implements ICommandDAO {
 		PreparedStatement stmt = null;
 		try {
 			String query = "INSERT INTO Commands (commandJSON, gameID) VALUES (?, ?)";
-			String commandJSON = Serializer.getInstance().serializeCommand(command);
+			//String commandJSON = Serializer.getInstance().serializeCommand(command);
 			stmt = db.getConnection().prepareStatement(query);
-			stmt.setString(1, commandJSON);
+			//stmt.setString(1, commandJSON);
 			stmt.setInt(2, command.getGameID());
 			
 			if (stmt.executeUpdate() != 1) {
