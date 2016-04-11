@@ -25,6 +25,10 @@ public class SqlCommandDAO implements ICommandDAO {
 		this.db = db;
 	}
 	
+	public SqlCommandDAO(DatabaseRepresentation db) {
+		this.db = db;
+	}
+
 	/**
 	 * Returns the delta value
 	 * @return delta

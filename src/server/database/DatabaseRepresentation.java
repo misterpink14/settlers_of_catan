@@ -3,6 +3,7 @@ package server.database;
 import java.sql.*;
 import java.util.logging.*;
 
+import server.database.dao.SqlCommandDAO;
 import server.database.dao.SqlGameDAO;
 import server.database.dao.SqlUserDAO;
 
@@ -109,12 +110,14 @@ public class DatabaseRepresentation
 
 	static SqlGameDAO gamedao;
 	static SqlUserDAO userdao;
+	static SqlCommandDAO commanddao;
 	private Connection connection;
 	
 	public DatabaseRepresentation() 
 	{
 		gamedao = new SqlGameDAO(this);
 		userdao = new SqlUserDAO(this);
+		commanddao = new SqlCommandDAO(this);
 		connection = null;
 	}
 	/**
@@ -236,5 +239,10 @@ public class DatabaseRepresentation
 	public SqlUserDAO getUserDAO()
 	{
 		return userdao;
+	}
+	
+	public SqlCommandDAO getCommandDAO()
+	{
+		return commanddao;
 	}
 }

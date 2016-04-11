@@ -4,12 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class SqlCommandDAOTest {
+import server.command.ACommand;
+import server.command.games.ListCommand;
+import server.database.DatabaseException;
+import server.database.DatabaseRepresentation;
+import shared.models.Game;
 
-	@Test
-	public void testSqlCommandDAO() {
-		fail("Not yet implemented");
-	}
+public class SqlCommandDAOTest {
 
 	@Test
 	public void testGetDelta() {
@@ -23,7 +24,20 @@ public class SqlCommandDAOTest {
 
 	@Test
 	public void testGetCommandCount() {
-		fail("Not yet implemented");
+		DatabaseRepresentation db = new DatabaseRepresentation();
+		try {
+			db.startTransaction();
+			ACommand command1 = new ListCommand(null, null, null);
+			ACommand command2 = new ListCommand(null, null, null);
+			
+			db.getCommandDAO().setDelta(2);
+			
+			assertTrue(db.getGameDAO().gameInDB(id));
+			
+			db.endTransaction(false);
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Test
