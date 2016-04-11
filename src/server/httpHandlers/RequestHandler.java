@@ -103,7 +103,7 @@ public class RequestHandler implements HttpHandler
 				this.saveGame(command.getGameID());
 			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("join")) {
 				this.addCommand(command.getGameID(), commandJson);
-			} else if (commandJO.getAsJsonObject("type").get("path2").getAsString().equals("moves")) {
+			} else if (commandJO.getAsJsonObject("type").get("path1").getAsString().equals("moves")) {
 				this.addCommand(command.getGameID(), commandJson);
 			}
 			
