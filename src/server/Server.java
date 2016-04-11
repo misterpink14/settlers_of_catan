@@ -70,6 +70,12 @@ public class Server {
 		else {
 			IServerFacade serverFacade = new ServerFacade();
 			IPersistencePlugin plugin = this.initializePlugin(pluginClass, delta);
+			try {
+				serverFacade.restoreAllUsers(plugin.getUserDAO().getAllUsers());
+				serverFacade.restoreAllGames(plugin.getGameDAO().getAllGames());
+			} catch (DatabaseException e) {
+				e.printStackTrace();
+			}
 			this.handler = new RequestHandler(serverFacade, plugin);
 		}
 	}

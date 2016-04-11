@@ -23,6 +23,7 @@ import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
+import shared.models.Game;
 /**
  * The server facade executes the commands from the client communicator. It recieves the direction to execute from the Http handlers and
  * Uses sql statements contained in the DAO classes to recieve the necessary information for the methods. It returns specialized packets of
@@ -274,7 +275,7 @@ public interface IServerFacade {
 	 * 
 	 * @param json
 	 */
-	public void restoreAllGames(String json);
+	public void restoreAllGames(List<Game> games);
 	
 
 	/**

@@ -483,8 +483,10 @@ public class ServerFacade implements IServerFacade {
 
 
 	@Override
-	public void restoreAllGames(String json) {
-		// TODO Auto-generated method stub
+	public void restoreAllGames(List<Game> games) {
+		for (Game game: games) {
+			gameManager.addGame(game);
+		}
 		
 	}
 

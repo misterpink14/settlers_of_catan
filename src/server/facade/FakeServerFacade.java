@@ -23,6 +23,7 @@ import shared.communication.proxy.RollNumber;
 import shared.communication.proxy.SendChat;
 import shared.communication.proxy.SoldierMove;
 import shared.communication.proxy.YearOfPlenty;
+import shared.models.Game;
 
 public class FakeServerFacade implements IServerFacade {
 	
@@ -237,7 +238,7 @@ public class FakeServerFacade implements IServerFacade {
 	}
 
 	@Override
-	public void restoreAllGames(String json) {
+	public void restoreAllGames(List<Game> games) {
 		// TODO Auto-generated method stub
 		
 	}
