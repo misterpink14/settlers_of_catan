@@ -24,7 +24,7 @@ public interface IGameDAO {
 	 * Saves a game to the database.
 	 * @param game The game we are saving to the database.
 	 */
-	public void saveGame(int gameID, String title, String gameJSON) throws DatabaseException;
+	public void saveGame(Game game) throws DatabaseException;
 	
 	/**
 	 * Gets all games saved in the database.
