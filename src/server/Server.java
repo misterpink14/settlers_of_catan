@@ -118,7 +118,6 @@ public class Server {
 		try
 		{
 			DatabaseRepresentation.initialize();
-			DatabaseRepresentation.dropAndRecreateTables();
 		} catch (DatabaseException e1)
 		{
 			System.out.println("Failed to initialize the Database");
