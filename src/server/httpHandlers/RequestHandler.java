@@ -304,12 +304,13 @@ public class RequestHandler implements HttpHandler
 	 * @param jsonCommand A serialized command object in the form of a JSON string.
 	 */
 	public void addCommand(int gameID, String jsonCommand) {
-		plugin.startTransaction();
 		try {
 			if (!hasReachedDelta(gameID)) {
+				plugin.startTransaction();
 				plugin.getCommandDAO().createCommand(gameID, jsonCommand);
 			} else {
 				//saveGame(gameID);
+				plugin.startTransaction();
 				plugin.getGameDAO().saveGame(facade.getGameByID(gameID));
 				plugin.getCommandDAO().clearCommands(gameID);
 			}
