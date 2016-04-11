@@ -54,11 +54,9 @@ public class MongoCommandDAO implements ICommandDAO {
 	}
 
 	@Override
-	public void createCommand(String jsonCommand) {
+	public void createCommand(int gameID, String jsonCommand) {
 		MongoCollection<Document> col = db.getCollection("commands");
-		JsonParser parser = new JsonParser();
-		JsonObject command = parser.parse(jsonCommand).getAsJsonObject();
-		int gameID = command.getAsJsonObject("cookies").get("catan.game").getAsInt();
+		
 		int commandID = this.getCommandCount(gameID) + 1;
 		col.insertOne(new Document().append("gameID", gameID).append("commandID", commandID).append("commandJSON", jsonCommand));
 	}
