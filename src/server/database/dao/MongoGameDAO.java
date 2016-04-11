@@ -82,7 +82,7 @@ public class MongoGameDAO implements IGameDAO {
 		        game.setId(document.getInteger("gameID"));
 		        game.setTitle(document.getString("title"));
 		        JsonObject jsonObj = new JsonParser().parse(gameJson).getAsJsonObject();
-				Deserializer.getInstance().deserialize(game, jsonObj);
+				Deserializer.getInstance().deserializeSavedGame(game, jsonObj);
 				
 				games.add(game);
 		    }
