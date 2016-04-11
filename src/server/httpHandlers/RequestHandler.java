@@ -291,8 +291,9 @@ public class RequestHandler implements HttpHandler
 	public void addUser(String jsonUser) {
 		JsonParser parser = new JsonParser();
 		JsonObject userInfo = parser.parse(jsonUser).getAsJsonObject();
-		String username = userInfo.get("body").getAsJsonObject().get("username").getAsString();
-		String password = userInfo.get("body").getAsJsonObject().get("password").getAsString();
+		JsonObject body = parser.parse(userInfo.get("body").getAsString()).getAsJsonObject();
+		String username = body.get("username").getAsString();
+		String password = body.get("password").getAsString();
 		Credentials cred = new Credentials(username, password);
 		
 		plugin.startTransaction();
