@@ -678,7 +678,7 @@ public class Deserializer {
 		
 		String[] commandType = {
 			jsonCommand.get("type").getAsJsonObject().get("path1").getAsString(),
-			jsonCommand.get("type").getAsJsonObject().get("path1").getAsString()
+			jsonCommand.get("type").getAsJsonObject().get("path2").getAsString()
 		};
 		
 		//Gson gson = new GsonBuilder().create();
