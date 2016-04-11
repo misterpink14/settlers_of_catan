@@ -1,16 +1,15 @@
 package shared.serializerJSON;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 import client.data.GameInfo;
-import server.command.ACommand;
 import shared.communication.proxy.OfferTrade;
 import shared.definitions.DevCardType;
 import shared.definitions.HexType;
@@ -632,22 +631,28 @@ private static Serializer instance = null;
 		}*/
 		return jsonGamesList;
 	}
-
-	public String serializeCommand(ACommand command) {
+	
+	public String serializeCommand(String[] type, String jsonBody, HashMap<String, String> cookies, String httpMethod) {
 		JsonObject jsonCommand = new JsonObject();
-		JsonObject userJson = null;
-		if (!command.getUserJson().equals(null)) {
-			userJson = new JsonParser().parse(command.getUserJson()).getAsJsonObject();
-			jsonCommand.add("userJson", userJson);
-		}
-		JsonObject jsonBody = null;
-		if (!command.getJsonBody().equals(null)) {
-			jsonBody = new JsonParser().parse(command.getJsonBody()).getAsJsonObject();
-			jsonCommand.add("jsonBody", jsonBody);
-		}
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(jsonCommand);
+		// Serialize the type
+		JsonObject jsonType = new JsonObject();
+		jsonType.add("path1", new JsonPrimitive(type[0]));
+		jsonType.add("path2", new JsonPrimitive(type[1]));
+		jsonCommand.add("type", new Gson().toJsonTree(jsonType));
+		
+		// Serialize the body
+		jsonCommand.add("body", new JsonPrimitive(jsonBody));
+		
+		// Serialize cookies
+		Gson gson = new GsonBuilder().create();
+		jsonCommand.add("cookies", gson.toJsonTree(cookies));
+		
+		// Serialize httpMethod
+		jsonCommand.add("httpMethod", new JsonPrimitive(httpMethod));
+		
+		Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+		String json = prettyGson.toJson(jsonCommand);
 		return json;
 	}
 	
