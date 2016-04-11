@@ -149,7 +149,6 @@ public class SqlCommandDAO implements ICommandDAO {
 		try {
 			String clearCommands = "DELETE FROM Commands WHERE gameID = ?";
 			stmt = db.getConnection().prepareStatement(clearCommands);
-			stmt.setInt(1, gameID);
 			
 			if (stmt.executeUpdate() != 1) {
 				throw new DatabaseException("Could not delete commands from game");
