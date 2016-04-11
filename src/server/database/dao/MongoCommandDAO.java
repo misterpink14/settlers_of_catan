@@ -21,7 +21,6 @@ import shared.serializerJSON.Deserializer;
 public class MongoCommandDAO implements ICommandDAO {
 	
 	public String collectionName;
-	public int delta;
 
 	private MongoDatabase db;
 	

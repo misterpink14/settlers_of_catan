@@ -18,7 +18,6 @@ import shared.serializerJSON.Deserializer;
 
 public class SqlCommandDAO implements ICommandDAO {
 	
-	private int delta;
 	private DatabaseRepresentation db;
 	
 	public SqlCommandDAO(int delta, DatabaseRepresentation db) {

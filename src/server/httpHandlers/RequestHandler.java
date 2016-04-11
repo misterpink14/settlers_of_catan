@@ -24,6 +24,7 @@ import server.command.ACommand;
 import server.command.CommandFactory;
 import server.database.DatabaseException;
 import server.database.IPersistencePlugin;
+import server.database.dao.ICommandDAO;
 import server.facade.IServerFacade;
 import server.managers.User;
 import shared.communication.proxy.Credentials;
@@ -267,6 +268,17 @@ public class RequestHandler implements HttpHandler
 	 * @return If the change threshold has been met (true or false).
 	 */
 	public boolean hasReachedDelta(int gameID) {
+		try {
+			plugin.startTransaction();
+			int count;
+			count = plugin.getCommandDAO().getCommandCount(gameID);
+			plugin.getCommandDAO();
+			if(count >= ICommandDAO.delta) {
+				return true;
+			}
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 	

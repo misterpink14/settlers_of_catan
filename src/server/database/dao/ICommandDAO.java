@@ -8,6 +8,7 @@ import server.facade.IServerFacade;
 
 public interface ICommandDAO {
 	
+	public int delta = 0;	
 
 	public void setDelta(int delta);
 
