@@ -78,9 +78,8 @@ public class DatabaseRepresentation
 				"gameJSON TEXT NOT NULL,  " +
 				"lastCommandSaved INTEGER);";
 		String createCommands = "CREATE TABLE Commands ("+ 
-			"commandID INTEGER PRIMARY KEY, " +
+			"commandID INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			"commandJSON TEXT NOT NULL, " +
-			"commandNumber TEXT NOT NULL, " +
 			"gameID INTEGER NOT NULL);";
 		try 
 		{
