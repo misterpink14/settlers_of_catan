@@ -292,6 +292,7 @@ public class RequestHandler implements HttpHandler
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}
+		plugin.endTransaction();
 		return false;
 	}
 	
@@ -339,7 +340,6 @@ public class RequestHandler implements HttpHandler
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}
-		
 		plugin.endTransaction();
 	}
 }
