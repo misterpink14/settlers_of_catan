@@ -40,6 +40,7 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 		{
 			System.out.println("Failed to initialize the Database");
 			e1.printStackTrace();
+			db.endTransaction(false);
 		}
 	}
 	
@@ -59,6 +60,7 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 			db.startTransaction();
 		} catch (DatabaseException e) {
 			e.printStackTrace();
+			db.endTransaction(false);
 		}
 	}
 
@@ -67,7 +69,11 @@ public class Sqlite3Plugin implements IPersistencePlugin {
 	 */
 	@Override
 	public void endTransaction() {
-		db.endTransaction(true);
+		try {
+			db.endTransaction(true);
+		} catch (Exception e) {
+			db.endTransaction(false);
+		}
 	}
 
 	/**
