@@ -27,6 +27,13 @@ public class User {
 	}
 	
 
+	public User(Credentials credentials, int id) {
+		
+		this.credentials = credentials;
+		this.playerID = id;
+	}
+	
+
 // GETTERS
 	public String getUsername() {
 		return this.credentials.username;
